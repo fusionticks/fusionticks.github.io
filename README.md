@@ -1,1 +1,1 @@
-# fusionticks.github.io
+# fusionticks.io
