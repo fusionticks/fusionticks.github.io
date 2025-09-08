@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FusionTicks – Trade with Clarity</title>
   <meta name="description" content="FusionTicks: trading course focused on market structure, setups, and risk-first execution. By Khalid Kuhail.">
-
-  <!-- Favicon / Tab Icon -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="./FT%20Logo.png">
-  <link rel="apple-touch-icon" href="./FT%20Logo.png">
-  <meta name="theme-color" content="#070910"/>
+  <link rel="apple-touch-icon" href="./FT%20Logo.png"/>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,77 +15,49 @@
     tailwind.config = { theme: { extend: { colors: { 'bg-dark': '#070910' } } } }
   </script>
 
-  <!-- Icons (Lucide) -->
+  <!-- Lucide Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
     html{scroll-behavior:smooth}
 
-    /* ===== خلفيات عامة ثابتة لكل الصفحة ===== */
-
-    /* 1) خلفية اللون الأساسي */
+    /* ===== خلفيات عامة ثابتة ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
-
-    /* 2) جلو عام (أزرق فوق يمين – أخضر أسفل يسار) High Quality */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
+      /* أزرق أعلى يمين + أخضر أسفل يسار */
       background:
         radial-gradient(1200px at 74% 30%, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 56%),
-        radial-gradient(1100px at 22% 92%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
+        radial-gradient(1100px at 15% 92%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
     }
-
-    /* 3) Noise خفيف لكسر أي banding */
     .layer-noise{
       position:fixed; inset:0; z-index:-54; pointer-events:none;
-      background: repeating-conic-gradient(from 0deg,
-                  rgba(255,255,255,.012) 0 2deg,
-                  rgba(0,0,0,0) 2deg 4deg);
+      background: repeating-conic-gradient(from 0deg, rgba(255,255,255,.012) 0 2deg, rgba(0,0,0,0) 2deg 4deg);
       opacity:.06; mix-blend-mode:overlay;
     }
-
-    /* 4) النقاط – Fallback + SVG (والتحكّم الفعلي بالشفافية عبر opacity) */
     .layer-dots{
       position:fixed; inset:0; z-index:-53; pointer-events:none;
-      /* Fallback */
       background-image:
-        radial-gradient(circle at 1.2px 1.2px, rgba(255,255,255,1) 1.2px, transparent 1.3px);
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
       background-repeat:repeat;
       background-size:22px 22px;
-      /* Sharper SVG */
-      background-image:
-        url('data:image/svg+xml;utf8,\
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">\
-<circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/>\
-</svg>');
-      background-repeat:repeat;
-      background-size:22px 22px;
-      opacity: 0.03;
+      opacity: .03; /* شفافية النقاط */
     }
 
     /* شريط الأسعار */
-    .ticker{position:relative;overflow:hidden;white-space:nowrap;
-      mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+    .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
     .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     /* ظهور ناعم */
     .reveal{opacity:0;transform:translateY(16px);transition:.6s ease}
     .reveal.in{opacity:1;transform:none}
-
-    /* Social icons styling */
-    .social{
-      display:inline-flex;align-items:center;justify-content:center;
-      width:40px;height:40px;border-radius:9999px;
-      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
-      transition:transform .2s, background .2s, border-color .2s;
-    }
-    .social:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
   </style>
 </head>
 
 <body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
 
-  <!-- الخلفيات الثابتة -->
+  <!-- الخلفيات -->
   <div class="layer-base"></div>
   <div class="layer-glow"></div>
   <div class="layer-noise"></div>
@@ -106,10 +76,8 @@
         <a href="#pricing" class="hover:text-white">Pricing</a>
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
-      <div class="flex items-center gap-3">
-        <a href="#" class="px-4 py-2 border border-white/20 rounded-lg hover:bg-white/10">Login</a>
-        <a href="https://YOUR_WHOP_LINK" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Join Now</a>
-      </div>
+      <!-- أزلنا Login / Join Now بناء على طلبك -->
+      <div class="w-0"></div>
     </div>
     <div class="ticker border-t border-white/10 bg-black/30">
       <div class="ticker-track">
@@ -145,20 +113,12 @@
           <a href="https://YOUR_WHOP_LINK" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
             Get Access <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
           </a>
-          <!-- تم حذف زر Watch Intro حسب طلبك -->
         </div>
 
-        <form action="#" method="POST" id="lead" class="mt-8 p-2 rounded-2xl bg-white/5 border border-white/10 max-w-lg">
-          <div class="flex gap-2">
-            <input type="email" name="email" id="email" required placeholder="Enter your email for the free lesson"
-                   class="flex-1 px-3 rounded-lg bg-transparent border border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button class="px-4 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Get it</button>
-          </div>
-          <p id="msg" class="text-sm text-emerald-400 mt-2 hidden">Thanks! Check your inbox soon (demo only).</p>
-        </form>
+        <!-- تمت إزالة فورم الإيميل حسب طلبك -->
       </div>
 
-      <!-- اللوجو كصورة (الجلو خلفي عام) -->
+      <!-- اللوجو -->
       <div class="relative z-10 flex items-center justify-center">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
              class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
@@ -276,13 +236,12 @@
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- CTA (نص يسار + فيديو يمين) -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-    <div class="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-blue-600/20 to-cyan-400/10 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center">
+    <div class="rounded-2xl overflow-hidden border border-white/10 bg-black/20 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center">
       <div>
         <h3 class="text-2xl md:text-3xl font-extrabold">Ready to trade with clarity?</h3>
         <p class="text-white/80 mt-2">Join FusionTicks today. Build setups, master risk, and think like a real trader.</p>
-        <!-- الأزرار الخاصة بهذا القسم كانت محذوفة حسب طلب سابق، تركناها محذوفة -->
       </div>
       <div class="aspect-video rounded-2xl bg-black/40 border border-white/10 grid place-items-center text-white/60">
         <i data-lucide="play-circle" class="h-10 w-10"></i>
@@ -291,11 +250,7 @@
     </div>
   </section>
 
-  <!-- واتساب -->
-  <a href="https://wa.me/WHATSAPP_NUMBER" target="_blank"
-     class="fixed bottom-5 right-5 rounded-full px-4 py-3 bg-green-500/90 hover:bg-green-500 text-white shadow-lg z-50">
-    WhatsApp Me
-  </a>
+  <!-- تم حذف زر WhatsApp العائم حسب طلبك -->
 
   <!-- FOOTER -->
   <footer class="py-12 border-t border-white/10">
@@ -305,16 +260,21 @@
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
 
-      <!-- روابط السوشيال بدل Terms/Privacy/Contact -->
+      <!-- Socials -->
       <div class="flex items-center gap-3">
-        <a class="social" aria-label="Instagram" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" rel="noopener">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" rel="noopener" class="w-9 h-9 grid place-items-center rounded-full bg-white/10 hover:bg-white/20">
           <i data-lucide="instagram" class="w-5 h-5"></i>
         </a>
-        <a class="social" aria-label="YouTube" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" rel="noopener">
+        <!-- YouTube -->
+        <a href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" rel="noopener" class="w-9 h-9 grid place-items-center rounded-full bg-white/10 hover:bg-white/20">
           <i data-lucide="youtube" class="w-5 h-5"></i>
         </a>
-        <a class="social" aria-label="TikTok" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" rel="noopener">
-          <i data-lucide="tiktok" class="w-5 h-5"></i>
+        <!-- TikTok (SVG مضمّن لضمان الظهور) -->
+        <a href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" rel="noopener" class="w-9 h-9 grid place-items-center rounded-full bg-white/10 hover:bg-white/20" aria-label="TikTok">
+          <svg viewBox="0 0 48 48" class="w-5 h-5" fill="currentColor" aria-hidden="true">
+            <path d="M33.2 14.3c2.2 1.7 4.8 2.7 7.6 2.9v6.1c-2.9 0-5.6-.8-7.6-2.1v9.8c0 7-5.7 12.7-12.7 12.7S7.8 38 7.8 31c0-6.4 4.7-11.7 10.9-12.6v6.5c-2.5.9-4.2 3.2-4.2 6 0 3.5 2.9 6.4 6.4 6.4s6.4-2.9 6.4-6.4V4.2h6.1c.3 3.9 1.9 7.4 4.8 10.1z"/>
+          </svg>
         </a>
       </div>
     </div>
@@ -325,20 +285,7 @@
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // فورم (ديمو)
-      const form = document.getElementById('lead');
-      const email = document.getElementById('email');
-      const msg = document.getElementById('msg');
-      form.addEventListener('submit', (e) => {
-        if (form.action === '#') {
-          e.preventDefault();
-          const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-          if (!ok) return alert('Enter a valid email.');
-          msg.classList.remove('hidden');
-        }
-      });
-
-      // ظهور عناصر
+      // ظهور العناصر الناعِم
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
       },{threshold:0.12});
