@@ -55,36 +55,46 @@
     .reveal{opacity:0;transform:translateY(16px);transition:.6s ease}
     .reveal.in{opacity:1;transform:none}
 
-    /* ===== جلو تفاعلي لِـ بطاقات التسعير ===== */
+    /* ===== جلو هادئ على حدود بطاقات التسعير عند الهوفر فقط ===== */
     .price-card{
       position: relative; overflow: hidden;
       background: rgba(255,255,255,0.03);
+      border-radius: 1rem; /* لتوافق القناع */
+      transition: box-shadow .25s ease, transform .25s ease;
     }
-    /* قرص الجلو */
+    /* حدود متدرجة تظهر فقط عند الهوفر (قناع يترك الحدود فقط) */
     .price-card::before{
       content:"";
-      position:absolute; left:var(--mx,50%); top:var(--my,50%);
-      width:900px; height:900px; transform:translate(-50%,-50%);
-      pointer-events:none; border-radius:50%;
-      background:
-        radial-gradient(240px circle at center,
-          rgba(59,130,246,.35) 0%,
-          rgba(34,211,238,.18) 25%,
-          rgba(59,130,246,0) 60%);
-      opacity: var(--mo,0);
-      transition: opacity .28s ease;
-      filter: saturate(120%);
+      position:absolute; inset:-1px; border-radius: inherit;
+      padding:1.25px; /* سُمك الحدود المضيئة */
+      background: linear-gradient(135deg,
+        rgba(59,130,246,.70), rgba(34,211,238,.65));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity:0; transition:opacity .25s ease;
+      pointer-events:none;
     }
-    /* توهّج حدود خفيف عند الهوفر */
+    /* هالة خارجية خفيفة حول البطاقة */
+    .price-card::after{
+      content:"";
+      position:absolute; inset:-30%; border-radius: 9999px;
+      background: radial-gradient( closest-side,
+        rgba(59,130,246,.18), rgba(34,211,238,.10) 35%, rgba(0,0,0,0) 70%);
+      filter: blur(18px);
+      opacity:0; transition:opacity .25s ease;
+      pointer-events:none;
+    }
     .price-card:hover{
-      box-shadow: 0 0 0 1px rgba(59,130,246,.25) inset,
-                  0 0 40px rgba(59,130,246,.15);
+      box-shadow:
+        0 0 0 1px rgba(59,130,246,.30) inset,
+        0 12px 40px rgba(59,130,246,.10);
+      transform: translateY(-2px);
     }
+    .price-card:hover::before{ opacity:1; }
+    .price-card:hover::after{ opacity:.75; }
 
     /* زر متدرّج */
-    .btn-grad{
-      background-image: linear-gradient(to right, #3B82F6, #22D3EE);
-    }
+    .btn-grad{ background-image: linear-gradient(to right, #3B82F6, #22D3EE); }
   </style>
 </head>
 
@@ -148,7 +158,6 @@
         </div>
       </div>
 
-      <!-- Logo -->
       <div class="relative z-10 flex items-center justify-center">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
              class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
@@ -214,7 +223,7 @@
     </div>
   </section>
 
-  <!-- PRICING with interactive glow -->
+  <!-- PRICING (Glow on hover borders only) -->
   <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8">
       <h2 class="text-3xl sm:text-4xl font-bold">Choose Your Access</h2>
@@ -223,7 +232,7 @@
 
     <div class="grid lg:grid-cols-3 gap-6">
       <!-- Starter -->
-      <div class="price-card rounded-2xl border border-white/10 p-6">
+      <div class="price-card border border-white/10 p-6">
         <div class="flex items-center justify-between">
           <span class="font-semibold">Starter</span>
           <span class="text-2xl font-extrabold">$149</span>
@@ -238,7 +247,7 @@
       </div>
 
       <!-- Pro -->
-      <div class="price-card rounded-2xl border border-white/10 p-6">
+      <div class="price-card border border-white/10 p-6">
         <div class="flex items-center justify-between">
           <span class="font-semibold">Pro (Most Popular)</span>
           <span class="text-2xl font-extrabold">$299</span>
@@ -253,7 +262,7 @@
       </div>
 
       <!-- Mentorship -->
-      <div class="price-card rounded-2xl border border-white/10 p-6">
+      <div class="price-card border border-white/10 p-6">
         <div class="flex items-center justify-between">
           <span class="font-semibold">Mentorship</span>
           <span class="text-2xl font-extrabold">$699</span>
@@ -293,7 +302,6 @@
       <div class="flex items-center gap-4">
         <a class="hover:text-white" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
         <a class="hover:text-white" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube"><i data-lucide="youtube" class="w-5 h-5"></i></a>
-        <!-- TikTok SVG -->
         <a class="hover:text-white" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-5 h-5 fill-current">
             <path d="M168 32c8 16 21 28 40 32v40c-17-1-31-6-44-16v64c0 35-29 64-64 64s-64-29-64-64 29-64 64-64h8v40h-8c-13 0-24 11-24 24s11 24 24 24 24-11 24-24V32h44z"/>
@@ -313,22 +321,6 @@
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-      // جلو تفاعلي لبطاقات التسعير
-      const cards = document.querySelectorAll('.price-card');
-      cards.forEach(card=>{
-        card.addEventListener('pointermove', (e)=>{
-          const r = card.getBoundingClientRect();
-          const x = e.clientX - r.left;
-          const y = e.clientY - r.top;
-          card.style.setProperty('--mx', x+'px');
-          card.style.setProperty('--my', y+'px');
-          card.style.setProperty('--mo', 1);
-        });
-        card.addEventListener('pointerleave', ()=>{
-          card.style.setProperty('--mo', 0);
-        });
-      });
     });
   </script>
 </body>
