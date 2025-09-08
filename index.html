@@ -9,9 +9,7 @@
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      theme: { extend: { colors: { 'bg-dark': '#070910' } } }
-    }
+    tailwind.config = { theme: { extend: { colors: { 'bg-dark': '#070910' } } } }
   </script>
 
   <!-- Icons -->
@@ -23,9 +21,7 @@
     /* ===== خلفيات عامة ثابتة لكل الصفحة ===== */
 
     /* 1) خلفية اللون الأساسي */
-    .layer-base{
-      position:fixed; inset:0; z-index:-60; background:#070910;
-    }
+    .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
 
     /* 2) جلو عام (أزرق فوق يمين – أخضر أسفل) High Quality */
     .layer-glow{
@@ -35,33 +31,33 @@
         radial-gradient(1100px at 50% 96%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
     }
 
-    /* 3) Noise خفيف جداً لكسر أي banding (يوضع تحت النقاط) */
+    /* 3) Noise خفيف لكسر أي banding */
     .layer-noise{
       position:fixed; inset:0; z-index:-54; pointer-events:none;
-      background:
-        repeating-conic-gradient(from 0deg,
-          rgba(255,255,255,.012) 0 2deg,
-          rgba(0,0,0,0) 2deg 4deg);
-      opacity:.06;
-      mix-blend-mode:overlay;
+      background: repeating-conic-gradient(from 0deg,
+                  rgba(255,255,255,.012) 0 2deg,
+                  rgba(0,0,0,0) 2deg 4deg);
+      opacity:.06; mix-blend-mode:overlay;
     }
 
-    /* 4) النقاط – باستخدام SVG pattern مكرر (أوضح ومضمون) */
+    /* 4) النقاط – Fallback ثم SVG (كلاهما على 0.03) */
     .layer-dots{
       position:fixed; inset:0; z-index:-53; pointer-events:none;
-      /* SVG tile 22x22 مع نقطة 1.2px بخفة 0.12 */
+
+      /* Fallback: radial-gradient */
+      background-image:
+        radial-gradient(circle at 1.2px 1.2px, rgba(255,255,255,.03) 1.2px, transparent 1.3px);
+      background-repeat:repeat;
+      background-size:22px 22px;
+
+      /* Override (Sharper): SVG data URI */
       background-image:
         url('data:image/svg+xml;utf8,\
 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">\
-<circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="0.4"/>\
+<circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="0.03"/>\
 </svg>');
       background-repeat:repeat;
       background-size:22px 22px;
-      /* fallback خفيف جداً إن صار فيه حظر data-uri */
-      background-image:
-        radial-gradient(circle at 1.2px 1.2px, rgba(255,255,255,.12) 1.2px, transparent 1.3px);
-      background-size:22px 22px;
-      opacity:1;
     }
 
     /* شريط الأسعار */
@@ -151,7 +147,7 @@
         </form>
       </div>
 
-      <!-- اللوجو كصورة فقط (الجلو خلفي على طبقة عامة) -->
+      <!-- اللوجو كصورة (الجلو خلفي عام) -->
       <div class="relative z-10 flex items-center justify-center">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
              class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
