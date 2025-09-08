@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FusionTicks – Trade with Clarity</title>
   <meta name="description" content="FusionTicks: trading course focused on market structure, setups, and risk-first execution. By Khalid Kuhail.">
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="./FT%20Logo.png">
-  <link rel="apple-touch-icon" href="./FT%20Logo.png"/>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,49 +12,85 @@
     tailwind.config = { theme: { extend: { colors: { 'bg-dark': '#070910' } } } }
   </script>
 
-  <!-- Lucide Icons -->
+  <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
     html{scroll-behavior:smooth}
 
-    /* ===== خلفيات عامة ثابتة ===== */
+    /* ===== خلفيات عامة ثابتة لكل الصفحة ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
-      /* أزرق أعلى يمين + أخضر أسفل يسار */
       background:
         radial-gradient(1200px at 74% 30%, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 56%),
-        radial-gradient(1100px at 15% 92%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
+        radial-gradient(1100px at 12% 92%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
     }
     .layer-noise{
       position:fixed; inset:0; z-index:-54; pointer-events:none;
-      background: repeating-conic-gradient(from 0deg, rgba(255,255,255,.012) 0 2deg, rgba(0,0,0,0) 2deg 4deg);
+      background: repeating-conic-gradient(from 0deg,
+                  rgba(255,255,255,.012) 0 2deg,
+                  rgba(0,0,0,0) 2deg 4deg);
       opacity:.06; mix-blend-mode:overlay;
     }
     .layer-dots{
       position:fixed; inset:0; z-index:-53; pointer-events:none;
       background-image:
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
+        url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">\
+<circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/>\
+</svg>');
       background-repeat:repeat;
       background-size:22px 22px;
-      opacity: .03; /* شفافية النقاط */
+      opacity: 0.03;
     }
 
     /* شريط الأسعار */
-    .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+    .ticker{position:relative;overflow:hidden;white-space:nowrap;
+      mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
     .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     /* ظهور ناعم */
     .reveal{opacity:0;transform:translateY(16px);transition:.6s ease}
     .reveal.in{opacity:1;transform:none}
+
+    /* ===== جلو تفاعلي لِـ بطاقات التسعير ===== */
+    .price-card{
+      position: relative; overflow: hidden;
+      background: rgba(255,255,255,0.03);
+    }
+    /* قرص الجلو */
+    .price-card::before{
+      content:"";
+      position:absolute; left:var(--mx,50%); top:var(--my,50%);
+      width:900px; height:900px; transform:translate(-50%,-50%);
+      pointer-events:none; border-radius:50%;
+      background:
+        radial-gradient(240px circle at center,
+          rgba(59,130,246,.35) 0%,
+          rgba(34,211,238,.18) 25%,
+          rgba(59,130,246,0) 60%);
+      opacity: var(--mo,0);
+      transition: opacity .28s ease;
+      filter: saturate(120%);
+    }
+    /* توهّج حدود خفيف عند الهوفر */
+    .price-card:hover{
+      box-shadow: 0 0 0 1px rgba(59,130,246,.25) inset,
+                  0 0 40px rgba(59,130,246,.15);
+    }
+
+    /* زر متدرّج */
+    .btn-grad{
+      background-image: linear-gradient(to right, #3B82F6, #22D3EE);
+    }
   </style>
 </head>
 
 <body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
 
-  <!-- الخلفيات -->
+  <!-- الخلفيات الثابتة -->
   <div class="layer-base"></div>
   <div class="layer-glow"></div>
   <div class="layer-noise"></div>
@@ -76,8 +109,7 @@
         <a href="#pricing" class="hover:text-white">Pricing</a>
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
-      <!-- أزلنا Login / Join Now بناء على طلبك -->
-      <div class="w-0"></div>
+      <div class="w-20"></div>
     </div>
     <div class="ticker border-t border-white/10 bg-black/30">
       <div class="ticker-track">
@@ -109,16 +141,14 @@
           A practical program by <span class="font-semibold">Khalid Kuhail</span> focused on market structure, setups, and risk-first execution.
           No signals. No hype. Real traders only.
         </p>
-        <div class="mt-8 flex flex-col sm:flex-row gap-3">
-          <a href="https://YOUR_WHOP_LINK" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="https://YOUR_WHOP_LINK" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base btn-grad hover:opacity-90">
             Get Access <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
           </a>
         </div>
-
-        <!-- تمت إزالة فورم الإيميل حسب طلبك -->
       </div>
 
-      <!-- اللوجو -->
+      <!-- Logo -->
       <div class="relative z-10 flex items-center justify-center">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
              class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
@@ -184,61 +214,64 @@
     </div>
   </section>
 
-  <!-- PRICING -->
+  <!-- PRICING with interactive glow -->
   <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8">
       <h2 class="text-3xl sm:text-4xl font-bold">Choose Your Access</h2>
       <p class="text-white/70 mt-2">Intro price for first 40 members. Lifetime updates.</p>
     </div>
+
     <div class="grid lg:grid-cols-3 gap-6">
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+      <!-- Starter -->
+      <div class="price-card rounded-2xl border border-white/10 p-6">
         <div class="flex items-center justify-between">
           <span class="font-semibold">Starter</span>
           <span class="text-2xl font-extrabold">$149</span>
         </div>
         <p class="text-white/70 mt-2">Self-paced core curriculum</p>
-        <ul class="mt-3 space-y-2 text-white/80">
+        <ul class="mt-4 space-y-2 text-white/80">
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Full course</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly market levels</li>
         </ul>
-        <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Get Starter</a>
+        <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg btn-grad">Get Starter</a>
       </div>
 
-      <div class="relative bg-white/5 border border-cyan-300/50 rounded-2xl p-6 shadow-[0_0_50px_rgba(59,130,246,0.25)]">
-        <div class="absolute -top-3 right-4 text-[10px] uppercase tracking-wider px-2 py-1 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400">Best Value</div>
+      <!-- Pro -->
+      <div class="price-card rounded-2xl border border-white/10 p-6">
         <div class="flex items-center justify-between">
           <span class="font-semibold">Pro (Most Popular)</span>
           <span class="text-2xl font-extrabold">$299</span>
         </div>
         <p class="text-white/70 mt-2">Everything in Starter + live sessions</p>
-        <ul class="mt-3 space-y-2 text-white/80">
+        <ul class="mt-4 space-y-2 text-white/80">
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Starter</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&A</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Playbooks & templates</li>
         </ul>
-        <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Go Pro</a>
+        <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg btn-grad">Go Pro</a>
       </div>
 
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+      <!-- Mentorship -->
+      <div class="price-card rounded-2xl border border-white/10 p-6">
         <div class="flex items-center justify-between">
           <span class="font-semibold">Mentorship</span>
           <span class="text-2xl font-extrabold">$699</span>
         </div>
         <p class="text-white/70 mt-2">1:1 guidance with Khalid</p>
-        <ul class="mt-3 space-y-2 text-white/80">
+        <ul class="mt-4 space-y-2 text-white/80">
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Pro</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> 1:1 calls (limited)</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Personalized feedback</li>
         </ul>
-        <a href="https://YOUR_APPLY_FORM" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Apply Now</a>
+        <a href="https://YOUR_APPLY_FORM" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg btn-grad">Apply Now</a>
       </div>
     </div>
   </section>
 
-  <!-- CTA (نص يسار + فيديو يمين) -->
+  <!-- CTA -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-    <div class="rounded-2xl overflow-hidden border border-white/10 bg-black/20 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center">
+    <div class="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-blue-600/20 to-cyan-400/10 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center">
       <div>
         <h3 class="text-2xl md:text-3xl font-extrabold">Ready to trade with clarity?</h3>
         <p class="text-white/80 mt-2">Join FusionTicks today. Build setups, master risk, and think like a real trader.</p>
@@ -250,8 +283,6 @@
     </div>
   </section>
 
-  <!-- تم حذف زر WhatsApp العائم حسب طلبك -->
-
   <!-- FOOTER -->
   <footer class="py-12 border-t border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
@@ -259,21 +290,13 @@
         <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
-
-      <!-- Socials -->
-      <div class="flex items-center gap-3">
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" rel="noopener" class="w-9 h-9 grid place-items-center rounded-full bg-white/10 hover:bg-white/20">
-          <i data-lucide="instagram" class="w-5 h-5"></i>
-        </a>
-        <!-- YouTube -->
-        <a href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" rel="noopener" class="w-9 h-9 grid place-items-center rounded-full bg-white/10 hover:bg-white/20">
-          <i data-lucide="youtube" class="w-5 h-5"></i>
-        </a>
-        <!-- TikTok (SVG مضمّن لضمان الظهور) -->
-        <a href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" rel="noopener" class="w-9 h-9 grid place-items-center rounded-full bg-white/10 hover:bg-white/20" aria-label="TikTok">
-          <svg viewBox="0 0 48 48" class="w-5 h-5" fill="currentColor" aria-hidden="true">
-            <path d="M33.2 14.3c2.2 1.7 4.8 2.7 7.6 2.9v6.1c-2.9 0-5.6-.8-7.6-2.1v9.8c0 7-5.7 12.7-12.7 12.7S7.8 38 7.8 31c0-6.4 4.7-11.7 10.9-12.6v6.5c-2.5.9-4.2 3.2-4.2 6 0 3.5 2.9 6.4 6.4 6.4s6.4-2.9 6.4-6.4V4.2h6.1c.3 3.9 1.9 7.4 4.8 10.1z"/>
+      <div class="flex items-center gap-4">
+        <a class="hover:text-white" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+        <a class="hover:text-white" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+        <!-- TikTok SVG -->
+        <a class="hover:text-white" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-5 h-5 fill-current">
+            <path d="M168 32c8 16 21 28 40 32v40c-17-1-31-6-44-16v64c0 35-29 64-64 64s-64-29-64-64 29-64 64-64h8v40h-8c-13 0-24 11-24 24s11 24 24 24 24-11 24-24V32h44z"/>
           </svg>
         </a>
       </div>
@@ -285,11 +308,27 @@
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // ظهور العناصر الناعِم
+      // ظهور عناصر
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+      // جلو تفاعلي لبطاقات التسعير
+      const cards = document.querySelectorAll('.price-card');
+      cards.forEach(card=>{
+        card.addEventListener('pointermove', (e)=>{
+          const r = card.getBoundingClientRect();
+          const x = e.clientX - r.left;
+          const y = e.clientY - r.top;
+          card.style.setProperty('--mx', x+'px');
+          card.style.setProperty('--my', y+'px');
+          card.style.setProperty('--mo', 1);
+        });
+        card.addEventListener('pointerleave', ()=>{
+          card.style.setProperty('--mo', 0);
+        });
+      });
     });
   </script>
 </body>
