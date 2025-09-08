@@ -10,11 +10,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          colors: { 'bg-dark': '#070910' }
-        }
-      }
+      theme: { extend: { colors: { 'bg-dark': '#070910' } } }
     }
   </script>
 
@@ -23,51 +19,58 @@
 
   <style>
     html{scroll-behavior:smooth}
-    /* ====== طبقات الخلفية العامة (ثابتة عبر كامل الصفحة) ====== */
 
-    /* لون الخلفية الأساسي */
+    /* ===== خلفيات عامة ثابتة لكل الصفحة ===== */
+
+    /* 1) خلفية اللون الأساسي */
     .layer-base{
-      position:fixed; inset:0; z-index:-40; background:#070910;
+      position:fixed; inset:0; z-index:-60; background:#070910;
     }
 
-    /* نقاط دقيقة تغطي الموقع كله (ناعمة وشفافة) */
-    .layer-dots{
-      position:fixed; inset:0; z-index:-35; pointer-events:none;
-      /* نقاط ناعمة: نقطة صغيرة كل 24px */
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 1.2px);
-      background-size:24px 24px;
-      opacity:.10;  /* خفيفة وما تزعج */
+    /* 2) جلو عام (أزرق فوق يمين – أخضر أسفل) High Quality */
+    .layer-glow{
+      position:fixed; inset:0; z-index:-55; pointer-events:none;
+      background:
+        radial-gradient(1200px at 74% 30%, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 56%),
+        radial-gradient(1100px at 50% 96%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
     }
 
-    /* نُويس خفيف جداً لكسر أي banding في التدرجات */
+    /* 3) Noise خفيف جداً لكسر أي banding (يوضع تحت النقاط) */
     .layer-noise{
-      position:fixed; inset:0; z-index:-34; pointer-events:none;
+      position:fixed; inset:0; z-index:-54; pointer-events:none;
       background:
         repeating-conic-gradient(from 0deg,
           rgba(255,255,255,.012) 0 2deg,
           rgba(0,0,0,0) 2deg 4deg);
-      mix-blend-mode: overlay;
       opacity:.06;
+      mix-blend-mode:overlay;
     }
 
-    /* جلو عام خلفي (أزرق بالأعلى يمين، وأخضر تحت) – خلف المحتوى */
-    .layer-glow{
-      position:fixed; inset:0; z-index:-33; pointer-events:none;
-      /* استخدمت تدرجات كبيرة + slight noise داخلها عشان تكون High Quality */
-      background:
-        radial-gradient(1200px at 74% 30%, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 55%),
-        radial-gradient(1000px at 50% 96%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 52%);
-      /* حبة نعومة إضافية بدون blur ثقيل */
-      /* لا نستخدم filter:blur حتى لا يؤثر على الأداء، نكتفي بحجم كبير وتدريج ناعم */
+    /* 4) النقاط – باستخدام SVG pattern مكرر (أوضح ومضمون) */
+    .layer-dots{
+      position:fixed; inset:0; z-index:-53; pointer-events:none;
+      /* SVG tile 22x22 مع نقطة 1.2px بخفة 0.12 */
+      background-image:
+        url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">\
+<circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="0.12"/>\
+</svg>');
+      background-repeat:repeat;
+      background-size:22px 22px;
+      /* fallback خفيف جداً إن صار فيه حظر data-uri */
+      background-image:
+        radial-gradient(circle at 1.2px 1.2px, rgba(255,255,255,.12) 1.2px, transparent 1.3px);
+      background-size:22px 22px;
+      opacity:1;
     }
 
-    /* ============ عناصر مساعدة بسيطة ============ */
+    /* شريط الأسعار */
     .ticker{position:relative;overflow:hidden;white-space:nowrap;
       mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
     .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
+    /* ظهور ناعم */
     .reveal{opacity:0;transform:translateY(16px);transition:.6s ease}
     .reveal.in{opacity:1;transform:none}
   </style>
@@ -75,17 +78,16 @@
 
 <body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
 
-  <!-- ===== خلفيات عامة ثابتة (خلف كل شيء) ===== -->
+  <!-- الخلفيات الثابتة -->
   <div class="layer-base"></div>
-  <div class="layer-dots"></div>
-  <div class="layer-noise"></div>
   <div class="layer-glow"></div>
+  <div class="layer-noise"></div>
+  <div class="layer-dots"></div>
 
   <!-- NAV -->
   <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <!-- شعار النافبار (يبقى كما هو) -->
         <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"/>
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
@@ -120,7 +122,6 @@
 
   <!-- HERO -->
   <section class="relative overflow-visible">
-    <!-- ما في أي خطوط فاصلة هنا -->
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       <div class="reveal">
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
@@ -140,7 +141,6 @@
           </a>
         </div>
 
-        <!-- Lead form -->
         <form action="#" method="POST" id="lead" class="mt-8 p-2 rounded-2xl bg-white/5 border border-white/10 max-w-lg">
           <div class="flex gap-2">
             <input type="email" name="email" id="email" required placeholder="Enter your email for the free lesson"
@@ -151,9 +151,8 @@
         </form>
       </div>
 
-      <!-- اللوجو (بدون أي جلو فوق العناصر) -->
+      <!-- اللوجو كصورة فقط (الجلو خلفي على طبقة عامة) -->
       <div class="relative z-10 flex items-center justify-center">
-        <!-- نخلي الجلو خلفيًا عبر طبقة عامة (layer-glow) وليس drop-shadow على الصورة -->
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
              class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
       </div>
@@ -195,7 +194,7 @@
         <h3 class="font-semibold text-lg">Foundations</h3>
         <ul class="mt-3 space-y-2 text-white/70">
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Market micro-structure & order flow basics</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Sessions: NYO, 8:30, daily/midnight open</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Key sessions: NYO, 8:30, daily/midnight open</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Timeframes & top-down context</li>
         </ul>
       </div>
@@ -331,7 +330,7 @@
         }
       });
 
-      // ظهور عناصر بسيطة
+      // ظهور عناصر
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
       },{threshold:0.12});
