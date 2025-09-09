@@ -7,7 +7,7 @@
   <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
   <link rel="icon" href="./FT%20Logo.png" type="image/png"/>
 
-  <!-- OpenGraph (optional) -->
+  <!-- OpenGraph -->
   <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
   <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
   <meta property="og:image" content="./FT%20Logo.png"/>
@@ -24,9 +24,8 @@
   <style>
     html{scroll-behavior:smooth}
 
-    /* ===== Global background layers ===== */
+    /* ===== Background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
-    /* Blue top-right / Green bottom-left (HQ glow) */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
       background:
@@ -40,8 +39,8 @@
     }
     .layer-dots{
       position:fixed; inset:0; z-index:-53; pointer-events:none;
-      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
-      background-size:22px 22px; background-repeat:repeat; opacity:.03;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF"/></svg>');
+      background-size:22px 22px; opacity:.03;
     }
 
     /* Ticker */
@@ -49,11 +48,11 @@
     .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    /* Animations */
+    /* Reveal on scroll */
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1;transform:none}
 
-    /* Card glow on hover (border + soft aura) */
+    /* Card glow hover */
     .card-glow{position:relative;border-radius:16px;}
     .card-glow:before{
       content:"";position:absolute;inset:-1px;border-radius:inherit;
@@ -64,7 +63,7 @@
     }
     .card-glow:hover:before{opacity:.7}
 
-    /* Pricing - subtle border glow on hover */
+    /* Pricing glow on hover */
     .plan{position:relative;border-radius:16px}
     .plan:before{
       content:"";position:absolute;inset:-1px;border-radius:inherit;
@@ -86,34 +85,21 @@
     }
     .role-step:last-child:after{display:none}
 
-    /* Social circles in footer */
+    /* Social */
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
-    /* ===== Gradient text helper (Clarity style) ===== */
+    /* Gradient text (clarity style) */
     .gradient-text{
       background: linear-gradient(to right, #3b82f6, #67e8f9);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
     }
 
-    /* Anchor offset so titles never hide under sticky header */
-    section.anchor{scroll-margin-top: 96px;} /* matches header height */
+    /* Anchor offset so headings don't hide under sticky header */
+    .anchor-offset{ scroll-margin-top: 120px; }
 
-    /* Back-to-top button */
-    .to-top{
-      position:fixed; right:18px; bottom:18px; z-index:60;
-      width:44px; height:44px; border-radius:999px;
-      display:grid; place-items:center;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.15);
-      backdrop-filter: blur(6px);
-      opacity:0; pointer-events:none; transform:translateY(8px);
-      transition:opacity .25s ease, transform .25s ease;
-    }
-    .to-top.show{opacity:1; pointer-events:auto; transform:none}
+    /* Optional: stronger blur for mobile sheet */
+    #mobileMenu { -webkit-backdrop-filter: saturate(140%) blur(18px); backdrop-filter: saturate(140%) blur(18px); }
   </style>
 </head>
 
@@ -132,7 +118,7 @@
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
 
-      <!-- Desktop nav -->
+      <!-- Desktop -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#approach" class="hover:text-white">Approach</a>
         <a href="#curriculum" class="hover:text-white">Curriculum</a>
@@ -141,15 +127,16 @@
         <a href="#pricing" class="hover:text-white">Pricing</a>
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
-
-      <div class="flex items-center gap-3">
-        <a href="#pricing" class="hidden sm:inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
-
-        <!-- Mobile hamburger -->
-        <button id="hamburger" class="md:hidden inline-grid place-items-center w-10 h-10 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10" aria-label="Open menu">
-          <i data-lucide="menu" class="w-5 h-5"></i>
-        </button>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
       </div>
+
+      <!-- Mobile hamburger -->
+      <button id="menuBtn" aria-expanded="false" aria-controls="mobileMenu"
+        class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+        <span class="sr-only">Open menu</span>
+      </button>
     </div>
 
     <!-- Ticker -->
@@ -161,27 +148,31 @@
         <span class="mx-6">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="mx-6">Risk First • Setup-Driven • No Signals</span>
       </div>
     </div>
-
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-black/70 backdrop-blur">
-      <div class="max-w-7xl mx-auto px-4 py-3 grid gap-2 text-sm text-white/85">
-        <a class="py-2 hover:text-white" href="#approach">Approach</a>
-        <a class="py-2 hover:text-white" href="#curriculum">Curriculum</a>
-        <a class="py-2 hover:text-white" href="#how">How it Works</a>
-        <a class="py-2 hover:text-white" href="#discord">Community</a>
-        <a class="py-2 hover:text-white" href="#pricing">Pricing</a>
-        <a class="py-2 hover:text-white" href="#faq">FAQ</a>
-        <a class="mt-2 inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-center" href="#pricing">Get Access</a>
-      </div>
-    </div>
   </header>
+
+  <!-- Mobile overlay + menu sheet -->
+  <div id="menuOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-[2px] opacity-0 pointer-events-none z-40 transition-opacity md:hidden"></div>
+  <nav id="mobileMenu"
+    class="md:hidden fixed left-4 right-4 top-20 z-50 rounded-2xl border border-white/10 bg-black/30 backdrop-blur-2xl shadow-2xl opacity-0 translate-y-2 pointer-events-none transition-all">
+    <ul class="divide-y divide-white/10">
+      <li><a href="#approach"   class="block px-5 py-4 text-white/90 hover:bg-white/5">Approach</a></li>
+      <li><a href="#curriculum" class="block px-5 py-4 text-white/90 hover:bg-white/5">Curriculum</a></li>
+      <li><a href="#how"        class="block px-5 py-4 text-white/90 hover:bg-white/5">How it Works</a></li>
+      <li><a href="#discord"    class="block px-5 py-4 text-white/90 hover:bg-white/5">Community</a></li>
+      <li><a href="#pricing"    class="block px-5 py-4 text-white/90 hover:bg-white/5">Pricing</a></li>
+      <li><a href="#faq"        class="block px-5 py-4 text-white/90 hover:bg-white/5">FAQ</a></li>
+    </ul>
+    <div class="p-4">
+      <a href="#pricing" class="block w-full text-center px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 font-medium">Get Access</a>
+    </div>
+  </nav>
 
   <!-- HERO -->
   <section class="relative overflow-visible">
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       <div class="reveal">
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
-          Trade with <span class="gradient-text">Clarity</span><br class="hidden sm:block"/>
+          Trade with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-300">Clarity</span><br class="hidden sm:block"/>
           Not Noise
         </h1>
         <p class="mt-5 text-white/70 max-w-xl">
@@ -189,9 +180,10 @@
           and started <b>reading the market</b>. FusionTicks is a practical, risk-first program that
           teaches you to stack confirmations and build repeatable setups—no signals, no hype.
         </p>
-        <div class="mt-4 flex flex-wrap gap-2 text-xs">
+
+        <div class="mt-4 flex flex-wrap gap-2 text-xs text-white/70">
           <span class="badge"><i data-lucide="shield" class="w-4 h-4"></i> Risk-first</span>
-          <span class="badge"><i data-lucide="scan-line" class="w-4 h-4"></i> Read the market</span>
+          <span class="badge"><i data-lucide="scan" class="w-4 h-4"></i> Read the market</span>
           <span class="badge"><i data-lucide="layers" class="w-4 h-4"></i> Stack confirmations</span>
           <span class="badge"><i data-lucide="notebook-pen" class="w-4 h-4"></i> Journaling</span>
         </div>
@@ -215,7 +207,7 @@
   </section>
 
   <!-- APPROACH -->
-  <section id="approach" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+  <section id="approach" class="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">The <span class="gradient-text">FusionTicks</span> Approach</h2>
       <p class="mt-2 text-white/70 max-w-3xl">
@@ -252,7 +244,7 @@
   </section>
 
   <!-- CURRICULUM -->
-  <section id="curriculum" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section id="curriculum" class="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">Curriculum</span></h2>
       <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
@@ -307,7 +299,7 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section id="how" class="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">How We <span class="gradient-text">Trade</span> (Simple Pipeline)</h2>
       <p class="mt-2 text-white/70 max-w-3xl">From preparation to execution—clear steps you can repeat daily.</p>
@@ -333,13 +325,11 @@
   </section>
 
   <!-- DISCORD / COMMUNITY -->
-  <section id="discord" class="anchor relative">
+  <section id="discord" class="anchor-offset relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div class="mb-8 sm:mb-12 reveal">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
-          <!-- Discord logo inline -->
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="opacity-80"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.197.35-.42.82-.574 1.192a18.27 18.27 0 0 0-7.968 0A12.3 12.3 0 0 0 7.442 3c-1.32.24-2.65.65-3.759 1.369C.995 7.336.35 10.21.613 13.046c1.58 1.175 3.114 1.89 4.615 2.363.372-.51.704-1.055.989-1.629-.547-.208-1.073-.464-1.569-.76c.131-.096.259-.197.383-.302 3.02 1.414 6.29 1.414 9.275 0 .124.105.252.206.383.302-.495.296-1.022.552-1.57.76.285.574.618 1.119.99 1.629 1.5-.473 3.034-1.188 4.614-2.363.378-4.038-.64-6.884-2.026-8.677ZM9.35 12.348c-.9 0-1.637-.83-1.637-1.852 0-1.02.73-1.855 1.637-1.855.906 0 1.643.835 1.637 1.855 0 1.022-.731 1.852-1.637 1.852Zm5.3 0c-.9 0-1.637-.83-1.637-1.852 0-1.02.73-1.855 1.637-1.855.906 0 1.643.835 1.637 1.855 0 1.022-.731 1.852-1.637 1.852Z"/></svg>
-          FusionTicks Discord
+          <i data-lucide="message-square"></i> FusionTicks Discord
         </div>
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
         <p class="mt-2 text-white/70 max-w-2xl">
@@ -440,7 +430,7 @@
   </section>
 
   <!-- PRICING -->
-  <section id="pricing" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section id="pricing" class="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">Choose Your <span class="gradient-text">Access</span></h2>
       <p class="mt-2 text-white/70">Intro price for first 40 members. Lifetime updates.</p>
@@ -491,7 +481,7 @@
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section id="faq" class="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">FAQ</span></h2>
       <p class="mt-2 text-white/70">Still curious? Start here.</p>
@@ -546,6 +536,7 @@
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
+        <!-- Instagram -->
         <a class="social" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
@@ -553,11 +544,13 @@
             <circle cx="17.5" cy="6.5" r="1"></circle>
           </svg>
         </a>
+        <!-- YouTube -->
         <a class="social" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2.6 8.2.6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c.6-2 .6-4.9.6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
           </svg>
         </a>
+        <!-- TikTok -->
         <a class="social" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
           <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
             <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
@@ -567,15 +560,17 @@
     </div>
   </footer>
 
-  <!-- Back-to-top (arrow only) -->
-  <button id="toTop" class="to-top" aria-label="Back to top">
+  <!-- Back-to-top button (icon only) -->
+  <button id="backToTop" aria-label="Back to top"
+    class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-white/10 border border-white/15 backdrop-blur-md
+           hover:bg-white/20 transition opacity-0 grid place-items-center">
     <i data-lucide="arrow-up" class="w-5 h-5"></i>
   </button>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
-      document.getElementById('year').textContent = new Date().getFullYear();
+      const yearEl = document.getElementById('year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
 
       // Reveal on scroll
       const io = new IntersectionObserver((entries)=>{
@@ -583,33 +578,53 @@
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-      // Mobile menu toggle
-      const burger = document.getElementById('hamburger');
-      const menu = document.getElementById('mobileMenu');
-      burger?.addEventListener('click', ()=>{
-        menu.classList.toggle('hidden');
-        // swap icon
-        const icon = burger.querySelector('i');
-        if (icon) icon.setAttribute('data-lucide', menu.classList.contains('hidden') ? 'menu' : 'x');
-        if (window.lucide) lucide.createIcons();
-      });
-      // Close mobile menu when clicking a link
-      menu?.querySelectorAll('a').forEach(a=>{
-        a.addEventListener('click', ()=>{
-          menu.classList.add('hidden');
-          const icon = burger.querySelector('i'); if (icon) icon.setAttribute('data-lucide','menu');
-          if (window.lucide) lucide.createIcons();
+      // ===== Mobile menu logic =====
+      const btn = document.getElementById('menuBtn');
+      const sheet = document.getElementById('mobileMenu');
+      const scrim = document.getElementById('menuOverlay');
+      const body = document.body;
+
+      const openMenu = () => {
+        btn?.setAttribute('aria-expanded','true');
+        sheet?.classList.remove('pointer-events-none','opacity-0','translate-y-2');
+        scrim?.classList.remove('pointer-events-none','opacity-0');
+        sheet?.classList.add('opacity-100');
+        scrim?.classList.add('opacity-100');
+        body.style.overflow = 'hidden';
+      };
+      const closeMenu = () => {
+        btn?.setAttribute('aria-expanded','false');
+        sheet?.classList.add('pointer-events-none','opacity-0','translate-y-2');
+        scrim?.classList.add('pointer-events-none','opacity-0');
+        body.style.overflow = '';
+      };
+      const toggleMenu = () => (btn?.getAttribute('aria-expanded') === 'true') ? closeMenu() : openMenu();
+
+      btn?.addEventListener('click', toggleMenu);
+      scrim?.addEventListener('click', closeMenu);
+      window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+
+      // Close on link click + smooth scroll
+      sheet?.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          const id = a.getAttribute('href');
+          if (id && id.startsWith('#') && id.length > 1) {
+            e.preventDefault();
+            const el = document.querySelector(id);
+            closeMenu();
+            setTimeout(()=>{ el?.scrollIntoView({behavior:'smooth', block:'start'}); }, 120);
+          }
         });
       });
+      window.addEventListener('hashchange', closeMenu);
 
-      // Back to top
-      const toTop = document.getElementById('toTop');
-      const toggleTop = () => {
-        if (window.scrollY > 600) toTop.classList.add('show'); else toTop.classList.remove('show');
-      };
-      toggleTop();
-      window.addEventListener('scroll', toggleTop);
-      toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+      // Back-to-top visibility
+      const topBtn = document.getElementById('backToTop');
+      if (topBtn) {
+        const vis = () => { topBtn.classList.toggle('opacity-100', window.scrollY > 400); };
+        vis(); window.addEventListener('scroll', vis);
+        topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+      }
     });
   </script>
 </body>
