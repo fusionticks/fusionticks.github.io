@@ -22,11 +22,15 @@
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
+    :root{
+      --halo-blue: 82,148,255;     /* أزرق نيون */
+      --halo-violet: 173,117,255;  /* بنفسجي نيون */
+      --ink: 7,9,16;               /* خلفية أساسية */
+    }
     html{scroll-behavior:smooth}
 
     /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
-    /* Blue top-right / Green bottom-left (HQ glow) */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
       background:
@@ -90,49 +94,112 @@
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
-    /* ========= Discord section BACKGROUND ART (halo + tilted logo) ========= */
+    /* ========= Discord section BACKGROUND ART (Aesthetic halo + logo) ========= */
     #discord{overflow:visible}
-    .disc-art{position:absolute; inset:0; z-index:-10; pointer-events:none}
 
-    /* Perfect circular halo image + extra glow */
-    .disc-art .halo{
+    .disc-wrap{            /* حاوية تتحكم بالبارالاكس */
+      position:absolute; inset:0; z-index:-10; pointer-events:none;
+      perspective:1200px;
+    }
+
+    /* طبقة هالة أساسية (صورة PNG) */
+    .halo{
+      --sx: 0px; --sy: 0px; /* للبارالاكس */
       position:absolute;
-      right: max(-8vw, -120px);
-      top: 28px;
-      width: clamp(520px, 44vw, 860px);
+      right: max(-10vw, -140px);
+      top: clamp(10px, 3vh, 40px);
+      width: clamp(560px, 48vw, 920px);
       aspect-ratio:1/1;
-      background:url("./hola.png") center/contain no-repeat; /* ملف الهالة */
-      filter:saturate(1.1) drop-shadow(0 0 75px rgba(80,120,255,.45));
-      opacity:.95;
+      background:url("./hola.png") center/contain no-repeat;
+      transform: translate3d(var(--sx), var(--sy), 0) rotateX(0.001deg);
+      filter:saturate(1.12) drop-shadow(0 0 75px rgba(var(--halo-blue), .42));
+      mix-blend-mode:screen;
+      opacity:.96;
+    }
+
+    /* رينغ نيون أنيق فوق الهالة */
+    .halo::after{
+      content:""; position:absolute; inset:7%; border-radius:50%;
+      background:
+        radial-gradient(closest-side, rgba(255,255,255,.16), rgba(255,255,255,0) 55%) center/100% 100% no-repeat;
+      box-shadow:
+        0 0 0 1.6px rgba(255,255,255,.12) inset,
+        0 0 60px 10px rgba(var(--halo-blue), .26),
+        0 0 120px 22px rgba(var(--halo-violet), .20);
+      pointer-events:none;
+      filter:blur(.2px);
+    }
+
+    /* توهج لوني خفيف حول الهالة (بلند مع الخلفية) */
+    .halo-glow{
+      position:absolute;
+      right: max(-16vw, -220px);
+      top: -60px;
+      width: clamp(760px, 60vw, 1200px);
+      height: clamp(760px, 60vw, 1200px);
+      background:
+        radial-gradient(closest-side, rgba(var(--halo-blue), .24), rgba(0,0,0,0) 62%),
+        radial-gradient(closest-side, rgba(var(--halo-violet), .18), rgba(0,0,0,0) 68%);
+      mix-blend-mode:screen;
+      filter:blur(22px);
+      opacity:.55;
+    }
+
+    /* شعار Discord داخل الهالة — نسخة براقة + نسخة بلوم */
+    .logo-tilted{
+      --sx: 0px; --sy: 0px;
+      position:absolute;
+      right: clamp(140px, 14vw, 280px);
+      top: clamp(150px, 18vh, 260px);
+      width: clamp(220px, 22vw, 360px);
+      aspect-ratio:1/1;
+      background:url("./discord%20logo.png") center/contain no-repeat;
+      transform: translate3d(var(--sx), var(--sy), 0) rotate(-18deg);
+      opacity:.22;                                       /* ≈ 20% */
+      filter:brightness(1.45) drop-shadow(0 0 28px rgba(var(--halo-blue), .30));
       mix-blend-mode:screen;
     }
-    /* Extra light stroke to يعطي دائرة أنظف على الشاشات الكبيرة */
-    .disc-art .halo:after{
-      content:""; position:absolute; inset:6%; border-radius:50%;
-      box-shadow:0 0 0 1.5px rgba(140,190,255,.22) inset, 0 0 60px rgba(120,90,255,.25);
+    .logo-tilted::before{ /* بلوم ناعم */
+      content:""; position:absolute; inset:-6%;
+      background:inherit; background-size:contain; background-repeat:no-repeat; background-position:center;
+      filter:blur(14px);
+      opacity:.33;
+      z-index:-1;
+    }
+    .logo-tilted::after{ /* لمسة تدرّج خفيفة على اللوجو */
+      content:""; position:absolute; inset:0; border-radius:24px;
+      background: linear-gradient(145deg,
+                  rgba(255,255,255,.10) 0%,
+                  rgba(var(--halo-blue), .10) 40%,
+                  rgba(var(--halo-violet), .08) 100%);
+      mix-blend-mode:overlay; opacity:.6;
     }
 
-    /* Discord logo centered inside the halo, tilted & 20% opacity */
-    .disc-art .halo-logo{
+    /* نسخة شفافة كبيرة خفية جداً تعطي عمق من بعيد */
+    .logo-ghost{
       position:absolute;
-      right: clamp(120px, 14vw, 260px);
-      top: clamp(140px, 16vh, 240px);
-      width: clamp(200px, 20vw, 340px);
+      right: -8vw; top: 8vh;
+      width: clamp(520px, 58vw, 980px);
       aspect-ratio:1/1;
-      background:url("./discord%20logo.png") center/contain no-repeat; /* شعار Discord */
+      background:url("./discord%20logo.png") center/contain no-repeat;
       transform: rotate(-18deg);
-      opacity:.20; /* 20% */
-      filter:brightness(1.45) drop-shadow(0 0 28px rgba(120,150,255,.28));
-      mix-blend-mode:screen;
+      opacity:.06;
+      filter:blur(1px) saturate(1.05);
+      mix-blend-mode:soft-light;
     }
 
+    /* Responsive tweaks */
     @media (max-width: 1200px){
-      .disc-art .halo{ right:max(-12vw, -160px); width: clamp(520px, 58vw, 900px);}
-      .disc-art .halo-logo{ right: clamp(60px, 10vw, 180px); width: clamp(180px, 32vw, 300px);}
+      .halo{ right:max(-14vw, -180px); width: clamp(520px, 58vw, 980px);}
+      .halo-glow{ right:max(-20vw, -260px); width: clamp(880px, 74vw, 1400px); height: clamp(880px, 74vw, 1400px); }
+      .logo-tilted{ right: clamp(80px, 11vw, 200px); width: clamp(200px, 28vw, 320px); opacity:.20; }
+      .logo-ghost{ right:-14vw; top:10vh; width: clamp(560px, 70vw, 1100px); }
     }
     @media (max-width: 640px){
-      .disc-art .halo{ right:-26vw; top:50px; width:112vw; opacity:.98;}
-      .disc-art .halo-logo{ right:10vw; top:20vh; width:66vw; opacity:.18;}
+      .halo{ right:-30vw; top:36px; width:116vw; opacity:.98;}
+      .halo-glow{ right:-42vw; top:-80px; width:160vw; height:160vw; opacity:.58;}
+      .logo-tilted{ right:8vw; top:22vh; width:66vw; opacity:.18;}
+      .logo-ghost{ right:-28vw; top:16vh; width:134vw; opacity:.05;}
     }
   </style>
 </head>
@@ -249,9 +316,7 @@
       <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
     </div>
 
-    <!-- Tracks -->
     <div class="space-y-10">
-      <!-- A -->
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">A · Reading the Market</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -263,7 +328,6 @@
           <div class="bg-white/5 border border-white/10 rounded-xl p-4">6. Balance & Imbalance <span class="text-white/60">(FVG)</span></div>
         </div>
       </div>
-      <!-- B -->
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">B · Market Levels</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -273,7 +337,6 @@
         </div>
         <p class="mt-3 text-white/70 text-sm">Levels are not entries. They’re where we prepare—then we wait for our tools to confirm a shift in control.</p>
       </div>
-      <!-- C -->
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">C · Market Indicators</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -282,7 +345,6 @@
           <div class="bg-white/5 border border-white/10 rounded-xl p-4">12. Moving Power <span class="text-white/60">(EMA)</span></div>
         </div>
       </div>
-      <!-- D -->
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">D · Behind the Scenes</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -324,12 +386,13 @@
     </div>
   </section>
 
-  <!-- DISCORD / COMMUNITY -->
+  <!-- DISCORD / COMMUNITY (BACKGROUND ART ONLY) -->
   <section id="discord" class="relative">
-    <!-- BACKGROUND ONLY (halo + tilted logo) -->
-    <div class="disc-art" aria-hidden="true">
+    <div class="disc-wrap" aria-hidden="true">
+      <div class="halo-glow"></div>
       <div class="halo"></div>
-      <div class="halo-logo"></div>
+      <div class="logo-ghost"></div>
+      <div class="logo-tilted"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
@@ -544,6 +607,35 @@
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+      // ========= Mouse Parallax (لطافة خفيفة) =========
+      const wrap = document.querySelector('.disc-wrap');
+      if(wrap){
+        const halo = document.querySelector('.halo');
+        const logo = document.querySelector('.logo-tilted');
+        const lerp = (a,b,t)=>a+(b-a)*t;
+        let tx=0, ty=0, cx=0, cy=0;
+        const onMove = (e)=>{
+          const r = wrap.getBoundingClientRect();
+          const mx = (e.clientX - r.left) / r.width - .5;
+          const my = (e.clientY - r.top) / r.height - .5;
+          tx = mx * 24;  // مدى الحركة بالبيكسل
+          ty = my * 18;
+        };
+        const animate=()=>{
+          cx = lerp(cx, tx, 0.06);
+          cy = lerp(cy, ty, 0.06);
+          if(halo) halo.style.setProperty('--sx', cx+'px'), halo.style.setProperty('--sy', cy+'px');
+          if(logo) logo.style.setProperty('--sx', (cx*1.25)+'px'), logo.style.setProperty('--sy', (cy*1.25)+'px');
+          requestAnimationFrame(animate);
+        };
+        animate();
+        window.addEventListener('mousemove', onMove, {passive:true});
+        // تقليل حركة للي يفضّل تقليل الحركة
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+          window.removeEventListener('mousemove', onMove);
+        }
+      }
     });
   </script>
 </body>
