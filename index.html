@@ -13,13 +13,13 @@
     tailwind.config = { theme: { extend: { colors: { 'bg-dark':'#070910' } } } }
   </script>
 
-  <!-- Icons (Lucide) -->
+  <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
     html{scroll-behavior:smooth}
 
-    /* ===== Base layered background ===== */
+    /* ===== Base layers (fixed) ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
     .layer-noise{ position:fixed; inset:0; z-index:-59; pointer-events:none;
       background:repeating-conic-gradient(from 0deg, rgba(255,255,255,.012) 0 2deg, rgba(0,0,0,0) 2deg 4deg);
@@ -28,34 +28,35 @@
       background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
       background-size:22px 22px; background-repeat:repeat; opacity:.03; }
 
-    /* Logo-only glow (centered) */
-    .logo-glow{
-      position:absolute; inset:0; z-index:-1; pointer-events:none;
-      background:radial-gradient(820px at center, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 60%);
+    /* ===== Page glows (scroll with page) ===== */
+    .page-glow{ position:absolute; inset:0; z-index:-55; pointer-events:none; }
+    .glow-top-right{
+      position:absolute; right:-280px; top:-140px; width:1200px; height:1200px;
+      background:radial-gradient(closest-side, rgba(59,130,246,.28), rgba(59,130,246,0) 70%);
+    }
+    .glow-bottom-left{
+      position:absolute; left:-320px; bottom:-320px; width:1400px; height:1400px;
+      background:radial-gradient(closest-side, rgba(16,185,129,.22), rgba(16,185,129,0) 70%);
     }
 
-    /* Bottom-left green glow that scrolls with page */
-    .scroll-glow{
-      position:absolute; left:-220px; bottom:-220px; width:1200px; height:1200px; pointer-events:none; z-index:-1;
-      background:radial-gradient(closest-side, rgba(16,185,129,.22), rgba(16,185,129,0));
-    }
+    /* Logo local glow (centered) */
+    .logo-glow{position:absolute; inset:0; z-index:-1; pointer-events:none;
+      background:radial-gradient(820px at center, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 60%);}
 
-    /* ===== Ticker ===== */
+    /* Ticker */
     .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
     .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     .ticker-item{display:inline-block;margin-inline:24px;opacity:.7}
 
-    /* Reveal on scroll */
+    /* Animations */
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1;transform:none}
 
-    /* Card aura */
+    /* Cards / pricing */
     .card-glow{position:relative;border-radius:16px;}
     .card-glow:before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:radial-gradient(240px 120px at 20% 0%, rgba(59,130,246,.35), transparent 60%);filter:blur(14px);opacity:0;transition:opacity .3s ease;pointer-events:none;}
     .card-glow:hover:before{opacity:.7}
-
-    /* Pricing subtle glow */
     .plan{position:relative;border-radius:16px}
     .plan:before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg, rgba(59,130,246,.6), rgba(34,211,238,.4));filter:blur(10px);opacity:0;transition:opacity .25s ease;pointer-events:none;}
     .plan:hover:before{opacity:.35}
@@ -64,22 +65,37 @@
     .badge{display:inline-flex;align-items:center;gap:.35rem;padding:.25rem .5rem;border-radius:999px;font-size:.75rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
+
+    /* Back to top button */
+    .to-top{position:fixed;right:18px;bottom:18px;z-index:60;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .25s ease, transform .25s ease}
+    .to-top.show{opacity:1;transform:none;pointer-events:auto}
+
+    /* Remove any border around logo image explicitly */
+    img[alt="FusionTicks Logo"]{border:0; outline:none; box-shadow:none;}
   </style>
 </head>
 
 <body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
-  <!-- Background layers -->
+  <!-- Fixed background layers -->
   <div class="layer-base"></div>
   <div class="layer-noise"></div>
   <div class="layer-dots"></div>
 
-  <!-- NAV -->
+  <!-- Page-scrolling glows -->
+  <div class="page-glow">
+    <div class="glow-top-right"></div>
+    <div class="glow-bottom-left"></div>
+  </div>
+
+  <!-- Header -->
   <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"/>
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-8 w-auto"/>
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
+
+      <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#approach" class="hover:text-white">Approach</a>
         <a href="#curriculum" class="hover:text-white">Curriculum</a>
@@ -88,8 +104,14 @@
         <a href="#pricing" class="hover:text-white">Pricing</a>
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
+
+      <!-- Right controls -->
       <div class="flex items-center gap-3">
-        <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
+        <a href="#pricing" class="hidden sm:inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
+        <!-- Mobile toolbar (hamburger) -->
+        <button id="openMenu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20">
+          <i data-lucide="menu"></i>
+        </button>
       </div>
     </div>
 
@@ -98,14 +120,32 @@
       <div class="ticker-track">
         <span class="ticker-item">NQ +0.72%</span><span class="ticker-item">ES +0.31%</span><span class="ticker-item">CL -0.45%</span><span class="ticker-item">GC +0.12%</span>
         <span class="ticker-item">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="ticker-item">Risk First • Setup-Driven • No Signals</span>
-        <!-- duplicate for seamless loop -->
         <span class="ticker-item">NQ +0.72%</span><span class="ticker-item">ES +0.31%</span><span class="ticker-item">CL -0.45%</span><span class="ticker-item">GC +0.12%</span>
         <span class="ticker-item">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="ticker-item">Risk First • Setup-Driven • No Signals</span>
       </div>
     </div>
   </header>
 
-  <!-- MAIN -->
+  <!-- Mobile slide-over menu -->
+  <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="absolute right-0 top-0 h-full w-72 bg-neutral-900 border-l border-white/10 p-5 flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <span class="font-semibold">Menu</span>
+        <button id="closeMenu" class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <a href="#approach" class="py-2 border-b border-white/10">Approach</a>
+      <a href="#curriculum" class="py-2 border-b border-white/10">Curriculum</a>
+      <a href="#how" class="py-2 border-b border-white/10">How it Works</a>
+      <a href="#discord" class="py-2 border-b border-white/10">Community</a>
+      <a href="#pricing" class="py-2 border-b border-white/10">Pricing</a>
+      <a href="#faq" class="py-2">FAQ</a>
+      <a href="#pricing" class="mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-center">Get Access</a>
+    </div>
+  </div>
+
   <main class="relative">
     <!-- HERO -->
     <section class="relative overflow-visible">
@@ -130,15 +170,13 @@
           </div>
         </div>
 
-        <!-- Logo visual + centered glow -->
+        <!-- Logo visual -->
         <div class="relative z-10 flex items-center justify-center reveal">
           <div class="logo-glow"></div>
           <img src="./FT%20Logo.png" alt="FusionTicks Logo"
                class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
         </div>
       </div>
-      <!-- bottom-left glow that scrolls with page -->
-      <div class="scroll-glow"></div>
     </section>
 
     <!-- APPROACH -->
@@ -153,27 +191,15 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> Read, Don’t Guess</div>
-          <p class="mt-3 text-white/70">We use core price concepts to understand control and intent—candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p>
+          <p class="mt-3 text-white/70">Core price concepts—candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> Stack Confirmations</div>
-          <p class="mt-3 text-white/70">Setups form when evidence stacks: context → shift in control → clean risk. More confirmations = higher quality.</p>
+          <p class="mt-3 text-white/70">Context → shift in control → clean risk. More confirmations = higher quality.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> Risk First</div>
-          <p class="mt-3 text-white/70">Sizing, loss caps, and invalidations come before outcomes. Survival is the edge that compounds.</p>
-        </div>
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="route" class="w-5 h-5"></i> Levels ≠ Signals</div>
-          <p class="mt-3 text-white/70">Supply/Demand or S/R are <em>areas of interest</em>—we prepare there, then wait for our tools to confirm.</p>
-        </div>
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="chart-line" class="w-5 h-5"></i> Simple, Repeatable</div>
-          <p class="mt-3 text-white/70">You’ll stop collecting strategies and start executing a consistent process you actually understand.</p>
-        </div>
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="notebook-pen" class="w-5 h-5"></i> Feedback Loop</div>
-          <p class="mt-3 text-white/70">Journaling and weekly reviews lock in lessons fast. Progress becomes visible and measurable.</p>
+          <p class="mt-3 text-white/70">Sizing, loss caps, invalidations before outcomes. Survival compounds.</p>
         </div>
       </div>
     </section>
@@ -186,7 +212,6 @@
       </div>
 
       <div class="space-y-10">
-        <!-- A -->
         <div class="reveal">
           <h3 class="text-xl font-semibold mb-4">A · Reading the Market</h3>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -198,7 +223,7 @@
             <div class="bg-white/5 border border-white/10 rounded-xl p-4">6. Balance & Imbalance <span class="text-white/60">(FVG)</span></div>
           </div>
         </div>
-        <!-- B -->
+
         <div class="reveal">
           <h3 class="text-xl font-semibold mb-4">B · Market Levels</h3>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -206,9 +231,9 @@
             <div class="bg-white/5 border border-white/10 rounded-xl p-4">8. Key Zones <span class="text-white/60">(Support & Resistance)</span></div>
             <div class="bg-white/5 border border-white/10 rounded-xl p-4">9. The Explosion <span class="text-white/60">(Opening Range Breakout)</span></div>
           </div>
-          <p class="mt-3 text-white/70 text-sm">Levels are not entries. They’re where we prepare—then we wait for our tools to confirm a shift in control.</p>
+          <p class="mt-3 text-white/70 text-sm">Levels are not entries. We prepare there, then wait for tools to confirm a shift.</p>
         </div>
-        <!-- C -->
+
         <div class="reveal">
           <h3 class="text-xl font-semibold mb-4">C · Market Indicators</h3>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -217,7 +242,7 @@
             <div class="bg-white/5 border border-white/10 rounded-xl p-4">12. Moving Power <span class="text-white/60">(EMA)</span></div>
           </div>
         </div>
-        <!-- D -->
+
         <div class="reveal">
           <h3 class="text-xl font-semibold mb-4">D · Behind the Scenes</h3>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -246,15 +271,15 @@
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div>
-          <p class="mt-3 text-white/70">Use tools: swings, BOS/CHoCH, FVG, balance. Identify a shift in control.</p>
+          <p class="mt-3 text-white/70">Use swings, BOS/CHoCH, FVG, balance. Identify a shift in control.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div>
-          <p class="mt-3 text-white/70">Stack confirmations (context → signal → invalidation). If it’s clean: execute.</p>
+          <p class="mt-3 text-white/70">Stack confirmations (context → signal → invalidation). If clean: execute.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div>
-          <p class="mt-3 text-white/70">Journal entries, note mistakes, adjust plan. Compound the process.</p>
+          <p class="mt-3 text-white/70">Journal, note mistakes, adjust plan. Compound the process.</p>
         </div>
       </div>
     </section>
@@ -264,7 +289,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div class="mb-8 sm:mb-12 reveal">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
-            <!-- Discord logo (SVG) -->
+            <!-- Discord SVG -->
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.35-.43.82-.589 1.192a18.27 18.27 0 0 0-7.938 0C7.872 3.82 7.64 3.35 7.441 3a19.736 19.736 0 0 0-3.761 1.369C1.87 8.149 1.171 12.03 1.5 15.86A19.9 19.9 0 0 0 7.09 18c.442-.61.84-1.262 1.188-1.94a12.79 12.79 0 0 0 7.444 0c.348.679.747 1.33 1.188 1.94a19.9 19.9 0 0 0 5.59-2.14c.375-4.165-.203-8.013-2.183-11.49ZM8.727 13.71c-1.074 0-1.948-.98-1.948-2.186 0-1.206.86-2.199 1.948-2.199 1.1 0 1.973.993 1.948 2.2.025 1.205-.848 2.185-1.948 2.185Zm6.571 0c-1.075 0-1.949-.98-1.949-2.186 0-1.206.861-2.199 1.949-2.199 1.1 0 1.972.993 1.948 2.2.024 1.205-.848 2.185-1.948 2.185Z"/>
             </svg>
@@ -273,9 +298,6 @@
           <h2 class="mt-3 text-3xl sm:text-4xl font-bold">Community That Accelerates Progress</h2>
           <p class="mt-2 text-white/70 max-w-2xl">
             One place to read the market together, post daily levels, review trades, and learn live.
-            Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
-            progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
-            unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
           </p>
           <div class="mt-5">
             <a href="https://YOUR_DISCORD_INVITE" target="_blank"
@@ -309,28 +331,6 @@
             <div class="mt-4 flex flex-wrap gap-2">
               <span class="badge">NQ</span><span class="badge">ES</span><span class="badge">CL (Crude)</span><span class="badge">GC (Gold)</span>
             </div>
-          </div>
-
-          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-            <div class="flex items-center gap-2 text-white/90 font-semibold">
-              <span class="p-2 rounded-xl bg-white/5"><i data-lucide="calendar-check" class="w-5 h-5"></i></span>
-              Weekly Session
-            </div>
-            <p class="text-white/70 mt-3">Weekend live: review the week, map scenarios for next week—calm, focused.</p>
-          </div>
-          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-            <div class="flex items-center gap-2 text-white/90 font-semibold">
-              <span class="p-2 rounded-xl bg-white/5"><i data-lucide="radio" class="w-5 h-5"></i></span>
-              Live Session
-            </div>
-            <p class="text-white/70 mt-3">Mid-week live for Q&A, coaching, and process refinement.</p>
-          </div>
-          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-            <div class="flex items-center gap-2 text-white/90 font-semibold">
-              <span class="p-2 rounded-xl bg-white/5"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>
-              Live Trading (Unlocked)
-            </div>
-            <p class="text-white/70 mt-3">Daily live trading room for <b>Fusion Legend</b> only—after your first prop payout.</p>
           </div>
         </div>
       </div>
@@ -418,7 +418,7 @@
       <div class="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-blue-600/20 to-cyan-400/10 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center reveal">
         <div>
           <h3 class="text-2xl md:text-3xl font-extrabold">Ready to trade with clarity?</h3>
-          <p class="text-white/80 mt-2">Join FusionTicks today. Read the market, stack confirmations, and execute like a pro.</p>
+        <p class="text-white/80 mt-2">Join FusionTicks today. Read the market, stack confirmations, and execute like a pro.</p>
           <div class="mt-6 flex flex-wrap gap-3">
             <a href="https://YOUR_WHOP_LINK" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 inline-flex items-center">
               <i data-lucide="dollar-sign" class="mr-2 h-5 w-5"></i> Get Access on Whop
@@ -436,15 +436,14 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="py-12 border-t border-white/10">
+  <!-- Footer -->
+  <footer class="py-12 border-t border-white/10 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
       <div class="flex items-center gap-3">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
-        <!-- Instagram -->
         <a class="social" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
@@ -452,13 +451,11 @@
             <circle cx="17.5" cy="6.5" r="1"></circle>
           </svg>
         </a>
-        <!-- YouTube -->
         <a class="social" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c.6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
           </svg>
         </a>
-        <!-- TikTok -->
         <a class="social" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
           <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
             <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
@@ -467,6 +464,11 @@
       </div>
     </div>
   </footer>
+
+  <!-- Back to top button -->
+  <button id="toTop" class="to-top rounded-full bg-white/10 backdrop-blur border border-white/15 px-3 py-3 hover:bg-white/20">
+    <i data-lucide="arrow-up"></i>
+  </button>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -478,6 +480,25 @@
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+      // Back to top visibility + action
+      const toTop = document.getElementById('toTop');
+      const showTop = () => {
+        if (window.scrollY > 500) toTop.classList.add('show');
+        else toTop.classList.remove('show');
+      };
+      showTop();
+      window.addEventListener('scroll', showTop);
+      toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+      // Mobile menu
+      const openBtn = document.getElementById('openMenu');
+      const closeBtn = document.getElementById('closeMenu');
+      const menu = document.getElementById('mobileMenu');
+      const toggleMenu = (show) => { menu.classList.toggle('hidden', !show); document.body.classList.toggle('overflow-hidden', show); };
+      openBtn?.addEventListener('click', ()=>toggleMenu(true));
+      closeBtn?.addEventListener('click', ()=>toggleMenu(false));
+      menu?.addEventListener('click', (e)=>{ if(e.target === menu) toggleMenu(false); });
     });
   </script>
 </body>
