@@ -23,6 +23,7 @@
 
   <style>
     html{scroll-behavior:smooth}
+
     /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
     /* Blue top-right / Green bottom-left (HQ glow) */
@@ -89,7 +90,7 @@
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
-    /* ===== Gradient text helper (Clarity colors) ===== */
+    /* ===== Gradient text helper (Clarity style) ===== */
     .gradient-text{
       background: linear-gradient(to right, #3b82f6, #67e8f9);
       -webkit-background-clip: text;
@@ -98,9 +99,21 @@
       color: transparent;
     }
 
-    /* Back to top button */
-    .to-top{position:fixed; right:18px; bottom:18px; z-index:60; opacity:0; transform:translateY(8px); pointer-events:none; transition:opacity .25s ease, transform .25s ease}
-    .to-top.show{opacity:1; transform:none; pointer-events:auto}
+    /* Anchor offset so titles never hide under sticky header */
+    section.anchor{scroll-margin-top: 96px;} /* matches header height */
+
+    /* Back-to-top button */
+    .to-top{
+      position:fixed; right:18px; bottom:18px; z-index:60;
+      width:44px; height:44px; border-radius:999px;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+      opacity:0; pointer-events:none; transform:translateY(8px);
+      transition:opacity .25s ease, transform .25s ease;
+    }
+    .to-top.show{opacity:1; pointer-events:auto; transform:none}
   </style>
 </head>
 
@@ -129,10 +142,11 @@
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
 
-      <!-- Right CTA + Hamburger -->
       <div class="flex items-center gap-3">
-        <a href="#pricing" class="hidden sm:inline-flex px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
-        <button id="hamburger" class="md:hidden p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10" aria-label="Menu">
+        <a href="#pricing" class="hidden sm:inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
+
+        <!-- Mobile hamburger -->
+        <button id="hamburger" class="md:hidden inline-grid place-items-center w-10 h-10 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10" aria-label="Open menu">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
@@ -148,17 +162,17 @@
       </div>
     </div>
 
-    <!-- Mobile drawer -->
-    <div id="mobileNav" class="md:hidden hidden border-t border-white/10 bg-black/70 backdrop-blur">
-      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 grid gap-3 text-white/90">
-        <a href="#approach" class="py-2 border-b border-white/10">Approach</a>
-        <a href="#curriculum" class="py-2 border-b border-white/10">Curriculum</a>
-        <a href="#how" class="py-2 border-b border-white/10">How it Works</a>
-        <a href="#discord" class="py-2 border-b border-white/10">Community</a>
-        <a href="#pricing" class="py-2 border-b border-white/10">Pricing</a>
-        <a href="#faq" class="py-2">FAQ</a>
-        <a href="#pricing" class="mt-2 inline-flex justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Get Access</a>
-      </nav>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-black/70 backdrop-blur">
+      <div class="max-w-7xl mx-auto px-4 py-3 grid gap-2 text-sm text-white/85">
+        <a class="py-2 hover:text-white" href="#approach">Approach</a>
+        <a class="py-2 hover:text-white" href="#curriculum">Curriculum</a>
+        <a class="py-2 hover:text-white" href="#how">How it Works</a>
+        <a class="py-2 hover:text-white" href="#discord">Community</a>
+        <a class="py-2 hover:text-white" href="#pricing">Pricing</a>
+        <a class="py-2 hover:text-white" href="#faq">FAQ</a>
+        <a class="mt-2 inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-center" href="#pricing">Get Access</a>
+      </div>
     </div>
   </header>
 
@@ -175,8 +189,6 @@
           and started <b>reading the market</b>. FusionTicks is a practical, risk-first program that
           teaches you to stack confirmations and build repeatable setups—no signals, no hype.
         </p>
-
-        <!-- quick tags -->
         <div class="mt-4 flex flex-wrap gap-2 text-xs">
           <span class="badge"><i data-lucide="shield" class="w-4 h-4"></i> Risk-first</span>
           <span class="badge"><i data-lucide="scan-line" class="w-4 h-4"></i> Read the market</span>
@@ -203,7 +215,7 @@
   </section>
 
   <!-- APPROACH -->
-  <section id="approach" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+  <section id="approach" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">The <span class="gradient-text">FusionTicks</span> Approach</h2>
       <p class="mt-2 text-white/70 max-w-3xl">
@@ -240,13 +252,12 @@
   </section>
 
   <!-- CURRICULUM -->
-  <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section id="curriculum" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">Curriculum</span></h2>
       <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
     </div>
 
-    <!-- Tracks -->
     <div class="space-y-10">
       <!-- A -->
       <div class="reveal">
@@ -296,7 +307,7 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section id="how" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">How We <span class="gradient-text">Trade</span> (Simple Pipeline)</h2>
       <p class="mt-2 text-white/70 max-w-3xl">From preparation to execution—clear steps you can repeat daily.</p>
@@ -322,11 +333,13 @@
   </section>
 
   <!-- DISCORD / COMMUNITY -->
-  <section id="discord" class="relative">
+  <section id="discord" class="anchor relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div class="mb-8 sm:mb-12 reveal">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
-          <i data-lucide="discord"></i> FusionTicks Discord
+          <!-- Discord logo inline -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="opacity-80"><path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.197.35-.42.82-.574 1.192a18.27 18.27 0 0 0-7.968 0A12.3 12.3 0 0 0 7.442 3c-1.32.24-2.65.65-3.759 1.369C.995 7.336.35 10.21.613 13.046c1.58 1.175 3.114 1.89 4.615 2.363.372-.51.704-1.055.989-1.629-.547-.208-1.073-.464-1.569-.76c.131-.096.259-.197.383-.302 3.02 1.414 6.29 1.414 9.275 0 .124.105.252.206.383.302-.495.296-1.022.552-1.57.76.285.574.618 1.119.99 1.629 1.5-.473 3.034-1.188 4.614-2.363.378-4.038-.64-6.884-2.026-8.677ZM9.35 12.348c-.9 0-1.637-.83-1.637-1.852 0-1.02.73-1.855 1.637-1.855.906 0 1.643.835 1.637 1.855 0 1.022-.731 1.852-1.637 1.852Zm5.3 0c-.9 0-1.637-.83-1.637-1.852 0-1.02.73-1.855 1.637-1.855.906 0 1.643.835 1.637 1.855 0 1.022-.731 1.852-1.637 1.852Z"/></svg>
+          FusionTicks Discord
         </div>
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
         <p class="mt-2 text-white/70 max-w-2xl">
@@ -427,7 +440,7 @@
   </section>
 
   <!-- PRICING -->
-  <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section id="pricing" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">Choose Your <span class="gradient-text">Access</span></h2>
       <p class="mt-2 text-white/70">Intro price for first 40 members. Lifetime updates.</p>
@@ -478,7 +491,7 @@
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section id="faq" class="anchor max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">FAQ</span></h2>
       <p class="mt-2 text-white/70">Still curious? Start here.</p>
@@ -533,7 +546,6 @@
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
-        <!-- Instagram -->
         <a class="social" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
@@ -541,13 +553,11 @@
             <circle cx="17.5" cy="6.5" r="1"></circle>
           </svg>
         </a>
-        <!-- YouTube -->
         <a class="social" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2.6 8.2.6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c.6-2 .6-4.9.6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
           </svg>
         </a>
-        <!-- TikTok -->
         <a class="social" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
           <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
             <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
@@ -557,8 +567,8 @@
     </div>
   </footer>
 
-  <!-- Back to top (arrow only) -->
-  <button id="toTop" class="to-top rounded-full border border-white/15 bg-white/10 hover:bg-white/20 backdrop-blur p-3" aria-label="Back to top">
+  <!-- Back-to-top (arrow only) -->
+  <button id="toTop" class="to-top" aria-label="Back to top">
     <i data-lucide="arrow-up" class="w-5 h-5"></i>
   </button>
 
@@ -573,27 +583,33 @@
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-      // Mobile nav toggle
-      const ham = document.getElementById('hamburger');
-      const mobile = document.getElementById('mobileNav');
-      if (ham) ham.addEventListener('click', ()=>{
-        mobile.classList.toggle('hidden');
+      // Mobile menu toggle
+      const burger = document.getElementById('hamburger');
+      const menu = document.getElementById('mobileMenu');
+      burger?.addEventListener('click', ()=>{
+        menu.classList.toggle('hidden');
         // swap icon
-        const icon = ham.querySelector('i');
-        if (icon) icon.setAttribute('data-lucide', mobile.classList.contains('hidden') ? 'menu' : 'x');
+        const icon = burger.querySelector('i');
+        if (icon) icon.setAttribute('data-lucide', menu.classList.contains('hidden') ? 'menu' : 'x');
         if (window.lucide) lucide.createIcons();
+      });
+      // Close mobile menu when clicking a link
+      menu?.querySelectorAll('a').forEach(a=>{
+        a.addEventListener('click', ()=>{
+          menu.classList.add('hidden');
+          const icon = burger.querySelector('i'); if (icon) icon.setAttribute('data-lucide','menu');
+          if (window.lucide) lucide.createIcons();
+        });
       });
 
       // Back to top
       const toTop = document.getElementById('toTop');
-      const showAt = 400;
-      const onScroll = ()=>{
-        if (window.scrollY > showAt) toTop.classList.add('show');
-        else toTop.classList.remove('show');
+      const toggleTop = () => {
+        if (window.scrollY > 600) toTop.classList.add('show'); else toTop.classList.remove('show');
       };
-      window.addEventListener('scroll', onScroll);
-      onScroll();
-      toTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+      toggleTop();
+      window.addEventListener('scroll', toggleTop);
+      toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
     });
   </script>
 </body>
