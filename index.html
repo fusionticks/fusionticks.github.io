@@ -25,12 +25,11 @@
     html{scroll-behavior:smooth}
     /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
-    /* Blue top-right / Green bottom-left (HQ glow) */
+    /* فقط جلو أزرق علوي — إزالة الأخضر السفلي */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
       background:
-        radial-gradient(1200px at 76% 24%, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 56%),
-        radial-gradient(1100px at 16% 88%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
+        radial-gradient(1200px at 76% 24%, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 56%);
     }
     .layer-noise{
       position:fixed; inset:0; z-index:-54; pointer-events:none;
@@ -42,16 +41,6 @@
       background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
       background-size:22px 22px; background-repeat:repeat; opacity:.03;
     }
-    /* subtle orbs */
-    .orb{position:absolute; filter:blur(45px); opacity:.35; pointer-events:none}
-    .orb.blue{background:#3b82f6;width:280px;height:280px;border-radius:50%}
-    .orb.cyan{background:#22d3ee;width:220px;height:220px;border-radius:50%}
-    .orb.green{background:#10b981;width:260px;height:260px;border-radius:50%}
-
-    /* Ticker */
-    .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-    .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
-    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     /* Animations */
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
@@ -94,13 +83,22 @@
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
-    /* ===== Gradient text helper (same as Clarity) ===== */
+    /* ===== Gradient text helper (نفس تدرّج Clarity) ===== */
     .gradient-text{
       background: linear-gradient(to right, #3b82f6, #67e8f9);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       color: transparent;
+    }
+
+    /* جلو متمركز على اللوجو */
+    .logo-wrap{position:relative}
+    .logo-glow{
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      width:min(520px,70vw); height:min(520px,70vw); border-radius:999px;
+      background:radial-gradient(closest-side, rgba(59,130,246,.35), rgba(59,130,246,0) 68%);
+      filter:blur(22px); opacity:.9; pointer-events:none; z-index:-1;
     }
 
     /* Back to top button */
@@ -115,11 +113,6 @@
   <div class="layer-glow"></div>
   <div class="layer-noise"></div>
   <div class="layer-dots"></div>
-
-  <!-- floating orbs -->
-  <div class="orb blue" style="top:18vh; right:6vw;"></div>
-  <div class="orb cyan" style="bottom:10vh; left:8vw;"></div>
-  <div class="orb green" style="top:64vh; right:22vw;"></div>
 
   <!-- NAV -->
   <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
@@ -196,40 +189,21 @@
           <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
             Get Access <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
           </a>
-          <button id="watchIntro" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20">
-            <i data-lucide="play-circle" class="mr-2 w-5 h-5"></i> Watch Intro
-          </button>
+          <!-- تغييره ليروح على المنهج -->
+          <a href="#curriculum" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20">
+            <i data-lucide="book-open" class="mr-2 w-5 h-5"></i> See Curriculum
+          </a>
         </div>
       </div>
 
-      <!-- Logo visual -->
-      <div class="relative z-10 flex items-center justify-center reveal">
+      <!-- Logo visual + جلو متمركز -->
+      <div class="logo-wrap relative z-10 flex items-center justify-center reveal">
+        <div class="logo-glow"></div>
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
              class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
       </div>
     </div>
-
-    <!-- Stats bar -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-glow">
-          <div class="text-2xl font-extrabold gradient-text">5+</div>
-          <div class="text-white/60 text-sm">Years refining process</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-glow">
-          <div class="text-2xl font-extrabold gradient-text">3</div>
-          <div class="text-white/60 text-sm">Clear learning stages</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-glow">
-          <div class="text-2xl font-extrabold gradient-text">0</div>
-          <div class="text-white/60 text-sm">Signals / noise</div>
-        </div>
-        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-glow">
-          <div class="text-2xl font-extrabold gradient-text">∞</div>
-          <div class="text-white/60 text-sm">Lifetime updates</div>
-        </div>
-      </div>
-    </div>
+    <!-- (تم حذف شريط الإحصائيات بالكامل حسب طلبك) -->
   </section>
 
   <!-- APPROACH -->
@@ -354,7 +328,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div class="mb-8 sm:mb-12 reveal">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
-          <i data-lucide="message-square"></i> FusionTicks Discord
+          <!-- بدّلنا الأيقونة إلى شعار ديسكورد -->
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.176.319-.377.747-.517 1.09a18.27 18.27 0 0 0-4.081 0c-.14-.343-.341-.771-.517-1.09a19.8 19.8 0 0 0-3.76 1.369C4.224 8.052 3.5 11.59 3.76 15.08a19.9 19.9 0 0 0 3.873 1.959c.3-.413.566-.853.79-1.314a12.85 12.85 0 0 1-1.248-.6l.302-.238a13.7 13.7 0 0 0 12.446 0l.303.238c-.402.232-.823.433-1.25.6.224.461.49.901.79 1.314a19.9 19.9 0 0 0 3.873-1.959c.327-4.279-.555-7.787-2.582-10.711ZM9.746 13.818c-.955 0-1.733-.87-1.733-1.942 0-1.071.767-1.95 1.733-1.95.975 0 1.744.887 1.733 1.95 0 1.072-.758 1.942-1.733 1.942Zm4.515 0c-.955 0-1.733-.87-1.733-1.942 0-1.071.767-1.95 1.733-1.95.975 0 1.744.887 1.733 1.95 0 1.072-.758 1.942-1.733 1.942Z"/>
+          </svg>
+          FusionTicks Discord
         </div>
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
         <p class="mt-2 text-white/70 max-w-2xl">
@@ -420,30 +398,7 @@
         </div>
       </div>
 
-      <!-- Testimonials -->
-      <div class="mt-12 reveal">
-        <h3 class="text-2xl font-bold"><span class="gradient-text">What traders say</span></h3>
-        <div class="mt-4 grid md:grid-cols-3 gap-4">
-          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
-            <div class="flex items-center gap-2 text-white/90 font-semibold">
-              <i data-lucide="star" class="w-5 h-5"></i> Ahmed
-            </div>
-            <p class="text-white/70 mt-2">“أول مرة أفهم السوق بهذه البساطة. التأكيدات خلتني أوقف التخمين.”</p>
-          </div>
-          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
-            <div class="flex items-center gap-2 text-white/90 font-semibold">
-              <i data-lucide="star" class="w-5 h-5"></i> Lina
-            </div>
-            <p class="text-white/70 mt-2">“التركيز على المخاطرة قبل أي شيء هو اللي كان ناقصني.”</p>
-          </div>
-          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
-            <div class="flex items-center gap-2 text-white/90 font-semibold">
-              <i data-lucide="star" class="w-5 h-5"></i> Omar
-            </div>
-            <p class="text-white/70 mt-2">“المجتمع نشِط ومفيد—تعلّمت من قراءات غيري أسرع بكتير.”</p>
-          </div>
-        </div>
-      </div>
+      <!-- (تم حذف قسم Testimonials بالكامل حسب طلبك) -->
     </div>
   </section>
 
@@ -497,7 +452,7 @@
       </div>
     </div>
 
-    <!-- Pricing FAQ (added here, under pricing) -->
+    <!-- Pricing FAQ تحت التسعير -->
     <div class="mt-10 reveal">
       <h3 class="text-2xl font-bold"><span class="gradient-text">Pricing FAQ</span></h3>
       <div class="mt-4 space-y-4">
@@ -641,7 +596,7 @@
 
       // Video modal
       const dlg = document.getElementById('videoModal');
-      const openBtns = [document.getElementById('watchIntro'), document.getElementById('watchIntro2')].filter(Boolean);
+      const openBtns = [document.getElementById('watchIntro2')].filter(Boolean);
       const closeBtn = document.getElementById('closeModal');
       openBtns.forEach(b=> b.addEventListener('click', ()=> dlg.showModal()));
       if(closeBtn) closeBtn.addEventListener('click', ()=> dlg.close());
