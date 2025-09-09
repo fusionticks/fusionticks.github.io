@@ -7,7 +7,7 @@
   <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
   <link rel="icon" href="./FT%20Logo.png" type="image/png"/>
 
-  <!-- OpenGraph -->
+  <!-- OpenGraph (optional) -->
   <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
   <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
   <meta property="og:image" content="./FT%20Logo.png"/>
@@ -21,14 +21,12 @@
   <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
-  <!-- Arabic font (scoped to .ar only) -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
   <style>
     html{scroll-behavior:smooth}
 
     /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
+    /* Blue top-right / Green bottom-left (HQ glow) */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
       background:
@@ -55,7 +53,7 @@
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1;transform:none}
 
-    /* Card glow on hover */
+    /* Card glow on hover (border + soft aura) */
     .card-glow{position:relative;border-radius:16px;}
     .card-glow:before{
       content:"";position:absolute;inset:-1px;border-radius:inherit;
@@ -66,7 +64,7 @@
     }
     .card-glow:hover:before{opacity:.7}
 
-    /* Pricing - border glow on hover */
+    /* Pricing - subtle border glow on hover */
     .plan{position:relative;border-radius:16px}
     .plan:before{
       content:"";position:absolute;inset:-1px;border-radius:inherit;
@@ -76,26 +74,65 @@
     .plan:hover:before{opacity:.35}
 
     /* Discord helpers */
-    .badge{display:inline-flex;align-items:center;gap:.35rem;padding:.25rem .5rem;border-radius:999px;font-size:.75rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    .badge{
+      display:inline-flex;align-items:center;gap:.35rem;
+      padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    }
     .role-step{display:flex;align-items:center;gap:.5rem;position:relative}
-    .role-step:after{content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent)}
+    .role-step:after{
+      content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;
+      background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent);
+    }
     .role-step:last-child:after{display:none}
+
+    /* Social circles in footer */
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
-    /* ===== Arabic lines (hidden by default) ===== */
-    .ar{
-      display:none; direction:rtl;
-      font-family:'Cairo', system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Kufi Arabic","Noto Sans Arabic", sans-serif;
-      font-size:.92rem; line-height:1.8; color:rgba(255,255,255,.72);
-      margin-top:.35rem;
-    }
-    .ar-title{font-size:1rem; font-weight:700; color:rgba(255,255,255,.85); margin-top:.25rem}
-    body.show-ar .ar{display:block}
+    /* ==== Community (Concept B mix) ==== */
+    .discord-section{position:relative;overflow:hidden}
+    .discord-decor{position:absolute;inset:0;pointer-events:none;z-index:0}
 
-    /* AR toggle button */
-    .btn-ar{border:1px solid rgba(255,255,255,.2)}
-    .btn-ar.active{background:linear-gradient(90deg,#2563eb,#06b6d4);border-color:transparent}
+    /* Halo / ring on the right */
+    .discord-ring{
+      position:absolute; right:-6%; top:-80px; width:780px; height:780px; border-radius:9999px;
+      background:
+        radial-gradient(closest-side, rgba(59,130,246,0) 72%, rgba(99,102,241,.55) 88%, rgba(59,130,246,0) 100%);
+      box-shadow:
+        0 0 140px rgba(59,130,246,.35),
+        0 0 260px rgba(14,165,233,.25);
+      opacity:.85; filter:blur(.5px);
+    }
+
+    /* Watermark (discord-like) very subtle on the left */
+    .discord-watermark{
+      position:absolute; left:-8%; top:-12%; width:560px; height:560px; opacity:.06; filter:blur(.5px);
+      background-repeat:no-repeat; background-size:contain;
+      background-image:url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90">\
+<path d="M20 22 Q60 4 100 22 Q106 42 100 62 Q60 82 20 62 Q14 42 20 22 Z" fill="%23ffffff"/>\
+<circle cx="50" cy="45" r="7" fill="%23000000"/>\
+<circle cx="80" cy="45" r="7" fill="%23000000"/>\
+</svg>');
+    }
+
+    /* Framed glow panel */
+    .glow-frame{position:relative; z-index:1}
+    .glow-frame:before{
+      content:""; position:absolute; inset:-2px; border-radius:24px;
+      background:linear-gradient(135deg, rgba(99,102,241,.55), rgba(14,165,233,.45));
+      filter:blur(18px); opacity:.42; pointer-events:none;
+    }
+
+    @media (max-width: 1024px){
+      .discord-ring{right:-30%; top:-120px; width:680px; height:680px; opacity:.65}
+      .discord-watermark{left:-22%; top:-18%; width:520px; height:520px}
+    }
+    @media (max-width: 640px){
+      .discord-ring{right:-50%; top:-160px; width:580px; height:580px; opacity:.5}
+      .discord-watermark{display:none}
+    }
   </style>
 </head>
 
@@ -122,8 +159,6 @@
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
       <div class="flex items-center gap-3">
-        <!-- AR toggle -->
-        <button id="toggle-ar" class="btn-ar px-3 py-2 rounded-md text-sm text-white/90 hover:bg-white/10" title="Show Arabic lines">AR</button>
         <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
       </div>
     </div>
@@ -146,15 +181,11 @@
           Trade with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-300">Clarity</span><br class="hidden sm:block"/>
           Not Noise
         </h1>
-        <div class="ar ar-title">تداول بوضوح… لا بضجيج</div>
-
         <p class="mt-5 text-white/70 max-w-xl">
           I’m <b>Khalid Kuhail</b>. After 5 years in the trenches, I stopped chasing strategies
           and started <b>reading the market</b>. FusionTicks is a practical, risk-first program that
           teaches you to stack confirmations and build repeatable setups—no signals, no hype.
         </p>
-        <p class="ar max-w-xl">أنا <b>خالد كحيل</b>. بعد ٥ سنوات من التجربة، توقفت عن مطاردة الاستراتيجيات وبدأت <b>أقرأ السوق</b>. FusionTicks برنامج عملي يضع <b>المخاطرة أولًا</b>، يعلّمك كيف تراكم التأكيدات وتصنع إعدادات قابلة للتكرار — بدون إشارات وبدون ضجيج.</p>
-
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
             Get Access <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
@@ -177,50 +208,35 @@
   <section id="approach" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">The FusionTicks Approach</h2>
-      <div class="ar ar-title">منهجية FusionTicks</div>
-
       <p class="mt-2 text-white/70 max-w-3xl">
         Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>,
         identifying who’s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.
       </p>
-      <p class="ar max-w-3xl">الاستراتيجيات وحدها مقامرة 50/50. نقلب المعادلة عبر <b>قراءة السوق</b> ومعرفة من المسيطر (مشتري/بائع)، ثم <b>مراكمة التأكيدات</b> قبل أي دخول.</p>
     </div>
-
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> Read, Don’t Guess</div>
         <p class="mt-3 text-white/70">We use core price concepts to understand control and intent—candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p>
-        <p class="ar">نستخدم مفاهيم السعر الأساسية لفهم السيطرة والنية—الشموع، السوينغات، BOS/CHoCH، مناطق التوازن/الاختلال (FVG).</p>
       </div>
-
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> Stack Confirmations</div>
         <p class="mt-3 text-white/70">Setups form when evidence stacks: context → shift in control → clean risk. More confirmations = higher quality.</p>
-        <p class="ar">يتكوّن الإعداد عندما تتراكم الأدلة: سياق → تغيّر في السيطرة → مخاطرة واضحة. كلما زادت التأكيدات زادت الجودة.</p>
       </div>
-
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> Risk First</div>
         <p class="mt-3 text-white/70">Sizing, loss caps, and invalidations come before outcomes. Survival is the edge that compounds.</p>
-        <p class="ar">حجم العقد وحدود الخسارة ونقاط الإلغاء قبل النتائج. البقاء هو الميزة التي تتراكم.</p>
       </div>
-
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="route" class="w-5 h-5"></i> Levels ≠ Signals</div>
-        <p class="mt-3 text-white/70">Supply/Demand or S/R are areas of interest—prepare there, then wait for tools to confirm.</p>
-        <p class="ar">العرض/الطلب أو الدعم/المقاومة مناطق اهتمام فقط—نستعد عندها ثم ننتظر أدواتنا لتأكيد الدخول.</p>
+        <p class="mt-3 text-white/70">Supply/Demand or S/R are <em>areas of interest</em>—we prepare there, then wait for our tools to confirm.</p>
       </div>
-
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="chart-line" class="w-5 h-5"></i> Simple, Repeatable</div>
-        <p class="mt-3 text-white/70">Stop collecting strategies. Execute a consistent process you actually understand.</p>
-        <p class="ar">توقّف عن جمع الاستراتيجيات. نفّذ عملية ثابتة تفهمها فعلًا.</p>
+        <p class="mt-3 text-white/70">You’ll stop collecting strategies and start executing a consistent process you actually understand.</p>
       </div>
-
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="notebook-pen" class="w-5 h-5"></i> Feedback Loop</div>
-        <p class="mt-3 text-white/70">Journaling and weekly reviews lock in lessons fast. Progress becomes visible.</p>
-        <p class="ar">التدوين والمراجعات الأسبوعية تُثبت الدروس بسرعة، ويصبح التقدم ملموسًا.</p>
+        <p class="mt-3 text-white/70">Journaling and weekly reviews lock in lessons fast. Progress becomes visible and measurable.</p>
       </div>
     </div>
   </section>
@@ -229,62 +245,52 @@
   <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">Curriculum</h2>
-      <div class="ar ar-title">المنهج</div>
       <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
-      <p class="ar max-w-3xl">ثلاث مراحل لبناء الفهم الحقيقي — ثم ما يدور خلف الكواليس.</p>
     </div>
 
     <div class="space-y-10">
       <!-- A -->
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">A · Reading the Market</h3>
-        <div class="ar ar-title">A · قراءة السوق</div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">1. Who’s in Control? <span class="text-white/60">(Candlesticks)</span><div class="ar">1) من المسيطر؟ (الشموع)</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">2. Market Stages <span class="text-white/60">(Phases)</span><div class="ar">2) مراحل السوق</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">3. Price in Motion <span class="text-white/60">(How price moves)</span><div class="ar">3) حركة السعر وكيف يتحرك</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">4. Swings & Shifts <span class="text-white/60">(Swing High/Low)</span><div class="ar">4) القمم والقيعان وتغيّر الاتجاهات</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">5. Breaks & Flips <span class="text-white/60">(BOS & CHoCH)</span><div class="ar">5) الاختراقات والانقلابات (BOS/CHoCH)</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">6. Balance & Imbalance <span class="text-white/60">(FVG)</span><div class="ar">6) التوازن والاختلال (FVG)</div></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">1. Who’s in Control? <span class="text-white/60">(Candlesticks)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">2. Market Stages <span class="text-white/60">(Phases)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">3. Price in Motion <span class="text-white/60">(How price moves)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">4. Swings & Shifts <span class="text-white/60">(Swing High/Low)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">5. Breaks & Flips <span class="text-white/60">(BOS & CHoCH)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">6. Balance & Imbalance <span class="text-white/60">(FVG)</span></div>
         </div>
       </div>
-
       <!-- B -->
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">B · Market Levels</h3>
-        <div class="ar ar-title">B · مستويات السوق</div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">7. Where it Starts <span class="text-white/60">(Supply & Demand)</span><div class="ar">7) من أين يبدأ (العرض والطلب)</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">8. Key Zones <span class="text-white/60">(Support & Resistance)</span><div class="ar">8) المناطق الرئيسية (الدعم والمقاومة)</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">9. The Explosion <span class="text-white/60">(Opening Range Breakout)</span><div class="ar">9) الانفجار (اختراق نطاق الافتتاح)</div></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">7. Where it Starts <span class="text-white/60">(Supply & Demand)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">8. Key Zones <span class="text-white/60">(Support & Resistance)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">9. The Explosion <span class="text-white/60">(Opening Range Breakout)</span></div>
         </div>
         <p class="mt-3 text-white/70 text-sm">Levels are not entries. They’re where we prepare—then we wait for our tools to confirm a shift in control.</p>
-        <p class="ar text-sm">المستويات ليست دخولًا بحد ذاتها؛ هي مناطق استعداد، ثم ننتظر أدوات القراءة لتأكيد تغيّر السيطرة.</p>
       </div>
-
       <!-- C -->
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">C · Market Indicators</h3>
-        <div class="ar ar-title">C · المؤشرات</div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">10. Volume Map <span class="text-white/60">(Volume Profile)</span><div class="ar">10) خريطة الحجم (Volume Profile)</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">11. VWAP Logic <span class="text-white/60">(VWAP & Anchored)</span><div class="ar">11) منطق VWAP (العادي والمُثبت)</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">12. Moving Power <span class="text-white/60">(EMA)</span><div class="ar">12) قوة المتوسطات (EMA)</div></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">10. Volume Map <span class="text-white/60">(Volume Profile)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">11. VWAP Logic <span class="text-white/60">(VWAP & Anchored)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">12. Moving Power <span class="text-white/60">(EMA)</span></div>
         </div>
       </div>
-
       <!-- D -->
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">D · Behind the Scenes</h3>
-        <div class="ar ar-title">D · خلف الكواليس</div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">13. Quick Guide to TradingView<div class="ar">13) دليل سريع لتريدنغ فيو</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">14. The Trading Game <span class="text-white/60">(Futures & Prop Firms)</span><div class="ar">14) لعبة التداول (العقود المستقبلية وشركات التمويل)</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">15. Types of Orders<div class="ar">15) أنواع الأوامر</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">16. Risk First <span class="text-white/60">(Risk Management)</span><div class="ar">16) المخاطرة أولًا (إدارة المخاطر)</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">17. Learn from You <span class="text-white/60">(Journaling & Reviews)</span><div class="ar">17) التعلّم من نفسك (التدوين والمراجعات)</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">18. News & Economic Events<div class="ar">18) الأخبار والأحداث الاقتصادية</div></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">19. Mind over Market <span class="text-white/60">(Psychology)</span><div class="ar">19) الذهن قبل السوق (السيكولوجيا)</div></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">13. Quick Guide to TradingView</div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">14. The Trading Game <span class="text-white/60">(Futures & Prop Firms)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">15. Types of Orders</div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">16. Risk First <span class="text-white/60">(Risk Management)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">17. Learn from You <span class="text-white/60">(Journaling & Reviews)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">18. News & Economic Events</div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">19. Mind over Market <span class="text-white/60">(Psychology)</span></div>
         </div>
       </div>
     </div>
@@ -294,82 +300,136 @@
   <section id="how" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">How We Trade (Simple Pipeline)</h2>
-      <div class="ar ar-title">كيف نتداول (خطوات بسيطة)</div>
       <p class="mt-2 text-white/70 max-w-3xl">From preparation to execution—clear steps you can repeat daily.</p>
-      <p class="ar max-w-3xl">من التحضير إلى التنفيذ—خطوات واضحة قابلة للتكرار يوميًا.</p>
     </div>
     <div class="grid lg:grid-cols-4 gap-6">
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div>
         <p class="mt-3 text-white/70">Map Market Levels (S/D, S/R, ORB) on HTF. Note news & sessions.</p>
-        <p class="ar">ارسم مستويات السوق (عرض/طلب، دعم/مقاومة، ORB) على الأطر الكبيرة، وانتبه للأخبار والجلسات.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div>
         <p class="mt-3 text-white/70">Use tools: swings, BOS/CHoCH, FVG, balance. Identify a shift in control.</p>
-        <p class="ar">استخدم الأدوات: السوينغ، BOS/CHoCH، FVG، التوازن. حدّد تغيّر السيطرة.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div>
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="flag" class="w-5 h-5"></i> 3) Confirm</div>
         <p class="mt-3 text-white/70">Stack confirmations (context → signal → invalidation). If it’s clean: execute.</p>
-        <p class="ar">راكم التأكيدات (سياق → إشارة → إلغاء). إذا كان نظيفًا: نفّذ.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div>
         <p class="mt-3 text-white/70">Journal entries, note mistakes, adjust plan. Compound the process.</p>
-        <p class="ar">دوّن صفقاتك، سجّل الأخطاء، وعدّل خطتك. راكم العملية.</p>
       </div>
     </div>
   </section>
 
-  <!-- DISCORD / COMMUNITY -->
-  <section id="discord" class="relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-      <div class="mb-8 sm:mb-12 reveal">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
-          <i data-lucide="message-square"></i> FusionTicks Discord
+  <!-- DISCORD / COMMUNITY (Concept B Mix) -->
+  <section id="discord" class="discord-section relative">
+    <!-- Decor -->
+    <div class="discord-decor">
+      <div class="discord-watermark" aria-hidden="true"></div>
+      <div class="discord-ring" aria-hidden="true"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <!-- Top row: text left + panel right -->
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
+            <i data-lucide="message-square"></i> FusionTicks Discord
+          </div>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-bold">Community That Accelerates Progress</h2>
+          <p class="mt-2 text-white/70 max-w-2xl">
+            One place to read the market together, post daily levels, review trades, and learn live.
+            Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
+            progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
+            unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
+          </p>
+          <div class="mt-5">
+            <a href="https://YOUR_DISCORD_INVITE" target="_blank"
+               class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
+              <i data-lucide="send"></i> Join the Discord
+            </a>
+          </div>
         </div>
-        <h2 class="mt-3 text-3xl sm:text-4xl font-bold">Community That Accelerates Progress</h2>
-        <div class="ar ar-title">مجتمع يسرّع تقدّمك</div>
-        <p class="mt-2 text-white/70 max-w-2xl">
-          One place to read the market together, post daily levels, review trades, and learn live.
-          Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
-          progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
-          unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
-        </p>
-        <p class="ar max-w-2xl">مكان واحد لقراءة السوق معًا، ونشر المستويات اليومية، ومراجعة الصفقات، والتعلّم مباشرًا. تبدأ كـ <b>Tick Starter</b> ثم <b>Funded Trader</b> وعند أول سحب تصبح <b>Fusion Legend</b> وتُفتح لك غرفة التداول اليومية.</p>
-        <div class="mt-5">
-          <a href="https://YOUR_DISCORD_INVITE" target="_blank"
-             class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
-            <i data-lucide="send"></i> Join the Discord
-          </a>
+
+        <!-- Right panel -->
+        <div class="reveal">
+          <div class="glow-frame rounded-3xl">
+            <div class="rounded-3xl bg-black/50 border border-white/10 backdrop-blur p-4 sm:p-5">
+              <div class="flex items-center gap-3 px-2 pb-3 border-b border-white/10">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 opacity-80"></div>
+                <div class="font-semibold">FusionTicks</div>
+              </div>
+
+              <div class="mt-4 grid grid-cols-[40px_1fr] gap-3">
+                <!-- Sidebar icons -->
+                <div class="flex flex-col items-center gap-3 pt-1">
+                  <div class="w-8 h-8 rounded-xl bg-white/10 grid place-items-center">
+                    <i class="w-4 h-4" data-lucide="message-circle"></i>
+                  </div>
+                  <div class="w-8 h-8 rounded-xl bg-white/10 grid place-items-center">
+                    <i class="w-4 h-4" data-lucide="list"></i>
+                  </div>
+                  <div class="w-8 h-8 rounded-xl bg-white/10 grid place-items-center">
+                    <i class="w-4 h-4" data-lucide="message-square"></i>
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <div class="space-y-3">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="badge"># chatroom</span>
+                    <span class="badge"># market-news</span>
+                  </div>
+
+                  <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400"></div>
+                    <div class="text-sm leading-relaxed">
+                      <div class="text-white/90 font-medium">Blake Allen <span class="text-white/50 font-normal">10:31 AM</span></div>
+                      <div class="text-white/70">Hello everyone! Hope you’re all having a productive week 💪</div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-white/20"></div>
+                    <div class="text-sm leading-relaxed">
+                      <div class="text-white/90 font-medium">Thomas <span class="text-white/50 font-normal">10:37 AM</span></div>
+                      <div class="text-white/70">Ready to see how the session sets up around NYO.</div>
+                    </div>
+                  </div>
+
+                  <div class="mt-2 rounded-2xl border border-white/10 bg-white/5/0"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-3 gap-6">
+      <!-- Original cards (unchanged content) -->
+      <div class="mt-12 grid lg:grid-cols-3 gap-6">
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
             #chatroom
           </div>
           <p class="text-white/70 mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
-          <p class="ar">غرفة الدردشة اليومية: مشاركة الشارتات والأفكار والمساعدة السريعة.</p>
         </div>
+
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
             #market-news
           </div>
           <p class="text-white/70 mt-3">Weekly market calendar: which days to lean in and which days to stay light.</p>
-          <p class="ar">تقويم أسبوعي يوضّح أيام التركيز وأيام الحذر.</p>
         </div>
+
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="target" class="w-5 h-5"></i></span>
             #market-levels
           </div>
           <p class="text-white/70 mt-3">Daily levels so you’re prepared. We still wait for tool-based confirmation.</p>
-          <p class="ar">مستويات يومية لتكون مستعدًا—ومع ذلك ننتظر تأكيد أدوات القراءة.</p>
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="badge">NQ</span><span class="badge">ES</span><span class="badge">CL (Crude)</span><span class="badge">GC (Gold)</span>
           </div>
@@ -381,23 +441,22 @@
             Weekly Session
           </div>
           <p class="text-white/70 mt-3">Weekend live: review the week, map scenarios for next week—calm, focused.</p>
-          <p class="ar">بث أسبوعي نهاية الأسبوع: مراجعة ما حدث ورسم سيناريوهات الأسبوع القادم بهدوء وتركيز.</p>
         </div>
+
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="radio" class="w-5 h-5"></i></span>
             Live Session
           </div>
-          <p class="text-white/70 mt-3">Mid-week live for Q&A, coaching, and process refinement.</p>
-          <p class="ar">بث منتصف الأسبوع للأسئلة والتوجيه وتحسين العملية.</p>
+          <p class="text-white/70 mt-3">Mid-week live for Q&amp;A, coaching, and process refinement.</p>
         </div>
+
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>
             Live Trading (Unlocked)
           </div>
           <p class="text-white/70 mt-3">Daily live trading room for <b>Fusion Legend</b> only—after your first prop payout.</p>
-          <p class="ar">غرفة تداول يومية حصرية لـ <b>Fusion Legend</b> بعد أول سحب من شركة التمويل.</p>
         </div>
       </div>
 
@@ -405,34 +464,25 @@
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>
-            Role Path & Rules
+            Role Path &amp; Rules
           </div>
-          <div class="ar ar-title">المسارات والأدوار</div>
           <div class="mt-4 space-y-4">
             <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm">Your starting role. Build foundations.</span></div>
-            <div class="ar">دور البداية—ابنِ الأساسيات.</div>
             <div class="role-step"><span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span><span class="text-white/70 text-sm">Show your prop pass → upgrade.</span></div>
-            <div class="ar">أبرز نجاح اختبار شركة التمويل—ترقية فورية.</div>
             <div class="role-step"><span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span><span class="text-white/70 text-sm">First payout → unlock daily live trading.</span></div>
-            <div class="ar">أول سحب يفتح لك غرفة التداول اليومية.</div>
           </div>
           <ul class="mt-5 space-y-2 text-white/70 text-sm">
             <li class="flex gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cyan-300"></i> Respect first. No spam or blind signals.</li>
-            <li class="ar">الاحترام أولًا. لا سبام ولا إشارات عمياء.</li>
             <li class="flex gap-2"><i data-lucide="book-open-check" class="w-4 h-4 text-cyan-300"></i> Use the reading tools before any entry.</li>
-            <li class="ar">استخدم أدوات القراءة قبل أي دخول.</li>
             <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-cyan-300"></i> Education only. Not financial advice.</li>
-            <li class="ar">تعليمي فقط—not financial advice.</li>
           </ul>
         </div>
-
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
-            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkle" class="w-5 h-5"></i></span>
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkles" class="w-5 h-5"></i></span>
             Why Community Helps
           </div>
-          <p class="text-white/70 mt-3">You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial & error.</p>
-          <p class="ar">التعلّم أسرع برؤية قراءات متعددة، ومشاركة الخطط، والحصول على تغذية راجعة. الانضباط يصبح أسهل وتتجاوز سنوات من التجربة والخطأ.</p>
+          <p class="text-white/70 mt-3">You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial &amp; error.</p>
           <div class="mt-5">
             <a href="https://YOUR_DISCORD_INVITE" target="_blank"
                class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-white/10 hover:bg-white/20">
@@ -448,11 +498,8 @@
   <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">Choose Your Access</h2>
-      <div class="ar ar-title">اختر وصولك</div>
       <p class="mt-2 text-white/70">Intro price for first 40 members. Lifetime updates.</p>
-      <p class="ar">سعر تقديمي للأعضاء الأوائل. تحديثات مدى الحياة.</p>
     </div>
-
     <div class="grid lg:grid-cols-3 gap-6">
       <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
         <div class="flex items-center justify-between">
@@ -460,14 +507,10 @@
           <span class="text-2xl font-extrabold">$149</span>
         </div>
         <p class="text-white/70 mt-2">Self-paced core curriculum</p>
-        <p class="ar">منهج أساسي بوتيرة ذاتية</p>
         <ul class="mt-3 space-y-2 text-white/80">
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Full course</li>
-          <li class="ar">الدورة كاملة</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord</li>
-          <li class="ar">ديسكورد خاص</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly market levels</li>
-          <li class="ar">مستويات السوق أسبوعيًا</li>
         </ul>
         <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Get Starter</a>
       </div>
@@ -478,14 +521,10 @@
           <span class="text-2xl font-extrabold">$299</span>
         </div>
         <p class="text-white/70 mt-2">Everything in Starter + live sessions</p>
-        <p class="ar">كل ما في Starter + جلسات مباشرة</p>
         <ul class="mt-3 space-y-2 text-white/80">
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Starter</li>
-          <li class="ar">كل مميزات Starter</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&A</li>
-          <li class="ar">أسئلة وأجوبة مباشر أسبوعيًا</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Playbooks & templates</li>
-          <li class="ar">كتيبات وقوالب جاهزة</li>
         </ul>
         <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Go Pro</a>
       </div>
@@ -496,14 +535,10 @@
           <span class="text-2xl font-extrabold">$699</span>
         </div>
         <p class="text-white/70 mt-2">1:1 guidance with Khalid</p>
-        <p class="ar">إرشاد فردي مع خالد</p>
         <ul class="mt-3 space-y-2 text-white/80">
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Pro</li>
-          <li class="ar">كل مميزات Pro</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> 1:1 calls (limited)</li>
-          <li class="ar">مكالمات فردية (محدودة)</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Personalized feedback</li>
-          <li class="ar">ملاحظات مخصّصة</li>
         </ul>
         <a href="https://YOUR_APPLY_FORM" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Apply Now</a>
       </div>
@@ -514,30 +549,24 @@
   <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">FAQ</h2>
-      <div class="ar ar-title">الأسئلة الشائعة</div>
       <p class="mt-2 text-white/70">Still curious? Start here.</p>
-      <p class="ar">أسئلة؟ ابدأ من هنا.</p>
     </div>
     <div class="space-y-4">
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
         <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
         <p class="text-white/70 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
-        <p class="ar mt-2">للمبتدئين والمتقدمين. نبدأ بقراءة السوق وصولًا للتنفيذ. الهدف: تصنع إعداداتك أنت—not copy.</p>
       </details>
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
         <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
         <p class="text-white/70 mt-2">Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
-        <p class="ar mt-2">نركّز على NQ و ES و CL و GC مع تكتيكات خاصة بكل جلسة وقوالب مخاطر واضحة.</p>
       </details>
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
         <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
         <p class="text-white/70 mt-2">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
-        <p class="ar mt-2">نعم. كل باقة تتضمن دخول الديسكورد الخاص مع جلسات أسبوعية ومستويات يومية.</p>
       </details>
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
         <summary class="cursor-pointer font-medium">What’s the core philosophy?</summary>
         <p class="text-white/70 mt-2">Identify who’s in control, then stack confirmations. Levels are preparation—not entries. Risk first, always.</p>
-        <p class="ar mt-2">اعرف من المسيطر ثم راكم التأكيدات. المستويات تحضير لا دخول. المخاطرة أولًا دائمًا.</p>
       </details>
     </div>
   </section>
@@ -547,9 +576,7 @@
     <div class="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-blue-600/20 to-cyan-400/10 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center reveal">
       <div>
         <h3 class="text-2xl md:text-3xl font-extrabold">Ready to trade with clarity?</h3>
-        <div class="ar ar-title">جاهز تتداول بوضوح؟</div>
         <p class="text-white/80 mt-2">Join FusionTicks today. Read the market, stack confirmations, and execute like a pro.</p>
-        <p class="ar">انضم اليوم. اقرأ السوق، راكم التأكيدات، ونفّذ باحتراف.</p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href="https://YOUR_WHOP_LINK" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 inline-flex items-center">
             <i data-lucide="dollar-sign" class="mr-2 h-5 w-5"></i> Get Access on Whop
@@ -574,6 +601,7 @@
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
+        <!-- Instagram -->
         <a class="social" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
@@ -581,11 +609,13 @@
             <circle cx="17.5" cy="6.5" r="1"></circle>
           </svg>
         </a>
+        <!-- YouTube -->
         <a class="social" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2.6 8.2.6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c.6-2 .6-4.9.6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
           </svg>
         </a>
+        <!-- TikTok -->
         <a class="social" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
           <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
             <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
@@ -605,16 +635,6 @@
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-      // Arabic toggle
-      const arBtn = document.getElementById('toggle-ar');
-      const setAr = (on) => {
-        document.body.classList.toggle('show-ar', on);
-        arBtn.classList.toggle('active', on);
-        localStorage.setItem('ft_ar', on ? '1' : '0');
-      };
-      setAr(localStorage.getItem('ft_ar') === '1');
-      arBtn.addEventListener('click', () => setAr(!document.body.classList.contains('show-ar')));
     });
   </script>
 </body>
