@@ -7,7 +7,7 @@
   <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
   <link rel="icon" href="./FT%20Logo.png" type="image/png"/>
 
-  <!-- OpenGraph (optional) -->
+  <!-- OpenGraph -->
   <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
   <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
   <meta property="og:image" content="./FT%20Logo.png"/>
@@ -26,7 +26,6 @@
 
     /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
-    /* Blue top-right / Green bottom-left (HQ glow) */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
       background:
@@ -90,53 +89,67 @@
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
-    /* ==== Community (Concept B mix) ==== */
-    .discord-section{position:relative;overflow:hidden}
-    .discord-decor{position:absolute;inset:0;pointer-events:none;z-index:0}
+    /* ============ DISCORD HERO (Concept B, no cut) ============ */
+    #discord { position: relative; overflow: visible; }
+    .discord-hero { position: relative; overflow: visible; }
 
-    /* Halo / ring on the right */
-    .discord-ring{
-      position:absolute; right:-6%; top:-80px; width:780px; height:780px; border-radius:9999px;
-      background:
-        radial-gradient(closest-side, rgba(59,130,246,0) 72%, rgba(99,102,241,.55) 88%, rgba(59,130,246,0) 100%);
+    /* watermark (left) */
+    .dsc-watermark{
+      position:absolute; left:-8%; top:-90px; width:560px; height:560px;
+      background:url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240">\
+<path fill="%23ffffff" fill-opacity=".06" d="M104.4 104.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1 10.3-5 10.2-11.1c0-6.1-4.6-11.1-10.2-11.1zm36.2 0c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.3-5 10.2-11.1 0-6.1-4.5-11.1-10.2-11.1z"/>\
+<path fill="%23ffffff" fill-opacity=".06" d="M189.5 20h-134C41.1 20 30 31.1 30 44.5v134c0 13.4 11.1 24.5 25.5 24.5h113.2l-5.3-18.2 12.7 11.8 12 11.1 21.3 19.3V44.5C209 31.1 197.9 20 184.5 20z"/>\
+</svg>') no-repeat 50% 50%/contain;
+      filter: blur(0.8px);
+      pointer-events:none; z-index:0;
+    }
+
+    /* orbit (right) */
+    .dsc-orbit{ position:absolute; right:-12%; top:-160px; width:980px; height:980px;
+      pointer-events:none; z-index:0; overflow:visible; }
+    .dsc-orbit::before{
+      content:""; position:absolute; inset:0; border-radius:9999px;
+      -webkit-mask:radial-gradient(closest-side, transparent calc(50% - 2px),
+                                   #000 calc(50% - 2px) calc(50% + 2px),
+                                   transparent calc(50% + 2px));
+              mask:radial-gradient(closest-side, transparent calc(50% - 2px),
+                                   #000 calc(50% - 2px) calc(50% + 2px),
+                                   transparent calc(50% + 2px));
+      background: radial-gradient(circle at 50% 50%, rgba(99,102,241,.95), rgba(59,130,246,.95));
       box-shadow:
-        0 0 140px rgba(59,130,246,.35),
-        0 0 260px rgba(14,165,233,.25);
-      opacity:.85; filter:blur(.5px);
+        0 0 0 1px rgba(164,196,255,.45),
+        0 0 60px 6px rgba(59,130,246,.25),
+        0 0 120px 18px rgba(34,211,238,.18);
+    }
+    .dsc-orbit::after{
+      content:""; position:absolute; inset:-14%; border-radius:9999px; filter:blur(8px);
+      background:
+        radial-gradient(closest-side, rgba(59,130,246,.22), transparent 70%),
+        radial-gradient(closest-side, rgba(34,211,238,.16), transparent 60%);
     }
 
-    /* Watermark (discord-like) very subtle on the left */
-    .discord-watermark{
-      position:absolute; left:-8%; top:-12%; width:560px; height:560px; opacity:.06; filter:blur(.5px);
-      background-repeat:no-repeat; background-size:contain;
-      background-image:url('data:image/svg+xml;utf8,\
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90">\
-<path d="M20 22 Q60 4 100 22 Q106 42 100 62 Q60 82 20 62 Q14 42 20 22 Z" fill="%23ffffff"/>\
-<circle cx="50" cy="45" r="7" fill="%23000000"/>\
-<circle cx="80" cy="45" r="7" fill="%23000000"/>\
-</svg>');
+    /* mock card */
+    .dsc-mock{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.22));
+      box-shadow:
+        0 24px 80px rgba(0,0,0,.55),
+        0 0 40px rgba(59,130,246,.25),
+        inset 0 1px 0 rgba(255,255,255,.08);
     }
-
-    /* Framed glow panel */
-    .glow-frame{position:relative; z-index:1}
-    .glow-frame:before{
-      content:""; position:absolute; inset:-2px; border-radius:24px;
-      background:linear-gradient(135deg, rgba(99,102,241,.55), rgba(14,165,233,.45));
-      filter:blur(18px); opacity:.42; pointer-events:none;
-    }
-
-    @media (max-width: 1024px){
-      .discord-ring{right:-30%; top:-120px; width:680px; height:680px; opacity:.65}
-      .discord-watermark{left:-22%; top:-18%; width:520px; height:520px}
-    }
-    @media (max-width: 640px){
-      .discord-ring{right:-50%; top:-160px; width:580px; height:580px; opacity:.5}
-      .discord-watermark{display:none}
+    .discord-badge{
+      display:inline-flex;align-items:center;gap:.5rem;
+      padding:.4rem .6rem;border-radius:999px;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+      font-size:.9rem; color:rgba(255,255,255,.75)
     }
   </style>
 </head>
 
 <body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
+
   <!-- Background layers -->
   <div class="layer-base"></div>
   <div class="layer-glow"></div>
@@ -196,7 +209,6 @@
         </div>
       </div>
 
-      <!-- Logo visual -->
       <div class="relative z-10 flex items-center justify-center reveal">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
              class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
@@ -312,7 +324,7 @@
         <p class="mt-3 text-white/70">Use tools: swings, BOS/CHoCH, FVG, balance. Identify a shift in control.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="flag" class="w-5 h-5"></i> 3) Confirm</div>
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div>
         <p class="mt-3 text-white/70">Stack confirmations (context → signal → invalidation). If it’s clean: execute.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
@@ -322,92 +334,40 @@
     </div>
   </section>
 
-  <!-- DISCORD / COMMUNITY (Concept B Mix) -->
-  <section id="discord" class="discord-section relative">
-    <!-- Decor -->
-    <div class="discord-decor">
-      <div class="discord-watermark" aria-hidden="true"></div>
-      <div class="discord-ring" aria-hidden="true"></div>
-    </div>
+  <!-- DISCORD / COMMUNITY (Concept B hero + existing cards) -->
+  <section id="discord" class="relative">
+    <!-- HERO -->
+    <div class="discord-hero max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="dsc-watermark"></div>
+      <div class="dsc-orbit"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-      <!-- Top row: text left + panel right -->
-      <div class="grid lg:grid-cols-2 gap-10 items-center">
-        <div class="reveal">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
-            <i data-lucide="message-square"></i> FusionTicks Discord
-          </div>
-          <h2 class="mt-3 text-3xl sm:text-4xl font-bold">Community That Accelerates Progress</h2>
-          <p class="mt-2 text-white/70 max-w-2xl">
-            One place to read the market together, post daily levels, review trades, and learn live.
-            Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
-            progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
-            unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
-          </p>
-          <div class="mt-5">
-            <a href="https://YOUR_DISCORD_INVITE" target="_blank"
-               class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
-              <i data-lucide="send"></i> Join the Discord
-            </a>
-          </div>
+      <div class="relative z-[1]">
+        <div class="discord-badge">
+          <i data-lucide="message-square"></i> FusionTicks Discord
         </div>
-
-        <!-- Right panel -->
-        <div class="reveal">
-          <div class="glow-frame rounded-3xl">
-            <div class="rounded-3xl bg-black/50 border border-white/10 backdrop-blur p-4 sm:p-5">
-              <div class="flex items-center gap-3 px-2 pb-3 border-b border-white/10">
-                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 opacity-80"></div>
-                <div class="font-semibold">FusionTicks</div>
-              </div>
-
-              <div class="mt-4 grid grid-cols-[40px_1fr] gap-3">
-                <!-- Sidebar icons -->
-                <div class="flex flex-col items-center gap-3 pt-1">
-                  <div class="w-8 h-8 rounded-xl bg-white/10 grid place-items-center">
-                    <i class="w-4 h-4" data-lucide="message-circle"></i>
-                  </div>
-                  <div class="w-8 h-8 rounded-xl bg-white/10 grid place-items-center">
-                    <i class="w-4 h-4" data-lucide="list"></i>
-                  </div>
-                  <div class="w-8 h-8 rounded-xl bg-white/10 grid place-items-center">
-                    <i class="w-4 h-4" data-lucide="message-square"></i>
-                  </div>
-                </div>
-
-                <!-- Content -->
-                <div class="space-y-3">
-                  <div class="flex flex-wrap gap-2">
-                    <span class="badge"># chatroom</span>
-                    <span class="badge"># market-news</span>
-                  </div>
-
-                  <div class="flex items-start gap-3">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400"></div>
-                    <div class="text-sm leading-relaxed">
-                      <div class="text-white/90 font-medium">Blake Allen <span class="text-white/50 font-normal">10:31 AM</span></div>
-                      <div class="text-white/70">Hello everyone! Hope you’re all having a productive week 💪</div>
-                    </div>
-                  </div>
-
-                  <div class="flex items-start gap-3">
-                    <div class="w-8 h-8 rounded-full bg-white/20"></div>
-                    <div class="text-sm leading-relaxed">
-                      <div class="text-white/90 font-medium">Thomas <span class="text-white/50 font-normal">10:37 AM</span></div>
-                      <div class="text-white/70">Ready to see how the session sets up around NYO.</div>
-                    </div>
-                  </div>
-
-                  <div class="mt-2 rounded-2xl border border-white/10 bg-white/5/0"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold">Community That Accelerates Progress</h2>
+        <p class="mt-2 text-white/70 max-w-2xl">
+          One place to read the market together, post daily levels, review trades, and learn live.
+          Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
+          progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
+          unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
+        </p>
+        <div class="mt-5">
+          <a href="https://YOUR_DISCORD_INVITE" target="_blank"
+             class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
+            <i data-lucide="send"></i> Join the Discord
+          </a>
         </div>
       </div>
 
-      <!-- Original cards (unchanged content) -->
-      <div class="mt-12 grid lg:grid-cols-3 gap-6">
+      <div class="relative z-[1] flex items-center justify-center">
+        <img src="./discord-mock.png" alt="Discord preview" class="dsc-mock w-[560px] md:w-[640px] lg:w-[700px]">
+      </div>
+    </div>
+
+    <!-- CARDS (unchanged content/style) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-6">
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
@@ -448,7 +408,7 @@
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="radio" class="w-5 h-5"></i></span>
             Live Session
           </div>
-          <p class="text-white/70 mt-3">Mid-week live for Q&amp;A, coaching, and process refinement.</p>
+          <p class="text-white/70 mt-3">Mid-week live for Q&A, coaching, and process refinement.</p>
         </div>
 
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
@@ -464,7 +424,7 @@
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>
-            Role Path &amp; Rules
+            Role Path & Rules
           </div>
           <div class="mt-4 space-y-4">
             <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm">Your starting role. Build foundations.</span></div>
@@ -479,10 +439,10 @@
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
-            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkles" class="w-5 h-5"></i></span>
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkle" class="w-5 h-5"></i></span>
             Why Community Helps
           </div>
-          <p class="text-white/70 mt-3">You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial &amp; error.</p>
+          <p class="text-white/70 mt-3">You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial & error.</p>
           <div class="mt-5">
             <a href="https://YOUR_DISCORD_INVITE" target="_blank"
                class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-white/10 hover:bg-white/20">
