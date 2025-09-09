@@ -72,7 +72,7 @@
     }
     .plan:hover:before{opacity:.35}
 
-    /* Discord helpers */
+    /* Badges */
     .badge{
       display:inline-flex;align-items:center;gap:.35rem;
       padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
@@ -98,13 +98,13 @@
       color: transparent;
     }
 
-    /* ===== Added: Back-to-top button ===== */
-    .to-top{
+    /* Back-to-top button (desktop & mobile) */
+    .back-to-top{
       position:fixed; right:18px; bottom:18px; z-index:60;
-      opacity:0; transform:translateY(8px); pointer-events:none;
+      transform:translateY(12px); opacity:0; pointer-events:none;
       transition:opacity .25s ease, transform .25s ease;
     }
-    .to-top.show{ opacity:1; transform:none; pointer-events:auto; }
+    .back-to-top.show{ opacity:1; transform:none; pointer-events:auto; }
   </style>
 </head>
 
@@ -123,7 +123,7 @@
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
 
-      <!-- Desktop nav (كما هي) -->
+      <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#approach" class="hover:text-white">Approach</a>
         <a href="#curriculum" class="hover:text-white">Curriculum</a>
@@ -134,12 +134,25 @@
       </nav>
 
       <div class="flex items-center gap-3">
-        <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
+        <a href="#pricing" class="hidden sm:inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
 
-        <!-- ===== Added: Mobile hamburger button ===== -->
-        <button id="openMenu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20">
+        <!-- Mobile hamburger -->
+        <button id="hamburgerBtn" aria-label="Open menu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10">
           <i data-lucide="menu"></i>
         </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-black/70 backdrop-blur">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col gap-2 text-sm text-white/90">
+        <a href="#approach" class="py-2">Approach</a>
+        <a href="#curriculum" class="py-2">Curriculum</a>
+        <a href="#how" class="py-2">How it Works</a>
+        <a href="#discord" class="py-2">Community</a>
+        <a href="#pricing" class="py-2">Pricing</a>
+        <a href="#faq" class="py-2">FAQ</a>
+        <a href="#pricing" class="mt-2 inline-flex items-center justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Get Access</a>
       </div>
     </div>
 
@@ -154,26 +167,6 @@
     </div>
   </header>
 
-  <!-- ===== Added: Mobile slide menu (ينفتح بزر الهمبرغر) ===== -->
-  <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="absolute right-0 top-0 h-full w-72 bg-neutral-900 border-l border-white/10 p-5 flex flex-col gap-4">
-      <div class="flex items-center justify-between">
-        <span class="font-semibold">Menu</span>
-        <button id="closeMenu" class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20">
-          <i data-lucide="x"></i>
-        </button>
-      </div>
-      <a href="#approach" class="py-2 border-b border-white/10">Approach</a>
-      <a href="#curriculum" class="py-2 border-b border-white/10">Curriculum</a>
-      <a href="#how" class="py-2 border-b border-white/10">How it Works</a>
-      <a href="#discord" class="py-2 border-b border-white/10">Community</a>
-      <a href="#pricing" class="py-2 border-b border-white/10">Pricing</a>
-      <a href="#faq" class="py-2">FAQ</a>
-      <a href="#pricing" class="mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-center">Get Access</a>
-    </div>
-  </div>
-
   <!-- HERO -->
   <section class="relative overflow-visible">
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -187,9 +180,17 @@
           and started <b>reading the market</b>. FusionTicks is a practical, risk-first program that
           teaches you to stack confirmations and build repeatable setups—no signals, no hype.
         </p>
+
+        <div class="mt-4 flex flex-wrap gap-2 text-xs text-white/70">
+          <span class="badge"><i data-lucide="shield"></i> Risk-first</span>
+          <span class="badge"><i data-lucide="scan-line"></i> Read the market</span>
+          <span class="badge"><i data-lucide="layers"></i> Stack confirmations</span>
+          <span class="badge"><i data-lucide="notebook-pen"></i> Journaling</span>
+        </div>
+
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
-            Get Access
+            Get Access <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
           </a>
           <a href="#curriculum" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20">
             <i data-lucide="book-open" class="mr-2 w-5 h-5"></i> See Curriculum
@@ -329,15 +330,16 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div class="mb-8 sm:mb-12 reveal">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
-          <!-- Discord icon -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.35-.43.82-.589 1.192a18.27 18.27 0 0 0-7.938 0C7.872 3.82 7.64 3.35 7.441 3a19.736 19.736 0 0 0-3.761 1.369C1.87 8.149 1.171 12.03 1.5 15.86A19.9 19.9 0 0 0 7.09 18c.442-.61.84-1.262 1.188-1.94a12.79 12.79 0 0 0 7.444 0c.348.679.747 1.33 1.188 1.94a19.9 19.9 0 0 0 5.59-2.14c.375-4.165-.203-8.013-2.183-11.49ZM8.727 13.71c-1.074 0-1.948-.98-1.948-2.186 0-1.206.86-2.199 1.948-2.199 1.1 0 1.973.993 1.948 2.2.025 1.205-.848 2.185-1.948 2.185Zm6.571 0c-1.075 0-1.949-.98-1.949-2.186 0-1.206.861-2.199 1.949-2.199 1.1 0 1.972.993 1.948 2.2.024 1.205-.848 2.185-1.948 2.185Z"/>
-          </svg>
+          <!-- Discord logo (inline SVG) -->
+          <svg width="18" height="18" viewBox="0 0 48 48" fill="currentColor" class="opacity-80"><path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/></svg>
           FusionTicks Discord
         </div>
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold">Community That Accelerates Progress</h2>
         <p class="mt-2 text-white/70 max-w-2xl">
           One place to read the market together, post daily levels, review trades, and learn live.
+          Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
+          progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
+          unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
         </p>
         <div class="mt-5">
           <a href="https://YOUR_DISCORD_INVITE" target="_blank"
@@ -370,6 +372,60 @@
           <p class="text-white/70 mt-3">Daily levels so you’re prepared. We still wait for tool-based confirmation.</p>
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="badge">NQ</span><span class="badge">ES</span><span class="badge">CL (Crude)</span><span class="badge">GC (Gold)</span>
+          </div>
+        </div>
+
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="calendar-check" class="w-5 h-5"></i></span>
+            Weekly Session
+          </div>
+          <p class="text-white/70 mt-3">Weekend live: review the week, map scenarios for next week—calm, focused.</p>
+        </div>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="radio" class="w-5 h-5"></i></span>
+            Live Session
+          </div>
+          <p class="text-white/70 mt-3">Mid-week live for Q&A, coaching, and process refinement.</p>
+        </div>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>
+            Live Trading (Unlocked)
+          </div>
+          <p class="text-white/70 mt-3">Daily live trading room for <b>Fusion Legend</b> only—after your first prop payout.</p>
+        </div>
+      </div>
+
+      <div class="mt-10 grid lg:grid-cols-2 gap-6">
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>
+            Role Path & Rules
+          </div>
+          <div class="mt-4 space-y-4">
+            <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm">Your starting role. Build foundations.</span></div>
+            <div class="role-step"><span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span><span class="text-white/70 text-sm">Show your prop pass → upgrade.</span></div>
+            <div class="role-step"><span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span><span class="text-white/70 text-sm">First payout → unlock daily live trading.</span></div>
+          </div>
+          <ul class="mt-5 space-y-2 text-white/70 text-sm">
+            <li class="flex gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cyan-300"></i> Respect first. No spam or blind signals.</li>
+            <li class="flex gap-2"><i data-lucide="book-open-check" class="w-4 h-4 text-cyan-300"></i> Use the reading tools before any entry.</li>
+            <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-cyan-300"></i> Education only. Not financial advice.</li>
+          </ul>
+        </div>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkle" class="w-5 h-5"></i></span>
+            Why Community Helps
+          </div>
+          <p class="text-white/70 mt-3">You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial & error.</p>
+          <div class="mt-5">
+            <a href="https://YOUR_DISCORD_INVITE" target="_blank"
+               class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-white/10 hover:bg-white/20">
+              <i data-lucide="users"></i> Join Free
+            </a>
           </div>
         </div>
       </div>
@@ -507,9 +563,9 @@
     </div>
   </footer>
 
-  <!-- ===== Added: Back-to-top button ===== -->
-  <button id="toTop" class="to-top rounded-full bg-white/10 backdrop-blur border border-white/15 px-3 py-3 hover:bg-white/20">
-    <i data-lucide="arrow-up"></i>
+  <!-- Back to top FAB -->
+  <button id="backToTop" class="back-to-top inline-flex items-center gap-2 px-3 h-11 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10">
+    <i data-lucide="arrow-up"></i> <span class="hidden sm:inline">Top</span>
   </button>
 
   <script>
@@ -523,24 +579,32 @@
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-      // ===== Back-to-top logic =====
-      const toTop = document.getElementById('toTop');
-      const toggleTop = () => {
-        if (window.scrollY > 500) toTop.classList.add('show');
-        else toTop.classList.remove('show');
-      };
-      toggleTop();
-      window.addEventListener('scroll', toggleTop);
-      toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+      // Mobile menu toggle
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileMenu   = document.getElementById('mobileMenu');
+      hamburgerBtn?.addEventListener('click', ()=>{
+        mobileMenu.classList.toggle('hidden');
+      });
+      // Close mobile menu on link click
+      mobileMenu?.querySelectorAll('a').forEach(a=>{
+        a.addEventListener('click', ()=> mobileMenu.classList.add('hidden'));
+      });
+      // Click outside to close
+      document.addEventListener('click', (e)=>{
+        if (!mobileMenu || mobileMenu.classList.contains('hidden')) return;
+        const within = mobileMenu.contains(e.target) || hamburgerBtn.contains(e.target);
+        if (!within) mobileMenu.classList.add('hidden');
+      });
 
-      // ===== Mobile menu logic =====
-      const openBtn = document.getElementById('openMenu');
-      const closeBtn = document.getElementById('closeMenu');
-      const menu = document.getElementById('mobileMenu');
-      const toggleMenu = (show) => { menu.classList.toggle('hidden', !show); document.body.classList.toggle('overflow-hidden', show); };
-      openBtn?.addEventListener('click', ()=>toggleMenu(true));
-      closeBtn?.addEventListener('click', ()=>toggleMenu(false));
-      menu?.addEventListener('click', (e)=>{ if(e.target === menu) toggleMenu(false); });
+      // Back to top show/hide + action
+      const backBtn = document.getElementById('backToTop');
+      const toggleBackBtn = ()=>{
+        if (window.scrollY > 600) backBtn.classList.add('show');
+        else backBtn.classList.remove('show');
+      };
+      window.addEventListener('scroll', toggleBackBtn, {passive:true});
+      toggleBackBtn();
+      backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
     });
   </script>
 </body>
