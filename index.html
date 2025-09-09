@@ -6,12 +6,14 @@
   <title>FusionTicks – Trade with Clarity</title>
   <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
 
-  <!-- Icons / Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
-  <link rel="icon" href="/favicon.ico">
-  <link rel="manifest" href="/site.webmanifest">
+  <!-- FAVICONS / MANIFEST -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./favicon-512x512.png">
+  <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="manifest" href="./site.webmanifest">
+  <!-- (اختياري) آبل -->
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 
   <!-- OpenGraph -->
   <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
@@ -24,17 +26,15 @@
     tailwind.config = { theme: { extend: { colors: { 'bg-dark':'#070910' } } } }
   </script>
 
-  <!-- Lucide Icons -->
+  <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
     html{scroll-behavior:smooth}
-    :root{ --header-h: 74px; }
-    /* يجعل العناوين ظاهرة بعد القفز للأقسام */
-    section[id]{ scroll-margin-top: calc(var(--header-h) + 14px); }
 
-    /* خلفية عامة */
+    /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
+    /* Blue top-right / Green bottom-left (HQ glow) */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
       background:
@@ -52,16 +52,16 @@
       background-size:22px 22px; background-repeat:repeat; opacity:.03;
     }
 
-    /* شريط المؤشرات */
+    /* Ticker */
     .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
     .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    /* انيميشن الظهور */
+    /* Animations */
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1;transform:none}
 
-    /* كروت بلمعة بسيطة */
+    /* Card glow on hover */
     .card-glow{position:relative;border-radius:16px;}
     .card-glow:before{
       content:"";position:absolute;inset:-1px;border-radius:inherit;
@@ -72,7 +72,7 @@
     }
     .card-glow:hover:before{opacity:.7}
 
-    /* Pricing */
+    /* Pricing hover glow */
     .plan{position:relative;border-radius:16px}
     .plan:before{
       content:"";position:absolute;inset:-1px;border-radius:inherit;
@@ -81,33 +81,65 @@
     }
     .plan:hover:before{opacity:.35}
 
+    /* Discord/UI helpers */
     .badge{
       display:inline-flex;align-items:center;gap:.35rem;
       padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
       background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
     }
+    .role-step{display:flex;align-items:center;gap:.5rem;position:relative}
+    .role-step:after{
+      content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;
+      background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent);
+    }
+    .role-step:last-child:after{display:none}
 
+    /* Social circles */
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
-    .gradient-text{ background: linear-gradient(to right, #3b82f6, #67e8f9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    /* Gradient text helper */
+    .gradient-text{
+      background: linear-gradient(to right, #3b82f6, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
 
-    /* زر للأعلى */
-    #toTop{position:fixed; right:16px; bottom:18px; z-index:60; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; transform:translateY(8px)}
-    #toTop.show{opacity:1; pointer-events:auto; transform:none;}
+    /* ===== Mobile menu improvements ===== */
+    body.menu-open { overflow: hidden; } /* lock scroll when menu open */
+
+    .menu-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .glass-panel{
+      background: rgba(14,20,30,.45);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    }
+
+    /* Anchor offset so titles don't hide under sticky header */
+    section[id]{ scroll-margin-top: 98px; }
   </style>
 </head>
 
 <body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
-  <!-- خلفية -->
+  <!-- Background layers -->
   <div class="layer-base"></div>
   <div class="layer-glow"></div>
   <div class="layer-noise"></div>
   <div class="layer-dots"></div>
 
   <!-- NAV -->
-  <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10" style="height:var(--header-h);">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+  <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
         <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"/>
         <span class="font-semibold tracking-tight">FusionTicks</span>
@@ -123,14 +155,14 @@
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <a href="#pricing" class="hidden sm:inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
-
-        <!-- Hamburger -->
-        <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20" aria-label="Open menu">
-          <i data-lucide="menu"></i>
-        </button>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
       </div>
+
+      <!-- Mobile button -->
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
 
     <!-- Ticker -->
@@ -142,26 +174,29 @@
         <span class="mx-6">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="mx-6">Risk First • Setup-Driven • No Signals</span>
       </div>
     </div>
-
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
-      <div class="absolute inset-0 bg-black/40" data-close></div>
-      <div class="absolute right-3 left-3 top-[88px] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
-        <div class="p-3 flex justify-end">
-          <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-close aria-label="Close menu"><i data-lucide="x"></i></button>
-        </div>
-        <nav class="px-4 pb-4 text-base">
-          <a class="block py-3 border-t border-white/10 first:border-t-0" href="#approach">Approach</a>
-          <a class="block py-3 border-t border-white/10" href="#curriculum">Curriculum</a>
-          <a class="block py-3 border-t border-white/10" href="#how">How it Works</a>
-          <a class="block py-3 border-t border-white/10" href="#discord">Community</a>
-          <a class="block py-3 border-t border-white/10" href="#pricing">Pricing</a>
-          <a class="block py-3 border-t border-white/10" href="#faq">FAQ</a>
-          <a class="mt-4 block text-center rounded-xl py-3 bg-gradient-to-r from-blue-600 to-cyan-400">Get Access</a>
-        </nav>
-      </div>
-    </div>
   </header>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
+    <div class="menu-overlay" data-close></div>
+    <div class="absolute right-3 left-3 top-[88px] glass-panel">
+      <div class="p-3 flex justify-end">
+        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-close aria-label="Close menu">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <nav class="px-4 pb-4 text-base">
+        <a class="block py-3 border-t border-white/10 first:border-t-0" href="#approach">Approach</a>
+        <a class="block py-3 border-t border-white/10" href="#curriculum">Curriculum</a>
+        <a class="block py-3 border-t border-white/10" href="#how">How it Works</a>
+        <a class="block py-3 border-t border-white/10" href="#discord">Community</a>
+        <a class="block py-3 border-t border-white/10" href="#pricing">Pricing</a>
+        <a class="block py-3 border-t border-white/10" href="#faq">FAQ</a>
+
+        <a href="#pricing" class="mt-4 block text-center rounded-xl py-3 bg-gradient-to-r from-blue-600 to-cyan-400">Get Access</a>
+      </nav>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="relative overflow-visible">
@@ -186,7 +221,6 @@
         </div>
       </div>
 
-      <!-- Logo visual -->
       <div class="relative z-10 flex items-center justify-center reveal">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
              class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
@@ -197,7 +231,7 @@
   <!-- APPROACH -->
   <section id="approach" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <div class="mb-8 sm:mb-12 reveal">
-      <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">The FusionTicks</span> Approach</h2>
+      <h2 class="text-3xl sm:text-4xl font-bold">The <span class="gradient-text">FusionTicks</span> Approach</h2>
       <p class="mt-2 text-white/70 max-w-3xl">
         Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>,
         identifying who’s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.
@@ -538,7 +572,7 @@
             <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2.6 8.2.6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c.6-2 .6-4.9.6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
           </svg>
         </a>
-        <!-- TikTok (رجّعناه) -->
+        <!-- TikTok -->
         <a class="social" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
           <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
             <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
@@ -548,8 +582,9 @@
     </div>
   </footer>
 
-  <!-- Back to top (سهم فقط) -->
-  <button id="toTop" class="rounded-full border border-white/15 bg-white/10 backdrop-blur p-3 hover:bg-white/20" aria-label="Back to top">
+  <!-- Back to top -->
+  <button id="backToTop" aria-label="Back to top"
+          class="fixed bottom-5 right-5 z-40 hidden items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20">
     <i data-lucide="arrow-up"></i>
   </button>
 
@@ -565,24 +600,32 @@
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
       // Back to top
-      const toTop = document.getElementById('toTop');
-      const showTop = ()=> {
-        if (window.scrollY > 600) toTop.classList.add('show'); else toTop.classList.remove('show');
+      const backBtn = document.getElementById('backToTop');
+      const toggleTop = () => {
+        if (window.scrollY > 500) backBtn.classList.remove('hidden');
+        else backBtn.classList.add('hidden');
       };
-      showTop();
-      window.addEventListener('scroll', showTop);
-      toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+      toggleTop();
+      window.addEventListener('scroll', toggleTop);
+      backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-      // Mobile menu open/close with blur
+      // ===== Mobile menu open/close with strong blur + lock scroll =====
       const menuBtn = document.getElementById('menuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
-      const openMenu = ()=> mobileMenu.classList.remove('hidden');
-      const closeMenu = ()=> mobileMenu.classList.add('hidden');
+
+      const openMenu = () => {
+        mobileMenu.classList.remove('hidden');
+        document.body.classList.add('menu-open');
+      };
+      const closeMenu = () => {
+        mobileMenu.classList.add('hidden');
+        document.body.classList.remove('menu-open');
+      };
+
       menuBtn.addEventListener('click', openMenu);
-      mobileMenu.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click', closeMenu));
-      // اغلاق تلقائي عند الضغط على أي رابط
-      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a=>{
-        a.addEventListener('click', ()=> setTimeout(closeMenu, 50));
+      mobileMenu.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
+      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', () => setTimeout(closeMenu, 50));
       });
     });
   </script>
