@@ -7,7 +7,7 @@
   <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
   <link rel="icon" href="./FT%20Logo.png" type="image/png"/>
 
-  <!-- OpenGraph (optional) -->
+  <!-- OpenGraph -->
   <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
   <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
   <meta property="og:image" content="./FT%20Logo.png"/>
@@ -42,6 +42,11 @@
       background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
       background-size:22px 22px; background-repeat:repeat; opacity:.03;
     }
+    /* subtle orbs */
+    .orb{position:absolute; filter:blur(45px); opacity:.35; pointer-events:none}
+    .orb.blue{background:#3b82f6;width:280px;height:280px;border-radius:50%}
+    .orb.cyan{background:#22d3ee;width:220px;height:220px;border-radius:50%}
+    .orb.green{background:#10b981;width:260px;height:260px;border-radius:50%}
 
     /* Ticker */
     .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
@@ -97,6 +102,10 @@
       -webkit-text-fill-color: transparent;
       color: transparent;
     }
+
+    /* Back to top button */
+    .to-top{position:fixed;right:16px;bottom:16px;z-index:60;transform:translateY(20px);opacity:0;transition:all .25s}
+    .to-top.show{transform:none;opacity:1}
   </style>
 </head>
 
@@ -107,6 +116,11 @@
   <div class="layer-noise"></div>
   <div class="layer-dots"></div>
 
+  <!-- floating orbs -->
+  <div class="orb blue" style="top:18vh; right:6vw;"></div>
+  <div class="orb cyan" style="bottom:10vh; left:8vw;"></div>
+  <div class="orb green" style="top:64vh; right:22vw;"></div>
+
   <!-- NAV -->
   <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
@@ -114,6 +128,8 @@
         <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"/>
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
+
+      <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#approach" class="hover:text-white">Approach</a>
         <a href="#curriculum" class="hover:text-white">Curriculum</a>
@@ -122,10 +138,30 @@
         <a href="#pricing" class="hover:text-white">Pricing</a>
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
-      <div class="flex items-center gap-3">
+
+      <div class="hidden md:flex items-center gap-3">
         <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
       </div>
+
+      <!-- Mobile -->
+      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-white/10">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileNav" class="md:hidden hidden border-t border-white/10 bg-black/70">
+      <div class="max-w-7xl mx-auto px-4 py-3 grid gap-2 text-white/80 text-sm">
+        <a href="#approach" class="py-2">Approach</a>
+        <a href="#curriculum" class="py-2">Curriculum</a>
+        <a href="#how" class="py-2">How it Works</a>
+        <a href="#discord" class="py-2">Community</a>
+        <a href="#pricing" class="py-2">Pricing</a>
+        <a href="#faq" class="py-2">FAQ</a>
+        <a href="#pricing" class="mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-center">Get Access</a>
+      </div>
+    </div>
+
     <!-- Ticker -->
     <div class="ticker border-t border-white/10 bg-black/30 text-white/70 text-sm">
       <div class="ticker-track">
@@ -150,13 +186,19 @@
           and started <b>reading the market</b>. FusionTicks is a practical, risk-first program that
           teaches you to stack confirmations and build repeatable setups—no signals, no hype.
         </p>
+        <div class="mt-6 flex flex-wrap gap-2 text-white/80">
+          <span class="badge"><i data-lucide="shield-check" class="w-4 h-4"></i> Risk-first</span>
+          <span class="badge"><i data-lucide="scan-line" class="w-4 h-4"></i> Read the market</span>
+          <span class="badge"><i data-lucide="layers" class="w-4 h-4"></i> Stack confirmations</span>
+          <span class="badge"><i data-lucide="notebook-pen" class="w-4 h-4"></i> Journaling</span>
+        </div>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
             Get Access <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
           </a>
-          <a href="#curriculum" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20">
-            <i data-lucide="book-open" class="mr-2 w-5 h-5"></i> See Curriculum
-          </a>
+          <button id="watchIntro" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20">
+            <i data-lucide="play-circle" class="mr-2 w-5 h-5"></i> Watch Intro
+          </button>
         </div>
       </div>
 
@@ -164,6 +206,28 @@
       <div class="relative z-10 flex items-center justify-center reveal">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
              class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-glow">
+          <div class="text-2xl font-extrabold gradient-text">5+</div>
+          <div class="text-white/60 text-sm">Years refining process</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-glow">
+          <div class="text-2xl font-extrabold gradient-text">3</div>
+          <div class="text-white/60 text-sm">Clear learning stages</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-glow">
+          <div class="text-2xl font-extrabold gradient-text">0</div>
+          <div class="text-white/60 text-sm">Signals / noise</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-glow">
+          <div class="text-2xl font-extrabold gradient-text">∞</div>
+          <div class="text-white/60 text-sm">Lifetime updates</div>
+        </div>
       </div>
     </div>
   </section>
@@ -212,9 +276,7 @@
       <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
     </div>
 
-    <!-- Tracks -->
     <div class="space-y-10">
-      <!-- A -->
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">A · Reading the Market</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -226,7 +288,7 @@
           <div class="bg-white/5 border border-white/10 rounded-xl p-4">6. Balance & Imbalance <span class="text-white/60">(FVG)</span></div>
         </div>
       </div>
-      <!-- B -->
+
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">B · Market Levels</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -236,7 +298,7 @@
         </div>
         <p class="mt-3 text-white/70 text-sm">Levels are not entries. They’re where we prepare—then we wait for our tools to confirm a shift in control.</p>
       </div>
-      <!-- C -->
+
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">C · Market Indicators</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -245,7 +307,7 @@
           <div class="bg-white/5 border border-white/10 rounded-xl p-4">12. Moving Power <span class="text-white/60">(EMA)</span></div>
         </div>
       </div>
-      <!-- D -->
+
       <div class="reveal">
         <h3 class="text-xl font-semibold mb-4">D · Behind the Scenes</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -358,34 +420,27 @@
         </div>
       </div>
 
-      <div class="mt-10 grid lg:grid-cols-2 gap-6">
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold">
-            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>
-            Role Path & Rules
+      <!-- Testimonials -->
+      <div class="mt-12 reveal">
+        <h3 class="text-2xl font-bold"><span class="gradient-text">What traders say</span></h3>
+        <div class="mt-4 grid md:grid-cols-3 gap-4">
+          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <div class="flex items-center gap-2 text-white/90 font-semibold">
+              <i data-lucide="star" class="w-5 h-5"></i> Ahmed
+            </div>
+            <p class="text-white/70 mt-2">“أول مرة أفهم السوق بهذه البساطة. التأكيدات خلتني أوقف التخمين.”</p>
           </div>
-          <div class="mt-4 space-y-4">
-            <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm">Your starting role. Build foundations.</span></div>
-            <div class="role-step"><span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span><span class="text-white/70 text-sm">Show your prop pass → upgrade.</span></div>
-            <div class="role-step"><span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span><span class="text-white/70 text-sm">First payout → unlock daily live trading.</span></div>
+          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <div class="flex items-center gap-2 text-white/90 font-semibold">
+              <i data-lucide="star" class="w-5 h-5"></i> Lina
+            </div>
+            <p class="text-white/70 mt-2">“التركيز على المخاطرة قبل أي شيء هو اللي كان ناقصني.”</p>
           </div>
-          <ul class="mt-5 space-y-2 text-white/70 text-sm">
-            <li class="flex gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cyan-300"></i> Respect first. No spam or blind signals.</li>
-            <li class="flex gap-2"><i data-lucide="book-open-check" class="w-4 h-4 text-cyan-300"></i> Use the reading tools before any entry.</li>
-            <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-cyan-300"></i> Education only. Not financial advice.</li>
-          </ul>
-        </div>
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold">
-            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkle" class="w-5 h-5"></i></span>
-            Why Community Helps
-          </div>
-          <p class="text-white/70 mt-3">You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial & error.</p>
-          <div class="mt-5">
-            <a href="https://YOUR_DISCORD_INVITE" target="_blank"
-               class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-white/10 hover:bg-white/20">
-              <i data-lucide="users"></i> Join Free
-            </a>
+          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <div class="flex items-center gap-2 text-white/90 font-semibold">
+              <i data-lucide="star" class="w-5 h-5"></i> Omar
+            </div>
+            <p class="text-white/70 mt-2">“المجتمع نشِط ومفيد—تعلّمت من قراءات غيري أسرع بكتير.”</p>
           </div>
         </div>
       </div>
@@ -406,9 +461,9 @@
         </div>
         <p class="text-white/70 mt-2">Self-paced core curriculum</p>
         <ul class="mt-3 space-y-2 text-white/80">
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Full course</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly market levels</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5"></i> Full course</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5"></i> Private Discord</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5"></i> Weekly market levels</li>
         </ul>
         <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Get Starter</a>
       </div>
@@ -420,9 +475,9 @@
         </div>
         <p class="text-white/70 mt-2">Everything in Starter + live sessions</p>
         <ul class="mt-3 space-y-2 text-white/80">
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Starter</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&A</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Playbooks & templates</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5"></i> All Starter</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5"></i> Weekly live Q&A</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5"></i> Playbooks & templates</li>
         </ul>
         <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Go Pro</a>
       </div>
@@ -434,16 +489,39 @@
         </div>
         <p class="text-white/70 mt-2">1:1 guidance with Khalid</p>
         <ul class="mt-3 space-y-2 text-white/80">
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Pro</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> 1:1 calls (limited)</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Personalized feedback</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5"></i> All Pro</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5"></i> 1:1 calls (limited)</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5"></i> Personalized feedback</li>
         </ul>
         <a href="https://YOUR_APPLY_FORM" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Apply Now</a>
       </div>
     </div>
+
+    <!-- Pricing FAQ (added here, under pricing) -->
+    <div class="mt-10 reveal">
+      <h3 class="text-2xl font-bold"><span class="gradient-text">Pricing FAQ</span></h3>
+      <div class="mt-4 space-y-4">
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4">
+          <summary class="cursor-pointer font-medium">Is there a refund policy?</summary>
+          <p class="text-white/70 mt-2">Yes. If you feel the content isn’t a fit within 7 days, contact support and we’ll help.</p>
+        </details>
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4">
+          <summary class="cursor-pointer font-medium">How long do I keep access?</summary>
+          <p class="text-white/70 mt-2">Lifetime access—including future updates for the plan you purchased.</p>
+        </details>
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4">
+          <summary class="cursor-pointer font-medium">Can I upgrade later?</summary>
+          <p class="text-white/70 mt-2">You can upgrade from Starter → Pro anytime by paying the difference.</p>
+        </details>
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4">
+          <summary class="cursor-pointer font-medium">How many 1:1 calls in Mentorship?</summary>
+          <p class="text-white/70 mt-2">Limited monthly slots. We’ll schedule based on your goals and availability.</p>
+        </details>
+      </div>
+    </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- FAQ (general) -->
   <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">FAQ</span></h2>
@@ -470,7 +548,7 @@
   </section>
 
   <!-- CTA -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
     <div class="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-blue-600/20 to-cyan-400/10 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center reveal">
       <div>
         <h3 class="text-2xl md:text-3xl font-extrabold">Ready to trade with clarity?</h3>
@@ -485,8 +563,9 @@
         </div>
       </div>
       <div class="aspect-video rounded-2xl bg-black/40 border border-white/10 grid place-items-center text-white/60">
-        <i data-lucide="play-circle" class="h-10 w-10"></i>
-        <span class="sr-only">Intro Video Placeholder</span>
+        <button id="watchIntro2" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">
+          <i data-lucide="play-circle"></i> Watch Intro
+        </button>
       </div>
     </div>
   </section>
@@ -523,6 +602,25 @@
     </div>
   </footer>
 
+  <!-- Video Modal -->
+  <dialog id="videoModal" class="backdrop:bg-black/70 rounded-xl p-0 w-[92vw] max-w-3xl">
+    <div class="bg-[#0c0f18] border border-white/10 rounded-xl overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-white/10">
+        <div class="font-semibold">FusionTicks – Intro</div>
+        <button id="closeModal" class="p-2 rounded-lg bg-white/5 hover:bg-white/10"><i data-lucide="x"></i></button>
+      </div>
+      <div class="aspect-video bg-black grid place-items-center text-white/60">
+        <!-- Replace with your actual video embed or file -->
+        <span>Embed your video here</span>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Back to top -->
+  <button id="toTop" class="to-top px-3 py-2 rounded-lg bg-white/10 border border-white/10 backdrop-blur text-white/80 hover:bg-white/20">
+    <i data-lucide="arrow-up"></i>
+  </button>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
@@ -533,6 +631,29 @@
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+      // Mobile menu
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileNav = document.getElementById('mobileNav');
+      if(menuBtn){
+        menuBtn.addEventListener('click', ()=> mobileNav.classList.toggle('hidden'));
+      }
+
+      // Video modal
+      const dlg = document.getElementById('videoModal');
+      const openBtns = [document.getElementById('watchIntro'), document.getElementById('watchIntro2')].filter(Boolean);
+      const closeBtn = document.getElementById('closeModal');
+      openBtns.forEach(b=> b.addEventListener('click', ()=> dlg.showModal()));
+      if(closeBtn) closeBtn.addEventListener('click', ()=> dlg.close());
+
+      // Back to top
+      const toTop = document.getElementById('toTop');
+      const toggleToTop = () => {
+        if (window.scrollY > 500) toTop.classList.add('show'); else toTop.classList.remove('show');
+      };
+      window.addEventListener('scroll', toggleToTop);
+      toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+      toggleToTop();
     });
   </script>
 </body>
