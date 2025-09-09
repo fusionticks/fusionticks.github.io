@@ -7,6 +7,11 @@
   <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
   <link rel="icon" href="./FT%20Logo.png" type="image/png"/>
 
+  <!-- OpenGraph (optional) -->
+  <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
+  <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
+  <meta property="og:image" content="./FT%20Logo.png"/>
+
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -18,84 +23,107 @@
 
   <style>
     html{scroll-behavior:smooth}
-
-    /* ===== Base layers (fixed) ===== */
+    /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
-    .layer-noise{ position:fixed; inset:0; z-index:-59; pointer-events:none;
+    /* Blue top-right / Green bottom-left (HQ glow) */
+    .layer-glow{
+      position:fixed; inset:0; z-index:-55; pointer-events:none;
+      background:
+        radial-gradient(1200px at 76% 24%, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 56%),
+        radial-gradient(1100px at 16% 88%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
+    }
+    .layer-noise{
+      position:fixed; inset:0; z-index:-54; pointer-events:none;
       background:repeating-conic-gradient(from 0deg, rgba(255,255,255,.012) 0 2deg, rgba(0,0,0,0) 2deg 4deg);
-      opacity:.06; mix-blend-mode:overlay; }
-    .layer-dots{ position:fixed; inset:0; z-index:-58; pointer-events:none;
+      opacity:.06; mix-blend-mode:overlay;
+    }
+    .layer-dots{
+      position:fixed; inset:0; z-index:-53; pointer-events:none;
       background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
-      background-size:22px 22px; background-repeat:repeat; opacity:.03; }
-
-    /* ===== Page glows (scroll with page) ===== */
-    .page-glow{ position:absolute; inset:0; z-index:-55; pointer-events:none; }
-    .glow-top-right{
-      position:absolute; right:-280px; top:-140px; width:1200px; height:1200px;
-      background:radial-gradient(closest-side, rgba(59,130,246,.28), rgba(59,130,246,0) 70%);
+      background-size:22px 22px; background-repeat:repeat; opacity:.03;
     }
-    .glow-bottom-left{
-      position:absolute; left:-320px; bottom:-320px; width:1400px; height:1400px;
-      background:radial-gradient(closest-side, rgba(16,185,129,.22), rgba(16,185,129,0) 70%);
-    }
-
-    /* Logo local glow (centered) */
-    .logo-glow{position:absolute; inset:0; z-index:-1; pointer-events:none;
-      background:radial-gradient(820px at center, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 60%);}
 
     /* Ticker */
-    .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+    .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
     .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .ticker-item{display:inline-block;margin-inline:24px;opacity:.7}
 
     /* Animations */
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1;transform:none}
 
-    /* Cards / pricing */
+    /* Card glow on hover (border + soft aura) */
     .card-glow{position:relative;border-radius:16px;}
-    .card-glow:before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:radial-gradient(240px 120px at 20% 0%, rgba(59,130,246,.35), transparent 60%);filter:blur(14px);opacity:0;transition:opacity .3s ease;pointer-events:none;}
+    .card-glow:before{
+      content:"";position:absolute;inset:-1px;border-radius:inherit;
+      background:
+        radial-gradient(240px 120px at 20% 0%, rgba(59,130,246,.35), transparent 60%),
+        radial-gradient(300px 140px at 100% 100%, rgba(6,182,212,.28), transparent 55%);
+      filter:blur(14px);opacity:0;transition:opacity .3s ease;pointer-events:none;
+    }
     .card-glow:hover:before{opacity:.7}
+
+    /* Pricing - subtle border glow on hover */
     .plan{position:relative;border-radius:16px}
-    .plan:before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg, rgba(59,130,246,.6), rgba(34,211,238,.4));filter:blur(10px);opacity:0;transition:opacity .25s ease;pointer-events:none;}
+    .plan:before{
+      content:"";position:absolute;inset:-1px;border-radius:inherit;
+      background:linear-gradient(135deg, rgba(59,130,246,.6), rgba(34,211,238,.4));
+      filter:blur(10px);opacity:0;transition:opacity .25s ease;pointer-events:none;
+    }
     .plan:hover:before{opacity:.35}
 
-    /* Badges / social */
-    .badge{display:inline-flex;align-items:center;gap:.35rem;padding:.25rem .5rem;border-radius:999px;font-size:.75rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    /* Discord helpers */
+    .badge{
+      display:inline-flex;align-items:center;gap:.35rem;
+      padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    }
+    .role-step{display:flex;align-items:center;gap:.5rem;position:relative}
+    .role-step:after{
+      content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;
+      background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent);
+    }
+    .role-step:last-child:after{display:none}
+
+    /* Social circles in footer */
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
-    /* Back to top button */
-    .to-top{position:fixed;right:18px;bottom:18px;z-index:60;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .25s ease, transform .25s ease}
-    .to-top.show{opacity:1;transform:none;pointer-events:auto}
+    /* ===== Gradient text helper (same as Clarity) ===== */
+    .gradient-text{
+      background: linear-gradient(to right, #3b82f6, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
 
-    /* Remove any border around logo image explicitly */
-    img[alt="FusionTicks Logo"]{border:0; outline:none; box-shadow:none;}
+    /* ===== Added: Back-to-top button ===== */
+    .to-top{
+      position:fixed; right:18px; bottom:18px; z-index:60;
+      opacity:0; transform:translateY(8px); pointer-events:none;
+      transition:opacity .25s ease, transform .25s ease;
+    }
+    .to-top.show{ opacity:1; transform:none; pointer-events:auto; }
   </style>
 </head>
 
 <body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
-  <!-- Fixed background layers -->
+  <!-- Background layers -->
   <div class="layer-base"></div>
+  <div class="layer-glow"></div>
   <div class="layer-noise"></div>
   <div class="layer-dots"></div>
 
-  <!-- Page-scrolling glows -->
-  <div class="page-glow">
-    <div class="glow-top-right"></div>
-    <div class="glow-bottom-left"></div>
-  </div>
-
-  <!-- Header -->
+  <!-- NAV -->
   <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-8 w-auto"/>
+        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"/>
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
 
-      <!-- Desktop nav -->
+      <!-- Desktop nav (كما هي) -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#approach" class="hover:text-white">Approach</a>
         <a href="#curriculum" class="hover:text-white">Curriculum</a>
@@ -105,28 +133,28 @@
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
 
-      <!-- Right controls -->
       <div class="flex items-center gap-3">
-        <a href="#pricing" class="hidden sm:inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
-        <!-- Mobile toolbar (hamburger) -->
+        <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
+
+        <!-- ===== Added: Mobile hamburger button ===== -->
         <button id="openMenu" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20">
           <i data-lucide="menu"></i>
         </button>
       </div>
     </div>
 
-    <!-- Moving ticker -->
+    <!-- Ticker -->
     <div class="ticker border-t border-white/10 bg-black/30 text-white/70 text-sm">
       <div class="ticker-track">
-        <span class="ticker-item">NQ +0.72%</span><span class="ticker-item">ES +0.31%</span><span class="ticker-item">CL -0.45%</span><span class="ticker-item">GC +0.12%</span>
-        <span class="ticker-item">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="ticker-item">Risk First • Setup-Driven • No Signals</span>
-        <span class="ticker-item">NQ +0.72%</span><span class="ticker-item">ES +0.31%</span><span class="ticker-item">CL -0.45%</span><span class="ticker-item">GC +0.12%</span>
-        <span class="ticker-item">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="ticker-item">Risk First • Setup-Driven • No Signals</span>
+        <span class="mx-6">NQ +0.72%</span><span class="mx-6">ES +0.31%</span><span class="mx-6">CL -0.45%</span><span class="mx-6">GC +0.12%</span>
+        <span class="mx-6">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="mx-6">Risk First • Setup-Driven • No Signals</span>
+        <span class="mx-6">NQ +0.72%</span><span class="mx-6">ES +0.31%</span><span class="mx-6">CL -0.45%</span><span class="mx-6">GC +0.12%</span>
+        <span class="mx-6">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="mx-6">Risk First • Setup-Driven • No Signals</span>
       </div>
     </div>
   </header>
 
-  <!-- Mobile slide-over menu -->
+  <!-- ===== Added: Mobile slide menu (ينفتح بزر الهمبرغر) ===== -->
   <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/60"></div>
     <div class="absolute right-0 top-0 h-full w-72 bg-neutral-900 border-l border-white/10 p-5 flex flex-col gap-4">
@@ -146,304 +174,316 @@
     </div>
   </div>
 
-  <main class="relative">
-    <!-- HERO -->
-    <section class="relative overflow-visible">
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <div class="reveal">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
-            Trade with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-300">Clarity</span><br class="hidden sm:block"/>
-            Not Noise
-          </h1>
-          <p class="mt-5 text-white/70 max-w-xl">
-            I’m <b>Khalid Kuhail</b>. After 5 years in the trenches, I stopped chasing strategies
-            and started <b>reading the market</b>. FusionTicks is a practical, risk-first program that
-            teaches you to stack confirmations and build repeatable setups—no signals, no hype.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
-              Get Access
-            </a>
-            <a href="#curriculum" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20">
-              <i data-lucide="book-open" class="mr-2 w-5 h-5"></i> See Curriculum
-            </a>
-          </div>
-        </div>
-
-        <!-- Logo visual -->
-        <div class="relative z-10 flex items-center justify-center reveal">
-          <div class="logo-glow"></div>
-          <img src="./FT%20Logo.png" alt="FusionTicks Logo"
-               class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
-        </div>
-      </div>
-    </section>
-
-    <!-- APPROACH -->
-    <section id="approach" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-      <div class="mb-8 sm:mb-12 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold">The FusionTicks Approach</h2>
-        <p class="mt-2 text-white/70 max-w-3xl">
-          Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>,
-          identifying who’s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.
+  <!-- HERO -->
+  <section class="relative overflow-visible">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="reveal">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+          Trade with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-300">Clarity</span><br class="hidden sm:block"/>
+          Not Noise
+        </h1>
+        <p class="mt-5 text-white/70 max-w-xl">
+          I’m <b>Khalid Kuhail</b>. After 5 years in the trenches, I stopped chasing strategies
+          and started <b>reading the market</b>. FusionTicks is a practical, risk-first program that
+          teaches you to stack confirmations and build repeatable setups—no signals, no hype.
         </p>
-      </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> Read, Don’t Guess</div>
-          <p class="mt-3 text-white/70">Core price concepts—candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p>
-        </div>
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> Stack Confirmations</div>
-          <p class="mt-3 text-white/70">Context → shift in control → clean risk. More confirmations = higher quality.</p>
-        </div>
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> Risk First</div>
-          <p class="mt-3 text-white/70">Sizing, loss caps, invalidations before outcomes. Survival compounds.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
+            Get Access
+          </a>
+          <a href="#curriculum" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20">
+            <i data-lucide="book-open" class="mr-2 w-5 h-5"></i> See Curriculum
+          </a>
         </div>
       </div>
-    </section>
 
-    <!-- CURRICULUM -->
-    <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <!-- Logo visual -->
+      <div class="relative z-10 flex items-center justify-center reveal">
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo"
+             class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold">The FusionTicks Approach</h2>
+      <p class="mt-2 text-white/70 max-w-3xl">
+        Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>,
+        identifying who’s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> Read, Don’t Guess</div>
+        <p class="mt-3 text-white/70">We use core price concepts to understand control and intent—candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> Stack Confirmations</div>
+        <p class="mt-3 text-white/70">Setups form when evidence stacks: context → shift in control → clean risk. More confirmations = higher quality.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> Risk First</div>
+        <p class="mt-3 text-white/70">Sizing, loss caps, and invalidations come before outcomes. Survival is the edge that compounds.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="route" class="w-5 h-5"></i> Levels ≠ Signals</div>
+        <p class="mt-3 text-white/70">Supply/Demand or S/R are <em>areas of interest</em>—we prepare there, then wait for our tools to confirm.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="chart-line" class="w-5 h-5"></i> Simple, Repeatable</div>
+        <p class="mt-3 text-white/70">You’ll stop collecting strategies and start executing a consistent process you actually understand.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="notebook-pen" class="w-5 h-5"></i> Feedback Loop</div>
+        <p class="mt-3 text-white/70">Journaling and weekly reviews lock in lessons fast. Progress becomes visible and measurable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold">Curriculum</h2>
+      <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
+    </div>
+
+    <!-- Tracks -->
+    <div class="space-y-10">
+      <!-- A -->
+      <div class="reveal">
+        <h3 class="text-xl font-semibold mb-4">A · Reading the Market</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">1. Who’s in Control? <span class="text-white/60">(Candlesticks)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">2. Market Stages <span class="text-white/60">(Phases)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">3. Price in Motion <span class="text-white/60">(How price moves)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">4. Swings & Shifts <span class="text-white/60">(Swing High/Low)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">5. Breaks & Flips <span class="text-white/60">(BOS & CHoCH)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">6. Balance & Imbalance <span class="text-white/60">(FVG)</span></div>
+        </div>
+      </div>
+      <!-- B -->
+      <div class="reveal">
+        <h3 class="text-xl font-semibold mb-4">B · Market Levels</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">7. Where it Starts <span class="text-white/60">(Supply & Demand)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">8. Key Zones <span class="text-white/60">(Support & Resistance)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">9. The Explosion <span class="text-white/60">(Opening Range Breakout)</span></div>
+        </div>
+        <p class="mt-3 text-white/70 text-sm">Levels are not entries. They’re where we prepare—then we wait for our tools to confirm a shift in control.</p>
+      </div>
+      <!-- C -->
+      <div class="reveal">
+        <h3 class="text-xl font-semibold mb-4">C · Market Indicators</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">10. Volume Map <span class="text-white/60">(Volume Profile)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">11. VWAP Logic <span class="text-white/60">(VWAP & Anchored)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">12. Moving Power <span class="text-white/60">(EMA)</span></div>
+        </div>
+      </div>
+      <!-- D -->
+      <div class="reveal">
+        <h3 class="text-xl font-semibold mb-4">D · Behind the Scenes</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">13. Quick Guide to TradingView</div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">14. The Trading Game <span class="text-white/60">(Futures & Prop Firms)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">15. Types of Orders</div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">16. Risk First <span class="text-white/60">(Risk Management)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">17. Learn from You <span class="text-white/60">(Journaling & Reviews)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">18. News & Economic Events</div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">19. Mind over Market <span class="text-white/60">(Psychology)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold">How We Trade (Simple Pipeline)</h2>
+      <p class="mt-2 text-white/70 max-w-3xl">From preparation to execution—clear steps you can repeat daily.</p>
+    </div>
+    <div class="grid lg:grid-cols-4 gap-6">
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div>
+        <p class="mt-3 text-white/70">Map Market Levels (S/D, S/R, ORB) on HTF. Note news & sessions.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div>
+        <p class="mt-3 text-white/70">Use tools: swings, BOS/CHoCH, FVG, balance. Identify a shift in control.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div>
+        <p class="mt-3 text-white/70">Stack confirmations (context → signal → invalidation). If it’s clean: execute.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div>
+        <p class="mt-3 text-white/70">Journal entries, note mistakes, adjust plan. Compound the process.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCORD / COMMUNITY -->
+  <section id="discord" class="relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div class="mb-8 sm:mb-12 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold">Curriculum</h2>
-        <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
-      </div>
-
-      <div class="space-y-10">
-        <div class="reveal">
-          <h3 class="text-xl font-semibold mb-4">A · Reading the Market</h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">1. Who’s in Control? <span class="text-white/60">(Candlesticks)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">2. Market Stages <span class="text-white/60">(Phases)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">3. Price in Motion <span class="text-white/60">(How price moves)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">4. Swings & Shifts <span class="text-white/60">(Swing High/Low)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">5. Breaks & Flips <span class="text-white/60">(BOS & CHoCH)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">6. Balance & Imbalance <span class="text-white/60">(FVG)</span></div>
-          </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
+          <!-- Discord icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.35-.43.82-.589 1.192a18.27 18.27 0 0 0-7.938 0C7.872 3.82 7.64 3.35 7.441 3a19.736 19.736 0 0 0-3.761 1.369C1.87 8.149 1.171 12.03 1.5 15.86A19.9 19.9 0 0 0 7.09 18c.442-.61.84-1.262 1.188-1.94a12.79 12.79 0 0 0 7.444 0c.348.679.747 1.33 1.188 1.94a19.9 19.9 0 0 0 5.59-2.14c.375-4.165-.203-8.013-2.183-11.49ZM8.727 13.71c-1.074 0-1.948-.98-1.948-2.186 0-1.206.86-2.199 1.948-2.199 1.1 0 1.973.993 1.948 2.2.025 1.205-.848 2.185-1.948 2.185Zm6.571 0c-1.075 0-1.949-.98-1.949-2.186 0-1.206.861-2.199 1.949-2.199 1.1 0 1.972.993 1.948 2.2.024 1.205-.848 2.185-1.948 2.185Z"/>
+          </svg>
+          FusionTicks Discord
         </div>
-
-        <div class="reveal">
-          <h3 class="text-xl font-semibold mb-4">B · Market Levels</h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">7. Where it Starts <span class="text-white/60">(Supply & Demand)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">8. Key Zones <span class="text-white/60">(Support & Resistance)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">9. The Explosion <span class="text-white/60">(Opening Range Breakout)</span></div>
-          </div>
-          <p class="mt-3 text-white/70 text-sm">Levels are not entries. We prepare there, then wait for tools to confirm a shift.</p>
-        </div>
-
-        <div class="reveal">
-          <h3 class="text-xl font-semibold mb-4">C · Market Indicators</h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">10. Volume Map <span class="text-white/60">(Volume Profile)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">11. VWAP Logic <span class="text-white/60">(VWAP & Anchored)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">12. Moving Power <span class="text-white/60">(EMA)</span></div>
-          </div>
-        </div>
-
-        <div class="reveal">
-          <h3 class="text-xl font-semibold mb-4">D · Behind the Scenes</h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">13. Quick Guide to TradingView</div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">14. The Trading Game <span class="text-white/60">(Futures & Prop Firms)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">15. Types of Orders</div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">16. Risk First <span class="text-white/60">(Risk Management)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">17. Learn from You <span class="text-white/60">(Journaling & Reviews)</span></div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">18. News & Economic Events</div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-4">19. Mind over Market <span class="text-white/60">(Psychology)</span></div>
-          </div>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold">Community That Accelerates Progress</h2>
+        <p class="mt-2 text-white/70 max-w-2xl">
+          One place to read the market together, post daily levels, review trades, and learn live.
+        </p>
+        <div class="mt-5">
+          <a href="https://YOUR_DISCORD_INVITE" target="_blank"
+             class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
+            <i data-lucide="send"></i> Join the Discord
+          </a>
         </div>
       </div>
-    </section>
 
-    <!-- HOW IT WORKS -->
-    <section id="how" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="mb-8 sm:mb-12 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold">How We Trade (Simple Pipeline)</h2>
-        <p class="mt-2 text-white/70 max-w-3xl">From preparation to execution—clear steps you can repeat daily.</p>
-      </div>
-      <div class="grid lg:grid-cols-4 gap-6">
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div>
-          <p class="mt-3 text-white/70">Map Market Levels (S/D, S/R, ORB) on HTF. Note news & sessions.</p>
-        </div>
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div>
-          <p class="mt-3 text-white/70">Use swings, BOS/CHoCH, FVG, balance. Identify a shift in control.</p>
-        </div>
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div>
-          <p class="mt-3 text-white/70">Stack confirmations (context → signal → invalidation). If clean: execute.</p>
-        </div>
-        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div>
-          <p class="mt-3 text-white/70">Journal, note mistakes, adjust plan. Compound the process.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMMUNITY -->
-    <section id="discord" class="relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div class="mb-8 sm:mb-12 reveal">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
-            <!-- Discord SVG -->
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M20.317 4.369A19.791 19.791 0 0 0 16.558 3c-.2.35-.43.82-.589 1.192a18.27 18.27 0 0 0-7.938 0C7.872 3.82 7.64 3.35 7.441 3a19.736 19.736 0 0 0-3.761 1.369C1.87 8.149 1.171 12.03 1.5 15.86A19.9 19.9 0 0 0 7.09 18c.442-.61.84-1.262 1.188-1.94a12.79 12.79 0 0 0 7.444 0c.348.679.747 1.33 1.188 1.94a19.9 19.9 0 0 0 5.59-2.14c.375-4.165-.203-8.013-2.183-11.49ZM8.727 13.71c-1.074 0-1.948-.98-1.948-2.186 0-1.206.86-2.199 1.948-2.199 1.1 0 1.973.993 1.948 2.2.025 1.205-.848 2.185-1.948 2.185Zm6.571 0c-1.075 0-1.949-.98-1.949-2.186 0-1.206.861-2.199 1.949-2.199 1.1 0 1.972.993 1.948 2.2.024 1.205-.848 2.185-1.948 2.185Z"/>
-            </svg>
-            FusionTicks Discord
-          </div>
-          <h2 class="mt-3 text-3xl sm:text-4xl font-bold">Community That Accelerates Progress</h2>
-          <p class="mt-2 text-white/70 max-w-2xl">
-            One place to read the market together, post daily levels, review trades, and learn live.
-          </p>
-          <div class="mt-5">
-            <a href="https://YOUR_DISCORD_INVITE" target="_blank"
-               class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
-              <i data-lucide="send"></i> Join the Discord
-            </a>
-          </div>
-        </div>
-
-        <div class="grid lg:grid-cols-3 gap-6">
-          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-            <div class="flex items-center gap-2 text-white/90 font-semibold">
-              <span class="p-2 rounded-xl bg-white/5"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
-              #chatroom
-            </div>
-            <p class="text-white/70 mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
-          </div>
-          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-            <div class="flex items-center gap-2 text-white/90 font-semibold">
-              <span class="p-2 rounded-xl bg-white/5"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
-              #market-news
-            </div>
-            <p class="text-white/70 mt-3">Weekly market calendar: which days to lean in and which days to stay light.</p>
-          </div>
-          <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-            <div class="flex items-center gap-2 text-white/90 font-semibold">
-              <span class="p-2 rounded-xl bg-white/5"><i data-lucide="target" class="w-5 h-5"></i></span>
-              #market-levels
-            </div>
-            <p class="text-white/70 mt-3">Daily levels so you’re prepared. We still wait for tool-based confirmation.</p>
-            <div class="mt-4 flex flex-wrap gap-2">
-              <span class="badge">NQ</span><span class="badge">ES</span><span class="badge">CL (Crude)</span><span class="badge">GC (Gold)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRICING -->
-    <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="mb-8 sm:mb-12 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold">Choose Your Access</h2>
-        <p class="mt-2 text-white/70">Intro price for first 40 members. Lifetime updates.</p>
-      </div>
       <div class="grid lg:grid-cols-3 gap-6">
-        <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
-          <div class="flex items-center justify-between">
-            <span class="font-semibold">Starter</span>
-            <span class="text-2xl font-extrabold">$149</span>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
+            #chatroom
           </div>
-          <p class="text-white/70 mt-2">Self-paced core curriculum</p>
-          <ul class="mt-3 space-y-2 text-white/80">
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Full course</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly market levels</li>
-          </ul>
-          <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Get Starter</a>
+          <p class="text-white/70 mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
         </div>
-
-        <div class="plan relative bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
-          <div class="flex items-center justify-between">
-            <span class="font-semibold">Pro (Most Popular)</span>
-            <span class="text-2xl font-extrabold">$299</span>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
+            #market-news
           </div>
-          <p class="text-white/70 mt-2">Everything in Starter + live sessions</p>
-          <ul class="mt-3 space-y-2 text-white/80">
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Starter</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&A</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Playbooks & templates</li>
-          </ul>
-          <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Go Pro</a>
+          <p class="text-white/70 mt-3">Weekly market calendar: which days to lean in and which days to stay light.</p>
         </div>
-
-        <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
-          <div class="flex items-center justify-between">
-            <span class="font-semibold">Mentorship</span>
-            <span class="text-2xl font-extrabold">$699</span>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="target" class="w-5 h-5"></i></span>
+            #market-levels
           </div>
-          <p class="text-white/70 mt-2">1:1 guidance with Khalid</p>
-          <ul class="mt-3 space-y-2 text-white/80">
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Pro</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> 1:1 calls (limited)</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Personalized feedback</li>
-          </ul>
-          <a href="https://YOUR_APPLY_FORM" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Apply Now</a>
+          <p class="text-white/70 mt-3">Daily levels so you’re prepared. We still wait for tool-based confirmation.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="badge">NQ</span><span class="badge">ES</span><span class="badge">CL (Crude)</span><span class="badge">GC (Gold)</span>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- FAQ -->
-    <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="mb-8 sm:mb-12 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold">FAQ</h2>
-        <p class="mt-2 text-white/70">Still curious? Start here.</p>
+  <!-- PRICING -->
+  <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold">Choose Your Access</h2>
+      <p class="mt-2 text-white/70">Intro price for first 40 members. Lifetime updates.</p>
+    </div>
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold">Starter</span>
+          <span class="text-2xl font-extrabold">$149</span>
+        </div>
+        <p class="text-white/70 mt-2">Self-paced core curriculum</p>
+        <ul class="mt-3 space-y-2 text-white/80">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Full course</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly market levels</li>
+        </ul>
+        <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Get Starter</a>
       </div>
-      <div class="space-y-4">
-        <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-          <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
-          <p class="text-white/70 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
-        </details>
-        <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-          <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
-          <p class="text-white/70 mt-2">Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
-        </details>
-        <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-          <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
-          <p class="text-white/70 mt-2">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
-        </details>
-        <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-          <summary class="cursor-pointer font-medium">What’s the core philosophy?</summary>
-          <p class="text-white/70 mt-2">Identify who’s in control, then stack confirmations. Levels are preparation—not entries. Risk first, always.</p>
-        </details>
-      </div>
-    </section>
 
-    <!-- CTA -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-      <div class="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-blue-600/20 to-cyan-400/10 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center reveal">
-        <div>
-          <h3 class="text-2xl md:text-3xl font-extrabold">Ready to trade with clarity?</h3>
+      <div class="plan relative bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold">Pro (Most Popular)</span>
+          <span class="text-2xl font-extrabold">$299</span>
+        </div>
+        <p class="text-white/70 mt-2">Everything in Starter + live sessions</p>
+        <ul class="mt-3 space-y-2 text-white/80">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Starter</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&A</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Playbooks & templates</li>
+        </ul>
+        <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Go Pro</a>
+      </div>
+
+      <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold">Mentorship</span>
+          <span class="text-2xl font-extrabold">$699</span>
+        </div>
+        <p class="text-white/70 mt-2">1:1 guidance with Khalid</p>
+        <ul class="mt-3 space-y-2 text-white/80">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> All Pro</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> 1:1 calls (limited)</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Personalized feedback</li>
+        </ul>
+        <a href="https://YOUR_APPLY_FORM" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold">FAQ</h2>
+      <p class="mt-2 text-white/70">Still curious? Start here.</p>
+    </div>
+    <div class="space-y-4">
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
+        <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
+        <p class="text-white/70 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
+      </details>
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
+        <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
+        <p class="text-white/70 mt-2">Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
+      </details>
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
+        <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
+        <p class="text-white/70 mt-2">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
+      </details>
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
+        <summary class="cursor-pointer font-medium">What’s the core philosophy?</summary>
+        <p class="text-white/70 mt-2">Identify who’s in control, then stack confirmations. Levels are preparation—not entries. Risk first, always.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+    <div class="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-blue-600/20 to-cyan-400/10 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center reveal">
+      <div>
+        <h3 class="text-2xl md:text-3xl font-extrabold">Ready to trade with clarity?</h3>
         <p class="text-white/80 mt-2">Join FusionTicks today. Read the market, stack confirmations, and execute like a pro.</p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a href="https://YOUR_WHOP_LINK" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 inline-flex items-center">
-              <i data-lucide="dollar-sign" class="mr-2 h-5 w-5"></i> Get Access on Whop
-            </a>
-            <a href="https://YOUR_DISCORD_INVITE" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 inline-flex items-center">
-              <i data-lucide="users" class="mr-2 h-5 w-5"></i> Join Discord
-            </a>
-          </div>
-        </div>
-        <div class="aspect-video rounded-2xl bg-black/40 border border-white/10 grid place-items-center text-white/60">
-          <i data-lucide="play-circle" class="h-10 w-10"></i>
-          <span class="sr-only">Intro Video Placeholder</span>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="https://YOUR_WHOP_LINK" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 inline-flex items-center">
+            <i data-lucide="dollar-sign" class="mr-2 h-5 w-5"></i> Get Access on Whop
+          </a>
+          <a href="https://YOUR_DISCORD_INVITE" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 inline-flex items-center">
+            <i data-lucide="users" class="mr-2 h-5 w-5"></i> Join Discord
+          </a>
         </div>
       </div>
-    </section>
-  </main>
+      <div class="aspect-video rounded-2xl bg-black/40 border border-white/10 grid place-items-center text-white/60">
+        <i data-lucide="play-circle" class="h-10 w-10"></i>
+        <span class="sr-only">Intro Video Placeholder</span>
+      </div>
+    </div>
+  </section>
 
-  <!-- Footer -->
-  <footer class="py-12 border-t border-white/10 relative">
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
       <div class="flex items-center gap-3">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
+        <!-- Instagram -->
         <a class="social" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
@@ -451,11 +491,13 @@
             <circle cx="17.5" cy="6.5" r="1"></circle>
           </svg>
         </a>
+        <!-- YouTube -->
         <a class="social" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-            <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c.6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
+            <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2.6 8.2.6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c.6-2 .6-4.9.6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
           </svg>
         </a>
+        <!-- TikTok -->
         <a class="social" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
           <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
             <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
@@ -465,7 +507,7 @@
     </div>
   </footer>
 
-  <!-- Back to top button -->
+  <!-- ===== Added: Back-to-top button ===== -->
   <button id="toTop" class="to-top rounded-full bg-white/10 backdrop-blur border border-white/15 px-3 py-3 hover:bg-white/20">
     <i data-lucide="arrow-up"></i>
   </button>
@@ -481,17 +523,17 @@
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-      // Back to top visibility + action
+      // ===== Back-to-top logic =====
       const toTop = document.getElementById('toTop');
-      const showTop = () => {
+      const toggleTop = () => {
         if (window.scrollY > 500) toTop.classList.add('show');
         else toTop.classList.remove('show');
       };
-      showTop();
-      window.addEventListener('scroll', showTop);
+      toggleTop();
+      window.addEventListener('scroll', toggleTop);
       toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-      // Mobile menu
+      // ===== Mobile menu logic =====
       const openBtn = document.getElementById('openMenu');
       const closeBtn = document.getElementById('closeMenu');
       const menu = document.getElementById('mobileMenu');
