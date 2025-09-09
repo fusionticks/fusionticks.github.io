@@ -7,11 +7,6 @@
   <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
   <link rel="icon" href="./FT%20Logo.png" type="image/png"/>
 
-  <!-- OpenGraph (optional) -->
-  <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
-  <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
-  <meta property="og:image" content="./FT%20Logo.png"/>
-
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -23,7 +18,6 @@
 
   <style>
     html{scroll-behavior:smooth}
-    /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
@@ -41,52 +35,6 @@
       background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
       background-size:22px 22px; background-repeat:repeat; opacity:.03;
     }
-
-    /* Ticker */
-    .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-    .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
-    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-    /* Animations */
-    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
-    .reveal.in{opacity:1;transform:none}
-
-    /* Card glow */
-    .card-glow{position:relative;border-radius:16px;}
-    .card-glow:before{
-      content:"";position:absolute;inset:-1px;border-radius:inherit;
-      background:
-        radial-gradient(240px 120px at 20% 0%, rgba(59,130,246,.35), transparent 60%),
-        radial-gradient(300px 140px at 100% 100%, rgba(6,182,212,.28), transparent 55%);
-      filter:blur(14px);opacity:0;transition:opacity .3s ease;pointer-events:none;
-    }
-    .card-glow:hover:before{opacity:.7}
-
-    /* Pricing plan glow */
-    .plan{position:relative;border-radius:16px}
-    .plan:before{
-      content:"";position:absolute;inset:-1px;border-radius:inherit;
-      background:linear-gradient(135deg, rgba(59,130,246,.6), rgba(34,211,238,.4));
-      filter:blur(10px);opacity:0;transition:opacity .25s ease;pointer-events:none;
-    }
-    .plan:hover:before{opacity:.35}
-
-    /* Badges */
-    .badge{
-      display:inline-flex;align-items:center;gap:.35rem;
-      padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
-      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-    }
-    .role-step{display:flex;align-items:center;gap:.5rem;position:relative}
-    .role-step:after{
-      content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;
-      background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent);
-    }
-    .role-step:last-child:after{display:none}
-
-    /* Socials */
-    .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
-    .social:hover{background:rgba(255,255,255,.12)}
 
     /* ===== Discord background art ===== */
     #discord{overflow:visible}
@@ -120,33 +68,33 @@
       mix-blend-mode:screen;
       z-index:-11;
     }
-    .disc-bg .right-panel{
+    .disc-bg .halo-logo{
       position:absolute;
       right: clamp(80px, 12vw, 220px);
       top: clamp(140px, 16vh, 220px);
-      width: clamp(360px, 28vw, 520px);
-      aspect-ratio: 1.05 / 1;
-      background:url("./discord%20platform.png") center/contain no-repeat;
-      opacity:.85;
-      filter:drop-shadow(0 15px 40px rgba(30,110,255,.25))
-             drop-shadow(0 0 60px rgba(150,80,255,.18));
+      width: clamp(220px, 20vw, 340px);
+      aspect-ratio:1/1;
+      background:url("./discord%20logo.png") center/contain no-repeat;
+      opacity:.2; /* تخفيف لـ 20% */
+      transform: rotate(-18deg); /* ميلان */
+      filter:brightness(1.4) drop-shadow(0 0 28px rgba(120,150,255,.3));
+      mix-blend-mode:screen;
       z-index:-12;
     }
     @media (max-width: 1200px){
       .disc-bg .left-logo{left: max(-18vw, -220px); opacity:.10}
       .disc-bg .right-halo{right:max(-14vw,-160px); width: clamp(520px, 58vw, 900px)}
-      .disc-bg .right-panel{right: clamp(40px, 10vw, 160px); width: clamp(320px, 46vw, 520px)}
+      .disc-bg .halo-logo{right: clamp(40px, 10vw, 160px); width: clamp(180px, 38vw, 300px)}
     }
     @media (max-width: 640px){
       .disc-bg .left-logo{left:-120px; top:110px; width:66vw; opacity:.09}
       .disc-bg .right-halo{right:-26vw; top:60px; width:110vw; opacity:.95}
-      .disc-bg .right-panel{right:8vw; top:18vh; width:86vw; opacity:.9}
+      .disc-bg .halo-logo{right:8vw; top:18vh; width:66vw; opacity:.18}
     }
   </style>
 </head>
 
 <body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
-  <!-- Background layers -->
   <div class="layer-base"></div>
   <div class="layer-glow"></div>
   <div class="layer-noise"></div>
@@ -171,13 +119,6 @@
         <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
       </div>
     </div>
-    <!-- Ticker -->
-    <div class="ticker border-t border-white/10 bg-black/30 text-white/70 text-sm">
-      <div class="ticker-track">
-        <span class="mx-6">NQ +0.72%</span><span class="mx-6">ES +0.31%</span><span class="mx-6">CL -0.45%</span><span class="mx-6">GC +0.12%</span>
-        <span class="mx-6">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="mx-6">Risk First • Setup-Driven • No Signals</span>
-      </div>
-    </div>
   </header>
 
   <!-- DISCORD / COMMUNITY -->
@@ -186,7 +127,7 @@
     <div class="disc-bg" aria-hidden="true">
       <div class="left-logo"></div>
       <div class="right-halo"></div>
-      <div class="right-panel"></div>
+      <div class="halo-logo"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
@@ -205,19 +146,23 @@
           </a>
         </div>
       </div>
-
-      <!-- هنا تحط باقي الكروت زي الكود الأصلي -->
     </div>
   </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
+      <div class="flex items-center gap-3">
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
+        <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
-      },{threshold:0.12});
-      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     });
   </script>
 </body>
