@@ -78,4 +78,329 @@
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#features" class="hover:text-white" data-i18n="nav.features">Features</a>
         <a href="#curriculum" class="hover:text-white" data-i18n="nav.curriculum">Curriculum</a>
-        <a href="#commu
+        <a href="#community" class="hover:text-white" data-i18n="nav.community">Community</a>
+        <a href="#pricing" class="hover:text-white" data-i18n="nav.pricing">Pricing</a>
+        <a href="#faq" class="hover:text-white" data-i18n="nav.faq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <!-- Lang switch -->
+        <button id="langToggle" class="px-3 py-1.5 text-xs rounded-lg border border-white/20 hover:bg-white/10">
+          AR
+        </button>
+        <a href="#" class="px-4 py-2 border border-white/20 rounded-lg hover:bg-white/10" data-i18n="nav.login">Login</a>
+        <a href="https://YOUR_WHOP_LINK" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-i18n="nav.join">Join Now</a>
+      </div>
+    </div>
+
+    <!-- TICKER -->
+    <div class="ticker border-t border-white/10 bg-black/30">
+      <div class="ticker-track">
+        <span class="mx-6 text-white/70">NQ +0.72%</span>
+        <span class="mx-6 text-white/70">ES +0.31%</span>
+        <span class="mx-6 text-white/70">CL -0.45%</span>
+        <span class="mx-6 text-white/70">GC +0.12%</span>
+        <span class="mx-6 text-white/70" data-i18n="ticker.a">BOS • CHOCH • FVG • Liquidity • S/D</span>
+        <span class="mx-6 text-white/70" data-i18n="ticker.b">Risk First • Setup-Driven • No Signals</span>
+        <span class="mx-6 text-white/70">NQ +0.72%</span>
+        <span class="mx-6 text-white/70">ES +0.31%</span>
+        <span class="mx-6 text-white/70">CL -0.45%</span>
+        <span class="mx-6 text-white/70">GC +0.12%</span>
+        <span class="mx-6 text-white/70" data-i18n="ticker.a">BOS • CHOCH • FVG • Liquidity • S/D</span>
+        <span class="mx-6 text-white/70" data-i18n="ticker.b">Risk First • Setup-Driven • No Signals</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-visible">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="reveal rtl:text-right">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight" data-i18n="hero.title">
+          Trade with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-300">Clarity</span><br class="hidden sm:block"/> Not Noise
+        </h1>
+        <p class="mt-5 text-white/70 max-w-xl" data-i18n="hero.desc">
+          A practical program by <span class="font-semibold">Khalid Kuhail</span> focused on market structure, setups, and risk-first execution. No signals. No hype. Real traders only.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="https://YOUR_WHOP_LINK" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-i18n="cta.getAccess">
+            Get Access
+          </a>
+        </div>
+      </div>
+
+      <div class="relative z-10 flex items-center justify-center">
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY / FEATURES -->
+  <section id="features" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition">
+        <div class="flex items-center gap-2 text-white/90 font-semibold">
+          <span class="p-2 rounded-xl bg-white/5"><i data-lucide="book-open" class="w-5 h-5"></i></span>
+          <span data-i18n="why.1.title">Read the Market, not signals</span>
+        </div>
+        <p class="text-white/70 mt-3" data-i18n="why.1.body">Learn to identify who’s in control (buyers or sellers) and stack confirmations—so you act with clarity, not noise.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition">
+        <div class="flex items-center gap-2 text-white/90 font-semibold">
+          <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkles" class="w-5 h-5"></i></span>
+          <span data-i18n="why.2.title">Setups > Strategies</span>
+        </div>
+        <p class="text-white/70 mt-3" data-i18n="why.2.body">Strategies alone are 50/50. Strong setups stack BOS/CHOCH, FVG, and structure to push your edge toward 80/20.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition">
+        <div class="flex items-center gap-2 text-white/90 font-semibold">
+          <span class="p-2 rounded-xl bg-white/5"><i data-lucide="shield" class="w-5 h-5"></i></span>
+          <span data-i18n="why.3.title">Risk First Execution</span>
+        </div>
+        <p class="text-white/70 mt-3" data-i18n="why.3.body">Position sizing and clear invalidations—so you survive volatility and keep compounding.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 rtl:text-right">
+      <h2 class="text-3xl sm:text-4xl font-bold" data-i18n="cur.title">Course Curriculum</h2>
+      <p class="text-white/70 mt-2" data-i18n="cur.subtitle">Three phases to go from confusion to clarity.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+      <!-- Phase A -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="font-semibold text-lg mb-2" data-i18n="cur.a.title">A. Reading the Market</h3>
+        <ul class="space-y-2 text-white/70">
+          <li data-i18n="cur.a.1">Who’s in control? (Candlesticks)</li>
+          <li data-i18n="cur.a.2">Market stages (phases)</li>
+          <li data-i18n="cur.a.3">Price in motion (how price moves)</li>
+          <li data-i18n="cur.a.4">Swings & shifts</li>
+          <li data-i18n="cur.a.5">Breaks & flips (BOS & CHoCH)</li>
+          <li data-i18n="cur.a.6">Balance & imbalance (FVG)</li>
+        </ul>
+      </div>
+
+      <!-- Phase B -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="font-semibold text-lg mb-2" data-i18n="cur.b.title">B. Market Levels</h3>
+        <ul class="space-y-2 text-white/70">
+          <li data-i18n="cur.b.1">Where it starts (Supply & Demand)</li>
+          <li data-i18n="cur.b.2">Key zones (Support & Resistance)</li>
+          <li data-i18n="cur.b.3">The explosion (Opening Range Breakout)</li>
+        </ul>
+        <p class="text-xs text-white/50 mt-3" data-i18n="cur.b.note">Levels are not a strategy on their own—they’re places to prepare. Your entries come after confirmations from phase A.</p>
+      </div>
+
+      <!-- Phase C+D -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="font-semibold text-lg mb-2" data-i18n="cur.c.title">C. Market Indicators</h3>
+        <ul class="space-y-2 text-white/70">
+          <li data-i18n="cur.c.1">Volume map (Volume Profile)</li>
+          <li data-i18n="cur.c.2">VWAP logic (VWAP & Anchored)</li>
+          <li data-i18n="cur.c.3">Moving power (EMA)</li>
+        </ul>
+        <h3 class="font-semibold text-lg mt-5 mb-2" data-i18n="cur.d.title">D. Behind the Scenes</h3>
+        <ul class="space-y-2 text-white/70">
+          <li data-i18n="cur.d.1">Quick guide to TradingView</li>
+          <li data-i18n="cur.d.2">Futures & prop firms</li>
+          <li data-i18n="cur.d.3">Order types</li>
+          <li data-i18n="cur.d.4">Risk first (risk management)</li>
+          <li data-i18n="cur.d.5">Journaling & reviews</li>
+          <li data-i18n="cur.d.6">News & economic events</li>
+          <li data-i18n="cur.d.7">Mind over market (psychology)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY / DISCORD -->
+  <section id="community" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 rtl:text-right">
+      <h2 class="text-3xl sm:text-4xl font-bold" data-i18n="com.title">Inside the Discord Community</h2>
+      <p class="text-white/70 mt-2" data-i18n="com.desc">A focused space to learn, prepare, and trade with clarity.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="font-semibold" data-i18n="com.chat.title">#chatroom</h3>
+        <p class="text-white/70 mt-2" data-i18n="com.chat.body">Casual space to hang out, ask anything, and grow with the team.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="font-semibold" data-i18n="com.news.title">#market-news</h3>
+        <p class="text-white/70 mt-2" data-i18n="com.news.body">Weekly calendar: what to trade, what to avoid, and why.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="font-semibold" data-i18n="com.levels.title">#market-levels</h3>
+        <p class="text-white/70 mt-2" data-i18n="com.levels.body">Daily key levels for NQ, ES, CL, and GC—so you’re ready before the bell.</p>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6 mt-6">
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="font-semibold" data-i18n="com.weekly.title">#weekly-session</h3>
+        <p class="text-white/70 mt-2" data-i18n="com.weekly.body">Weekend live: review the week and prepare the plan for what’s next.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="font-semibold" data-i18n="com.live.title">#live-session</h3>
+        <p class="text-white/70 mt-2" data-i18n="com.live.body">Mid-week live Q&A. We dive into your charts and questions together.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h3 class="font-semibold" data-i18n="com.trading.title">#live-trading-session</h3>
+        <p class="text-white/70 mt-2" data-i18n="com.trading.body">Daily live trading—unlocked for those who pass prop evaluation and secure a payout.</p>
+      </div>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mt-6">
+      <h3 class="font-semibold" data-i18n="com.rules.title">Progress Rules</h3>
+      <p class="text-white/70 mt-2" data-i18n="com.rules.body">
+        You start as <b>Tick Starter</b>, move to <b>Funded Trader</b> after passing a prop firm, then become <b>Fusion Legend</b> after your first payout.  
+        Legends unlock daily live trading. These rules exist to push you to do the work—and enjoy the rewards.
+      </p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 rtl:text-right">
+      <h2 class="text-3xl sm:text-4xl font-bold" data-i18n="price.title">Choose Your Access</h2>
+      <p class="text-white/70 mt-2" data-i18n="price.subtitle">Intro price for first 40 members. Lifetime updates.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+      <!-- Starter -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:shadow-[0_0_40px_rgba(59,130,246,0.18)] transition">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold" data-i18n="tiers.starter">Starter</span>
+          <span class="text-2xl font-extrabold">$149</span>
+        </div>
+        <p class="text-white/70 mt-2" data-i18n="tiers.starterSub">Self-paced core curriculum</p>
+        <ul class="mt-3 space-y-2 text-white/80">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="tiers.fullCourse">Full course</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="tiers.discord">Private Discord</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="tiers.levels">Weekly market levels</span></li>
+        </ul>
+        <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400" data-i18n="tiers.starterBtn">Get Starter</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:shadow-[0_0_40px_rgba(59,130,246,0.18)] transition">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold" data-i18n="tiers.pro">Pro (Most Popular)</span>
+          <span class="text-2xl font-extrabold">$299</span>
+        </div>
+        <p class="text-white/70 mt-2" data-i18n="tiers.proSub">Everything in Starter + live sessions</p>
+        <ul class="mt-3 space-y-2 text-white/80">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="tiers.allStarter">All Starter</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="tiers.qa">Weekly live Q&A</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="tiers.playbooks">Playbooks & templates</span></li>
+        </ul>
+        <a href="https://YOUR_WHOP_LINK" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400" data-i18n="tiers.proBtn">Go Pro</a>
+      </div>
+
+      <!-- Mentorship -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:shadow-[0_0_40px_rgba(59,130,246,0.18)] transition">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold" data-i18n="tiers.mentor">Mentorship</span>
+          <span class="text-2xl font-extrabold">$699</span>
+        </div>
+        <p class="text-white/70 mt-2" data-i18n="tiers.mentorSub">1:1 guidance with Khalid</p>
+        <ul class="mt-3 space-y-2 text-white/80">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="tiers.allPro">All Pro</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="tiers.calls">1:1 calls (limited)</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="tiers.feedback">Personalized feedback</span></li>
+        </ul>
+        <a href="https://YOUR_APPLY_FORM" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400" data-i18n="tiers.mentorBtn">Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-blue-600/20 to-cyan-400/10 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center">
+      <div class="rtl:text-right">
+        <h3 class="text-2xl md:text-3xl font-extrabold" data-i18n="cta.readyTitle">Ready to trade with clarity?</h3>
+        <p class="text-white/80 mt-2" data-i18n="cta.readyDesc">Join FusionTicks today. Build setups, master risk, and think like a real trader.</p>
+      </div>
+      <div class="aspect-video rounded-2xl bg-black/40 border border-white/10 grid place-items-center text-white/60">
+        <i data-lucide="play-circle" class="h-10 w-10"></i>
+        <span class="sr-only">Intro Video Placeholder</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIALS + FOOTER -->
+  <footer class="py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
+      <div class="flex items-center gap-3">
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
+        <span>© <span id="year"></span> FusionTicks. <span data-i18n="foot.rights">All rights reserved.</span></span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a class="hover:text-white" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" aria-label="Instagram"><i data-lucide="instagram" class="h-5 w-5"></i></a>
+        <a class="hover:text-white" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" aria-label="YouTube"><i data-lucide="youtube" class="h-5 w-5"></i></a>
+        <a class="hover:text-white" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" aria-label="TikTok"><i data-lucide="music-2" class="h-5 w-5"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // icons + year + reveal
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);}});},{threshold:0.12});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    });
+
+    // i18n dictionary
+    const dict = {
+      en: {
+        "meta.title":"FusionTicks – Trade with Clarity",
+        "meta.desc":"FusionTicks: trading course focused on market structure, setups, and risk-first execution. By Khalid Kuhail.",
+        brand:"FusionTicks",
+        "nav.features":"Features","nav.curriculum":"Curriculum","nav.community":"Community","nav.pricing":"Pricing","nav.faq":"FAQ","nav.login":"Login","nav.join":"Join Now",
+        "ticker.a":"BOS • CHOCH • FVG • Liquidity • S/D","ticker.b":"Risk First • Setup-Driven • No Signals",
+        "hero.title":"Trade with <span class='text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-300'>Clarity</span><br class='hidden sm:block'/> Not Noise",
+        "hero.desc":"A practical program by <span class='font-semibold'>Khalid Kuhail</span> focused on market structure, setups, and risk-first execution. No signals. No hype. Real traders only.",
+        "cta.getAccess":"Get Access",
+        "why.1.title":"Read the Market, not signals","why.1.body":"Learn to identify who’s in control (buyers or sellers) and stack confirmations—so you act with clarity, not noise.",
+        "why.2.title":"Setups > Strategies","why.2.body":"Strategies alone are 50/50. Strong setups stack BOS/CHOCH, FVG, and structure to push your edge toward 80/20.",
+        "why.3.title":"Risk First Execution","why.3.body":"Position sizing and clear invalidations—so you survive volatility and keep compounding.",
+        "cur.title":"Course Curriculum","cur.subtitle":"Three phases to go from confusion to clarity.",
+        "cur.a.title":"A. Reading the Market","cur.a.1":"Who’s in control? (Candlesticks)","cur.a.2":"Market stages (phases)","cur.a.3":"Price in motion (how price moves)","cur.a.4":"Swings & shifts","cur.a.5":"Breaks & flips (BOS & CHoCH)","cur.a.6":"Balance & imbalance (FVG)",
+        "cur.b.title":"B. Market Levels","cur.b.1":"Where it starts (Supply & Demand)","cur.b.2":"Key zones (Support & Resistance)","cur.b.3":"The explosion (Opening Range Breakout)","cur.b.note":"Levels are not a strategy on their own—they’re places to prepare. Your entries come after confirmations from phase A.",
+        "cur.c.title":"C. Market Indicators","cur.c.1":"Volume map (Volume Profile)","cur.c.2":"VWAP logic (VWAP & Anchored)","cur.c.3":"Moving power (EMA)",
+        "cur.d.title":"D. Behind the Scenes","cur.d.1":"Quick guide to TradingView","cur.d.2":"Futures & prop firms","cur.d.3":"Order types","cur.d.4":"Risk first (risk management)","cur.d.5":"Journaling & reviews","cur.d.6":"News & economic events","cur.d.7":"Mind over market (psychology)",
+        "com.title":"Inside the Discord Community","com.desc":"A focused space to learn, prepare, and trade with clarity.",
+        "com.chat.title":"#chatroom","com.chat.body":"Casual space to hang out, ask anything, and grow with the team.",
+        "com.news.title":"#market-news","com.news.body":"Weekly calendar: what to trade, what to avoid, and why.",
+        "com.levels.title":"#market-levels","com.levels.body":"Daily key levels for NQ, ES, CL, and GC—so you’re ready before the bell.",
+        "com.weekly.title":"#weekly-session","com.weekly.body":"Weekend live: review the week and prepare the plan for what’s next.",
+        "com.live.title":"#live-session","com.live.body":"Mid-week live Q&A. We dive into your charts and questions together.",
+        "com.trading.title":"#live-trading-session","com.trading.body":"Daily live trading—unlocked for those who pass prop evaluation and secure a payout.",
+        "com.rules.title":"Progress Rules","com.rules.body":"You start as <b>Tick Starter</b>, move to <b>Funded Trader</b> after passing a prop firm, then become <b>Fusion Legend</b> after your first payout. Legends unlock daily live trading. These rules exist to push you to do the work—and enjoy the rewards.",
+        "price.title":"Choose Your Access","price.subtitle":"Intro price for first 40 members. Lifetime updates.",
+        "tiers.starter":"Starter","tiers.starterSub":"Self-paced core curriculum","tiers.fullCourse":"Full course","tiers.discord":"Private Discord","tiers.levels":"Weekly market levels","tiers.starterBtn":"Get Starter",
+        "tiers.pro":"Pro (Most Popular)","tiers.proSub":"Everything in Starter + live sessions","tiers.allStarter":"All Starter","tiers.qa":"Weekly live Q&A","tiers.playbooks":"Playbooks & templates","tiers.proBtn":"Go Pro",
+        "tiers.mentor":"Mentorship","tiers.mentorSub":"1:1 guidance with Khalid","tiers.allPro":"All Pro","tiers.calls":"1:1 calls (limited)","tiers.feedback":"Personalized feedback","tiers.mentorBtn":"Apply Now",
+        "cta.readyTitle":"Ready to trade with clarity?","cta.readyDesc":"Join FusionTicks today. Build setups, master risk, and think like a real trader.",
+        "foot.rights":"All rights reserved."
+      },
+      ar: {
+        "meta.title":"FusionTicks – تداول بوضوح لا بضجيج",
+        "meta.desc":"FusionTicks: برنامج تداول يركز على بنية السوق والـ setups والتنفيذ الذي يضع المخاطر أولًا. بإشراف خالد كحيل.",
+        brand:"FusionTicks",
+        "nav.features":"المميزات","nav.curriculum":"المنهج","nav.community":"المجتمع","nav.pricing":"التسعير","nav.faq":"الأسئلة الشائعة","nav.login":"تسجيل الدخول","nav.join":"انضم الآن",
+        "ticker.a":"BOS • CHOCH • FVG • السيولة • S/D","ticker.b":"المخاطر أولًا • معتمد على الـ Setups • بدون إشارات",
+        "hero.title":"تداول بـ <span class='text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-300'>وضوح</span><br class='hidden sm:block'/> لا بضجيج",
+        "hero.desc":"برنامج عملي بإشراف <span class='font-semibold'>خالد كحيل</span> يركز على قراءة السوق والـ setups والتنفيذ الذي يضع المخاطر أولًا. بدون إشارات أو مبالغة—تداول حقيقي فقط.",
+        "cta.getAccess":"احصل على الوصول",
+        "why.1.title":"اقرأ السوق لا الإشارات","why.1.body":"اعرف من المسيطر (مُشترون أم بائعون) واجمع التأكيدات خطوة بخطوة—لتتصرّف بوضوح لا بضوضاء.",
+        "why.2.title":"Setups أهم من الاستراتيجيات","why.2.body":"الاستراتيجية وحدها 50/50. الـ setup القوي يجمع BOS/CHOCH و FVG والبنية ليرفع ميزتك نحو 80/20.",
+        "why.3.title":"تنفيذ يضع المخاطر أولًا","why.3.body":"حجم صفقة مدروس ونقاط إلغاء واضحة—لتنجو من التقلب وتواصل التراكم.",
+        "cur.title":"منهج الكورس","cur.subtitle":"ثلاث مراحل تنقلك من الحيرة إلى الوضوح.",
+        "cur.a.title":"A. قراءة السوق","cur.a.1":"مَن المسيطر؟ (الشموع)","cur.a.2":"مراحل السوق","cur.a.3":"حركة السعر","cur.a.4":"القمم والقيعان وتغيّر الاتجاه","cur.a.5":"الكسر والانعكاس (BOS & CHoCH)","cur.a.6":"التوازن وعدم التوازن (FVG)",
+        "cur.b.title":"B. مستويات السوق","cur.b.1":"من أين تبدأ (العرض والطلب)","cur.b.2assistant גאר
