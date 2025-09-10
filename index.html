@@ -34,7 +34,6 @@
 
     /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
-    /* Blue top-right / Green bottom-left (HQ glow) */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
       background:
@@ -350,9 +349,8 @@
   <section id="discord" class="relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div class="mb-8 sm:mb-12 reveal">
-        <!-- Badge uses your PNG -->
+        <!-- Badge (icon removed as requested) -->
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
-          <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/>
           FusionTicks Discord
         </div>
 
@@ -364,7 +362,7 @@
           unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
         </p>
 
-        <!-- Button uses your PNG -->
+        <!-- Button (keeps your PNG icon) -->
         <div class="mt-5">
           <a href="https://YOUR_DISCORD_INVITE" target="_blank"
              class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
@@ -473,7 +471,7 @@
     </div>
   </section>
 
-  <!-- PRICING (UPDATED) -->
+  <!-- PRICING -->
   <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">Choose Your <span class="gradient-text">Access</span></h2>
@@ -484,7 +482,7 @@
 
     <div class="grid lg:grid-cols-3 gap-6">
       <!-- Course - Lifetime -->
-      <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
+      <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal flex flex-col">
         <div class="flex items-start justify-between">
           <div>
             <span class="font-semibold">FusionTicks Course · Lifetime</span>
@@ -501,12 +499,19 @@
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Lifetime updates (future lessons)</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord access (no live, levels, or news)</li>
         </ul>
-        <a href="https://whop.com/checkout/3rzkP1RotoWpVJJyc9-tZXm-wgZ6-5TEM-5QMq5c8lwY92/" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Get Course — $550</a>
-        <p class="text-xs text-white/50 mt-2">Price returns to $1000 after the first 40 seats.</p>
+
+        <!-- Aligned CTA block -->
+        <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
+          <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true"
+             class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">
+            Get Course — $550
+          </a>
+          <p class="text-xs text-white/50 mt-2">Price returns to $1000 after the first 40 seats.</p>
+        </div>
       </div>
 
       <!-- Live & Levels Subscription -->
-      <div class="plan relative bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
+      <div class="plan relative bg-white/5 border border-white/10 rounded-2xl p-6 reveal flex flex-col">
         <div class="flex items-start justify-between">
           <span class="font-semibold">Live &amp; Levels · Subscription</span>
           <span class="text-2xl font-extrabold">$20<span class="text-sm font-medium text-white/60">/mo</span></span>
@@ -518,11 +523,18 @@
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly news calendar + trade/avoid days</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&amp;A & group study</li>
         </ul>
-        <a href="https://YOUR_WHOP_LINK_SUB_20" class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">Subscribe — $20/mo</a>
+
+        <!-- Aligned CTA block -->
+        <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
+          <a href="https://YOUR_WHOP_LINK_SUB_20"
+             class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">
+            Subscribe — $20/mo
+          </a>
+        </div>
       </div>
 
       <!-- ICT Concepts - Coming Soon -->
-      <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal">
+      <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal flex flex-col">
         <div class="flex items-start justify-between">
           <span class="font-semibold">ICT Concepts · Deep Dive</span>
           <span class="text-2xl font-extrabold">$1000</span>
@@ -542,8 +554,14 @@
           <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Clear setups & management rules</li>
           <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Real chart walk-throughs</li>
         </ul>
-        <button disabled class="mt-6 inline-block w-full text-center px-4 py-2 rounded-lg bg-white/10 opacity-60 cursor-not-allowed">Coming Soon</button>
-        <p class="text-xs text-white/50 mt-2">Join the Discord to get notified at launch.</p>
+
+        <!-- Aligned CTA block -->
+        <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
+          <button disabled class="inline-block w-full text-center px-4 py-2 rounded-lg bg-white/10 opacity-60 cursor-not-allowed">
+            Coming Soon
+          </button>
+          <p class="text-xs text-white/50 mt-2">Join the Discord to get notified at launch.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -606,7 +624,7 @@
     </div>
   </footer>
 
-  <!-- Back to top (Modified) -->
+  <!-- Back to top -->
   <button id="backToTop" aria-label="Back to top"
           class="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-40 hidden
                  flex items-center justify-center
@@ -639,7 +657,7 @@
       window.addEventListener('scroll', toggleTop);
       backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-      // ===== Mobile menu open/close with strong blur + lock scroll =====
+      // Mobile menu
       const menuBtn = document.getElementById('menuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
 
