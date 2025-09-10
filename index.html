@@ -34,25 +34,22 @@
 
     /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
-
-    /* ⭐️ Improved glow/identity */
+    /* Blue top-right / Green bottom-left (HQ glow) */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
       background:
-        radial-gradient(1200px 900px at 78% 18%, rgba(59,130,246,.35) 0%, rgba(59,130,246,0) 58%),
-        radial-gradient(1000px 800px at 18% 62%, rgba(34,211,238,.28) 0%, rgba(34,211,238,0) 55%),
-        radial-gradient(900px 700px at 12% 88%, rgba(16,185,129,.16) 0%, rgba(16,185,129,0) 52%);
-      box-shadow: inset 0 0 180px 80px rgba(0,0,0,.22);
+        radial-gradient(1200px at 76% 24%, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 56%),
+        radial-gradient(1100px at 16% 88%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
     }
     .layer-noise{
       position:fixed; inset:0; z-index:-54; pointer-events:none;
-      background:repeating-conic-gradient(from 0deg, rgba(255,255,255,.015) 0 2deg, rgba(0,0,0,0) 2deg 4deg);
-      opacity:.08; mix-blend-mode:overlay;
+      background:repeating-conic-gradient(from 0deg, rgba(255,255,255,.012) 0 2deg, rgba(0,0,0,0) 2deg 4deg);
+      opacity:.06; mix-blend-mode:overlay;
     }
     .layer-dots{
       position:fixed; inset:0; z-index:-53; pointer-events:none;
       background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
-      background-size:22px 22px; background-repeat:repeat; opacity:.028;
+      background-size:22px 22px; background-repeat:repeat; opacity:.03;
     }
 
     /* Ticker */
@@ -112,35 +109,24 @@
 
     /* ===== Mobile menu improvements ===== */
     body.menu-open { overflow: hidden; } /* lock scroll when menu open */
-    .menu-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+
+    .menu-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
     .glass-panel{
       background: rgba(14,20,30,.45);
-      backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%);
-      border: 1px solid rgba(255,255,255,.12); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.45);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
     }
 
     /* Anchor offset so titles don't hide under sticky header */
     section[id]{ scroll-margin-top: 98px; }
-
-    /* ⭐️ Back to top — moved to bottom-right, square with rounded corners */
-    #backToTop{
-      position:fixed; right:20px; bottom:20px; z-index:40;
-      display:flex; align-items:center; justify-content:center;
-      width:44px; height:44px; border-radius:16px; /* like cards */
-      background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(8px);
-      opacity:0; visibility:hidden; transition:opacity .25s ease, visibility .25s ease, transform .2s ease;
-    }
-    #backToTop.show{ opacity:1; visibility:visible; }
-    @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} #backToTop{transition:none} }
-
-    /* ✅ Mobile sticky CTA (minimal height, doesn't cover content) */
-    .mobile-cta{ position: fixed; left:0; right:0; bottom:0; z-index:50; display:none; }
-    @media (max-width: 767px){
-      .mobile-cta{ display:block; }
-      .mobile-cta .bar{ padding-bottom: max(8px, env(safe-area-inset-bottom)); }
-      .mobile-cta a{ height:44px; line-height:44px; }
-    }
   </style>
 </head>
 
@@ -583,7 +569,7 @@
         <!-- YouTube -->
         <a class="social" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-            <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c.6-2 .6-4.9.6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
+            <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2.6 8.2.6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c.6-2 .6-4.9.6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
           </svg>
         </a>
         <!-- TikTok -->
@@ -596,17 +582,11 @@
     </div>
   </footer>
 
-  <!-- Back to top — BOTTOM RIGHT SQUARE -->
-  <button id="backToTop" aria-label="Back to top" title="Back to top">
+  <!-- Back to top -->
+  <button id="backToTop" aria-label="Back to top"
+          class="fixed bottom-5 right-5 z-40 hidden items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20">
     <i data-lucide="arrow-up"></i>
   </button>
-
-  <!-- ✅ Mobile sticky CTA (small & links to #pricing) -->
-  <div class="mobile-cta">
-    <div class="bar mx-auto max-w-7xl px-4 pb-2">
-      <a href="#pricing" class="block w-full text-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 font-semibold">See Pricing</a>
-    </div>
-  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -619,11 +599,11 @@
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-      // Back to top (now bottom-right)
+      // Back to top
       const backBtn = document.getElementById('backToTop');
       const toggleTop = () => {
-        if (window.scrollY > 500) backBtn.classList.add('show');
-        else backBtn.classList.remove('show');
+        if (window.scrollY > 500) backBtn.classList.remove('hidden');
+        else backBtn.classList.add('hidden');
       };
       toggleTop();
       window.addEventListener('scroll', toggleTop);
