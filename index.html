@@ -3,13 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
   <title>FusionTicks – Trade with Clarity</title>
   <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
-
-  <!-- (3) Canonical + Robots -->
-  <link rel="canonical" href="https://YOUR_DOMAIN/"><!-- TODO: change -->
-  <meta name="robots" content="index, follow"/>
 
   <!-- FAVICONS / MANIFEST -->
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -20,34 +15,10 @@
   <!-- (اختياري) آبل -->
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 
-  <!-- (3) OpenGraph / Twitter -->
+  <!-- OpenGraph -->
   <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
   <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
-  <meta property="og:image" content="https://YOUR_DOMAIN/og-cover.jpg"/><!-- TODO: absolute URL -->
-  <meta property="og:url" content="https://YOUR_DOMAIN/"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="FusionTicks"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-
-  <!-- (3) Schema.org (Course + Organization) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Course",
-    "name":"FusionTicks Trading Course",
-    "description":"Learn to read the market and build clean, repeatable setups without chasing strategies.",
-    "provider":{"@type":"Organization","name":"FusionTicks","sameAs":"https://YOUR_DOMAIN/"}
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"FusionTicks",
-    "url":"https://YOUR_DOMAIN/",
-    "logo":"https://YOUR_DOMAIN/logo.png"
-  }
-  </script>
+  <meta property="og:image" content="./FT%20Logo.png"/>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -58,26 +29,30 @@
   <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
-  <!-- (1) تحسين الجلو/الخلفية + (6) تحسينات عامة -->
   <style>
     html{scroll-behavior:smooth}
+
     /* ===== Global background layers ===== */
     .layer-base{ position:fixed; inset:0; z-index:-60; background:#070910; }
+
+    /* ⭐️ Improved glow/identity */
     .layer-glow{
       position:fixed; inset:0; z-index:-55; pointer-events:none;
       background:
-        radial-gradient(1200px at 76% 24%, rgba(59,130,246,.28) 0%, rgba(59,130,246,0) 56%),
-        radial-gradient(1100px at 16% 88%, rgba(16,185,129,.20) 0%, rgba(16,185,129,0) 54%);
+        radial-gradient(1200px 900px at 78% 18%, rgba(59,130,246,.35) 0%, rgba(59,130,246,0) 58%),
+        radial-gradient(1000px 800px at 18% 62%, rgba(34,211,238,.28) 0%, rgba(34,211,238,0) 55%),
+        radial-gradient(900px 700px at 12% 88%, rgba(16,185,129,.16) 0%, rgba(16,185,129,0) 52%);
+      box-shadow: inset 0 0 180px 80px rgba(0,0,0,.22);
     }
     .layer-noise{
       position:fixed; inset:0; z-index:-54; pointer-events:none;
-      background:repeating-conic-gradient(from 0deg, rgba(255,255,255,.012) 0 2deg, rgba(0,0,0,0) 2deg 4deg);
-      opacity:.06; mix-blend-mode:overlay;
+      background:repeating-conic-gradient(from 0deg, rgba(255,255,255,.015) 0 2deg, rgba(0,0,0,0) 2deg 4deg);
+      opacity:.08; mix-blend-mode:overlay;
     }
     .layer-dots{
       position:fixed; inset:0; z-index:-53; pointer-events:none;
       background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="1.2" cy="1.2" r="1.2" fill="%23FFFFFF" fill-opacity="1"/></svg>');
-      background-size:22px 22px; background-repeat:repeat; opacity:.03;
+      background-size:22px 22px; background-repeat:repeat; opacity:.028;
     }
 
     /* Ticker */
@@ -147,7 +122,7 @@
     /* Anchor offset so titles don't hide under sticky header */
     section[id]{ scroll-margin-top: 98px; }
 
-    /* (6) تحسين زر الرجوع للأعلى — متمركز بالنص أسفل الصفحة */
+    /* ⭐️ Back to top — centered bottom */
     #backToTop{
       position:fixed; left:50%; transform:translateX(-50%);
       bottom:20px; z-index:40;
@@ -173,7 +148,7 @@
   <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto" loading="lazy" decoding="async"/>
+        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"/>
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
 
@@ -255,8 +230,7 @@
 
       <div class="relative z-10 flex items-center justify-center reveal">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo"
-             class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]"
-             loading="lazy" decoding="async"/>
+             class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
       </div>
     </div>
   </section>
@@ -535,24 +509,6 @@
     </div>
   </section>
 
-  <!-- (5) EMAIL FORM — Mailchimp -->
-  <section id="newsletter" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
-      <h3 class="text-2xl font-bold">Get the weekly market brief + launch discounts</h3>
-      <form
-        action="https://YOUR_DC.list-manage.com/subscribe/post?u=YOUR_MAILCHIMP_U&id=YOUR_MAILCHIMP_ID"  <!-- TODO -->
-        method="post" target="_blank" novalidate
-        class="mt-4 flex flex-col sm:flex-row gap-3">
-        <input type="email" name="EMAIL" required
-               class="flex-1 rounded-xl border border-white/15 bg-black/30 px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-400"
-               placeholder="you@email.com" aria-label="Email"/>
-        <button type="submit"
-                class="rounded-xl px-5 py-3 bg-gradient-to-r from-blue-600 to-cyan-400 font-semibold">Subscribe</button>
-      </form>
-      <p class="text-white/60 text-sm mt-2">No spam. Unsubscribe anytime.</p>
-    </div>
-  </section>
-
   <!-- FAQ -->
   <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
@@ -580,7 +536,7 @@
   </section>
 
   <!-- CTA -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
     <div class="rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-r from-blue-600/20 to-cyan-400/10 p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center reveal">
       <div>
         <h3 class="text-2xl md:text-3xl font-extrabold">Ready to trade with clarity?</h3>
@@ -605,7 +561,7 @@
   <footer class="py-12 border-t border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
       <div class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto" loading="lazy" decoding="async">
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
@@ -633,12 +589,12 @@
     </div>
   </footer>
 
-  <!-- (6) Back to top — FIXED: centered bottom -->
+  <!-- Back to top — CENTERED bottom -->
   <button id="backToTop" aria-label="Back to top" title="Back to top">
     <i data-lucide="arrow-up"></i>
   </button>
 
-  <script defer>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
@@ -649,26 +605,34 @@
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-      // (6) Back to top — centered bottom & show after scroll
+      // Back to top (centered bottom)
       const backBtn = document.getElementById('backToTop');
       const toggleTop = () => {
         if (window.scrollY > 500) backBtn.classList.add('show');
         else backBtn.classList.remove('show');
       };
       toggleTop();
-      window.addEventListener('scroll', toggleTop, {passive:true});
-      backBtn.addEventListener('click', () => {
-        try{ window.scrollTo({top:0, behavior:'smooth'}); } catch { window.scrollTo(0,0); }
-      });
+      window.addEventListener('scroll', toggleTop);
+      backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
       // ===== Mobile menu open/close with strong blur + lock scroll =====
       const menuBtn = document.getElementById('menuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
-      const openMenu = () => { mobileMenu.classList.remove('hidden'); document.body.classList.add('menu-open'); };
-      const closeMenu = () => { mobileMenu.classList.add('hidden'); document.body.classList.remove('menu-open'); };
-      if (menuBtn) menuBtn.addEventListener('click', openMenu);
+
+      const openMenu = () => {
+        mobileMenu.classList.remove('hidden');
+        document.body.classList.add('menu-open');
+      };
+      const closeMenu = () => {
+        mobileMenu.classList.add('hidden');
+        document.body.classList.remove('menu-open');
+      };
+
+      menuBtn.addEventListener('click', openMenu);
       mobileMenu.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
-      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => setTimeout(closeMenu, 50)));
+      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', () => setTimeout(closeMenu, 50));
+      });
     });
   </script>
 </body>
