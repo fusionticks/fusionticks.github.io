@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FusionTicks – Trade with Clarity</title>
   <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
-  <meta name="theme-color" content="#070910"/>
-  <meta name="robots" content="index,follow"/>
-  <link rel="canonical" href="https://fusionticks.com/"/>
 
   <!-- FAVICONS / MANIFEST -->
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -15,26 +12,19 @@
   <link rel="icon" type="image/png" sizes="512x512" href="./favicon-512x512.png">
   <link rel="shortcut icon" href="./favicon.ico">
   <link rel="manifest" href="./site.webmanifest">
+  <!-- (اختياري) آبل -->
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 
-  <!-- OpenGraph / Twitter -->
+  <!-- OpenGraph -->
   <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
   <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
   <meta property="og:image" content="./FT%20Logo.png"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://fusionticks.com/"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="FusionTicks – Trade with Clarity"/>
-  <meta name="twitter:description" content="Read the market. Stack confirmations. Trade without noise."/>
-  <meta name="twitter:image" content="./FT%20Logo.png"/>
 
-  <!-- Performance: preconnect -->
-  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-  <link rel="preconnect" href="https://unpkg.com" crossorigin>
-
-  <!-- Tailwind (CDN) -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config = { theme: { extend: { colors: { 'bg-dark':'#070910' } } } }</script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { 'bg-dark':'#070910' } } } }
+  </script>
 
   <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -72,18 +62,35 @@
 
     /* Card glow on hover */
     .card-glow{position:relative;border-radius:16px;}
-    .card-glow:before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:radial-gradient(240px 120px at 20% 0%, rgba(59,130,246,.35), transparent 60%),radial-gradient(300px 140px at 100% 100%, rgba(6,182,212,.28), transparent 55%);filter:blur(14px);opacity:0;transition:opacity .3s ease;pointer-events:none}
+    .card-glow:before{
+      content:"";position:absolute;inset:-1px;border-radius:inherit;
+      background:
+        radial-gradient(240px 120px at 20% 0%, rgba(59,130,246,.35), transparent 60%),
+        radial-gradient(300px 140px at 100% 100%, rgba(6,182,212,.28), transparent 55%);
+      filter:blur(14px);opacity:0;transition:opacity .3s ease;pointer-events:none;
+    }
     .card-glow:hover:before{opacity:.7}
 
     /* Pricing hover glow */
     .plan{position:relative;border-radius:16px}
-    .plan:before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg, rgba(59,130,246,.6), rgba(34,211,238,.4));filter:blur(10px);opacity:0;transition:opacity .25s ease;pointer-events:none}
+    .plan:before{
+      content:"";position:absolute;inset:-1px;border-radius:inherit;
+      background:linear-gradient(135deg, rgba(59,130,246,.6), rgba(34,211,238,.4));
+      filter:blur(10px);opacity:0;transition:opacity .25s ease;pointer-events:none;
+    }
     .plan:hover:before{opacity:.35}
 
     /* Discord/UI helpers */
-    .badge{display:inline-flex;align-items:center;gap:.35rem;padding:.25rem .5rem;border-radius:999px;font-size:.75rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    .badge{
+      display:inline-flex;align-items:center;gap:.35rem;
+      padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    }
     .role-step{display:flex;align-items:center;gap:.5rem;position:relative}
-    .role-step:after{content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent)}
+    .role-step:after{
+      content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;
+      background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent);
+    }
     .role-step:last-child:after{display:none}
 
     /* Social circles */
@@ -91,77 +98,38 @@
     .social:hover{background:rgba(255,255,255,.12)}
 
     /* Gradient text helper */
-    .gradient-text{background: linear-gradient(to right, #3b82f6, #67e8f9);-webkit-background-clip: text;background-clip: text;-webkit-text-fill-color: transparent;color: transparent}
+    .gradient-text{
+      background: linear-gradient(to right, #3b82f6, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
 
-    /* ===== Mobile menu + sticky CTA ===== */
-    body.menu-open { overflow: hidden; }
-    .menu-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-    .glass-panel{ background: rgba(14,20,30,.45); backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.45); }
+    /* ===== Mobile menu improvements ===== */
+    body.menu-open { overflow: hidden; } /* lock scroll when menu open */
+
+    .menu-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .glass-panel{
+      background: rgba(14,20,30,.45);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    }
 
     /* Anchor offset so titles don't hide under sticky header */
     section[id]{ scroll-margin-top: 98px; }
-
-    /* Reserve space for sticky mobile CTA on small screens */
-    @media (max-width: 767px){
-      .has-mobile-cta-padding{ padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
-    }
   </style>
-
-  <!-- GA4 (replace G-XXXXXXX) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
-    gtag('config', 'G-XXXXXXX');
-  </script>
-
-  <!-- Meta Pixel (replace YOUR_META_PIXEL_ID) -->
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n; n.push=n; n.loaded=!0; n.version='2.0'; n.queue=[]; t=b.createElement(e); t.async=!0; t.src=v; s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'YOUR_META_PIXEL_ID');
-    fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_META_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
-
-  <!-- Schema.org (Organization) -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "FusionTicks",
-      "url": "https://fusionticks.com/",
-      "logo": "https://fusionticks.com/FT%20Logo.png",
-      "sameAs": [
-        "https://www.instagram.com/fusionticks",
-        "https://www.youtube.com/@fusionticks",
-        "https://www.tiktok.com/@fusionticks"
-      ]
-    }
-  </script>
-  <!-- Schema.org (Course / Offer) -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "FusionTicks Trading Course",
-      "description": "A practical, risk-first program focused on reading the market, stacking confirmations, and building repeatable setups.",
-      "provider": {"@type": "Person", "name": "Khalid Kuhail"},
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "online",
-        "offers": {
-          "@type": "Offer",
-          "price": "550",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock",
-          "url": "https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true"
-        }
-      }
-    }
-  </script>
 </head>
 
-<body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30 has-mobile-cta-padding">
+<body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
   <!-- Background layers -->
   <div class="layer-base"></div>
   <div class="layer-glow"></div>
@@ -172,7 +140,7 @@
   <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto" loading="eager" fetchpriority="high" decoding="async" />
+        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"/>
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
 
@@ -187,11 +155,11 @@
       </nav>
 
       <div class="hidden md:flex items-center gap-3">
-        <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-track="cta_header">Get Access</a>
+        <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
       </div>
 
       <!-- Mobile button -->
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20" aria-label="Open menu">
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20">
         <i data-lucide="menu"></i>
       </button>
     </div>
@@ -199,10 +167,29 @@
     <!-- Ticker -->
     <div class="ticker border-t border-white/10 bg-black/30 text-white/70 text-sm">
       <div class="ticker-track">
-        <span class="mx-6">NQ +0.72%</span><span class="mx-6">ES +0.31%</span><span class="mx-6">CL -0.45%</span><span class="mx-6">GC +0.12%</span>
-        <span class="mx-6">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="mx-6">Risk First • Setup-Driven • No Signals</span>
-        <span class="mx-6">NQ +0.72%</span><span class="mx-6">ES +0.31%</span><span class="mx-6">CL -0.45%</span><span class="mx-6">GC +0.12%</span>
-        <span class="mx-6">BOS • CHOCH • FVG • Liquidity • S/D</span><span class="mx-6">Risk First • Setup-Driven • No Signals</span>
+        <!-- sequence A -->
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+
+        <!-- sequence A duplicated (for seamless loop) -->
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
+        <span class="mx-6">Use code FIRST40 at checkout</span>
       </div>
     </div>
   </header>
@@ -224,7 +211,7 @@
         <a class="block py-3 border-t border-white/10" href="#pricing">Pricing</a>
         <a class="block py-3 border-t border-white/10" href="#faq">FAQ</a>
 
-        <a href="#pricing" class="mt-4 block text-center rounded-xl py-3 bg-gradient-to-r from-blue-600 to-cyan-400" data-track="cta_menu">Get Access</a>
+        <a href="#pricing" class="mt-4 block text-center rounded-xl py-3 bg-gradient-to-r from-blue-600 to-cyan-400">Get Access</a>
       </nav>
     </div>
   </div>
@@ -243,23 +230,18 @@
           teaches you to stack confirmations and build repeatable setups—no signals, no hype.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-track="cta_hero">
+          <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
             Get Access <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
           </a>
           <a href="#curriculum" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20">
             <i data-lucide="book-open" class="mr-2 w-5 h-5"></i> See Curriculum
           </a>
         </div>
-        <!-- Email capture (Connect later to Mailchimp/ConvertKit) -->
-        <form id="emailForm" class="mt-6 flex flex-col sm:flex-row gap-2 max-w-xl" data-endpoint="">
-          <input type="email" name="email" required placeholder="Enter your email for launch updates" class="flex-1 h-12 px-4 rounded-lg bg-white/5 border border-white/10 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-cyan-400/40" aria-label="Email address">
-          <button class="h-12 px-5 rounded-lg bg-white/10 border border-white/10 hover:bg-white/20" type="submit" data-track="email_submit">Join the list</button>
-          <p id="emailMsg" class="text-xs text-white/60"></p>
-        </form>
       </div>
 
       <div class="relative z-10 flex items-center justify-center reveal">
-        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" loading="lazy" decoding="async" />
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo"
+             class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
       </div>
     </div>
   </section>
@@ -268,7 +250,10 @@
   <section id="approach" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">The <span class="gradient-text">FusionTicks</span> Approach</h2>
-      <p class="mt-2 text-white/70 max-w-3xl">Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>, identifying who’s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.</p>
+      <p class="mt-2 text-white/70 max-w-3xl">
+        Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>,
+        identifying who’s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.
+      </p>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
@@ -383,12 +368,24 @@
   <section id="discord" class="relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div class="mb-8 sm:mb-12 reveal">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">FusionTicks Discord</div>
+        <!-- Badge (icon removed as requested) -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
+          FusionTicks Discord
+        </div>
+
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
-        <p class="mt-2 text-white/70 max-w-2xl">One place to read the market together, post daily levels, review trades, and learn live. Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>, progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>, unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.</p>
+        <p class="mt-2 text-white/70 max-w-2xl">
+          One place to read the market together, post daily levels, review trades, and learn live.
+          Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
+          progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
+          unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
+        </p>
+
+        <!-- Button (keeps your PNG icon) -->
         <div class="mt-5">
-          <a href="https://YOUR_DISCORD_INVITE" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-utm data-track="cta_discord">
-            <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain" loading="lazy" decoding="async"/>
+          <a href="https://YOUR_DISCORD_INVITE" target="_blank"
+             class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
+            <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/>
             Join the Discord
           </a>
         </div>
@@ -396,35 +393,59 @@
 
       <div class="grid lg:grid-cols-3 gap-6">
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><span class="p-2 rounded-xl bg-white/5"><i data-lucide="messages-square" class="w-5 h-5"></i></span>#chatroom</div>
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
+            #chatroom
+          </div>
           <p class="text-white/70 mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><span class="p-2 rounded-xl bg-white/5"><i data-lucide="newspaper" class="w-5 h-5"></i></span>#market-news</div>
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
+            #market-news
+          </div>
           <p class="text-white/70 mt-3">Weekly market calendar: which days to lean in and which days to stay light.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><span class="p-2 rounded-xl bg-white/5"><i data-lucide="target" class="w-5 h-5"></i></span>#market-levels</div>
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="target" class="w-5 h-5"></i></span>
+            #market-levels
+          </div>
           <p class="text-white/70 mt-3">Daily levels so you’re prepared. We still wait for tool-based confirmation.</p>
-          <div class="mt-4 flex flex-wrap gap-2"><span class="badge">NQ</span><span class="badge">ES</span><span class="badge">CL (Crude)</span><span class="badge">GC (Gold)</span></div>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="badge">NQ</span><span class="badge">ES</span><span class="badge">CL (Crude)</span><span class="badge">GC (Gold)</span>
+          </div>
         </div>
+
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><span class="p-2 rounded-xl bg-white/5"><i data-lucide="calendar-check" class="w-5 h-5"></i></span>Weekly Session</div>
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="calendar-check" class="w-5 h-5"></i></span>
+            Weekly Session
+          </div>
           <p class="text-white/70 mt-3">Weekend live: review the week, map scenarios for next week—calm, focused.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><span class="p-2 rounded-xl bg-white/5"><i data-lucide="radio" class="w-5 h-5"></i></span>Live Session</div>
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="radio" class="w-5 h-5"></i></span>
+            Live Session
+          </div>
           <p class="text-white/70 mt-3">Mid-week live for Q&A, coaching, and process refinement.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><span class="p-2 rounded-xl bg-white/5"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>Live Trading (Unlocked)</div>
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>
+            Live Trading (Unlocked)
+          </div>
           <p class="text-white/70 mt-3">Daily live trading room for <b>Fusion Legend</b> only—after your first prop payout.</p>
         </div>
       </div>
 
       <div class="mt-10 grid lg:grid-cols-2 gap-6">
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>Role Path & Rules</div>
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>
+            Role Path & Rules
+          </div>
           <div class="mt-4 space-y-4">
             <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm">Your starting role. Build foundations.</span></div>
             <div class="role-step"><span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span><span class="text-white/70 text-sm">Show your prop pass → upgrade.</span></div>
@@ -436,14 +457,33 @@
             <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-cyan-300"></i> Education only. Not financial advice.</li>
           </ul>
         </div>
+
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-          <div class="flex items-center gap-2 text-white/90 font-semibold"><span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkle" class="w-5 h-5"></i></span>Why Community Helps</div>
-          <p class="text-white/70 mt-3">You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial & error.</p>
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkle" class="w-5 h-5"></i></span>
+            Why Community Helps
+          </div>
+          <p class="text-white/70 mt-3">
+            You learn faster seeing multiple reads, sharing plans, and getting feedback.
+            Discipline becomes easier—and you’ll skip years of trial &amp; error.
+          </p>
           <ul class="mt-5 grid sm:grid-cols-2 gap-3 text-white/80">
-            <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>Daily chart reviews & peer feedback</li>
-            <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>Accountability via weekly summaries</li>
-            <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>Shared levels for NQ · ES · CL · GC</li>
-            <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>Process-first mindset, zero signals</li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
+              Daily chart reviews & peer feedback
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
+              Accountability via weekly summaries
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
+              Shared levels for NQ · ES · CL · GC
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
+              Process-first mindset, zero signals
+            </li>
           </ul>
         </div>
       </div>
@@ -454,7 +494,9 @@
   <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold">Choose Your <span class="gradient-text">Access</span></h2>
-      <p class="mt-2 text-white/70">First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through text-white/50">$1000</span>). Lifetime updates included.</p>
+      <p class="mt-2 text-white/70">
+        First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through text-white/50">$1000</span>). Lifetime updates included.
+      </p>
     </div>
 
     <div class="grid lg:grid-cols-3 gap-6">
@@ -476,8 +518,11 @@
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Lifetime updates (future lessons)</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord access (no live, levels, or news)</li>
         </ul>
+
+        <!-- Aligned CTA block -->
         <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
-          <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400" target="_blank" rel="noopener" data-utm data-track="cta_buy_course">
+          <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true"
+             class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">
             Get Course — $550
           </a>
           <p class="text-xs text-white/50 mt-2">Price returns to $1000 after the first 40 seats.</p>
@@ -497,8 +542,11 @@
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly news calendar + trade/avoid days</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&amp;A & group study</li>
         </ul>
+
+        <!-- Aligned CTA block -->
         <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
-          <a href="https://YOUR_WHOP_LINK_SUB_20" class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400" target="_blank" rel="noopener" data-utm data-track="cta_sub_levels">
+          <a href="https://YOUR_WHOP_LINK_SUB_20"
+             class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">
             Subscribe — $20/mo
           </a>
         </div>
@@ -510,18 +558,27 @@
           <span class="font-semibold">ICT Concepts · Deep Dive</span>
           <span class="text-2xl font-extrabold">$1000</span>
         </div>
+
         <div class="mt-2 inline-flex items-center gap-2 text-white/70 text-sm">
-          <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-300"></span></span>
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-300"></span>
+          </span>
           In progress — coming soon
         </div>
+
         <p class="text-white/70 mt-2">I’m building a full ICT concepts course. It will cover structure, execution models, and case studies.</p>
         <ul class="mt-3 space-y-2 text-white/80">
           <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Comprehensive ICT framework</li>
           <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Clear setups & management rules</li>
           <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Real chart walk-throughs</li>
         </ul>
+
+        <!-- Aligned CTA block -->
         <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
-          <button disabled class="inline-block w-full text-center px-4 py-2 rounded-lg bg-white/10 opacity-60 cursor-not-allowed">Coming Soon</button>
+          <button disabled class="inline-block w-full text-center px-4 py-2 rounded-lg bg-white/10 opacity-60 cursor-not-allowed">
+            Coming Soon
+          </button>
           <p class="text-xs text-white/50 mt-2">Join the Discord to get notified at launch.</p>
         </div>
       </div>
@@ -558,27 +615,27 @@
   <footer class="py-12 border-t border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
       <div class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto" loading="lazy" decoding="async">
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
         <!-- Instagram -->
-        <a class="social" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <a class="social" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
             <circle cx="12" cy="12" r="4"></circle>
             <circle cx="17.5" cy="6.5" r="1"></circle>
           </svg>
         </a>
         <!-- YouTube -->
-        <a class="social" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+        <a class="social" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2 .7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c .6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
           </svg>
         </a>
         <!-- TikTok -->
-        <a class="social" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor" aria-hidden="true">
+        <a class="social" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
+          <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
             <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
           </svg>
         </a>
@@ -586,20 +643,18 @@
     </div>
   </footer>
 
-  <!-- Sticky Mobile CTA (only on small screens) -->
-  <div id="mobileCTA" class="md:hidden fixed bottom-0 inset-x-0 z-50 pointer-events-none">
-    <div class="mx-3 mb-3 pointer-events-auto glass-panel p-2 rounded-2xl flex items-center gap-2">
-      <a href="#pricing" class="flex-1 h-12 rounded-xl inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-cyan-400" data-track="cta_mobile_pricing">Get Access</a>
-      <a href="https://YOUR_DISCORD_INVITE" target="_blank" rel="noopener" class="h-12 px-4 rounded-xl inline-flex items-center justify-center bg-white/10 border border-white/10" data-utm data-track="cta_mobile_discord">Discord</a>
-    </div>
-  </div>
-
   <!-- Back to top -->
-  <button id="backToTop" aria-label="Back to top" class="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-40 hidden flex items-center justify-center w-12 h-12 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 shadow-lg/20 focus:outline-none focus:ring-2 focus:ring-cyan-400/40 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)]">
+  <button id="backToTop" aria-label="Back to top"
+          class="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-40 hidden
+                 flex items-center justify-center
+                 w-12 h-12 rounded-2xl
+                 bg-white/5 hover:bg-white/10
+                 border border-white/10
+                 shadow-lg/20 focus:outline-none focus:ring-2 focus:ring-cyan-400/40
+                 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)]">
     <i data-lucide="arrow-up" class="w-5 h-5"></i>
   </button>
 
-  <!-- Scripts -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
@@ -613,7 +668,10 @@
 
       // Back to top
       const backBtn = document.getElementById('backToTop');
-      const toggleTop = () => { if (window.scrollY > 500) backBtn.classList.remove('hidden'); else backBtn.classList.add('hidden'); };
+      const toggleTop = () => {
+        if (window.scrollY > 500) backBtn.classList.remove('hidden');
+        else backBtn.classList.add('hidden');
+      };
       toggleTop();
       window.addEventListener('scroll', toggleTop);
       backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
@@ -621,55 +679,21 @@
       // Mobile menu
       const menuBtn = document.getElementById('menuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
-      const openMenu = () => { mobileMenu.classList.remove('hidden'); document.body.classList.add('menu-open'); };
-      const closeMenu = () => { mobileMenu.classList.add('hidden'); document.body.classList.remove('menu-open'); };
+
+      const openMenu = () => {
+        mobileMenu.classList.remove('hidden');
+        document.body.classList.add('menu-open');
+      };
+      const closeMenu = () => {
+        mobileMenu.classList.add('hidden');
+        document.body.classList.remove('menu-open');
+      };
+
       menuBtn.addEventListener('click', openMenu);
       mobileMenu.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
-      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', () => setTimeout(closeMenu, 50)); });
-
-      // UTM passthrough for external CTAs
-      const utmParams = new URLSearchParams(window.location.search);
-      const appendUTM = (href) => {
-        if (!utmParams.toString()) return href;
-        try { const u = new URL(href, location.origin); utmParams.forEach((v,k)=>u.searchParams.set(k,v)); return u.toString(); } catch { return href; }
-      };
-      document.querySelectorAll('[data-utm]').forEach(a => { a.href = appendUTM(a.href); });
-
-      // Basic click tracking helpers (GA4 + Meta Pixel)
-      const track = (name, params={}) => {
-        if (window.gtag) gtag('event', name, params);
-        if (window.fbq) fbq('trackCustom', name, params);
-      };
-      document.querySelectorAll('[data-track]').forEach(el => {
-        el.addEventListener('click', () => track('cta_click', {id: el.getAttribute('data-track')}));
+      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', () => setTimeout(closeMenu, 50));
       });
-
-      // Email capture (connect endpoint when ready)
-      const emailForm = document.getElementById('emailForm');
-      const emailMsg = document.getElementById('emailMsg');
-      if (emailForm) {
-        const ENDPOINT = emailForm.dataset.endpoint; // e.g., ConvertKit/Mailchimp/Formspree URL
-        emailForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const email = emailForm.email.value.trim();
-          if (!email) return;
-          emailMsg.textContent = 'Submitting...';
-          try {
-            if (!ENDPOINT) {
-              emailMsg.textContent = 'Connected soon. For now, DM me on Instagram.';
-              return;
-            }
-            const res = await fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
-            if (!res.ok) throw new Error('Network');
-            localStorage.setItem('ft_subscribed', '1');
-            emailMsg.textContent = 'You are in! Check your inbox.';
-            track('email_subscribed', {email_domain: email.split('@')[1]||''});
-            emailForm.reset();
-          } catch (err) {
-            emailMsg.textContent = 'Something went wrong. Please try again later.';
-          }
-        });
-      }
     });
   </script>
 </body>
