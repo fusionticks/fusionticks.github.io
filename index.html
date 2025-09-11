@@ -51,9 +51,13 @@
       background-size:22px 22px; background-repeat:repeat; opacity:.03;
     }
 
-    /* Ticker */
+    /* ===== Ticker (adjusted speed + count) ===== */
+    :root { --ticker-speed: 38s; }                       /* default (mobile) */
+    @media (min-width: 768px){ :root { --ticker-speed: 48s; } }   /* tablet */
+    @media (min-width: 1024px){ :root { --ticker-speed: 60s; } }  /* laptop/desktop */
+
     .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-    .ticker-track{display:inline-block;padding-block:8px;animation:ticker 28s linear infinite}
+    .ticker-track{display:inline-block;padding-block:8px;animation:ticker var(--ticker-speed) linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
     /* Animations */
@@ -166,16 +170,16 @@
 
     <!-- Ticker -->
     <div class="ticker border-t border-white/10 bg-black/30 text-white/70 text-sm">
-     <div class="ticker-track" aria-label="promo">
-  <!-- sequence A (3 عناصر) -->
-  <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-  <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-  <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-  <!-- duplicate A (للسكروول السلس) -->
-  <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-  <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-  <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-</div>
+      <div class="ticker-track" aria-label="promo">
+        <!-- sequence A (3 items) -->
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <!-- duplicate A (for seamless loop) -->
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+      </div>
     </div>
   </header>
 
@@ -210,9 +214,10 @@
           Not Noise
         </h1>
         <p class="mt-5 text-white/70 max-w-xl">
-          I’m <b>Khalid Kuhail</b>. After 5 years in the trenches, I stopped chasing strategies
-          and started <b>reading the market</b>. FusionTicks is a practical, risk-first program that
-          teaches you to stack confirmations and build repeatable setups—no signals, no hype.
+          I started like most traders: YouTube strategies, paid courses, and a lot of frustration.
+          Real progress came when I stopped memorizing and began understanding the market. I treat each trade as a setup
+          based on the idea that time is fractal: higher timeframe key levels set the bias, lower timeframe levels define
+          the entry, and I identify who is in control. Now I teach the same framework inside FusionTicks.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
@@ -439,7 +444,7 @@
           <ul class="mt-5 space-y-2 text-white/70 text-sm">
             <li class="flex gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cyan-300"></i> Respect first. No spam or blind signals.</li>
             <li class="flex gap-2"><i data-lucide="book-open-check" class="w-4 h-4 text-cyan-300"></i> Use the reading tools before any entry.</li>
-            <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-cyan-300"></i> Education only. Not financial advice.</li>
+            <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 ه-4 text-cyan-300"></i> Education only. Not financial advice.</li>
           </ul>
         </div>
 
