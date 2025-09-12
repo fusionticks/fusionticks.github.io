@@ -588,25 +588,96 @@
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">FAQ</span></h2>
       <p class="mt-2 text-white/70">Still curious? Start here.</p>
+
+      <!-- Search -->
+      <div class="relative mt-6 max-w-xl">
+        <input id="faqSearch" type="text" placeholder="Search FAQs..."
+               class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white/60">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </span>
+      </div>
+      <p id="faqNoResults" class="hidden mt-3 text-white/60 text-sm">No results found.</p>
     </div>
+
+    <!-- Top 8 -->
     <div class="space-y-4">
-      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-        <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
-        <p class="text-white/70 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" data-faq-item>
+        <summary class="cursor-pointer font-medium">What’s the difference between “Academy · Lifetime” and “Live & Levels · Subscription”?</summary>
+        <p class="text-white/70 mt-2">Academy = the full course + lifetime updates + Discord access + weekly live Q&amp;A &amp; group study. Live & Levels = daily pre-market live, outlook/scenarios, and weekly news calendar (no course videos).</p>
       </details>
-      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-        <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
-        <p class="text-white/70 mt-2">Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
+
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" data-faq-item>
+        <summary class="cursor-pointer font-medium">Does the subscription include the course?</summary>
+        <p class="text-white/70 mt-2">No. The course is a separate one-time purchase.</p>
       </details>
-      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-        <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
-        <p class="text-white/70 mt-2">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
+
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" data-faq-item>
+        <summary class="cursor-pointer font-medium">Are live sessions recorded if I miss them?</summary>
+        <p class="text-white/70 mt-2">Yes—replays are posted in Discord within 24 hours.</p>
       </details>
-      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-        <summary class="cursor-pointer font-medium">What’s the core philosophy?</summary>
-        <p class="text-white/70 mt-2">Identify who’s in control, then stack confirmations. Levels are preparation—not entries. Risk first, always.</p>
+
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" data-faq-item>
+        <summary class="cursor-pointer font-medium">Is this a signals group?</summary>
+        <p class="text-white/70 mt-2">No. We don’t call trades. We read the market, stack confirmations, and manage risk.</p>
+      </details>
+
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" data-faq-item>
+        <summary class="cursor-pointer font-medium">What language is the content?</summary>
+        <p class="text-white/70 mt-2">Arabic. You can ask in English or Arabic.</p>
+      </details>
+
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" data-faq-item>
+        <summary class="cursor-pointer font-medium">What markets and timeframes do you focus on?</summary>
+        <p class="text-white/70 mt-2">NQ, ES, CL, and GC. Bias from higher timeframes; entries refined on lower timeframes.</p>
+      </details>
+
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" data-faq-item>
+        <summary class="cursor-pointer font-medium">Refunds and cancellations?</summary>
+        <p class="text-white/70 mt-2">Course: all sales are final (digital content). Subscription: cancel anytime from your Whop dashboard—your access continues until the end of the billing period.</p>
+      </details>
+
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" data-faq-item>
+        <summary class="cursor-pointer font-medium">How does the FIRST40 discount work?</summary>
+        <p class="text-white/70 mt-2">The first 40 seats for the Academy are $550 with code <b>FIRST40</b>. After that, the price returns to $1000.</p>
       </details>
     </div>
+
+    <!-- More FAQs -->
+    <details id="moreFaqsDetails" class="mt-6 bg-white/5 border border-white/10 rounded-xl p-4">
+      <summary class="cursor-pointer font-medium">More FAQs (6)</summary>
+      <div id="moreFaqs" class="space-y-4 mt-4">
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4" data-faq-item>
+          <summary class="cursor-pointer font-medium">What time are the live sessions and in which timezone?</summary>
+          <p class="text-white/70 mt-2">Daily pre-market live starts ~30 minutes before the NY open (New York session, New York time).</p>
+        </details>
+
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4" data-faq-item>
+          <summary class="cursor-pointer font-medium">Do I need prior experience?</summary>
+          <p class="text-white/70 mt-2">No. We start from reading price action and build up to execution with clear steps.</p>
+        </details>
+
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4" data-faq-item>
+          <summary class="cursor-pointer font-medium">How long do I keep access?</summary>
+          <p class="text-white/70 mt-2">Course access and updates are lifetime. Discord access is included and stays active as long as community rules are respected.</p>
+        </details>
+
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4" data-faq-item>
+          <summary class="cursor-pointer font-medium">Can I upgrade later from Subscription to the Course?</summary>
+          <p class="text-white/70 mt-2">Yes—you can upgrade anytime. Reach out in Discord and we’ll guide you.</p>
+        </details>
+
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4" data-faq-item>
+          <summary class="cursor-pointer font-medium">Is this ICT? Do I need ICT first?</summary>
+          <p class="text-white/70 mt-2">The Academy teaches a practical, risk-first framework. A separate ICT deep-dive is coming; you don’t need ICT to start.</p>
+        </details>
+
+        <details class="bg-white/5 border border-white/10 rounded-xl p-4" data-faq-item>
+          <summary class="cursor-pointer font-medium">Will I get 1:1 coaching?</summary>
+          <p class="text-white/70 mt-2">Group Q&amp;A is included. Limited 1:1 sessions may open occasionally for Academy members.</p>
+        </details>
+      </div>
+    </details>
   </section>
 
   <!-- FOOTER -->
@@ -692,6 +763,37 @@
       mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', () => setTimeout(closeMenu, 50));
       });
+
+      // ===== FAQ Search =====
+      const faqSearch = document.getElementById('faqSearch');
+      const allFaqItems = Array.from(document.querySelectorAll('[data-faq-item]'));
+      const moreDetails = document.getElementById('moreFaqsDetails');
+      const moreFaqItems = Array.from(document.querySelectorAll('#moreFaqs [data-faq-item]'));
+      const noResults = document.getElementById('faqNoResults');
+
+      const filterFaqs = () => {
+        const term = faqSearch.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        allFaqItems.forEach(item => {
+          const text = item.textContent.toLowerCase();
+          const match = !term || text.includes(term);
+          item.classList.toggle('hidden', !match);
+          if (match) visibleCount++;
+        });
+
+        // Open "More FAQs" if a match exists inside it when searching
+        if (term) {
+          const anyMoreMatch = moreFaqItems.some(item => !item.classList.contains('hidden'));
+          moreDetails.open = anyMoreMatch;
+        } else {
+          moreDetails.open = false;
+        }
+
+        noResults.classList.toggle('hidden', visibleCount > 0);
+      };
+
+      faqSearch.addEventListener('input', filterFaqs);
     });
   </script>
 </body>
