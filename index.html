@@ -270,7 +270,7 @@
     </div>
   </section>
 
-  <!-- CURRICULUM (cards + View full syllabus) -->
+  <!-- CURRICULUM -->
   <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">Curriculum</span></h2>
@@ -438,7 +438,8 @@
         </div>
 
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
-        <p class="mt-2 text-white/70 max-2xl">
+        <!-- FIXED: max-w-2xl to match screenshot 2 -->
+        <p class="mt-2 text-white/70 max-w-2xl">
           One place to read the market together, post daily levels, review trades, and learn live.
           Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
           progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
@@ -717,7 +718,7 @@
     </div>
   </footer>
 
-  <!-- ===== Curriculum Modal (NEW) ===== -->
+  <!-- ===== Curriculum Modal ===== -->
   <div id="currModal" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/70" data-curr-close></div>
     <div class="relative max-w-4xl mx-auto mt-16 mb-10 glass-panel">
@@ -789,7 +790,7 @@
     </div>
   </div>
 
-  <!-- ===== ICT Modal (existing) ===== -->
+  <!-- ===== ICT Modal ===== -->
   <div id="ictModal" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/70" data-ict-close></div>
     <div class="relative max-w-4xl mx-auto mt-16 mb-10 glass-panel">
@@ -801,7 +802,6 @@
       </div>
       <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar">
         <div class="grid sm:grid-cols-2 gap-6 text-white/80 text-sm leading-relaxed">
-          <!-- (same cards as قبل) -->
           <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
             <h4 class="text-white font-semibold text-base flex items-center gap-2">
               <i data-lucide="layers" class="w-4 h-4"></i> Structure &amp; Ranges
@@ -964,7 +964,7 @@
         });
       });
 
-      // Curriculum modal (NEW)
+      // Curriculum modal
       const currModal = document.getElementById('currModal');
       document.querySelectorAll('[data-curr-open]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
