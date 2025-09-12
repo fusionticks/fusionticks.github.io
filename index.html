@@ -56,16 +56,14 @@
     }
 
     /* ===== Ticker (adjusted speed + 3 visible items) ===== */
-    :root { --ticker-speed: 38s; }                             /* default (mobile) */
-    @media (min-width: 768px){ :root { --ticker-speed: 48s; } }   /* tablet */
-    @media (min-width: 1024px){ :root { --ticker-speed: 60s; } }  /* laptop/desktop */
+    :root { --ticker-speed: 38s; }                                  /* mobile */
+    @media (min-width: 768px){ :root { --ticker-speed: 48s; } }     /* tablet */
+    @media (min-width: 1024px){ :root { --ticker-speed: 60s; } }    /* laptop */
 
     .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
     .ticker-track{display:inline-block;padding-block:8px;animation:ticker var(--ticker-speed) linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    @media (prefers-reduced-motion: reduce){
-      .ticker-track{animation-duration:0s}
-    }
+    @media (prefers-reduced-motion: reduce){ .ticker-track{animation-duration:0s} }
 
     /* Animations */
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
@@ -345,7 +343,7 @@
     <div class="grid lg:grid-cols-4 gap-6">
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div>
-        <p class="mt-3 text-white/70">Map Market Levels (S/D, S/R, ORB) on HTF. Note news & sessions.</p>
+        <p class="mt-3 text-white/70">Map Market Levels (S/D, S/R, ORB) on HTF. Note news &amp; sessions.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div>
@@ -427,7 +425,7 @@
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="radio" class="w-5 h-5"></i></span>
             Live Session
           </div>
-          <p class="text-white/70 mt-3">Mid-week live for Q&A, coaching, and process refinement.</p>
+          <p class="text-white/70 mt-3">Mid-week live for Q&amp;A, coaching, and process refinement.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
@@ -442,7 +440,7 @@
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>
-            Role Path & Rules
+            Role Path &amp; Rules
           </div>
           <div class="mt-4 space-y-4">
             <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm">Your starting role. Build foundations.</span></div>
@@ -468,7 +466,7 @@
           <ul class="mt-5 grid sm:grid-cols-2 gap-3 text-white/80">
             <li class="flex items-start gap-3">
               <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
-              Daily chart reviews & peer feedback
+              Daily chart reviews &amp; peer feedback
             </li>
             <li class="flex items-start gap-3">
               <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
@@ -514,7 +512,8 @@
         <ul class="mt-3 space-y-2 text-white/80">
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Full course (current lessons)</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Lifetime updates (future lessons)</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord access (no live, levels, or news)</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord access</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&amp;A &amp; group study</li>
         </ul>
 
         <!-- CTA -->
@@ -539,7 +538,6 @@
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Daily pre-market live (plan + levels)</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Today’s outlook &amp; trade scenarios</li>
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly news calendar + trade/avoid days</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&amp;A &amp; group study</li>
         </ul>
 
         <!-- CTA -->
