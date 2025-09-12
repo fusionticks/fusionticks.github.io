@@ -130,6 +130,10 @@
 
     /* Anchor offset so titles don't hide under sticky header */
     section[id]{ scroll-margin-top: 98px; }
+
+    /* Hide native scrollbars but keep scrolling */
+    .no-scrollbar::-webkit-scrollbar{ display:none; }
+    .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
   </style>
 </head>
 
@@ -737,65 +741,120 @@
           <i data-lucide="x"></i>
         </button>
       </div>
-      <div class="p-5 max-h-[70vh] overflow-y-auto">
-        <ul class="grid sm:grid-cols-2 gap-3 text-white/80 text-sm leading-relaxed list-disc pl-5">
-          <li>Candles &amp; Market Structure</li>
-          <li>Premium &amp; Discount - Understanding Ranges</li>
-          <li>Using Range Structure</li>
-          <li>Displacement/Impulsive Structure</li>
-          <li>Top Down Analysis</li>
-          <li>Intro to Liquidity</li>
-          <li>Orderblocks</li>
-          <li>Breaker Blocks</li>
-          <li>Rejection Blocks</li>
-          <li>Fair Value Gaps (FVG's)</li>
-          <li>FVG's vs Liquidity Voids &amp; Volume Imbalances</li>
-          <li>The Fuel For The Markets</li>
-          <li>Understanding Displacement For Draw On Liquidity</li>
-          <li>Intra-day Liquidity</li>
-          <li>Liquidity Based Bias</li>
-          <li>Liquidity Sweeps Vs Liquidity Runs</li>
-          <li>Be One With The Market (Orderflow)</li>
-          <li>Intro To The Relationship Of Time &amp; Price</li>
-          <li>Asia Session</li>
-          <li>London Session</li>
-          <li>New York AM Session</li>
-          <li>New York PM Session</li>
-          <li>Key Time</li>
-          <li>Change in State of Delivery (CISD)</li>
-          <li>Time Frame Alignment</li>
-          <li>Smart Money Technique</li>
-          <li>Price Projection</li>
-          <li>OTE</li>
-          <li>Confirming Manipulation</li>
-          <li>Utilizing the Economic Calendar</li>
-          <li>The Weekly Approach to Force High Probability Trades</li>
-          <li>Starting the Foundation of Every Model</li>
-          <li>Unicorn Model</li>
-          <li>Candle Range Theory</li>
-          <li>3 Candle Model</li>
-          <li>CRT Entry Models</li>
-          <li>MOC Entry Model</li>
-          <li>Time Based Entry and Exit Models</li>
-          <li>Introduction to Risk Management</li>
-          <li>How to size positions</li>
-          <li>Slippage</li>
-          <li>The Game of Probability</li>
-          <li>Developing the right Mind</li>
-          <li>Journaling &amp; Organization</li>
-          <li>Unlocking your potential</li>
-          <li>The Building Blocks to a Successful Life</li>
-          <li>What Holds traders back from success</li>
-          <li>Accepting Losses and Moving on</li>
-          <li>Creating Your Trading Plan</li>
-          <li>How to Backtest</li>
-          <li>A-Z trading checklist</li>
-          <li>Dealing Ranges</li>
-          <li>How to Trade Continuations</li>
-          <li>OHLC OLHC Misconceptions</li>
-          <li>The only daily bias video you need</li>
-          <li>Trutle Soup How to Trade them</li>
-        </ul>
+      <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar">
+        <!-- ===== Segmented syllabus as cards ===== -->
+        <div class="grid sm:grid-cols-2 gap-6 text-white/80 text-sm leading-relaxed">
+          <!-- Structure & Ranges -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="layers" class="w-4 h-4"></i> Structure &amp; Ranges
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Candles &amp; Market Structure</li>
+              <li>Premium &amp; Discount (Understanding Ranges)</li>
+              <li>Using Range Structure</li>
+              <li>Displacement / Impulsive Structure</li>
+              <li>Top Down Analysis</li>
+              <li>Change in State of Delivery (CISD)</li>
+              <li>Time Frame Alignment</li>
+              <li>Price Projection</li>
+              <li>OHLC / OLHC Misconceptions</li>
+            </ol>
+          </article>
+
+          <!-- Liquidity & Orderflow -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="waves" class="w-4 h-4"></i> Liquidity &amp; Orderflow
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Intro to Liquidity</li>
+              <li>Liquidity Sweeps vs Liquidity Runs</li>
+              <li>Intra-day Liquidity</li>
+              <li>Liquidity Based Bias</li>
+              <li>Orderblocks</li>
+              <li>Breaker Blocks</li>
+              <li>Rejection Blocks</li>
+              <li>Fair Value Gaps (FVGs)</li>
+              <li>FVGs vs Liquidity Voids &amp; Volume Imbalances</li>
+              <li>The Fuel For The Markets</li>
+              <li>Understanding Displacement For Draw On Liquidity</li>
+              <li>Be One With The Market (Orderflow)</li>
+            </ol>
+          </article>
+
+          <!-- Time & Sessions -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="clock" class="w-4 h-4"></i> Time &amp; Sessions
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Intro To The Relationship Of Time &amp; Price</li>
+              <li>Key Time</li>
+              <li>Asia Session</li>
+              <li>London Session</li>
+              <li>New York AM Session</li>
+              <li>New York PM Session</li>
+              <li>Utilizing the Economic Calendar</li>
+              <li>The Weekly Approach to Force High Probability Trades</li>
+            </ol>
+          </article>
+
+          <!-- Models & Entries -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="list-checks" class="w-4 h-4"></i> Models &amp; Entries
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Starting the Foundation of Every Model</li>
+              <li>Unicorn Model</li>
+              <li>Candle Range Theory</li>
+              <li>3 Candle Model</li>
+              <li>CRT Entry Models</li>
+              <li>MOC Entry Model</li>
+              <li>Time Based Entry and Exit Models</li>
+              <li>Confirming Manipulation</li>
+              <li>OTE</li>
+              <li>Dealing Ranges</li>
+              <li>How to Trade Continuations</li>
+              <li>The only daily bias video you need</li>
+              <li>Turtle Soup: How to Trade them</li>
+              <li>Smart Money Technique</li>
+            </ol>
+          </article>
+
+          <!-- Execution & Risk -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="shield" class="w-4 h-4"></i> Execution &amp; Risk
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Introduction to Risk Management</li>
+              <li>How to size positions</li>
+              <li>Slippage</li>
+              <li>The Game of Probability</li>
+              <li>Creating Your Trading Plan</li>
+              <li>How to Backtest</li>
+              <li>A-Z trading checklist</li>
+            </ol>
+          </article>
+
+          <!-- Mindset & Process -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="brain" class="w-4 h-4"></i> Mindset &amp; Process
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Developing the right Mind</li>
+              <li>Journaling &amp; Organization</li>
+              <li>Unlocking your potential</li>
+              <li>The Building Blocks to a Successful Life</li>
+              <li>What Holds traders back from success</li>
+              <li>Accepting Losses and Moving on</li>
+            </ol>
+          </article>
+        </div>
+
         <div class="mt-5 text-xs text-white/50">Outline is subject to change during production. Join the Discord for updates.</div>
       </div>
     </div>
