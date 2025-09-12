@@ -55,11 +55,10 @@
       background-size:22px 22px; background-repeat:repeat; opacity:.03;
     }
 
-    /* ===== Ticker (adjusted speed + ~3 visible items) ===== */
-    :root { --ticker-speed: 38s; }                                  /* mobile */
-    @media (min-width: 768px){ :root { --ticker-speed: 48s; } }     /* tablet */
-    @media (min-width: 1024px){ :root { --ticker-speed: 60s; } }    /* laptop */
-
+    /* ===== Ticker ===== */
+    :root { --ticker-speed: 38s; }
+    @media (min-width: 768px){ :root { --ticker-speed: 48s; } }
+    @media (min-width: 1024px){ :root { --ticker-speed: 60s; } }
     .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
     .ticker-track{display:inline-block;padding-block:8px;animation:ticker var(--ticker-speed) linear infinite}
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -89,7 +88,7 @@
     }
     .plan:hover:before{opacity:.35}
 
-    /* Discord/UI helpers */
+    /* Badges, steps */
     .badge{
       display:inline-flex;align-items:center;gap:.35rem;
       padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
@@ -102,11 +101,9 @@
     }
     .role-step:last-child:after{display:none}
 
-    /* Social circles */
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
-    /* Gradient text helper */
     .gradient-text{
       background: linear-gradient(to right, #3b82f6, #67e8f9);
       -webkit-background-clip: text;
@@ -115,10 +112,8 @@
       color: transparent;
     }
 
-    /* ===== Menu / Modal scroll lock ===== */
     body.menu-open, body.modal-open { overflow: hidden; }
 
-    /* Glass panel shared */
     .glass-panel{
       background: rgba(14,20,30,.45);
       backdrop-filter: blur(20px) saturate(140%);
@@ -128,7 +123,6 @@
       box-shadow: 0 24px 60px rgba(0,0,0,.45);
     }
 
-    /* Anchor offset so titles don't hide under sticky header */
     section[id]{ scroll-margin-top: 98px; }
 
     /* Hide native scrollbars but keep scrolling */
@@ -152,7 +146,6 @@
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
 
-      <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#approach" class="hover:text-white">Approach</a>
         <a href="#curriculum" class="hover:text-white">Curriculum</a>
@@ -167,7 +160,6 @@
         <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
       </div>
 
-      <!-- Mobile button -->
       <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20">
         <i data-lucide="menu"></i>
       </button>
@@ -177,11 +169,9 @@
     <div class="ticker border-t border-white/10 bg-black/30 text-white/70 text-sm" aria-label="Promotion">
       <span class="sr-only">Use code FIRST40 at checkout</span>
       <div class="ticker-track" aria-hidden="true">
-        <!-- sequence A (3 items) -->
         <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
         <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
         <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-        <!-- duplicate A (for seamless loop) -->
         <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
         <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
         <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
@@ -280,58 +270,56 @@
     </div>
   </section>
 
-  <!-- CURRICULUM -->
+  <!-- CURRICULUM (cards + View full syllabus) -->
   <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">Curriculum</span></h2>
       <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
     </div>
 
-    <div class="space-y-10">
-      <!-- A -->
-      <div class="reveal">
-        <h3 class="text-xl font-semibold mb-4">A · Reading the Market</h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">1. Who’s in Control? <span class="text-white/60">(Candlesticks)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">2. Market Stages <span class="text-white/60">(Phases)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">3. Price in Motion <span class="text-white/60">(How price moves)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">4. Swings & Shifts <span class="text-white/60">(Swing High/Low)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">5. Breaks & Flips <span class="text-white/60">(BOS & CHoCH)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">6. Balance & Imbalance <span class="text-white/60">(FVG)</span></div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Reading the Market -->
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">A · Reading the Market</h3>
+          <span class="badge">6 lessons</span>
         </div>
-      </div>
-      <!-- B -->
-      <div class="reveal">
-        <h3 class="text-xl font-semibold mb-4">B · Market Levels</h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">7. Where it Starts <span class="text-white/60">(Supply & Demand)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">8. Key Zones <span class="text-white/60">(Support & Resistance)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">9. The Explosion <span class="text-white/60">(Opening Range Breakout)</span></div>
+        <p class="text-white/60 mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG (balance &amp; imbalance).</p>
+      </article>
+
+      <!-- Market Levels -->
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">B · Market Levels</h3>
+          <span class="badge">3 lessons</span>
         </div>
-        <p class="mt-3 text-white/70 text-sm">Levels are not entries. They’re where we prepare—then we wait for our tools to confirm a shift in control.</p>
-      </div>
-      <!-- C -->
-      <div class="reveal">
-        <h3 class="text-xl font-semibold mb-4">C · Market Indicators</h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">10. Volume Map <span class="text-white/60">(Volume Profile)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">11. VWAP Logic <span class="text-white/60">(VWAP & Anchored)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">12. Moving Power <span class="text-white/60">(EMA)</span></div>
+        <p class="text-white/60 mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout. <span class="text-white/50">Levels are preparation—wait for confirmation.</span></p>
+      </article>
+
+      <!-- Market Indicators -->
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">C · Market Indicators</h3>
+          <span class="badge">3 lessons</span>
         </div>
-      </div>
-      <!-- D -->
-      <div class="reveal">
-        <h3 class="text-xl font-semibold mb-4">D · Behind the Scenes</h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">13. Quick Guide to TradingView</div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">14. The Trading Game <span class="text-white/60">(Futures & Prop Firms)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">15. Types of Orders</div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">16. Risk First <span class="text-white/60">(Risk Management)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">17. Learn from You <span class="text-white/60">(Journaling & Reviews)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">18. News & Economic Events</div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">19. Mind over Market <span class="text-white/60">(Psychology)</span></div>
+        <p class="text-white/60 mt-2 text-sm">Volume Profile, VWAP (and Anchored), and EMA—how to use them inside context.</p>
+      </article>
+
+      <!-- Behind the Scenes -->
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">D · Behind the Scenes</h3>
+          <span class="badge">7 lessons</span>
         </div>
-      </div>
+        <p class="text-white/60 mt-2 text-sm">TradingView basics, futures &amp; prop firms, order types, risk first, journaling, news, and psychology.</p>
+      </article>
+    </div>
+
+    <!-- CTA like ICT -->
+    <div class="mt-8 flex flex-wrap gap-3 reveal">
+      <button class="h-11 px-5 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-curr-open>
+        <i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus
+      </button>
     </div>
   </section>
 
@@ -351,7 +339,7 @@
       </p>
     </div>
 
-    <!-- Teaser modules (no per-card buttons) -->
+    <!-- Teaser modules -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center justify-between">
@@ -450,7 +438,7 @@
         </div>
 
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
-        <p class="mt-2 text-white/70 max-w-2xl">
+        <p class="mt-2 text-white/70 max-2xl">
           One place to read the market together, post daily levels, review trades, and learn live.
           Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
           progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
@@ -659,7 +647,6 @@
       <p class="mt-2 text-white/70">Still curious? Start here.</p>
     </div>
     <div class="space-y-4">
-      <!-- 5 visible -->
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" open>
         <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
         <p class="text-white/70 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
@@ -681,7 +668,6 @@
         <p class="text-white/70 mt-2">Arabic.</p>
       </details>
 
-      <!-- Hidden extras -->
       <div id="faq-more" class="hidden">
         <details class="bg-white/5 border border-white/10 rounded-xl p-4 mt-4 reveal">
           <summary class="cursor-pointer font-medium">What’s the core philosophy?</summary>
@@ -731,7 +717,79 @@
     </div>
   </footer>
 
-  <!-- ICT Modal -->
+  <!-- ===== Curriculum Modal (NEW) ===== -->
+  <div id="currModal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70" data-curr-close></div>
+    <div class="relative max-w-4xl mx-auto mt-16 mb-10 glass-panel">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
+        <h3 class="text-lg font-semibold">Curriculum · Full Syllabus</h3>
+        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-curr-close aria-label="Close syllabus">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar">
+        <div class="grid sm:grid-cols-2 gap-6 text-white/80 text-sm leading-relaxed">
+          <!-- A -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="scan" class="w-4 h-4"></i> A · Reading the Market
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Who’s in Control? <span class="text-white/60">(Candlesticks)</span></li>
+              <li>Market Stages <span class="text-white/60">(Phases)</span></li>
+              <li>Price in Motion <span class="text-white/60">(How price moves)</span></li>
+              <li>Swings &amp; Shifts <span class="text-white/60">(Swing High/Low)</span></li>
+              <li>Breaks &amp; Flips <span class="text-white/60">(BOS &amp; CHoCH)</span></li>
+              <li>Balance &amp; Imbalance <span class="text-white/60">(FVG)</span></li>
+            </ol>
+          </article>
+
+          <!-- B -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="layout" class="w-4 h-4"></i> B · Market Levels
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="7">
+              <li>Where it Starts <span class="text-white/60">(Supply &amp; Demand)</span></li>
+              <li>Key Zones <span class="text-white/60">(Support &amp; Resistance)</span></li>
+              <li>The Explosion <span class="text-white/60">(Opening Range Breakout)</span></li>
+            </ol>
+            <p class="mt-3 text-xs text-white/60">Levels are not entries—prepare there, then wait for tool-based confirmation.</p>
+          </article>
+
+          <!-- C -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="activity" class="w-4 h-4"></i> C · Market Indicators
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="10">
+              <li>Volume Map <span class="text-white/60">(Volume Profile)</span></li>
+              <li>VWAP Logic <span class="text-white/60">(VWAP &amp; Anchored)</span></li>
+              <li>Moving Power <span class="text-white/60">(EMA)</span></li>
+            </ol>
+          </article>
+
+          <!-- D -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="settings" class="w-4 h-4"></i> D · Behind the Scenes
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="13">
+              <li>Quick Guide to TradingView</li>
+              <li>The Trading Game <span class="text-white/60">(Futures &amp; Prop Firms)</span></li>
+              <li>Types of Orders</li>
+              <li>Risk First <span class="text-white/60">(Risk Management)</span></li>
+              <li>Learn from You <span class="text-white/60">(Journaling &amp; Reviews)</span></li>
+              <li>News &amp; Economic Events</li>
+              <li>Mind over Market <span class="text-white/60">(Psychology)</span></li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ICT Modal (existing) ===== -->
   <div id="ictModal" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/70" data-ict-close></div>
     <div class="relative max-w-4xl mx-auto mt-16 mb-10 glass-panel">
@@ -742,48 +800,43 @@
         </button>
       </div>
       <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar">
-        <!-- ===== Segmented syllabus as cards ===== -->
         <div class="grid sm:grid-cols-2 gap-6 text-white/80 text-sm leading-relaxed">
-          <!-- Structure & Ranges -->
+          <!-- (same cards as قبل) -->
           <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
             <h4 class="text-white font-semibold text-base flex items-center gap-2">
               <i data-lucide="layers" class="w-4 h-4"></i> Structure &amp; Ranges
             </h4>
             <ol class="mt-2 list-decimal pl-5 space-y-1">
               <li>Candles &amp; Market Structure</li>
-              <li>Premium &amp; Discount (Understanding Ranges)</li>
+              <li>Premium &amp; Discount - Understanding Ranges</li>
               <li>Using Range Structure</li>
-              <li>Displacement / Impulsive Structure</li>
+              <li>Displacement/Impulsive Structure</li>
               <li>Top Down Analysis</li>
-              <li>Change in State of Delivery (CISD)</li>
               <li>Time Frame Alignment</li>
               <li>Price Projection</li>
               <li>OHLC / OLHC Misconceptions</li>
             </ol>
           </article>
 
-          <!-- Liquidity & Orderflow -->
           <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
             <h4 class="text-white font-semibold text-base flex items-center gap-2">
               <i data-lucide="waves" class="w-4 h-4"></i> Liquidity &amp; Orderflow
             </h4>
             <ol class="mt-2 list-decimal pl-5 space-y-1">
               <li>Intro to Liquidity</li>
-              <li>Liquidity Sweeps vs Liquidity Runs</li>
+              <li>Liquidity Sweeps Vs Liquidity Runs</li>
               <li>Intra-day Liquidity</li>
               <li>Liquidity Based Bias</li>
               <li>Orderblocks</li>
               <li>Breaker Blocks</li>
               <li>Rejection Blocks</li>
-              <li>Fair Value Gaps (FVGs)</li>
-              <li>FVGs vs Liquidity Voids &amp; Volume Imbalances</li>
-              <li>The Fuel For The Markets</li>
-              <li>Understanding Displacement For Draw On Liquidity</li>
+              <li>Fair Value Gaps (FVG's)</li>
+              <li>FVG's vs Liquidity Voids &amp; Volume Imbalances</li>
               <li>Be One With The Market (Orderflow)</li>
+              <li>Understanding Displacement For Draw On Liquidity</li>
             </ol>
           </article>
 
-          <!-- Time & Sessions -->
           <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
             <h4 class="text-white font-semibold text-base flex items-center gap-2">
               <i data-lucide="clock" class="w-4 h-4"></i> Time &amp; Sessions
@@ -800,7 +853,6 @@
             </ol>
           </article>
 
-          <!-- Models & Entries -->
           <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
             <h4 class="text-white font-semibold text-base flex items-center gap-2">
               <i data-lucide="list-checks" class="w-4 h-4"></i> Models &amp; Entries
@@ -816,14 +868,11 @@
               <li>Confirming Manipulation</li>
               <li>OTE</li>
               <li>Dealing Ranges</li>
-              <li>How to Trade Continuations</li>
               <li>The only daily bias video you need</li>
-              <li>Turtle Soup: How to Trade them</li>
-              <li>Smart Money Technique</li>
+              <li>Trutle Soup How to Trade them</li>
             </ol>
           </article>
 
-          <!-- Execution & Risk -->
           <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
             <h4 class="text-white font-semibold text-base flex items-center gap-2">
               <i data-lucide="shield" class="w-4 h-4"></i> Execution &amp; Risk
@@ -833,13 +882,12 @@
               <li>How to size positions</li>
               <li>Slippage</li>
               <li>The Game of Probability</li>
-              <li>Creating Your Trading Plan</li>
               <li>How to Backtest</li>
+              <li>Creating Your Trading Plan</li>
               <li>A-Z trading checklist</li>
             </ol>
           </article>
 
-          <!-- Mindset & Process -->
           <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
             <h4 class="text-white font-semibold text-base flex items-center gap-2">
               <i data-lucide="brain" class="w-4 h-4"></i> Mindset &amp; Process
@@ -854,7 +902,6 @@
             </ol>
           </article>
         </div>
-
         <div class="mt-5 text-xs text-white/50">Outline is subject to change during production. Join the Discord for updates.</div>
       </div>
     </div>
@@ -917,7 +964,22 @@
         });
       });
 
-      // FAQ show/hide (5 visible, rest hidden)
+      // Curriculum modal (NEW)
+      const currModal = document.getElementById('currModal');
+      document.querySelectorAll('[data-curr-open]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          currModal.classList.remove('hidden');
+          document.body.classList.add('modal-open');
+        });
+      });
+      currModal.querySelectorAll('[data-curr-close]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          currModal.classList.add('hidden');
+          document.body.classList.remove('modal-open');
+        });
+      });
+
+      // FAQ show/hide
       const faqMore = document.getElementById('faq-more');
       const faqToggle = document.getElementById('faqToggle');
       faqToggle.addEventListener('click', ()=>{
@@ -926,7 +988,7 @@
         faqToggle.innerHTML = isHidden
           ? '<i data-lucide="chevrons-up" class="w-4 h-4"></i> Show fewer'
           : '<i data-lucide="chevrons-down" class="w-4 h-4"></i> Show more questions';
-        if (window.lucide) lucide.createIcons(); // refresh icons after swap
+        if (window.lucide) lucide.createIcons();
       });
     });
   </script>
