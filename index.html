@@ -90,12 +90,32 @@
       padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
       background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
     }
-    .role-step{display:flex;align-items:center;gap:.5rem;position:relative}
-    .role-step:after{
-      content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;
-      background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent);
+
+    /* ===== Timeline fix: keep vertical line outside the badges ===== */
+    .role-list{
+      --gutter: 2.25rem;              /* left padding to make room for the line */
+      position: relative;
+      padding-left: var(--gutter);
     }
-    .role-step:last-child:after{display:none}
+    .role-list::before{
+      content:"";
+      position:absolute;
+      top: 10px;                      /* line start inside the card */
+      bottom: 10px;                   /* line end inside the card */
+      left: calc(var(--gutter) * 0.45);
+      width:2px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.18), rgba(255,255,255,.06));
+      pointer-events:none;
+    }
+    .role-step{
+      display:flex; align-items:center; gap:.5rem; position:relative;
+    }
+    /* remove old per-item connector to prevent overlaps */
+    .role-step:after{ display:none !important; }
+
+    @media (min-width: 1024px){
+      .role-list{ --gutter: 2.5rem; }
+    }
 
     /* Social circles */
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
@@ -308,7 +328,7 @@
         <h3 class="text-xl font-semibold mb-4">C · Market Indicators</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div class="bg-white/5 border border-white/10 rounded-xl p-4">10. Volume Map <span class="text-white/60">(Volume Profile)</span></div>
-          <div class="bg-white/5 border border-white/10 rounded-xl p-4">11. VWAP Logic <span class="text-white/60">(VWAP & Anchored)</span></div>
+          <div class="bg-white/5 border border-white/10 rounded-xl پ-4">11. VWAP Logic <span class="text-white/60">(VWAP & Anchored)</span></div>
           <div class="bg-white/5 border border-white/10 rounded-xl p-4">12. Moving Power <span class="text-white/60">(EMA)</span></div>
         </div>
       </div>
@@ -358,7 +378,6 @@
   <section id="discord" class="relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div class="mb-8 sm:mb-12 reveal">
-        <!-- Badge (icon removed as requested) -->
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
           FusionTicks Discord
         </div>
@@ -371,7 +390,6 @@
           unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
         </p>
 
-        <!-- Button (keeps your PNG icon) -->
         <div class="mt-5">
           <a href="https://YOUR_DISCORD_INVITE" target="_blank"
              class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
@@ -436,15 +454,27 @@
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>
             Role Path & Rules
           </div>
-          <div class="mt-4 space-y-4">
-            <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm">Your starting role. Build foundations.</span></div>
-            <div class="role-step"><span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span><span class="text-white/70 text-sm">Show your prop pass → upgrade.</span></div>
-            <div class="role-step"><span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span><span class="text-white/70 text-sm">First payout → unlock daily live trading.</span></div>
+
+          <!-- timeline container with fixed vertical line -->
+          <div class="role-list mt-4 space-y-4">
+            <div class="role-step">
+              <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>
+              <span class="text-white/70 text-sm">Your starting role. Build foundations.</span>
+            </div>
+            <div class="role-step">
+              <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>
+              <span class="text-white/70 text-sm">Show your prop pass → upgrade.</span>
+            </div>
+            <div class="role-step">
+              <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span>
+              <span class="text-white/70 text-sm">First payout → unlock daily live trading.</span>
+            </div>
           </div>
+
           <ul class="mt-5 space-y-2 text-white/70 text-sm">
             <li class="flex gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cyan-300"></i> Respect first. No spam or blind signals.</li>
             <li class="flex gap-2"><i data-lucide="book-open-check" class="w-4 h-4 text-cyan-300"></i> Use the reading tools before any entry.</li>
-            <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 ه-4 text-cyan-300"></i> Education only. Not financial advice.</li>
+            <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-cyan-300"></i> Education only. Not financial advice.</li>
           </ul>
         </div>
 
@@ -509,7 +539,6 @@
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord access (no live, levels, or news)</li>
         </ul>
 
-        <!-- Aligned CTA block -->
         <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
           <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true"
              class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">
@@ -533,7 +562,6 @@
           <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&amp;A & group study</li>
         </ul>
 
-        <!-- Aligned CTA block -->
         <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
           <a href="https://YOUR_WHOP_LINK_SUB_20"
              class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">
@@ -564,7 +592,6 @@
           <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Real chart walk-throughs</li>
         </ul>
 
-        <!-- Aligned CTA block -->
         <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
           <button disabled class="inline-block w-full text-center px-4 py-2 rounded-lg bg-white/10 opacity-60 cursor-not-allowed">
             Coming Soon
