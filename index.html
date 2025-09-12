@@ -88,7 +88,6 @@
     }
     .plan:hover:before{opacity:.35}
 
-    /* Badges, steps */
     .badge{
       display:inline-flex;align-items:center;gap:.35rem;
       padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
@@ -104,8 +103,18 @@
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
 
+    /* Blue→cyan gradient used elsewhere */
     .gradient-text{
       background: linear-gradient(to right, #3b82f6, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    /* NEW: Emerald→Blue text gradient (for S/R & ICT) */
+    .gradient-eb{
+      background: linear-gradient(to right, #10b981, #3b82f6);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -125,7 +134,7 @@
 
     section[id]{ scroll-margin-top: 98px; }
 
-    /* Hide native scrollbars but keep scrolling */
+    /* Hide native scrollbars but keep scrolling (used in modals) */
     .no-scrollbar::-webkit-scrollbar{ display:none; }
     .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
   </style>
@@ -146,11 +155,11 @@
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
 
+      <!-- Desktop nav (ICT link removed previously) -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#approach" class="hover:text-white">Approach</a>
         <a href="#curriculum" class="hover:text-white">Curriculum</a>
         <a href="#how" class="hover:text-white">How it Works</a>
-        <a href="#ict" class="hover:text-white">ICT</a>
         <a href="#discord" class="hover:text-white">Community</a>
         <a href="#pricing" class="hover:text-white">Pricing</a>
         <a href="#faq" class="hover:text-white">FAQ</a>
@@ -160,6 +169,7 @@
         <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
       </div>
 
+      <!-- Mobile button -->
       <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20">
         <i data-lucide="menu"></i>
       </button>
@@ -188,11 +198,11 @@
           <i data-lucide="x"></i>
         </button>
       </div>
+      <!-- Mobile nav (ICT link removed previously) -->
       <nav class="px-4 pb-4 text-base">
         <a class="block py-3 border-t border-white/10 first:border-t-0" href="#approach">Approach</a>
         <a class="block py-3 border-t border-white/10" href="#curriculum">Curriculum</a>
         <a class="block py-3 border-t border-white/10" href="#how">How it Works</a>
-        <a class="block py-3 border-t border-white/10" href="#ict">ICT</a>
         <a class="block py-3 border-t border-white/10" href="#discord">Community</a>
         <a class="block py-3 border-t border-white/10" href="#pricing">Pricing</a>
         <a class="block py-3 border-t border-white/10" href="#faq">FAQ</a>
@@ -272,8 +282,10 @@
 
   <!-- CURRICULUM -->
   <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="mb-8 sm:mb-12 reveal">
+    <div class="mb-4 sm:mb-6 reveal">
       <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">Curriculum</span></h2>
+      <!-- S/R subtitle moved ABOVE the description + gradient emerald→blue -->
+      <h3 class="mt-3 text-2xl font-bold gradient-eb">S/R - Deep Dive</h3>
       <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
     </div>
 
@@ -333,7 +345,8 @@
         </span>
         ICT Concepts · Deep Dive — Coming Soon
       </div>
-      <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">ICT Concepts</span> · Deep Dive</h2>
+      <!-- Font size matched to S/R and gradient emerald→blue -->
+      <h2 class="mt-3 text-2xl font-bold gradient-eb">ICT Concepts · Deep Dive</h2>
       <p class="mt-2 text-white/70 max-w-3xl">
         A comprehensive, risk-first framework rooted in structure, liquidity, time &amp; execution models. Outline below is in progress and may evolve based on community feedback.
       </p>
@@ -438,7 +451,6 @@
         </div>
 
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
-        <!-- FIXED: max-w-2xl to match screenshot 2 -->
         <p class="mt-2 text-white/70 max-w-2xl">
           One place to read the market together, post daily levels, review trades, and learn live.
           Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
@@ -648,6 +660,7 @@
       <p class="mt-2 text-white/70">Still curious? Start here.</p>
     </div>
     <div class="space-y-4">
+      <!-- 5 visible -->
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" open>
         <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
         <p class="text-white/70 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
@@ -668,21 +681,6 @@
         <summary class="cursor-pointer font-medium">What language is the content?</summary>
         <p class="text-white/70 mt-2">Arabic.</p>
       </details>
-
-      <div id="faq-more" class="hidden">
-        <details class="bg-white/5 border border-white/10 rounded-xl p-4 mt-4 reveal">
-          <summary class="cursor-pointer font-medium">What’s the core philosophy?</summary>
-          <p class="text-white/70 mt-2">Identify who’s in control, then stack confirmations. Levels are preparation—not entries. Risk first, always.</p>
-        </details>
-      </div>
-
-      <div class="pt-2">
-        <button id="faqToggle"
-                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm">
-          <i data-lucide="chevrons-down" class="w-4 h-4"></i>
-          Show more questions
-        </button>
-      </div>
     </div>
   </section>
 
@@ -914,7 +912,6 @@
                  w-12 h-12 rounded-2xl
                  bg-white/5 hover:bg-white/10
                  border border-white/10
-                 shadow-lg/20 focus:outline-none focus:ring-2 focus:ring-cyan-400/40
                  pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)]">
     <i data-lucide="arrow-up" class="w-5 h-5"></i>
   </button>
@@ -926,7 +923,12 @@
 
       // Reveal on scroll
       const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('in');   // <-- fixed dot here
+            io.unobserve(e.target);
+          }
+        });
       },{threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
@@ -977,18 +979,6 @@
           currModal.classList.add('hidden');
           document.body.classList.remove('modal-open');
         });
-      });
-
-      // FAQ show/hide
-      const faqMore = document.getElementById('faq-more');
-      const faqToggle = document.getElementById('faqToggle');
-      faqToggle.addEventListener('click', ()=>{
-        const isHidden = faqMore.classList.contains('hidden');
-        faqMore.classList.toggle('hidden');
-        faqToggle.innerHTML = isHidden
-          ? '<i data-lucide="chevrons-up" class="w-4 h-4"></i> Show fewer'
-          : '<i data-lucide="chevrons-down" class="w-4 h-4"></i> Show more questions';
-        if (window.lucide) lucide.createIcons();
       });
     });
   </script>
