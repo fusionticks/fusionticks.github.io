@@ -18,7 +18,10 @@
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans:["Inter","system-ui","-apple-system","Segoe UI","Roboto","Ubuntu","Cantarell"], display:["Space Grotesk","Inter","system-ui"] },
+          fontFamily: {
+            sans:["Inter","system-ui","-apple-system","Segoe UI","Roboto","Ubuntu","Cantarell"],
+            display:["Space Grotesk","Inter","system-ui"]
+          },
         }
       }
     }
@@ -57,13 +60,16 @@
 
     html{scroll-behavior:smooth}
     body{background:var(--bg); color:var(--text); font-family:var(--font-sans,Inter), sans-serif}
+    section[id]{scroll-margin-top:98px}
+    .no-scrollbar::-webkit-scrollbar{display:none}
+    .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
 
     /* ===== Cinematic Background (Aurora + Particles Canvas) ===== */
     .bg-aurora{position:fixed; inset:0; z-index:-60; pointer-events:none; overflow:hidden}
     .bg-aurora:before, .bg-aurora:after{
       content:""; position:absolute; inset:-20%; filter:blur(40px);
       background:
-        radial-gradient(800px 600px at 80% 10%, var(--accent2,.#60A5FA) 0%, transparent 60%),
+        radial-gradient(800px 600px at 80% 10%, var(--accent2,#60A5FA) 0%, transparent 60%),
         radial-gradient(700px 600px at 10% 85%, var(--accent1,#67E8F9) 0%, transparent 60%),
         radial-gradient(500px 400px at 50% 50%, rgba(255,255,255,.06) 0%, transparent 70%);
       opacity:.35;
@@ -75,6 +81,17 @@
 
     /* Particles Canvas holder sits behind everything */
     #fxCanvas{position:fixed; inset:0; z-index:-59; pointer-events:none; opacity:.5}
+
+    /* ===== Subtle Neon Grid (Ultra FX) ===== */
+    .fx-grid {
+      position: fixed; inset: 0; z-index: -58; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(1200px 800px at 50% 20%, #000 15%, transparent 70%);
+      opacity: .18;
+    }
 
     /* ===== Header (glass) ===== */
     .navglass{
@@ -95,16 +112,16 @@
       background:linear-gradient(180deg, var(--accent2), var(--accent1));
       box-shadow: 0 12px 30px var(--glow), inset 0 1px 0 rgba(255,255,255,.25);
       border:1px solid rgba(255,255,255,.18);
+      transition: transform .15s ease;
     }
     [data-theme="ivory"] .btn-primary{ color:#fff }
     .btn-ghost{
       display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
       padding:.85rem 1.2rem; border-radius:14px; color:var(--text); font-weight:600;
       background:var(--glass); border:1px solid var(--border);
+      transition: transform .15s ease;
     }
     .btn-ghost:hover{ border-color: rgba(255,255,255,.22) }
-
-    /* Magnetic hover */
     .magnet{ transition: transform .15s ease; will-change: transform; }
 
     /* ===== Poster Cards ===== */
@@ -136,17 +153,89 @@
     @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     @media(prefers-reduced-motion: reduce){ .ticker-track{animation-duration:0s} }
 
-    /* ===== Section anchors spacing ===== */
-    section[id]{scroll-margin-top:98px}
+    /* ===== Ultra FX: Hologram Logo ===== */
+    .holo-wrap{ position: relative; isolation:isolate }
+    .holo {
+      width: clamp(260px, 28vw, 420px);
+      aspect-ratio: 1 / 1;
+      position: relative;
+      filter: drop-shadow(0 20px 40px var(--shadow));
+      transform-style: preserve-3d; will-change: transform;
+    }
+    .holo::before{
+      content:""; position:absolute; inset:0;
+      background:
+        conic-gradient(from var(--holo-angle,0deg),
+          var(--accent2) 0%, var(--accent1) 25%, rgba(255,255,255,.6) 40%,
+          var(--accent1) 60%, var(--accent2) 80%, var(--accent1) 100%);
+      opacity:.9;
+      mask: url("./FT%20Logo.png") center/contain no-repeat;
+      -webkit-mask: url("./FT%20Logo.png") center/contain no-repeat;
+      mix-blend-mode: screen;
+      animation: holoSpin 18s linear infinite;
+    }
+    .holo::after{
+      content:""; position:absolute; inset:-6%;
+      background: radial-gradient(60% 60% at 50% 40%, rgba(255,255,255,.25), transparent 60%);
+      filter: blur(20px); opacity:.2; z-index:-1;
+    }
+    @keyframes holoSpin{ to{ transform: rotate(360deg) } }
 
-    /* ===== Utilities ===== */
-    .chips span{ display:inline-block; padding:.35rem .6rem; border-radius:999px; background:var(--glass); border:1px solid var(--border) }
+    /* ===== Beam separators ===== */
+    .beam {
+      height: 2px; border: 0;
+      background: linear-gradient(90deg, transparent, var(--accent2), var(--accent1), transparent);
+      opacity:.6; filter: blur(.2px);
+    }
+
+    /* ===== Glowing outline on hover ===== */
+    .glowable { position:relative; border-radius: 18px; }
+    .glowable::before{
+      content:""; position:absolute; inset:-1px; border-radius:inherit; z-index:-1;
+      background: linear-gradient(135deg, var(--accent2), var(--accent1));
+      filter: blur(14px); opacity:0; transition: opacity .25s ease;
+    }
+    .glowable:hover::before{ opacity:.28 }
+
+    /* ===== Floating CTA dock ===== */
+    #ftDock{
+      position: fixed; left:50%; transform:translateX(-50%);
+      bottom: 18px; z-index: 60;
+      display:flex; gap:.5rem; align-items:center;
+      padding:.5rem; border-radius: 16px;
+      background: linear-gradient(180deg, rgba(16,24,39,.88), rgba(16,24,39,.72));
+      border:1px solid var(--border); box-shadow: 0 18px 40px var(--shadow);
+      backdrop-filter: blur(10px) saturate(140%); -webkit-backdrop-filter: blur(10px) saturate(140%);
+      transition: transform .25s ease, opacity .25s ease; opacity:0; pointer-events:none;
+    }
+    #ftDock.show{ opacity:1; pointer-events:auto; }
+    #ftDock .mini { height: 42px; border-radius:12px }
+
+    /* ===== Scroll progress bar ===== */
+    #scrollProgress{
+      position: fixed; top:0; left:0; height:3px; z-index:70;
+      background: linear-gradient(90deg, var(--accent2), var(--accent1));
+      width:0%;
+    }
+
+    /* Minor upgrades */
+    .btn-primary.gx { box-shadow: 0 18px 40px var(--glow), inset 0 1px 0 rgba(255,255,255,.3) }
+    .poster.gx { border-color: rgba(255,255,255,.16) }
   </style>
 </head>
 
 <body data-theme="graphite" class="antialiased">
+  <!-- Backgrounds -->
   <div class="bg-aurora"></div>
   <canvas id="fxCanvas"></canvas>
+  <div class="fx-grid"></div>
+
+  <!-- Progress bar & Dock -->
+  <div id="scrollProgress"></div>
+  <div id="ftDock" class="hidden md:flex">
+    <a href="#pricing" class="btn-primary mini magnet gx">Get Access</a>
+    <a href="#curriculum" class="btn-ghost mini">See Curriculum</a>
+  </div>
 
   <!-- =================== NAV =================== -->
   <header class="navglass sticky top-0 z-50">
@@ -175,7 +264,7 @@
             <button data-theme-sel="ivory" class="w-full text-left px-3 py-2 hover:bg-[color:var(--glass)]">Ivory & Graphite</button>
           </div>
         </div>
-        <a href="#pricing" class="btn-primary h-10 magnet">Get Access</a>
+        <a href="#pricing" class="btn-primary h-10 magnet gx">Get Access</a>
       </div>
 
       <!-- Mobile -->
@@ -239,21 +328,29 @@
           the entry, and I identify who is in control. Now I teach the same framework inside FusionTicks.
         </p>
         <div class="mt-7 flex flex-wrap gap-3">
-          <a href="#pricing" class="btn-primary h-12 magnet">Get Access <i data-lucide="arrow-right" class="w-5 h-5"></i></a>
-          <a href="#curriculum" class="btn-ghost h-12"><i data-lucide="book-open" class="w-5 h-5"></i> See Curriculum</a>
+          <a href="#pricing" class="btn-primary h-12 magnet gx">Get Access <i data-lucide="arrow-right" class="w-5 h-5"></i></a>
+          <a href="#curriculum" class="btn-ghost h-12"> <i data-lucide="book-open" class="w-5 h-5"></i> See Curriculum</a>
         </div>
-        <div class="mt-6 chips text-white/70">
-          <span>Risk-First</span> <span>Context → Confirm</span> <span>NQ · ES · CL · GC</span>
+        <div class="mt-6 text-white/70 flex flex-wrap gap-2">
+          <span class="inline-block px-2 py-1 rounded-full bg-[color:var(--glass)] border border-[color:var(--border)]">Risk-First</span>
+          <span class="inline-block px-2 py-1 rounded-full bg-[color:var(--glass)] border border-[color:var(--border)]">Context → Confirm</span>
+          <span class="inline-block px-2 py-1 rounded-full bg-[color:var(--glass)] border border-[color:var(--border)]">NQ · ES · CL · GC</span>
         </div>
       </div>
 
-      <div class="lg:col-span-5 reveal">
-        <div class="poster p-6 sm:p-8 tilt">
+      <!-- HOLOGRAM Logo -->
+      <div class="lg:col-span-5 reveal holo-wrap">
+        <div class="poster p-6 sm:p-8 tilt glowable">
           <div class="flex items-center gap-3">
-            <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-10 w-auto opacity-90">
+            <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-8 w-auto opacity-80">
             <div class="text-sm text-white/80">FusionTicks</div>
           </div>
-          <div class="mt-5 grid grid-cols-3 gap-3 text-center">
+
+          <div class="mt-6 flex items-center justify-center">
+            <div id="holo" class="holo"></div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-3 gap-3 text-center">
             <div class="rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)] p-4">
               <div class="text-[11px] text-white/70 uppercase tracking-wide">Framework</div>
               <div class="mt-1 font-bold brand-grad">Context → Confirm</div>
@@ -271,6 +368,7 @@
         </div>
       </div>
     </div>
+    <hr class="beam my-8">
   </section>
 
   <!-- =================== APPROACH =================== -->
@@ -282,14 +380,33 @@
       </div>
 
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> Read, Don’t Guess</div><p class="mt-3 text-white/80">Candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> Stack Confirmations</div><p class="mt-3 text-white/80">Context → shift in control → clean risk.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> Risk First</div><p class="mt-3 text-white/80">Sizing, loss caps, invalidations before outcomes.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="route" class="w-5 h-5"></i> Levels ≠ Signals</div><p class="mt-3 text-white/80">Levels are preparation—then wait for confirmation.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="chart-line" class="w-5 h-5"></i> Simple, Repeatable</div><p class="mt-3 text-white/80">One consistent process you understand.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="notebook-pen" class="w-5 h-5"></i> Feedback Loop</div><p class="mt-3 text-white/80">Journal + weekly reviews = measured progress.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center gap-2 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> Read, Don’t Guess</div>
+          <p class="mt-3 text-white/80">Candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p>
+        </article>
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center gap-2 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> Stack Confirmations</div>
+          <p class="mt-3 text-white/80">Context → shift in control → clean risk.</p>
+        </article>
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center gap-2 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> Risk First</div>
+          <p class="mt-3 text-white/80">Sizing, loss caps, invalidations before outcomes.</p>
+        </article>
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center gap-2 font-semibold"><i data-lucide="route" class="w-5 h-5"></i> Levels ≠ Signals</div>
+          <p class="mt-3 text-white/80">Levels are preparation—then wait for confirmation.</p>
+        </article>
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center gap-2 font-semibold"><i data-lucide="chart-line" class="w-5 h-5"></i> Simple, Repeatable</div>
+          <p class="mt-3 text-white/80">One consistent process you understand.</p>
+        </article>
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center gap-2 font-semibold"><i data-lucide="notebook-pen" class="w-5 h-5"></i> Feedback Loop</div>
+          <p class="mt-3 text-white/80">Journal + weekly reviews = measured progress.</p>
+        </article>
       </div>
     </div>
+    <hr class="beam my-8">
   </section>
 
   <!-- =================== CURRICULUM =================== -->
@@ -302,16 +419,46 @@
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">A · Reading the Market</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">6 lessons</span></div><p class="text-white/80 mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">B · Market Levels</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">3 lessons</span></div><p class="text-white/80 mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">C · Market Indicators</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">3 lessons</span></div><p class="text-white/80 mt-2 text-sm">Volume Profile, VWAP (Anchored), and EMA—inside context.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">D · Behind the Scenes</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">7 lessons</span></div><p class="text-white/80 mt-2 text-sm">TradingView, futures &amp; prop firms, order types, risk, journaling, news, psychology.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold">A · Reading the Market</h4>
+            <span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">6 lessons</span>
+          </div>
+          <p class="text-white/80 mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG.</p>
+        </article>
+
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold">B · Market Levels</h4>
+            <span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">3 lessons</span>
+          </div>
+          <p class="text-white/80 mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout.</p>
+        </article>
+
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold">C · Market Indicators</h4>
+            <span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">3 lessons</span>
+          </div>
+          <p class="text-white/80 mt-2 text-sm">Volume Profile, VWAP (Anchored), and EMA—inside context.</p>
+        </article>
+
+        <article class="poster p-6 reveal tilt gx glowable">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold">D · Behind the Scenes</h4>
+            <span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">7 lessons</span>
+          </div>
+          <p class="text-white/80 mt-2 text-sm">TradingView, futures &amp; prop firms, order types, risk, journaling, news, psychology.</p>
+        </article>
       </div>
 
       <div class="mt-8 reveal">
-        <button class="h-11 px-5 inline-flex items-center gap-2 btn-primary magnet" data-curr-open><i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus</button>
+        <button class="h-11 px-5 inline-flex items-center gap-2 btn-primary magnet gx" data-curr-open>
+          <i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus
+        </button>
       </div>
     </div>
+    <hr class="beam my-8">
   </section>
 
   <!-- =================== ICT (COMING SOON) =================== -->
@@ -330,21 +477,22 @@
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h3 class="font-semibold">Structure &amp; Ranges</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">9 lessons</span></div><p class="text-white/80 mt-2 text-sm">Market structure, ranges, displacement, top-down.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h3 class="font-semibold">Liquidity &amp; Orderflow</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">12 lessons</span></div><p class="text-white/80 mt-2 text-sm">Liquidity concepts, FVGs vs voids, order/ breaker blocks.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h3 class="font-semibold">Time &amp; Sessions</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">7 lessons</span></div><p class="text-white/80 mt-2 text-sm">Time–price relationship and session behavior.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h3 class="font-semibold">Models &amp; Entries</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">15 lessons</span></div><p class="text-white/80 mt-2 text-sm">Models, entries, manipulation, execution flows.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h3 class="font-semibold">Execution &amp; Risk</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">7 lessons</span></div><p class="text-white/80 mt-2 text-sm">Risk, sizing, slippage, planning, backtesting.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h3 class="font-semibold">Mindset &amp; Process</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">6 lessons</span></div><p class="text-white/80 mt-2 text-sm">Mindset, journaling, potential, habits.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center justify-between"><h3 class="font-semibold">Structure &amp; Ranges</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">9 lessons</span></div><p class="text-white/80 mt-2 text-sm">Market structure, ranges, displacement, top-down.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center justify-between"><h3 class="font-semibold">Liquidity &amp; Orderflow</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">12 lessons</span></div><p class="text-white/80 mt-2 text-sm">Liquidity concepts, FVGs vs voids, order/ breaker blocks.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center justify-between"><h3 class="font-semibold">Time &amp; Sessions</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">7 lessons</span></div><p class="text-white/80 mt-2 text-sm">Time–price relationship and session behavior.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center justify-between"><h3 class="font-semibold">Models &amp; Entries</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">15 lessons</span></div><p class="text-white/80 mt-2 text-sm">Models, entries, manipulation, execution flows.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center justify-between"><h3 class="font-semibold">Execution &amp; Risk</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">7 lessons</span></div><p class="text-white/80 mt-2 text-sm">Risk, sizing, slippage, planning, backtesting.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center justify-between"><h3 class="font-semibold">Mindset &amp; Process</h3><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">6 lessons</span></div><p class="text-white/80 mt-2 text-sm">Mindset, journaling, potential, habits.</p></article>
       </div>
 
       <div class="mt-8 flex flex-wrap gap-3 reveal">
-        <button class="h-11 px-5 inline-flex items-center gap-2 btn-primary magnet" data-ict-open><i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus</button>
+        <button class="h-11 px-5 inline-flex items-center gap-2 btn-primary magnet gx" data-ict-open><i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus</button>
         <a href="https://discord.gg/RFbe3nHB" target="_blank" rel="noopener noreferrer" class="h-11 px-5 inline-flex items-center gap-2 btn-ghost">
           <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px]"> Get notified on Discord
         </a>
       </div>
     </div>
+    <hr class="beam my-8">
   </section>
 
   <!-- =================== HOW =================== -->
@@ -356,12 +504,13 @@
       </div>
 
       <div class="grid lg:grid-cols-4 gap-6">
-        <div class="poster p-6 reveal tilt"><div class="font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div><p class="mt-3 text-white/80">Map S/D, S/R, ORB on HTF. Note news &amp; sessions.</p></div>
-        <div class="poster p-6 reveal tilt"><div class="font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div><p class="mt-3 text-white/80">Swings, BOS/CHoCH, FVG, balance. Shift in control.</p></div>
-        <div class="poster p-6 reveal tilt"><div class="font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div><p class="mt-3 text-white/80">Context → signal → invalidation. If clean: execute.</p></div>
-        <div class="poster p-6 reveal tilt"><div class="font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div><p class="mt-3 text-white/80">Journal, note mistakes, adjust plan. Compound process.</p></div>
+        <div class="poster p-6 reveal tilt gx glowable"><div class="font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div><p class="mt-3 text-white/80">Map S/D, S/R, ORB on HTF. Note news &amp; sessions.</p></div>
+        <div class="poster p-6 reveal tilt gx glowable"><div class="font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div><p class="mt-3 text-white/80">Swings, BOS/CHoCH, FVG, balance. Shift in control.</p></div>
+        <div class="poster p-6 reveal tilt gx glowable"><div class="font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div><p class="mt-3 text-white/80">Context → signal → invalidation. If clean: execute.</p></div>
+        <div class="poster p-6 reveal tilt gx glowable"><div class="font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div><p class="mt-3 text-white/80">Journal, note mistakes, adjust plan. Compound process.</p></div>
       </div>
     </div>
+    <hr class="beam my-8">
   </section>
 
   <!-- =================== COMMUNITY =================== -->
@@ -373,21 +522,22 @@
       </div>
 
       <div class="grid lg:grid-cols-3 gap-6">
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="messages-square" class="w-5 h-5"></i></span>#chatroom</div><p class="text-white/80 mt-3">Daily hangout. Share charts, ideas, quick help.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="newspaper" class="w-5 h-5"></i></span>#market-news</div><p class="text-white/80 mt-3">Weekly calendar: lean-in days vs stay-light days.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="target" class="w-5 h-5"></i></span>#market-levels</div><p class="text-white/80 mt-3">Daily levels—prepare, then confirm.</p><div class="mt-4 flex flex-wrap gap-2 text-sm"><span class="chips">NQ</span><span class="chips">ES</span><span class="chips">CL</span><span class="chips">GC</span></div></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="messages-square" class="w-5 h-5"></i></span>#chatroom</div><p class="text-white/80 mt-3">Daily hangout. Share charts, ideas, quick help.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="newspaper" class="w-5 h-5"></i></span>#market-news</div><p class="text-white/80 mt-3">Weekly calendar: lean-in days vs stay-light days.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="target" class="w-5 h-5"></i></span>#market-levels</div><p class="text-white/80 mt-3">Daily levels—prepare, then confirm.</p><div class="mt-4 flex flex-wrap gap-2 text-sm"><span class="inline-block px-2 py-1 rounded bg-[color:var(--glass)] border border-[color:var(--border)]">NQ</span><span class="inline-block px-2 py-1 rounded bg-[color:var(--glass)] border border-[color:var(--border)]">ES</span><span class="inline-block px-2 py-1 rounded bg-[color:var(--glass)] border border-[color:var(--border)]">CL</span><span class="inline-block px-2 py-1 rounded bg-[color:var(--glass)] border border-[color:var(--border)]">GC</span></div></article>
 
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="calendar-check" class="w-5 h-5"></i></span>Weekly Session</div><p class="text-white/80 mt-3">Weekend review + scenarios for next week.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="radio" class="w-5 h-5"></i></span>Live Session</div><p class="text-white/80 mt-3">Mid-week live for Q&amp;A and coaching.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>Live Trading (Unlocked)</div><p class="text-white/80 mt-3">Daily live room for <b>Fusion Legend</b> after first prop payout.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="calendar-check" class="w-5 h-5"></i></span>Weekly Session</div><p class="text-white/80 mt-3">Weekend review + scenarios for next week.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="radio" class="w-5 h-5"></i></span>Live Session</div><p class="text-white/80 mt-3">Mid-week live for Q&amp;A and coaching.</p></article>
+        <article class="poster p-6 reveal tilt gx glowable"><div class="flex items-center gap-2 font-semibold"><span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>Live Trading (Unlocked)</div><p class="text-white/80 mt-3">Daily live room for <b>Fusion Legend</b> after first prop payout.</p></article>
       </div>
 
       <div class="mt-6">
-        <a href="https://discord.gg/RFbe3nHB" target="_blank" class="inline-flex items-center gap-2 px-5 h-11 btn-primary magnet">
+        <a href="https://discord.gg/RFbe3nHB" target="_blank" class="inline-flex items-center gap-2 px-5 h-11 btn-primary magnet gx">
           <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px]"> Join the Discord
         </a>
       </div>
     </div>
+    <hr class="beam my-8">
   </section>
 
   <!-- =================== PRICING =================== -->
@@ -399,7 +549,7 @@
       </div>
 
       <div class="grid lg:grid-cols-3 gap-6">
-        <article class="poster p-6 reveal tilt flex flex-col">
+        <article class="poster p-6 reveal tilt gx glowable flex flex-col">
           <div class="flex items-start justify-between">
             <div>
               <span class="font-semibold">FusionTicks Academy · Lifetime</span>
@@ -418,12 +568,12 @@
             <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Weekly live Q&amp;A &amp; group study</li>
           </ul>
           <div class="mt-auto pt-4">
-            <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="inline-block w-full text-center h-11 leading-[44px] btn-primary magnet">Get Course — $550</a>
+            <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="inline-block w-full text-center h-11 leading-[44px] btn-primary magnet gx">Get Course — $550</a>
             <p class="text-xs text-white/70 mt-2">Use code <b>FIRST40</b></p>
           </div>
         </article>
 
-        <article class="poster p-6 reveal tilt flex flex-col">
+        <article class="poster p-6 reveal tilt gx glowable flex flex-col">
           <div class="flex items-start justify-between">
             <span class="font-semibold">Live &amp; Levels · Subscription</span>
             <span class="text-2xl font-extrabold">$20<span class="text-sm font-medium text-white/70">/mo</span></span>
@@ -435,11 +585,11 @@
             <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Weekly news calendar</li>
           </ul>
           <div class="mt-auto pt-4">
-            <a href="https://YOUR_WHOP_LINK_SUB_20" class="inline-block w-full text-center h-11 leading-[44px] btn-primary magnet">Subscribe — $20/mo</a>
+            <a href="https://YOUR_WHOP_LINK_SUB_20" class="inline-block w-full text-center h-11 leading-[44px] btn-primary magnet gx">Subscribe — $20/mo</a>
           </div>
         </article>
 
-        <article class="poster p-6 reveal tilt flex flex-col">
+        <article class="poster p-6 reveal tilt gx glowable flex flex-col">
           <div class="flex items-start justify-between">
             <span class="font-semibold">ICT Concepts · Deep Dive</span>
             <span class="text-2xl font-extrabold">$1000</span>
@@ -463,6 +613,7 @@
         </article>
       </div>
     </div>
+    <hr class="beam my-8">
   </section>
 
   <!-- =================== FAQ =================== -->
@@ -473,23 +624,23 @@
         <p class="mt-2 text-white/80">Still curious? Start here.</p>
       </div>
       <div class="space-y-4">
-        <details class="poster p-4 reveal" open>
+        <details class="poster p-4 reveal gx glowable" open>
           <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
           <p class="text-white/80 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
         </details>
-        <details class="poster p-4 reveal">
+        <details class="poster p-4 reveal gx glowable">
           <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
           <p class="text-white/80 mt-2">Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
         </details>
-        <details class="poster p-4 reveal">
+        <details class="poster p-4 reveal gx glowable">
           <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
           <p class="text-white/80 mt-2">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
         </details>
-        <details class="poster p-4 reveal">
+        <details class="poster p-4 reveal gx glowable">
           <summary class="cursor-pointer font-medium">What time are the live sessions and in which timezone?</summary>
           <p class="text-white/80 mt-2">30 minutes before the New York session opens — timezone: New York.</p>
         </details>
-        <details class="poster p-4 reveal">
+        <details class="poster p-4 reveal gx glowable">
           <summary class="cursor-pointer font-medium">What language is the content?</summary>
           <p class="text-white/80 mt-2">Arabic.</p>
         </details>
@@ -529,10 +680,10 @@
       </div>
       <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar text-white/90 text-sm leading-relaxed">
         <div class="grid sm:grid-cols-2 gap-6">
-          <article class="poster p-5"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="scan" class="w-4 h-4"></i> A · Reading the Market</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Who’s in Control? <span class="text-white/70">(Candlesticks)</span></li><li>Market Stages <span class="text-white/70">(Phases)</span></li><li>Price in Motion</li><li>Swings &amp; Shifts</li><li>Breaks &amp; Flips</li><li>Balance &amp; Imbalance (FVG)</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="layout" class="w-4 h-4"></i> B · Market Levels</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="7"><li>Where it Starts (S/D)</li><li>Key Zones (S/R)</li><li>The Explosion (ORB)</li></ol><p class="mt-3 text-xs text-white/70">Levels are not entries—wait for confirmations.</p></article>
-          <article class="poster p-5"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="activity" class="w-4 h-4"></i> C · Market Indicators</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="10"><li>Volume Map (VP)</li><li>VWAP &amp; Anchored</li><li>EMA</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="settings" class="w-4 h-4"></i> D · Behind the Scenes</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="13"><li>TradingView</li><li>Futures &amp; Prop Firms</li><li>Order Types</li><li>Risk First</li><li>Journaling &amp; Reviews</li><li>News &amp; Economic Events</li><li>Psychology</li></ol></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="scan" class="w-4 h-4"></i> A · Reading the Market</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Who’s in Control? <span class="text-white/70">(Candlesticks)</span></li><li>Market Stages <span class="text-white/70">(Phases)</span></li><li>Price in Motion</li><li>Swings &amp; Shifts</li><li>Breaks &amp; Flips</li><li>Balance &amp; Imbalance (FVG)</li></ol></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="layout" class="w-4 h-4"></i> B · Market Levels</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="7"><li>Where it Starts (S/D)</li><li>Key Zones (S/R)</li><li>The Explosion (ORB)</li></ol><p class="mt-3 text-xs text-white/70">Levels are not entries—wait for confirmations.</p></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="activity" class="w-4 h-4"></i> C · Market Indicators</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="10"><li>Volume Map (VP)</li><li>VWAP &amp; Anchored</li><li>EMA</li></ol></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="settings" class="w-4 h-4"></i> D · Behind the Scenes</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="13"><li>TradingView</li><li>Futures &amp; Prop Firms</li><li>Order Types</li><li>Risk First</li><li>Journaling &amp; Reviews</li><li>News &amp; Economic Events</li><li>Psychology</li></ol></article>
         </div>
       </div>
     </div>
@@ -547,14 +698,13 @@
         <button class="p-2 rounded-lg bg-[color:var(--glass)] border border-[color:var(--border)]" data-ict-close aria-label="Close"><i data-lucide="x"></i></button>
       </div>
       <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar text-white/90 text-sm leading-relaxed">
-        <!-- (مختصر) نفس المحتوى الأساسي حسب قائمتك -->
         <div class="grid sm:grid-cols-2 gap-6">
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4"></i> Structure &amp; Ranges</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Candles &amp; Structure</li><li>Premium/Discount</li><li>Using Ranges</li><li>Displacement</li><li>Top Down</li><li>Alignment</li><li>Projection</li><li>OHLC / OLHC</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="waves" class="w-4 h-4"></i> Liquidity &amp; Orderflow</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Intro to Liquidity</li><li>Sweeps vs Runs</li><li>Intraday Liquidity</li><li>Liquidity Bias</li><li>Orderblocks / Breakers / Rejections</li><li>FVGs &amp; Voids</li><li>Orderflow</li><li>Draw on Liquidity</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Time &amp; Sessions</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Time–Price</li><li>Key Time</li><li>Asia</li><li>London</li><li>NY AM</li><li>NY PM</li><li>Calendar</li><li>Weekly Approach</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="list-checks" class="w-4 h-4"></i> Models &amp; Entries</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Foundation</li><li>Unicorn · CRT · 3 Candle</li><li>MOC</li><li>Time-Based</li><li>Manipulation</li><li>OTE / Dealing Ranges</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4"></i> Execution &amp; Risk</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Risk</li><li>Sizing</li><li>Slippage</li><li>Probability</li><li>Backtesting</li><li>Trading Plan</li><li>A–Z Checklist</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="brain" class="w-4 h-4"></i> Mindset &amp; Process</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Mind</li><li>Journaling</li><li>Potential</li><li>Building Blocks</li><li>What Holds Traders</li><li>Accepting Losses</li></ol></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4"></i> Structure &amp; Ranges</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Candles &amp; Structure</li><li>Premium/Discount</li><li>Using Ranges</li><li>Displacement</li><li>Top Down</li><li>Alignment</li><li>Projection</li><li>OHLC / OLHC</li></ol></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="waves" class="w-4 h-4"></i> Liquidity &amp; Orderflow</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Intro to Liquidity</li><li>Sweeps vs Runs</li><li>Intraday Liquidity</li><li>Liquidity Bias</li><li>Orderblocks / Breakers / Rejections</li><li>FVGs &amp; Voids</li><li>Orderflow</li><li>Draw on Liquidity</li></ol></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Time &amp; Sessions</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Time–Price</li><li>Key Time</li><li>Asia</li><li>London</li><li>NY AM</li><li>NY PM</li><li>Calendar</li><li>Weekly Approach</li></ol></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="list-checks" class="w-4 h-4"></i> Models &amp; Entries</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Foundation</li><li>Unicorn · CRT · 3 Candle</li><li>MOC</li><li>Time-Based</li><li>Manipulation</li><li>OTE / Dealing Ranges</li></ol></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4"></i> Execution &amp; Risk</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Risk</li><li>Sizing</li><li>Slippage</li><li>Probability</li><li>Backtesting</li><li>Trading Plan</li><li>A–Z Checklist</li></ol></article>
+          <article class="poster p-5 gx glowable"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="brain" class="w-4 h-4"></i> Mindset &amp; Process</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Mind</li><li>Journaling</li><li>Potential</li><li>Building Blocks</li><li>What Holds Traders</li><li>Accepting Losses</li></ol></article>
         </div>
       </div>
     </div>
@@ -653,6 +803,34 @@
       }
       step();
     })();
+
+    // ===== Progress bar & Dock
+    const sp = document.getElementById('scrollProgress');
+    const dock = document.getElementById('ftDock');
+    const toggleDock = () => {
+      const y = window.scrollY, h = document.body.scrollHeight - innerHeight;
+      const p = Math.max(0, Math.min(1, y / (h || 1)));
+      sp.style.width = (p*100) + '%';
+      if (y > innerHeight * 0.6) { dock.classList.add('show'); dock.classList.remove('hidden'); }
+      else { dock.classList.remove('show'); }
+    };
+    toggleDock(); addEventListener('scroll', toggleDock, {passive:true});
+
+    // ===== Hologram parallax + shimmer
+    const holo = document.getElementById('holo');
+    if (holo){
+      let a = 0;
+      const onMove = (e) => {
+        const r = holo.getBoundingClientRect();
+        const x = (e.clientX - (r.left + r.width/2)) / r.width;
+        const y = (e.clientY - (r.top + r.height/2)) / r.height;
+        holo.style.transform = `rotateX(${ -y*6 }deg) rotateY(${ x*6 }deg) translateZ(0)`;
+        a = (Math.atan2(y, x) * 180 / Math.PI) + 180;
+        document.documentElement.style.setProperty('--holo-angle', a + 'deg');
+      };
+      addEventListener('mousemove', onMove);
+      addEventListener('mouseleave', ()=> holo.style.transform='none');
+    }
   </script>
 </body>
 </html>
