@@ -98,7 +98,7 @@
       content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;
       background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent);
     }
-    .role-step:last-child:after{display:none}
+    html[dir="rtl"] .role-step:after{left:auto;right:1rem}
 
     .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
     .social:hover{background:rgba(255,255,255,.12)}
@@ -137,6 +137,9 @@
     /* Hide native scrollbars but keep scrolling (used in modals) */
     .no-scrollbar::-webkit-scrollbar{ display:none; }
     .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+
+    /* Arabic-friendly font stack */
+    html[lang="ar"] body{ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Kufi Arabic", "Noto Sans Arabic", "Cairo", "Tajawal", Arial, sans-serif; }
   </style>
 </head>
 
@@ -157,16 +160,17 @@
 
       <!-- Desktop nav (ICT link removed previously) -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
-        <a href="#approach" class="hover:text-white">Approach</a>
-        <a href="#curriculum" class="hover:text-white">Curriculum</a>
-        <a href="#how" class="hover:text-white">How it Works</a>
-        <a href="#discord" class="hover:text-white">Community</a>
-        <a href="#pricing" class="hover:text-white">Pricing</a>
-        <a href="#faq" class="hover:text-white">FAQ</a>
+        <a href="#approach" class="hover:text-white" data-i18n="nav_approach">Approach</a>
+        <a href="#curriculum" class="hover:text-white" data-i18n="nav_curriculum">Curriculum</a>
+        <a href="#how" class="hover:text-white" data-i18n="nav_how">How it Works</a>
+        <a href="#discord" class="hover:text-white" data-i18n="nav_community">Community</a>
+        <a href="#pricing" class="hover:text-white" data-i18n="nav_pricing">Pricing</a>
+        <a href="#faq" class="hover:text-white" data-i18n="nav_faq">FAQ</a>
       </nav>
 
       <div class="hidden md:flex items-center gap-3">
-        <a href="#pricing" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">Get Access</a>
+        <!-- Language toggle replaces old Get Access -->
+        <button id="langToggle" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-i18n="btn_lang">(عربي)</button>
       </div>
 
       <!-- Mobile button -->
@@ -177,14 +181,14 @@
 
     <!-- Ticker -->
     <div class="ticker border-t border-white/10 bg-black/30 text-white/70 text-sm" aria-label="Promotion">
-      <span class="sr-only">Use code FIRST40 at checkout</span>
-      <div class="ticker-track" aria-hidden="true">
-        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
-        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+      <span class="sr-only" data-i18n="ticker_sr">Use code FIRST40 at checkout</span>
+      <div class="ticker-track" aria-hidden="true" id="tickerTrack">
+        <span class="mx-10 md:mx-16 lg:mx-24" data-i18n="ticker_text">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24" data-i18n="ticker_text">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24" data-i18n="ticker_text">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24" data-i18n="ticker_text">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24" data-i18n="ticker_text">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24" data-i18n="ticker_text">Use code FIRST40 at checkout</span>
       </div>
     </div>
   </header>
@@ -193,20 +197,22 @@
   <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/65 backdrop-blur-[6px]" data-close></div>
     <div class="absolute right-3 left-3 top-[88px] glass-panel">
-      <div class="p-3 flex justify-end">
+      <div class="p-3 flex justify-between items-center">
         <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-close aria-label="Close menu">
           <i data-lucide="x"></i>
         </button>
+        <!-- Mobile language toggle -->
+        <button id="langToggleMobile" class="px-3 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90 text-sm" data-i18n="btn_lang">(عربي)</button>
       </div>
       <!-- Mobile nav (ICT link removed previously) -->
       <nav class="px-4 pb-4 text-base">
-        <a class="block py-3 border-t border-white/10 first:border-t-0" href="#approach">Approach</a>
-        <a class="block py-3 border-t border-white/10" href="#curriculum">Curriculum</a>
-        <a class="block py-3 border-t border-white/10" href="#how">How it Works</a>
-        <a class="block py-3 border-t border-white/10" href="#discord">Community</a>
-        <a class="block py-3 border-t border-white/10" href="#pricing">Pricing</a>
-        <a class="block py-3 border-t border-white/10" href="#faq">FAQ</a>
-        <a href="#pricing" class="mt-4 block text-center rounded-xl py-3 bg-gradient-to-r from-blue-600 to-cyan-400">Get Access</a>
+        <a class="block py-3 border-t border-white/10 first:border-t-0" href="#approach" data-i18n="nav_approach">Approach</a>
+        <a class="block py-3 border-t border-white/10" href="#curriculum" data-i18n="nav_curriculum">Curriculum</a>
+        <a class="block py-3 border-t border-white/10" href="#how" data-i18n="nav_how">How it Works</a>
+        <a class="block py-3 border-t border-white/10" href="#discord" data-i18n="nav_community">Community</a>
+        <a class="block py-3 border-t border-white/10" href="#pricing" data-i18n="nav_pricing">Pricing</a>
+        <a class="block py-3 border-t border-white/10" href="#faq" data-i18n="nav_faq">FAQ</a>
+        <a href="#pricing" class="mt-4 block text-center rounded-xl py-3 bg-gradient-to-r from-blue-600 to-cyan-400" data-i18n="hero_btn_access">Get Access</a>
       </nav>
     </div>
   </div>
@@ -216,20 +222,20 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       <div class="reveal">
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
-          <span class="gradient-text">Trade with Clarity</span><br class="hidden sm:block"/>
-          Not Noise
+          <span class="gradient-text" data-i18n="hero_title_line1">Trade with Clarity</span><br class="hidden sm:block"/>
+          <span data-i18n="hero_title_line2">Not Noise</span>
         </h1>
-        <p class="mt-5 text-white/70 max-w-xl">
+        <p class="mt-5 text-white/70 max-w-xl" data-i18n="hero_p">
           I started like most traders: YouTube strategies, paid courses, and a lot of frustration.
           Real progress came when I stopped memorizing and began understanding the market. I treat each trade as a setup
           based on the idea that time is fractal: higher timeframe key levels set the bias, lower timeframe levels define
           the entry, and I identify who is in control. Now I teach the same framework inside FusionTicks.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
+          <a href="#pricing" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-i18n="hero_btn_access">
             Get Access <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
           </a>
-          <a href="#curriculum" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20">
+          <a href="#curriculum" class="h-12 px-6 inline-flex items-center justify-center rounded-lg text-base bg-white/10 hover:bg-white/20" data-i18n="hero_btn_curriculum">
             <i data-lucide="book-open" class="mr-2 w-5 h-5"></i> See Curriculum
           </a>
         </div>
@@ -246,36 +252,36 @@
   <!-- APPROACH -->
   <section id="approach" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <div class="mb-8 sm:mb-12 reveal">
-      <h2 class="text-3xl sm:text-4xl font-bold">The <span class="gradient-text">FusionTicks</span> Approach</h2>
-      <p class="mt-2 text-white/70 max-w-3xl">
+      <h2 class="text-3xl sm:text-4xl font-bold" data-i18n="approach_h2">The <span class="gradient-text">FusionTicks</span> Approach</h2>
+      <p class="mt-2 text-white/70 max-w-3xl" data-i18n="approach_p">
         Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>,
         identifying who’s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.
       </p>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> Read, Don’t Guess</div>
-        <p class="mt-3 text-white/70">We use core price concepts to understand control and intent—candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p>
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> <span data-i18n="ap1_t">Read, Don’t Guess</span></div>
+        <p class="mt-3 text-white/70" data-i18n="ap1_p">We use core price concepts to understand control and intent—candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> Stack Confirmations</div>
-        <p class="mt-3 text-white/70">Setups form when evidence stacks: context → shift in control → clean risk. More confirmations = higher quality.</p>
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> <span data-i18n="ap2_t">Stack Confirmations</span></div>
+        <p class="mt-3 text-white/70" data-i18n="ap2_p">Setups form when evidence stacks: context → shift in control → clean risk. More confirmations = higher quality.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> Risk First</div>
-        <p class="mt-3 text-white/70">Sizing, loss caps, and invalidations come before outcomes. Survival is the edge that compounds.</p>
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> <span data-i18n="ap3_t">Risk First</span></div>
+        <p class="mt-3 text-white/70" data-i18n="ap3_p">Sizing, loss caps, and invalidations come before outcomes. Survival is the edge that compounds.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="route" class="w-5 h-5"></i> Levels ≠ Signals</div>
-        <p class="mt-3 text-white/70">Supply/Demand or S/R are <em>areas of interest</em>—we prepare there, then wait for our tools to confirm.</p>
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="route" class="w-5 h-5"></i> <span data-i18n="ap4_t">Levels ≠ Signals</span></div>
+        <p class="mt-3 text-white/70" data-i18n="ap4_p">Supply/Demand or S/R are <em>areas of interest</em>—we prepare there, then wait for our tools to confirm.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="chart-line" class="w-5 h-5"></i> Simple, Repeatable</div>
-        <p class="mt-3 text-white/70">You’ll stop collecting strategies and start executing a consistent process you actually understand.</p>
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="chart-line" class="w-5 h-5"></i> <span data-i18n="ap5_t">Simple, Repeatable</span></div>
+        <p class="mt-3 text-white/70" data-i18n="ap5_p">You’ll stop collecting strategies and start executing a consistent process you actually understand.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="notebook-pen" class="w-5 h-5"></i> Feedback Loop</div>
-        <p class="mt-3 text-white/70">Journaling and weekly reviews lock in lessons fast. Progress becomes visible and measurable.</p>
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="notebook-pen" class="w-5 h-5"></i> <span data-i18n="ap6_t">Feedback Loop</span></div>
+        <p class="mt-3 text-white/70" data-i18n="ap6_p">Journaling and weekly reviews lock in lessons fast. Progress becomes visible and measurable.</p>
       </div>
     </div>
   </section>
@@ -283,18 +289,18 @@
   <!-- CURRICULUM -->
   <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-4 sm:mb-6 reveal">
-      <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">Curriculum</span></h2>
-      <!-- S/R subtitle moved ABOVE the description + gradient emerald→blue -->
+      <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text" data-i18n="curr_h2">Curriculum</span></h2>
+      <!-- S/R subtitle (keep title English) -->
       <h3 class="mt-3 text-2xl font-bold gradient-eb">S/R - Deep Dive</h3>
-      <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
+      <p class="mt-2 text-white/70 max-w-3xl" data-i18n="curr_p">Three stages to build real understanding—then what happens behind the scenes.</p>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Reading the Market -->
+      <!-- Reading the Market (keep lesson titles in English) -->
       <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center justify-between">
           <h3 class="text-white/90 font-semibold">A · Reading the Market</h3>
-          <span class="badge">6 lessons</span>
+          <span class="badge" data-i18n="curr_a_lessons">6 lessons</span>
         </div>
         <p class="text-white/60 mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG (balance &amp; imbalance).</p>
       </article>
@@ -303,7 +309,7 @@
       <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center justify-between">
           <h3 class="text-white/90 font-semibold">B · Market Levels</h3>
-          <span class="badge">3 lessons</span>
+          <span class="badge" data-i18n="curr_b_lessons">3 lessons</span>
         </div>
         <p class="text-white/60 mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout. <span class="text-white/50">Levels are preparation—wait for confirmation.</span></p>
       </article>
@@ -312,7 +318,7 @@
       <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center justify-between">
           <h3 class="text-white/90 font-semibold">C · Market Indicators</h3>
-          <span class="badge">3 lessons</span>
+          <span class="badge" data-i18n="curr_c_lessons">3 lessons</span>
         </div>
         <p class="text-white/60 mt-2 text-sm">Volume Profile, VWAP (and Anchored), and EMA—how to use them inside context.</p>
       </article>
@@ -321,7 +327,7 @@
       <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center justify-between">
           <h3 class="text-white/90 font-semibold">D · Behind the Scenes</h3>
-          <span class="badge">7 lessons</span>
+          <span class="badge" data-i18n="curr_d_lessons">7 lessons</span>
         </div>
         <p class="text-white/60 mt-2 text-sm">TradingView basics, futures &amp; prop firms, order types, risk first, journaling, news, and psychology.</p>
       </article>
@@ -329,7 +335,7 @@
 
     <!-- CTA like ICT -->
     <div class="mt-8 flex flex-wrap gap-3 reveal">
-      <button class="h-11 px-5 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-curr-open>
+      <button class="h-11 px-5 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-curr-open data-i18n="btn_syllabus">
         <i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus
       </button>
     </div>
@@ -343,16 +349,16 @@
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-300"></span>
         </span>
-        ICT Concepts · Deep Dive — Coming Soon
+        <span data-i18n="ict_badge">ICT Concepts · Deep Dive — Coming Soon</span>
       </div>
-      <!-- Font size matched to S/R and gradient emerald→blue -->
+      <!-- Title (keep English words, but we present them as product name) -->
       <h2 class="mt-3 text-2xl font-bold gradient-eb">ICT Concepts · Deep Dive</h2>
-      <p class="mt-2 text-white/70 max-w-3xl">
+      <p class="mt-2 text-white/70 max-w-3xl" data-i18n="ict_p">
         A comprehensive, risk-first framework rooted in structure, liquidity, time &amp; execution models. Outline below is in progress and may evolve based on community feedback.
       </p>
     </div>
 
-    <!-- Teaser modules -->
+    <!-- Teaser modules (keep English) -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
         <div class="flex items-center justify-between">
@@ -405,11 +411,11 @@
 
     <!-- CTA -->
     <div class="mt-8 flex flex-wrap gap-3 reveal">
-      <button class="h-11 px-5 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-ict-open>
+      <button class="h-11 px-5 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-ict-open data-i18n="btn_syllabus">
         <i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus
       </button>
       <a href="https://discord.gg/RFbe3nHB" target="_blank" rel="noopener noreferrer"
-         class="h-11 px-5 inline-flex items-center gap-2 rounded-lg bg-white/10 hover:bg-white/20">
+         class="h-11 px-5 inline-flex items-center gap-2 rounded-lg bg-white/10 hover:bg-white/20" data-i18n="ict_discord">
         <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/>
         Get notified on Discord
       </a>
@@ -419,25 +425,25 @@
   <!-- HOW IT WORKS -->
   <section id="how" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
-      <h2 class="text-3xl sm:text-4xl font-bold">How We <span class="gradient-text">Trade</span> (Simple Pipeline)</h2>
-      <p class="mt-2 text-white/70 max-w-3xl">From preparation to execution—clear steps you can repeat daily.</p>
+      <h2 class="text-3xl sm:text-4xl font-bold" data-i18n="how_h2">How We <span class="gradient-text">Trade</span> (Simple Pipeline)</h2>
+      <p class="mt-2 text-white/70 max-w-3xl" data-i18n="how_p">From preparation to execution—clear steps you can repeat daily.</p>
     </div>
     <div class="grid lg:grid-cols-4 gap-6">
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div>
-        <p class="mt-3 text-white/70">Map Market Levels (S/D, S/R, ORB) on HTF. Note news &amp; sessions.</p>
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> <span data-i18n="how1_t">1) Prepare</span></div>
+        <p class="mt-3 text-white/70" data-i18n="how1_p">Map Market Levels (S/D, S/R, ORB) on HTF. Note news &amp; sessions.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div>
-        <p class="mt-3 text-white/70">Use tools: swings, BOS/CHoCH, FVG, balance. Identify a shift in control.</p>
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> <span data-i18n="how2_t">2) Read</span></div>
+        <p class="mt-3 text-white/70" data-i18n="how2_p">Use tools: swings, BOS/CHoCH, FVG, balance. Identify a shift in control.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div>
-        <p class="mt-3 text-white/70">Stack confirmations (context → signal → invalidation). If it’s clean: execute.</p>
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> <span data-i18n="how3_t">3) Confirm</span></div>
+        <p class="mt-3 text-white/70" data-i18n="how3_p">Stack confirmations (context → signal → invalidation). If it’s clean: execute.</p>
       </div>
       <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
-        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div>
-        <p class="mt-3 text-white/70">Journal entries, note mistakes, adjust plan. Compound the process.</p>
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> <span data-i18n="how4_t">4) Review</span></div>
+        <p class="mt-3 text-white/70" data-i18n="how4_p">Journal entries, note mistakes, adjust plan. Compound the process.</p>
       </div>
     </div>
   </section>
@@ -446,12 +452,12 @@
   <section id="discord" class="relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
       <div class="mb-8 sm:mb-12 reveal">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm" data-i18n="disc_badge">
           FusionTicks Discord
         </div>
 
-        <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
-        <p class="mt-2 text-white/70 max-w-2xl">
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold" data-i18n="disc_h2"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
+        <p class="mt-2 text-white/70 max-w-2xl" data-i18n="disc_p">
           One place to read the market together, post daily levels, review trades, and learn live.
           Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
           progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
@@ -460,7 +466,7 @@
 
         <div class="mt-5">
           <a href="https://discord.gg/RFbe3nHB" target="_blank" rel="noopener noreferrer"
-             class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90">
+             class="inline-flex items-center gap-2 px-5 h-11 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 hover:opacity-90" data-i18n="disc_join">
             <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/>
             Join the Discord
           </a>
@@ -471,23 +477,23 @@
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
-            #chatroom
+            <span data-i18n="disc_c1_t">#chatroom</span>
           </div>
-          <p class="text-white/70 mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
+          <p class="text-white/70 mt-3" data-i18n="disc_c1_p">Daily hangout. Share charts, ideas, and quick help.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
-            #market-news
+            <span data-i18n="disc_c2_t">#market-news</span>
           </div>
-          <p class="text-white/70 mt-3">Weekly market calendar: which days to lean in and which days to stay light.</p>
+          <p class="text-white/70 mt-3" data-i18n="disc_c2_p">Weekly market calendar: which days to lean in and which days to stay light.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="target" class="w-5 h-5"></i></span>
-            #market-levels
+            <span data-i18n="disc_c3_t">#market-levels</span>
           </div>
-          <p class="text-white/70 mt-3">Daily levels so you’re prepared. We still wait for tool-based confirmation.</p>
+          <p class="text-white/70 mt-3" data-i18n="disc_c3_p">Daily levels so you’re prepared. We still wait for tool-based confirmation.</p>
           <div class="mt-4 flex flex-wrap gap-2">
             <span class="badge">NQ</span><span class="badge">ES</span><span class="badge">CL (Crude)</span><span class="badge">GC (Gold)</span>
           </div>
@@ -496,23 +502,23 @@
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="calendar-check" class="w-5 h-5"></i></span>
-            Weekly Session
+            <span data-i18n="disc_c4_t">Weekly Session</span>
           </div>
-          <p class="text-white/70 mt-3">Weekend live: review the week, map scenarios for next week—calm, focused.</p>
+          <p class="text-white/70 mt-3" data-i18n="disc_c4_p">Weekend live: review the week, map scenarios for next week—calm, focused.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="radio" class="w-5 h-5"></i></span>
-            Live Session
+            <span data-i18n="disc_c5_t">Live Session</span>
           </div>
-          <p class="text-white/70 mt-3">Mid-week live for Q&amp;A, coaching, and process refinement.</p>
+          <p class="text-white/70 mt-3" data-i18n="disc_c5_p">Mid-week live for Q&amp;A, coaching, and process refinement.</p>
         </div>
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>
-            Live Trading (Unlocked)
+            <span data-i18n="disc_c6_t">Live Trading (Unlocked)</span>
           </div>
-          <p class="text-white/70 mt-3">Daily live trading room for <b>Fusion Legend</b> only—after your first prop payout.</p>
+          <p class="text-white/70 mt-3" data-i18n="disc_c6_p">Daily live trading room for <b>Fusion Legend</b> only—after your first prop payout.</p>
         </div>
       </div>
 
@@ -520,45 +526,45 @@
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>
-            Role Path & Rules
+            <span data-i18n="disc_roles_t">Role Path & Rules</span>
           </div>
           <div class="mt-4 space-y-4">
-            <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm">Your starting role. Build foundations.</span></div>
-            <div class="role-step"><span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span><span class="text-white/70 text-sm">Show your prop pass → upgrade.</span></div>
-            <div class="role-step"><span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span><span class="text-white/70 text-sm">First payout → unlock daily live trading.</span></div>
+            <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm" data-i18n="disc_role1">Your starting role. Build foundations.</span></div>
+            <div class="role-step"><span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span><span class="text-white/70 text-sm" data-i18n="disc_role2">Show your prop pass → upgrade.</span></div>
+            <div class="role-step"><span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span><span class="text-white/70 text-sm" data-i18n="disc_role3">First payout → unlock daily live trading.</span></div>
           </div>
           <ul class="mt-5 space-y-2 text-white/70 text-sm">
-            <li class="flex gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cyan-300"></i> Respect first. No spam or blind signals.</li>
-            <li class="flex gap-2"><i data-lucide="book-open-check" class="w-4 h-4 text-cyan-300"></i> Use the reading tools before any entry.</li>
-            <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-cyan-300"></i> Education only. Not financial advice.</li>
+            <li class="flex gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cyan-300"></i> <span data-i18n="disc_rule1">Respect first. No spam or blind signals.</span></li>
+            <li class="flex gap-2"><i data-lucide="book-open-check" class="w-4 h-4 text-cyan-300"></i> <span data-i18n="disc_rule2">Use the reading tools before any entry.</span></li>
+            <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-cyan-300"></i> <span data-i18n="disc_rule3">Education only. Not financial advice.</span></li>
           </ul>
         </div>
 
         <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
           <div class="flex items-center gap-2 text-white/90 font-semibold">
             <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkle" class="w-5 h-5"></i></span>
-            Why Community Helps
+            <span data-i18n="disc_why_t">Why Community Helps</span>
           </div>
-          <p class="text-white/70 mt-3">
+          <p class="text-white/70 mt-3" data-i18n="disc_why_p">
             You learn faster seeing multiple reads, sharing plans, and getting feedback.
             Discipline becomes easier—and you’ll skip years of trial &amp; error.
           </p>
           <ul class="mt-5 grid sm:grid-cols-2 gap-3 text-white/80">
             <li class="flex items-start gap-3">
               <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
-              Daily chart reviews & peer feedback
+              <span data-i18n="disc_why1">Daily chart reviews & peer feedback</span>
             </li>
             <li class="flex items-start gap-3">
               <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
-              Accountability via weekly summaries
+              <span data-i18n="disc_why2">Accountability via weekly summaries</span>
             </li>
             <li class="flex items-start gap-3">
               <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
-              Shared levels for NQ · ES · CL · GC
+              <span data-i18n="disc_why3">Shared levels for NQ · ES · CL · GC</span>
             </li>
             <li class="flex items-start gap-3">
               <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
-              Process-first mindset, zero signals
+              <span data-i18n="disc_why4">Process-first mindset, zero signals</span>
             </li>
           </ul>
         </div>
@@ -569,8 +575,8 @@
   <!-- PRICING -->
   <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
-      <h2 class="text-3xl sm:text-4xl font-bold">Choose Your <span class="gradient-text">Access</span></h2>
-      <p class="mt-2 text-white/70">
+      <h2 class="text-3xl sm:text-4xl font-bold" data-i18n="pricing_h2">Choose Your <span class="gradient-text">Access</span></h2>
+      <p class="mt-2 text-white/70" data-i18n="pricing_p">
         First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through text-white/50">$1000</span>). Lifetime updates included.
       </p>
     </div>
@@ -580,45 +586,45 @@
       <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal flex flex-col">
         <div class="flex items-start justify-between">
           <div>
-            <span class="font-semibold">FusionTicks Academy · Lifetime</span>
-            <div class="mt-2"><span class="badge">First 40 only</span></div>
+            <span class="font-semibold" data-i18n="plan1_title">FusionTicks Academy · Lifetime</span>
+            <div class="mt-2"><span class="badge" data-i18n="plan1_badge">First 40 only</span></div>
           </div>
           <div class="text-right">
             <div class="text-3xl font-extrabold">$550</div>
             <div class="text-sm text-white/50 line-through">$1000</div>
           </div>
         </div>
-        <p class="text-white/70 mt-2">One-time payment. Includes all lessons now and all future updates.</p>
+        <p class="text-white/70 mt-2" data-i18n="plan1_p">One-time payment. Includes all lessons now and all future updates.</p>
         <ul class="mt-3 space-y-2 text-white/80">
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Full course (current lessons)</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Lifetime updates (future lessons)</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord access (no live, levels, or news)</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&amp;A &amp; group study</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="plan1_f1">Full course (current lessons)</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="plan1_f2">Lifetime updates (future lessons)</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="plan1_f3">Private Discord access (no live, levels, or news)</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="plan1_f4">Weekly live Q&amp;A &amp; group study</span></li>
         </ul>
         <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
           <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true"
-             class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">
+             class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400" data-i18n="plan1_cta">
             Get Course — $550
           </a>
-          <p class="text-xs text-white/50 mt-2">Don’t miss the launch offer — use <b>FIRST40</b></p>
+          <p class="text-xs text-white/50 mt-2" data-i18n="plan1_note">Don’t miss the launch offer — use <b>FIRST40</b></p>
         </div>
       </div>
 
       <!-- Live & Levels Subscription -->
       <div class="plan relative bg-white/5 border border-white/10 rounded-2xl p-6 reveal flex flex-col">
         <div class="flex items-start justify-between">
-          <span class="font-semibold">Live &amp; Levels · Subscription</span>
-          <span class="text-2xl font-extrabold">$20<span class="text-sm font-medium text-white/60">/mo</span></span>
+          <span class="font-semibold" data-i18n="plan2_title">Live &amp; Levels · Subscription</span>
+          <span class="text-2xl font-extrabold">$20<span class="text-sm font-medium text-white/60" data-i18n="plan2_mo">/mo</span></span>
         </div>
-        <p class="text-white/70 mt-2">Everything you need day-to-day to stay prepared.</p>
+        <p class="text-white/70 mt-2" data-i18n="plan2_p">Everything you need day-to-day to stay prepared.</p>
         <ul class="mt-3 space-y-2 text-white/80">
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Daily pre-market live (plan + levels)</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Today’s outlook &amp; trade scenarios</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly news calendar + trade/avoid days</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="plan2_f1">Daily pre-market live (plan + levels)</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="plan2_f2">Today’s outlook &amp; trade scenarios</span></li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> <span data-i18n="plan2_f3">Weekly news calendar + trade/avoid days</span></li>
         </ul>
         <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
           <a href="https://YOUR_WHOP_LINK_SUB_20"
-             class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400">
+             class="inline-block w-full text-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400" data-i18n="plan2_cta">
             Subscribe — $20/mo
           </a>
         </div>
@@ -635,19 +641,17 @@
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-300"></span>
           </span>
-          In progress — coming soon
+          <span data-i18n="plan3_status">In progress — coming soon</span>
         </div>
-        <p class="text-white/70 mt-2">I’m building a full ICT concepts course. It will cover structure, execution models, and case studies.</p>
+        <p class="text-white/70 mt-2" data-i18n="plan3_p">I’m building a full ICT concepts course. It will cover structure, execution models, and case studies.</p>
         <ul class="mt-3 space-y-2 text-white/80">
-          <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Comprehensive ICT framework</li>
-          <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Clear setups &amp; management rules</li>
-          <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Real chart walk-throughs</li>
+          <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> <span data-i18n="plan3_f1">Comprehensive ICT framework</span></li>
+          <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> <span data-i18n="plan3_f2">Clear setups &amp; management rules</span></li>
+          <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> <span data-i18n="plan3_f3">Real chart walk-throughs</span></li>
         </ul>
         <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
-          <button disabled class="inline-block w-full text-center px-4 py-2 rounded-lg bg-white/10 opacity-60 cursor-not-allowed">
-            Coming Soon
-          </button>
-          <p class="text-xs text-white/50 mt-2">Join the Discord to get notified at launch.</p>
+          <button disabled class="inline-block w-full text-center px-4 py-2 rounded-lg bg-white/10 opacity-60 cursor-not-allowed" data-i18n="plan3_btn">Coming Soon</button>
+          <p class="text-xs text-white/50 mt-2" data-i18n="plan3_note">Join the Discord to get notified at launch.</p>
         </div>
       </div>
     </div>
@@ -656,30 +660,30 @@
   <!-- FAQ -->
   <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-8 sm:mb-12 reveal">
-      <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">FAQ</span></h2>
-      <p class="mt-2 text-white/70">Still curious? Start here.</p>
+      <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text" data-i18n="faq_h2">FAQ</span></h2>
+      <p class="mt-2 text-white/70" data-i18n="faq_p">Still curious? Start here.</p>
     </div>
     <div class="space-y-4">
       <!-- 5 visible -->
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" open>
-        <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
-        <p class="text-white/70 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
+        <summary class="cursor-pointer font-medium" data-i18n="q1">Is this for beginners or advanced traders?</summary>
+        <p class="text-white/70 mt-2" data-i18n="a1">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
       </details>
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-        <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
-        <p class="text-white/70 mt-2">Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
+        <summary class="cursor-pointer font-medium" data-i18n="q2">What markets do you cover?</summary>
+        <p class="text-white/70 mt-2" data-i18n="a2">Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
       </details>
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-        <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
-        <p class="text-white/70 mt-2">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
+        <summary class="cursor-pointer font-medium" data-i18n="q3">Do I get Discord access?</summary>
+        <p class="text-white/70 mt-2" data-i18n="a3">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
       </details>
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-        <summary class="cursor-pointer font-medium">What time are the live sessions and in which timezone?</summary>
-        <p class="text-white/70 mt-2">30 minutes before the New York session opens — timezone: New York.</p>
+        <summary class="cursor-pointer font-medium" data-i18n="q4">What time are the live sessions and in which timezone?</summary>
+        <p class="text-white/70 mt-2" data-i18n="a4">30 minutes before the New York session opens — timezone: New York.</p>
       </details>
       <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
-        <summary class="cursor-pointer font-medium">What language is the content?</summary>
-        <p class="text-white/70 mt-2">Arabic.</p>
+        <summary class="cursor-pointer font-medium" data-i18n="q5">What language is the content?</summary>
+        <p class="text-white/70 mt-2" data-i18n="a5">Arabic.</p>
       </details>
     </div>
   </section>
@@ -689,7 +693,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
       <div class="flex items-center gap-3">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
-        <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
+        <span>© <span id="year"></span> FusionTicks. <span data-i18n="footer_rights">All rights reserved.</span></span>
       </div>
       <div class="flex items-center gap-3">
         <!-- Instagram -->
@@ -721,14 +725,14 @@
     <div class="absolute inset-0 bg-black/70" data-curr-close></div>
     <div class="relative max-w-4xl mx-auto mt-16 mb-10 glass-panel">
       <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
-        <h3 class="text-lg font-semibold">Curriculum · Full Syllabus</h3>
+        <h3 class="text-lg font-semibold" data-i18n="currmodal_title">Curriculum · Full Syllabus</h3>
         <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-curr-close aria-label="Close syllabus">
           <i data-lucide="x"></i>
         </button>
       </div>
       <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar">
         <div class="grid sm:grid-cols-2 gap-6 text-white/80 text-sm leading-relaxed">
-          <!-- A -->
+          <!-- A (keep English lesson names) -->
           <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
             <h4 class="text-white font-semibold text-base flex items-center gap-2">
               <i data-lucide="scan" class="w-4 h-4"></i> A · Reading the Market
@@ -753,7 +757,7 @@
               <li>Key Zones <span class="text-white/60">(Support &amp; Resistance)</span></li>
               <li>The Explosion <span class="text-white/60">(Opening Range Breakout)</span></li>
             </ol>
-            <p class="mt-3 text-xs text-white/60">Levels are not entries—prepare there, then wait for tool-based confirmation.</p>
+            <p class="mt-3 text-xs text-white/60" data-i18n="currmodal_note">Levels are not entries—prepare there, then wait for tool-based confirmation.</p>
           </article>
 
           <!-- C -->
@@ -793,7 +797,7 @@
     <div class="absolute inset-0 bg-black/70" data-ict-close></div>
     <div class="relative max-w-4xl mx-auto mt-16 mb-10 glass-panel">
       <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
-        <h3 class="text-lg font-semibold">ICT Concepts · Full Syllabus (Coming Soon)</h3>
+        <h3 class="text-lg font-semibold" data-i18n="ictmodal_title">ICT Concepts · Full Syllabus (Coming Soon)</h3>
         <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-ict-close aria-label="Close syllabus">
           <i data-lucide="x"></i>
         </button>
@@ -900,7 +904,7 @@
             </ol>
           </article>
         </div>
-        <div class="mt-5 text-xs text-white/50">Outline is subject to change during production. Join the Discord for updates.</div>
+        <div class="mt-5 text-xs text-white/50" data-i18n="ictmodal_note">Outline is subject to change during production. Join the Discord for updates.</div>
       </div>
     </div>
   </div>
@@ -917,6 +921,128 @@
   </button>
 
   <script>
+    // ===== Simple i18n map (English / Arabic) =====
+    const i18n = {
+      en: {
+        btn_lang: '(عربي)',
+        nav_approach: 'Approach', nav_curriculum:'Curriculum', nav_how:'How it Works', nav_community:'Community', nav_pricing:'Pricing', nav_faq:'FAQ',
+        ticker_sr:'Use code FIRST40 at checkout', ticker_text:'Use code FIRST40 at checkout',
+        hero_title_line1:'Trade with Clarity', hero_title_line2:'Not Noise',
+        hero_p:`I started like most traders: YouTube strategies, paid courses, and a lot of frustration. Real progress came when I stopped memorizing and began understanding the market. I treat each trade as a setup based on the idea that time is fractal: higher timeframe key levels set the bias, lower timeframe levels define the entry, and I identify who is in control. Now I teach the same framework inside FusionTicks.`,
+        hero_btn_access:'Get Access', hero_btn_curriculum:'<i data-lucide="book-open" class="mr-2 w-5 h-5"></i> See Curriculum',
+        approach_h2:'The <span class="gradient-text">FusionTicks</span> Approach',
+        approach_p:'Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>, identifying who\'s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.',
+        ap1_t:"Read, Don’t Guess", ap1_p:'We use core price concepts to understand control and intent—candles, swings, BOS/CHoCH, FVG, balance/imbalance.',
+        ap2_t:'Stack Confirmations', ap2_p:'Setups form when evidence stacks: context → shift in control → clean risk. More confirmations = higher quality.',
+        ap3_t:'Risk First', ap3_p:'Sizing, loss caps, and invalidations come before outcomes. Survival is the edge that compounds.',
+        ap4_t:'Levels ≠ Signals', ap4_p:'Supply/Demand or S/R are <em>areas of interest</em>—we prepare there, then wait for our tools to confirm.',
+        ap5_t:'Simple, Repeatable', ap5_p:'You’ll stop collecting strategies and start executing a consistent process you actually understand.',
+        ap6_t:'Feedback Loop', ap6_p:'Journaling and weekly reviews lock in lessons fast. Progress becomes visible and measurable.',
+        curr_h2:'Curriculum', curr_p:'Three stages to build real understanding—then what happens behind the scenes.', curr_a_lessons:'6 lessons', curr_b_lessons:'3 lessons', curr_c_lessons:'3 lessons', curr_d_lessons:'7 lessons', btn_syllabus:'<i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus',
+        ict_badge:'ICT Concepts · Deep Dive — Coming Soon', ict_p:'A comprehensive, risk-first framework rooted in structure, liquidity, time & execution models. Outline below is in progress and may evolve based on community feedback.', ict_discord:'<img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/> Get notified on Discord',
+        how_h2:'How We <span class="gradient-text">Trade</span> (Simple Pipeline)', how_p:'From preparation to execution—clear steps you can repeat daily.',
+        how1_t:'1) Prepare', how1_p:'Map Market Levels (S/D, S/R, ORB) on HTF. Note news & sessions.',
+        how2_t:'2) Read', how2_p:'Use tools: swings, BOS/CHoCH, FVG, balance. Identify a shift in control.',
+        how3_t:'3) Confirm', how3_p:'Stack confirmations (context → signal → invalidation). If it’s clean: execute.',
+        how4_t:'4) Review', how4_p:'Journal entries, note mistakes, adjust plan. Compound the process.',
+        disc_badge:'FusionTicks Discord',
+        disc_h2:'<span class="gradient-text">Community</span> That Accelerates Progress',
+        disc_p:`One place to read the market together, post daily levels, review trades, and learn live.
+          Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
+          progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
+          unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.`,
+        disc_join:'<img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/> Join the Discord',
+        disc_c1_t:'#chatroom', disc_c1_p:'Daily hangout. Share charts, ideas, and quick help.',
+        disc_c2_t:'#market-news', disc_c2_p:'Weekly market calendar: which days to lean in and which days to stay light.',
+        disc_c3_t:'#market-levels', disc_c3_p:'Daily levels so you’re prepared. We still wait for tool-based confirmation.',
+        disc_c4_t:'Weekly Session', disc_c4_p:'Weekend live: review the week, map scenarios for next week—calm, focused.',
+        disc_c5_t:'Live Session', disc_c5_p:'Mid-week live for Q&A, coaching, and process refinement.',
+        disc_c6_t:'Live Trading (Unlocked)', disc_c6_p:'Daily live trading room for <b>Fusion Legend</b> only—after your first prop payout.',
+        disc_roles_t:'Role Path & Rules', disc_role1:'Your starting role. Build foundations.', disc_role2:'Show your prop pass → upgrade.', disc_role3:'First payout → unlock daily live trading.',
+        disc_rule1:'Respect first. No spam or blind signals.', disc_rule2:'Use the reading tools before any entry.', disc_rule3:'Education only. Not financial advice.',
+        disc_why_t:'Why Community Helps', disc_why_p:'You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial & error.',
+        disc_why1:'Daily chart reviews & peer feedback', disc_why2:'Accountability via weekly summaries', disc_why3:'Shared levels for NQ · ES · CL · GC', disc_why4:'Process-first mindset, zero signals',
+        pricing_h2:'Choose Your <span class="gradient-text">Access</span>', pricing_p:'First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through text-white/50">$1000</span>). Lifetime updates included.',
+        plan1_title:'FusionTicks Academy · Lifetime', plan1_badge:'First 40 only', plan1_p:'One-time payment. Includes all lessons now and all future updates.', plan1_f1:'Full course (current lessons)', plan1_f2:'Lifetime updates (future lessons)', plan1_f3:'Private Discord access (no live, levels, or news)', plan1_f4:'Weekly live Q&A & group study', plan1_cta:'Get Course — $550', plan1_note:'Don’t miss the launch offer — use <b>FIRST40</b>',
+        plan2_title:'Live & Levels · Subscription', plan2_mo:'/mo', plan2_p:'Everything you need day-to-day to stay prepared.', plan2_f1:'Daily pre-market live (plan + levels)', plan2_f2:'Today’s outlook & trade scenarios', plan2_f3:'Weekly news calendar + trade/avoid days', plan2_cta:'Subscribe — $20/mo',
+        plan3_status:'In progress — coming soon', plan3_p:'I’m building a full ICT concepts course. It will cover structure, execution models, and case studies.', plan3_f1:'Comprehensive ICT framework', plan3_f2:'Clear setups & management rules', plan3_f3:'Real chart walk-throughs', plan3_btn:'Coming Soon', plan3_note:'Join the Discord to get notified at launch.',
+        faq_h2:'FAQ', faq_p:'Still curious? Start here.', q1:'Is this for beginners or advanced traders?', a1:'Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.', q2:'What markets do you cover?', a2:'Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.', q3:'Do I get Discord access?', a3:'Yes. Every plan includes access to the private community with weekly sessions and daily levels.', q4:'What time are the live sessions and in which timezone?', a4:'30 minutes before the New York session opens — timezone: New York.', q5:'What language is the content?', a5:'Arabic.',
+        footer_rights:'All rights reserved.',
+        currmodal_title:'Curriculum · Full Syllabus', currmodal_note:'Levels are not entries—prepare there, then wait for tool-based confirmation.', ictmodal_title:'ICT Concepts · Full Syllabus (Coming Soon)', ictmodal_note:'Outline is subject to change during production. Join the Discord for updates.'
+      },
+      ar: {
+        btn_lang: '(English)',
+        nav_approach:'الطريقة', nav_curriculum:'المنهج', nav_how:'كيف نشتغل', nav_community:'المجتمع', nav_pricing:'الأسعار', nav_faq:'الأسئلة',
+        ticker_sr:'استخدم كود FIRST40 عند الدفع', ticker_text:'استخدم كود FIRST40 عند الدفع',
+        hero_title_line1:'تداول بوضوح', hero_title_line2:'مو بالضجيج',
+        hero_p:`بدأت زي أغلب المتداولين: استراتيجيات يوتيوب، كورسات مدفوعة، وكثير إحباط. التغيير صار لما بطّلت أحفّظ وبدأت أفهم السوق. أتعامل مع كل صفقة كـ "Setup" مبني على فكرة إن الوقت فرactal: مستويات الفريمات الكبيرة تعطيني الانحياز، والمستويات الصغيرة تحدد الدخول، وأحدد مين المسيطر Buyers ولا Sellers. نفس الإطار هذا أعلّمه داخل FusionTicks.`,
+        hero_btn_access:'احصل على الوصول', hero_btn_curriculum:'<i data-lucide="book-open" class="mr-2 w-5 h-5"></i> شوف المنهج',
+        approach_h2:'طريقة <span class="gradient-text">FusionTicks</span>',
+        approach_p:'الاستراتيجيات لوحدها حظ 50/50. نقلب المعادلة لما <b>نقرأ السوق</b> صح، نعرف مين المسيطر (buyers ولا sellers)، ونكدّس <b>تأكيدات</b> قبل أي دخول.',
+        ap1_t:'نقرأ… ما نخمّن', ap1_p:'نستخدم مفاهيم السعر الأساسية علشان نفهم السيطرة والنية — الشموع، السوينغ، BOS/CHoCH، FVG، التوازن/اللا توازن.',
+        ap2_t:'نكدّس التأكيدات', ap2_p:'الـ Setup يتكوّن لما الدلائل تتراكم: سياق → تغيير سيطرة → مخاطرة نظيفة. كل ما زادت التأكيدات زادت الجودة.',
+        ap3_t:'المخاطرة أولاً', ap3_p:'حجم الصفقة، حدود الخسارة، ونقطة الإلغاء قبل أي نتيجة. البقاء هو أقوى Edge.',
+        ap4_t:'المستويات ≠ إشارات', ap4_p:'Supply/Demand أو S/R هي مناطق اهتمام. نجهّز عندها وبعدين ننتظر أدواتنا تأكّد.',
+        ap5_t:'بسيط ويتكرر', ap5_p:'بدل ما تجمع استراتيجيات، تشتغل عملية ثابتة تفهمها وتثق فيها.',
+        ap6_t:'مراجعة وتثبيت', ap6_p:'التدوين ومراجعات الأسبوع تثبّت التعلّم بسرعة. تقدّمك يصير واضح ومقاس.',
+        curr_h2:'المنهج', curr_p:'ثلاث مراحل للفهم الحقيقي… وبعدها اللي يصير خلف الكواليس.', curr_a_lessons:'6 دروس', curr_b_lessons:'3 دروس', curr_c_lessons:'3 دروس', curr_d_lessons:'7 دروس', btn_syllabus:'<i data-lucide="list-checks" class="w-5 h-5"></i> اعرض الخطة كاملة',
+        ict_badge:'ICT Concepts · Deep Dive — قريباً', ict_p:'إطار شامل "Risk‑First" مبني على الهيكل والسيولة والزمن ونماذج التنفيذ. المخطط مبدئي وحيتمد على ملاحظات المجتمع.', ict_discord:'<img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/> انضم للديسكورد للتنبيه',
+        how_h2:'كيف <span class="gradient-text">نتداول</span> (خطوات بسيطة)', how_p:'من التحضير للتنفيذ — خطوات واضحة تكررها كل يوم.',
+        how1_t:'1) جهّز', how1_p:'حدّد Market Levels (S/D, S/R, ORB) على الفريمات الكبيرة. سجّل الأخبار والجلسات.',
+        how2_t:'2) اقرأ', how2_p:'استخدم الأدوات: Swings, BOS/CHoCH, FVG, Balance. دور على تغيير السيطرة.',
+        how3_t:'3) أكّد', how3_p:'كدّس التأكيدات (سياق → إشارة → إلغاء). إذا نظيفة: نفّذ.',
+        how4_t:'4) راجع', how4_p:'دوّن صفقاتك، لاحظ الأخطاء، عدّل الخطة. خلّي العملية تتراكم.',
+        disc_badge:'ديسكورد FusionTicks',
+        disc_h2:'<span class="gradient-text">مجتمع</span> يسرّع تقدّمك',
+        disc_p:`مكان واحد نقرأ فيه السوق سوا، ننزل مستويات يومية، نراجع الصفقات، ونتعلّم لايف.
+          تبدأ كـ <span class=\"badge\"><i data-lucide=\"sparkles\" class=\"w-4 h-4\"></i> Tick Starter</span>،
+          تتقدّم لـ <span class=\"badge\"><i data-lucide=\"award\" class=\"w-4 h-4\"></i> Funded Trader</span>،
+          وتفتح <span class=\"badge\"><i data-lucide=\"crown\" class=\"w-4 h-4\"></i> Fusion Legend</span> + تداول لايف يومي.`,
+        disc_join:'<img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/> انضم للديسكورد',
+        disc_c1_t:'#chatroom', disc_c1_p:'قعدة يومية. شارك شارتاتك وأفكارك وخذ مساعدة سريعة.',
+        disc_c2_t:'#market-news', disc_c2_p:'أجندة أسبوعية: أيام نعزّز فيها وأيام نخفّف.',
+        disc_c3_t:'#market-levels', disc_c3_p:'المستويات اليومية علشان تدخل مجهّز. ولسّا ننتظر تأكيد من الأدوات.',
+        disc_c4_t:'Weekly Session', disc_c4_p:'لايف نهاية الأسبوع: مراجعة + سيناريوهات الأسبوع الجاي بهدوء وتركيز.',
+        disc_c5_t:'Live Session', disc_c5_p:'لايف منتصف الأسبوع للأسئلة والتوجيه وتحسين العملية.',
+        disc_c6_t:'Live Trading (Unlocked)', disc_c6_p:'غرفة تداول يومية لـ <b>Fusion Legend</b> فقط — بعد أول سحب من البروبس.',
+        disc_roles_t:'المسارات والقواعد', disc_role1:'بداية طريقك. بنبني الأساس.', disc_role2:'ورّينا إنك عديت البروبس → ترقية.', disc_role3:'أول سحب أرباح → تفتح التداول اليومي.',
+        disc_rule1:'احترام قبل كل شي. لا سبام ولا إشارات عمياء.', disc_rule2:'استخدم أدوات القراءة قبل أي دخول.', disc_rule3:'تعليمي فقط — مو نصيحة استثمارية.',
+        disc_why_t:'ليش المجتمع يساعد؟', disc_why_p:'تتعلّم أسرع لما تشوف قراءات مختلفة، تشارك خططك، وتاخذ فيدباك. الانضباط يصير أسهل — وتختصر سنين تجربة.',
+        disc_why1:'مراجعات يومية + فيدباك', disc_why2:'التزام عبر ملخصات أسبوعية', disc_why3:'مستويات مشتركة لـ NQ · ES · CL · GC', disc_why4:'عقلية Process‑First بدون إشارات',
+        pricing_h2:'اختر <span class="gradient-text">نوع الوصول</span>', pricing_p:'أول <b>40</b> ياخذوا الكورس كامل بـ <b>$550</b> (بدل <span class="line-through text-white/50">$1000</span>). تحديثات مدى الحياة.',
+        plan1_title:'FusionTicks Academy · Lifetime', plan1_badge:'أول 40 فقط', plan1_p:'دفع مرة واحدة. يشمل الدروس الحالية وكل التحديثات الجاية.', plan1_f1:'الكورس كامل (الدروس الحالية)', plan1_f2:'تحديثات مدى الحياة (الدروس القادمة)', plan1_f3:'دخول للديسكورد الخاص (بدون لايف/Levels/News)', plan1_f4:'أسئلة وأجوبة أسبوعية + دراسة جماعية', plan1_cta:'اشتري الكورس — $550', plan1_note:'لا تفوّت عرض الإطلاق — استخدم <b>FIRST40</b>',
+        plan2_title:'Live & Levels · اشتراك', plan2_mo:'/شهرياً', plan2_p:'كل اللي تحتاجه يوم‑بيوم علشان تكون جاهز.', plan2_f1:'لايف قبل الافتتاح (خطة + Levels) يومياً', plan2_f2:'نظرة اليوم + سيناريوهات الدخول', plan2_f3:'تقويم أخبار أسبوعي + أيام تداول/تجنّب', plan2_cta:'اشترك — $20/شهرياً',
+        plan3_status:'يتم العمل عليه — قريباً', plan3_p:'قاعدين أبني كورس كامل لـ ICT. فيه Structure، نماذج تنفيذ، ودراسات على الشارت.', plan3_f1:'إطار ICT شامل', plan3_f2:'Setups واضحة + قواعد إدارة', plan3_f3:'شرح عملي على الشارت', plan3_btn:'قريباً', plan3_note:'انضم للديسكورد علشان توصلك أخبار الإطلاق.',
+        faq_h2:'الأسئلة الشائعة', faq_p:'لسه عندك أسئلة؟ ابدأ من هنا.', q1:'يناسب المبتدئ ولا المتقدّم؟', a1:'الاثنين. نبدأ بقراءة السوق وبننتقل للتنفيذ. الهدف: تبني Setups خاصة فيك — مو نسخ إشارات.', q2:'أي أسواق نغطي؟', a2:'التركيز على NQ و ES و CL و GC مع أساليب حسب الجلسة وقوالب مخاطرة واضحة.', q3:'هل فيه دخول للديسكورد؟', a3:'نعم، كل الباقات تشمل المجتمع الخاص بجلسات أسبوعية ومستويات يومية.', q4:'وقت اللايف وأي توقيت؟', a4:'قبل افتتاح نيويورك بـ 30 دقيقة — التوقيت: نيويورك.', q5:'بلغة ايش المحتوى؟', a5:'العربية.',
+        footer_rights:'جميع الحقوق محفوظة.',
+        currmodal_title:'المنهج · الخطة كاملة', currmodal_note:'المستويات مو دخول — نجهّز عندها ونستنى تأكيد الأدوات.', ictmodal_title:'ICT · الخطة الكاملة (قريباً)', ictmodal_note:'الخطة ممكن تتغيّر أثناء الإنتاج. انضم للديسكورد للتحديثات.'
+      }
+    };
+
+    function applyLang(lang){
+      // Set dir / lang
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+      // Swap all [data-i18n]
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const val = i18n[lang][key];
+        if(typeof val === 'string') el.innerHTML = val;
+      });
+
+      // Re-create icons if any HTML changed
+      if (window.lucide) lucide.createIcons();
+
+      // Update language toggle labels in both places
+      const btns = [document.getElementById('langToggle'), document.getElementById('langToggleMobile')].filter(Boolean);
+      btns.forEach(b=>{ b.innerHTML = i18n[lang].btn_lang; });
+
+      // Persist
+      try { localStorage.setItem('ft_lang', lang); } catch(e){}
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
@@ -925,7 +1051,7 @@
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{
           if(e.isIntersecting){
-            e.target.classList.add('in');   // <-- fixed dot here
+            e.target.classList.add('in');
             io.unobserve(e.target);
           }
         });
@@ -980,6 +1106,19 @@
           document.body.classList.remove('modal-open');
         });
       });
+
+      // ===== Language toggle =====
+      const saved = (()=>{ try{return localStorage.getItem('ft_lang')||'en'}catch(e){return 'en'}})();
+      applyLang(saved);
+
+      const toggle = () => {
+        const now = document.documentElement.getAttribute('lang') === 'ar' ? 'en' : 'ar';
+        applyLang(now);
+      };
+      const langBtn = document.getElementById('langToggle');
+      const langBtnM = document.getElementById('langToggleMobile');
+      if (langBtn) langBtn.addEventListener('click', toggle);
+      if (langBtnM) langBtnM.addEventListener('click', toggle);
     });
   </script>
 </body>
