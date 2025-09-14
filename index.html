@@ -3,160 +3,187 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FusionTicks — Trade with Clarity</title>
-  <meta name="description" content="FusionTicks: risk-first trading program by Khalid Kuhail. Read the market, stack confirmations, and execute clean setups."/>
-  <meta name="theme-color" content="#0B0F15"/>
+  <title>FusionTicks – Trade with Clarity</title>
+  <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <!-- FAVICONS / MANIFEST -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./favicon-512x512.png">
+  <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+
+  <!-- Social / OpenGraph -->
+  <meta property="og:title" content="FusionTicks – Trade with Clarity"/>
+  <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
+  <meta property="og:image" content="./FT%20Logo.png"/>
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preload" as="image" href="./FT%20Logo.png">
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans:["Inter","system-ui","-apple-system","Segoe UI","Roboto","Ubuntu","Cantarell"], display:["Space Grotesk","Inter","system-ui"] },
-        }
-      }
-    }
+    tailwind.config = { theme: { extend: { colors: { 'bg-dark':'#070910' } } } }
   </script>
 
   <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
-    /* =================== THEME TOKENS =================== */
-    :root{
-      --bg:#0B0F15;          /* Graphite */
-      --panel:#101827;       /* Deep panel */
-      --edge:#1E293B;        /* Edges / lines */
-      --text:#E5E7EB;        /* Text on dark */
-      --muted:#9AA6B2;       /* Muted text */
-      --accent1:#67E8F9;     /* Cyan */
-      --accent2:#60A5FA;     /* Blue */
-      --glass:rgba(255,255,255,.06);
-      --border:rgba(255,255,255,.12);
-      --glow:rgba(103,232,249,.28);
-      --shadow:rgba(0,0,0,.45);
-    }
-    /* Charcoal & Gold */
-    [data-theme="charcoal"]{
-      --bg:#0A0A0C; --panel:#111114; --edge:#1a1a1e; --text:#F5F5F4; --muted:#b1b1b6;
-      --accent1:#F6C453; --accent2:#F59E0B; --glass:rgba(255,255,255,.05); --border:rgba(255,255,255,.12);
-      --glow:rgba(246,196,83,.25);
-    }
-    /* Ivory & Graphite (light) */
-    [data-theme="ivory"]{
-      --bg:#FAF7F1; --panel:#FFFFFF; --edge:#E5E5E5; --text:#1F2937; --muted:#6B7280;
-      --accent1:#3B82F6; --accent2:#111827; --glass:rgba(17,24,39,.03); --border:rgba(0,0,0,.08);
-      --glow:rgba(59,130,246,.18); --shadow:rgba(0,0,0,.10);
-    }
-
     html{scroll-behavior:smooth}
-    body{background:var(--bg); color:var(--text); font-family:var(--font-sans,Inter), sans-serif}
 
-    /* ===== Cinematic Background (Aurora + Particles Canvas) ===== */
-    .bg-aurora{position:fixed; inset:0; z-index:-60; pointer-events:none; overflow:hidden}
-    .bg-aurora:before, .bg-aurora:after{
+    /* ===== NEW: Accent tokens for background & buttons ===== */
+    :root{
+      --accent1:#67E8F9; /* cyan */
+      --accent2:#60A5FA; /* blue */
+    }
+
+    /* ===== NEW: Interactive Background (Aurora + Particles) ===== */
+    .bg-aurora{
+      position:fixed; inset:0; z-index:-60; pointer-events:none; overflow:hidden;
+    }
+    .bg-aurora:before,
+    .bg-aurora:after{
       content:""; position:absolute; inset:-20%; filter:blur(40px);
       background:
-        radial-gradient(800px 600px at 80% 10%, var(--accent2,#60A5FA) 0%, transparent 60%),
-        radial-gradient(700px 600px at 10% 85%, var(--accent1,#67E8F9) 0%, transparent 60%),
+        radial-gradient(800px 600px at 80% 10%, var(--accent2) 0%, transparent 60%),
+        radial-gradient(700px 600px at 10% 85%, var(--accent1) 0%, transparent 60%),
         radial-gradient(500px 400px at 50% 50%, rgba(255,255,255,.06) 0%, transparent 70%);
       opacity:.35;
       animation: floatA 22s linear infinite alternate;
     }
-    .bg-aurora:after{ animation: floatB 26s linear infinite alternate-reverse; mix-blend-mode:screen; opacity:.25}
-    [data-theme="ivory"] .bg-aurora:before,
-    [data-theme="ivory"] .bg-aurora:after{ opacity:.18; filter:blur(36px) }
-
-    /* Particles Canvas holder sits behind everything */
-    #fxCanvas{position:fixed; inset:0; z-index:-59; pointer-events:none; opacity:.5}
-
-    /* ===== Header (glass) ===== */
-    .navglass{
-      backdrop-filter: blur(14px) saturate(140%);
-      -webkit-backdrop-filter: blur(14px) saturate(140%);
-      background: linear-gradient(180deg, rgba(16,24,39,.75), rgba(16,24,39,.55));
-      border-bottom:1px solid var(--border);
-      box-shadow: 0 12px 30px var(--shadow);
+    .bg-aurora:after{
+      animation: floatB 26s linear infinite alternate-reverse;
+      mix-blend-mode:screen; opacity:.25;
     }
-    [data-theme="ivory"] .navglass{
-      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.56));
+    @keyframes floatA{ from{transform:translate3d(0,0,0)} to{transform:translate3d(-2%,1%,0)} }
+    @keyframes floatB{ from{transform:translate3d(0,0,0)} to{transform:translate3d(2%,-1%,0)} }
+
+    #fxCanvas{
+      position:fixed; inset:0; z-index:-59; pointer-events:none; opacity:.5;
     }
 
-    /* ===== Buttons ===== */
+    /* ===== NEW: Buttons styled like Code 2 (sizes kept via Tailwind classes on elements) ===== */
     .btn-primary{
       display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-      padding:.85rem 1.25rem; border-radius:14px; color:#0A0F15; font-weight:700;
+      border-radius:14px; color:#0A0F15; font-weight:700;
       background:linear-gradient(180deg, var(--accent2), var(--accent1));
-      box-shadow: 0 12px 30px var(--glow), inset 0 1px 0 rgba(255,255,255,.25);
+      box-shadow: 0 12px 30px rgba(103,232,249,.28), inset 0 1px 0 rgba(255,255,255,.25);
       border:1px solid rgba(255,255,255,.18);
+      transition: transform .08s ease, filter .2s ease;
     }
-    [data-theme="ivory"] .btn-primary{ color:#fff }
+    .btn-primary:hover{ filter:brightness(1.03) }
     .btn-ghost{
       display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-      padding:.85rem 1.2rem; border-radius:14px; color:var(--text); font-weight:600;
-      background:var(--glass); border:1px solid var(--border);
+      border-radius:14px; color:#fff; font-weight:600;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+      transition: border-color .2s ease, background-color .2s ease;
     }
-    .btn-ghost:hover{ border-color: rgba(255,255,255,.22) }
+    .btn-ghost:hover{ border-color: rgba(255,255,255,.22); background:rgba(255,255,255,.08) }
 
-    /* Magnetic hover */
-    .magnet{ transition: transform .15s ease; will-change: transform; }
+    /* ===== Ticker ===== */
+    :root { --ticker-speed: 38s; }
+    @media (min-width: 768px){ :root { --ticker-speed: 48s; } }
+    @media (min-width: 1024px){ :root { --ticker-speed: 60s; } }
+    .ticker{position:relative;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+    .ticker-track{display:inline-block;padding-block:8px;animation:ticker var(--ticker-speed) linear infinite}
+    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media (prefers-reduced-motion: reduce){ .ticker-track{animation-duration:0s} }
 
-    /* ===== Poster Cards ===== */
-    .poster{
-      position:relative; border-radius:22px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--border); overflow:hidden;
-    }
-    .poster:before{
-      content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; padding:1px;
-      background:conic-gradient(from 180deg at 50% 50%, rgba(255,255,255,.0), rgba(255,255,255,.0), rgba(103,232,249,.4), rgba(96,165,250,.45), rgba(255,255,255,.0));
-      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude;
-      opacity:.22;
-    }
-    .tilt{ transform-style:preserve-3d; perspective:1000px; }
-    .tilt:hover{ transform: translateZ(0) rotateX(1.5deg) rotateY(-1.5deg) }
-
-    /* ===== Headline ===== */
-    .headline{ font-family:var(--font-display, "Space Grotesk"); letter-spacing:-.02em }
-    .brand-grad{ background:linear-gradient(90deg, var(--accent2), var(--accent1)); -webkit-background-clip:text; background-clip:text; color:transparent }
-    .stroke{ -webkit-text-stroke: 1px rgba(255,255,255,.35); color:transparent }
-
-    /* ===== Reveals ===== */
+    /* Animations */
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1;transform:none}
 
-    /* ===== Ticker ===== */
-    .ticker{position:relative; z-index:0; overflow:hidden;white-space:nowrap; mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); border-top:1px solid var(--border)}
-    .ticker-track{display:inline-block;padding-block:8px;animation:ticker 48s linear infinite}
-    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    @media(prefers-reduced-motion: reduce){ .ticker-track{animation-duration:0s} }
+    /* Card glow on hover */
+    .card-glow{position:relative;border-radius:16px;}
+    .card-glow:before{
+      content:"";position:absolute;inset:-1px;border-radius:inherit;
+      background:
+        radial-gradient(240px 120px at 20% 0%, rgba(59,130,246,.35), transparent 60%),
+        radial-gradient(300px 140px at 100% 100%, rgba(6,182,212,.28), transparent 55%);
+      filter:blur(14px);opacity:0;transition:opacity .3s ease;pointer-events:none;
+    }
+    .card-glow:hover:before{opacity:.7}
 
-    /* ===== Section anchors spacing ===== */
-    section[id]{scroll-margin-top:98px}
+    /* Pricing hover glow */
+    .plan{position:relative;border-radius:16px}
+    .plan:before{
+      content:"";position:absolute;inset:-1px;border-radius:inherit;
+      background:linear-gradient(135deg, rgba(59,130,246,.6), rgba(34,211,238,.4));
+      filter:blur(10px);opacity:0;transition:opacity .25s ease;pointer-events:none;
+    }
+    .plan:hover:before{opacity:.35}
 
-    /* ===== Utilities ===== */
-    .chip{ display:inline-flex; align-items:center; gap:.4rem; padding:.35rem .6rem; border-radius:999px; background:var(--glass); border:1px solid var(--border); }
-    .chips span{ display:inline-block; padding:.35rem .6rem; border-radius:999px; background:var(--glass); border:1px solid var(--border) }
+    .badge{
+      display:inline-flex;align-items:center;gap:.35rem;
+      padding:.25rem .5rem;border-radius:999px;font-size:.75rem;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    }
+    .role-step{display:flex;align-items:center;gap:.5rem;position:relative}
+    .role-step:after{
+      content:"";position:absolute;left:1rem;top:1.9rem;width:2px;height:22px;
+      background:linear-gradient(to bottom, rgba(255,255,255,.18), transparent);
+    }
+    .role-step:last-child:after{display:none}
+
+    .social{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
+    .social:hover{background:rgba(255,255,255,.12)}
+
+    /* Blue→cyan gradient used elsewhere */
+    .gradient-text{
+      background: linear-gradient(to right, #3b82f6, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    /* NEW: Emerald→Blue text gradient (for S/R & ICT) */
+    .gradient-eb{
+      background: linear-gradient(to right, #10b981, #3b82f6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    body.menu-open, body.modal-open { overflow: hidden; }
+
+    .glass-panel{
+      background: rgba(14,20,30,.45);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    }
+
+    section[id]{ scroll-margin-top: 98px; }
+
+    /* Hide native scrollbars but keep scrolling (used in modals) */
+    .no-scrollbar::-webkit-scrollbar{ display:none; }
+    .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
   </style>
 </head>
 
-<body data-theme="graphite" class="antialiased">
+<body class="min-h-screen bg-bg-dark text-white relative selection:bg-blue-600/30">
+  <!-- NEW: Interactive Background -->
   <div class="bg-aurora"></div>
   <canvas id="fxCanvas"></canvas>
 
-  <!-- =================== NAV =================== -->
-  <header class="navglass sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto opacity-90"/>
+        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"/>
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
 
+      <!-- Desktop nav (ICT link removed previously) -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#approach" class="hover:text-white">Approach</a>
         <a href="#curriculum" class="hover:text-white">Curriculum</a>
@@ -166,565 +193,872 @@
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
 
-      <div class="hidden md:flex items-center gap-2">
-        <div class="relative z-[80]">
-          <button id="themeBtn" class="btn-ghost h-10 px-3"><i data-lucide="palette" class="w-4 h-4 mr-2"></i> Theme</button>
-          <div id="themeMenu" class="absolute right-0 mt-2 w-48 rounded-xl bg-[color:var(--panel)] border border-[color:var(--border)] shadow-xl hidden z-[90]">
-            <button data-theme-sel="graphite" class="w-full text-left px-3 py-2 hover:bg-[color:var(--glass)]">Graphite & Silver</button>
-            <button data-theme-sel="charcoal" class="w-full text-left px-3 py-2 hover:bg-[color:var(--glass)]">Charcoal & Gold</button>
-            <button data-theme-sel="ivory" class="w-full text-left px-3 py-2 hover:bg-[color:var(--glass)]">Ivory & Graphite</button>
-          </div>
-        </div>
-        <a href="#pricing" class="btn-primary h-10 magnet">Get Access</a>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#pricing" class="btn-primary px-4 py-2">Get Access</a>
       </div>
 
-      <!-- Mobile -->
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-[color:var(--glass)] border border-[color:var(--border)]">
+      <!-- Mobile button -->
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20">
         <i data-lucide="menu"></i>
       </button>
     </div>
-    <div class="ticker bg-[color:var(--panel)] text-white/80 text-sm">
-      <div class="ticker-track">
-        <span class="mx-10">Use code FIRST40 at checkout</span>
-        <span class="mx-10">Lifetime updates included</span>
-        <span class="mx-10">Education only – Not financial advice</span>
-        <span class="mx-10">Use code FIRST40 at checkout</span>
-        <span class="mx-10">Lifetime updates included</span>
-        <span class="mx-10">Education only – Not financial advice</span>
+
+    <!-- Ticker -->
+    <div class="ticker border-t border-white/10 bg-black/30 text-white/70 text-sm" aria-label="Promotion">
+      <span class="sr-only">Use code FIRST40 at checkout</span>
+      <div class="ticker-track" aria-hidden="true">
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
+        <span class="mx-10 md:mx-16 lg:mx-24">Use code FIRST40 at checkout</span>
       </div>
     </div>
   </header>
 
   <!-- Mobile menu -->
   <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/65" data-close></div>
-    <div class="absolute right-3 left-3 top-[88px] rounded-2xl bg-[color:var(--panel)] border border-[color:var(--border)]">
+    <div class="absolute inset-0 bg-black/65 backdrop-blur-[6px]" data-close></div>
+    <div class="absolute right-3 left-3 top-[88px] glass-panel">
       <div class="p-3 flex justify-end">
-        <button class="p-2 rounded-lg bg-[color:var(--glass)] border border-[color:var(--border)]" data-close aria-label="Close"><i data-lucide="x"></i></button>
+        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-close aria-label="Close menu">
+          <i data-lucide="x"></i>
+        </button>
       </div>
+      <!-- Mobile nav (ICT link removed previously) -->
       <nav class="px-4 pb-4 text-base">
-        <a class="block py-3 border-t border-[color:var(--border)] first:border-t-0" href="#approach">Approach</a>
-        <a class="block py-3 border-t border-[color:var(--border)]" href="#curriculum">Curriculum</a>
-        <a class="block py-3 border-t border-[color:var(--border)]" href="#how">How it Works</a>
-        <a class="block py-3 border-t border-[color:var(--border)]" href="#discord">Community</a>
-        <a class="block py-3 border-t border-[color:var(--border)]" href="#pricing">Pricing</a>
-        <a class="block py-3 border-t border-[color:var(--border)]" href="#faq">FAQ</a>
-        <a href="#pricing" class="mt-4 mb-3 block text-center btn-primary">Get Access</a>
-        <div class="px-4 pb-4">
-          <div class="text-sm font-semibold mb-2">Theme</div>
-          <div class="flex gap-2">
-            <button data-theme-sel="graphite" class="px-3 py-2 rounded-lg bg-[color:var(--glass)] border border-[color:var(--border)]">Graphite</button>
-            <button data-theme-sel="charcoal" class="px-3 py-2 rounded-lg bg-[color:var(--glass)] border border-[color:var(--border)]">Gold</button>
-            <button data-theme-sel="ivory" class="px-3 py-2 rounded-lg bg-[color:var(--glass)] border border-[color:var(--border)]">Ivory</button>
-          </div>
-        </div>
+        <a class="block py-3 border-t border-white/10 first:border-t-0" href="#approach">Approach</a>
+        <a class="block py-3 border-t border-white/10" href="#curriculum">Curriculum</a>
+        <a class="block py-3 border-t border-white/10" href="#how">How it Works</a>
+        <a class="block py-3 border-t border-white/10" href="#discord">Community</a>
+        <a class="block py-3 border-t border-white/10" href="#pricing">Pricing</a>
+        <a class="block py-3 border-t border-white/10" href="#faq">FAQ</a>
+        <a href="#pricing" class="mt-4 block text-center rounded-xl py-3 bg-gradient-to-r from-blue-600 to-cyan-400">Get Access</a>
       </nav>
     </div>
   </div>
 
-  <!-- =================== HERO =================== -->
-  <section id="hero" class="relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 sm:pt-24 pb-10 grid lg:grid-cols-12 gap-10 items-center">
-      <div class="lg:col-span-7 reveal">
-        <h1 class="headline mt-5 text-5xl sm:text-6xl font-black leading-[1.02] tracking-tight">
-          <span class="brand-grad">Trade with Clarity</span><br><span class="stroke">Not Noise</span>
+  <!-- HERO -->
+  <section class="relative overflow-visible">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="reveal">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+          <span class="gradient-text">Trade with Clarity</span><br class="hidden sm:block"/>
+          Not Noise
         </h1>
-        <p class="mt-5 text-white/80 max-w-2xl">
+        <p class="mt-5 text-white/70 max-w-xl">
           I started like most traders: YouTube strategies, paid courses, and a lot of frustration.
           Real progress came when I stopped memorizing and began understanding the market. I treat each trade as a setup
           based on the idea that time is fractal: higher timeframe key levels set the bias, lower timeframe levels define
           the entry, and I identify who is in control. Now I teach the same framework inside FusionTicks.
         </p>
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a href="#pricing" class="btn-primary h-12 magnet">Get Access <i data-lucide="arrow-right" class="w-5 h-5"></i></a>
-          <a href="#curriculum" class="btn-ghost h-12"><i data-lucide="book-open" class="w-5 h-5"></i> See Curriculum</a>
-        </div>
-      </div>
-
-      <div class="lg:col-span-5 reveal">
-        <div class="poster p-6 sm:p-8 tilt">
-          <div class="flex items-center gap-3">
-            <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-10 w-auto opacity-90">
-            <div class="text-sm text-white/80">FusionTicks</div>
-          </div>
-          <div class="mt-5 grid grid-cols-3 gap-3 text-center">
-            <div class="rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)] p-4">
-              <div class="text-[11px] text-white/70 uppercase tracking-wide">Framework</div>
-              <div class="mt-1 font-bold brand-grad">Context → Confirm</div>
-            </div>
-            <div class="rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)] p-4">
-              <div class="text-[11px] text-white/70 uppercase tracking-wide">Focus</div>
-              <div class="mt-1 font-bold brand-grad">Risk First</div>
-            </div>
-            <div class="rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)] p-4">
-              <div class="text-[11px] text-white/70 uppercase tracking-wide">Markets</div>
-              <div class="mt-1 font-bold brand-grad">NQ · ES · CL · GC</div>
-            </div>
-          </div>
-          <div class="mt-5 text-[11px] text-white/60">Education only. No signals.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== APPROACH =================== -->
-  <section id="approach" class="py-14">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold">The <span class="brand-grad">FusionTicks</span> Approach</h2>
-        <p class="mt-2 text-white/80 max-w-3xl">Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>, identifying who’s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> Read, Don’t Guess</div><p class="mt-3 text-white/80">Candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> Stack Confirmations</div><p class="mt-3 text-white/80">Context → shift in control → clean risk.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> Risk First</div><p class="mt-3 text-white/80">Sizing, loss caps, invalidations before outcomes.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="route" class="w-5 h-5"></i> Levels ≠ Signals</div><p class="mt-3 text-white/80">Levels are preparation—then wait for confirmation.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="chart-line" class="w-5 h-5"></i> Simple, Repeatable</div><p class="mt-3 text-white/80">One consistent process you understand.</p></article>
-        <article class="poster p-6 reveal tilt"><div class="flex items-center gap-2 font-semibold"><i data-lucide="notebook-pen" class="w-5 h-5"></i> Feedback Loop</div><p class="mt-3 text-white/80">Journal + weekly reviews = measured progress.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== CURRICULUM =================== -->
-  <section id="curriculum" class="py-16 bg-[color:var(--panel)]/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-6 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold brand-grad">Curriculum</h2>
-        <p class="mt-2 text-white/80 max-w-3xl">Two tracks: FusionTicks Academy and ICT Concepts · Deep Dive.</p>
-      </div>
-
-      <!-- FusionTicks Academy -->
-      <div class="mt-2">
-        <h3 class="text-2xl font-semibold text-white/90">FusionTicks Academy</h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">A · Reading the Market</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">6 lessons</span></div><p class="text-white/80 mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG.</p></article>
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">B · Market Levels</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">3 lessons</span></div><p class="text-white/80 mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout.</p></article>
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">C · Market Indicators</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">3 lessons</span></div><p class="text-white/80 mt-2 text-sm">Volume Profile, VWAP (Anchored), and EMA—inside context.</p></article>
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">D · Behind the Scenes</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">7 lessons</span></div><p class="text-white/80 mt-2 text-sm">TradingView, futures &amp; prop firms, order types, risk, journaling, news, psychology.</p></article>
-        </div>
-        <div class="mt-8 reveal">
-          <button class="h-11 px-5 inline-flex items-center gap-2 btn-primary magnet" data-curr-open>
-            <i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus
-          </button>
-        </div>
-      </div>
-
-      <!-- ICT Concepts -->
-      <div class="mt-12">
-        <h3 class="text-2xl font-semibold text-white/90">ICT Concepts · Deep Dive</h3>
-        <p class="mt-2 text-white/80 max-w-3xl">A comprehensive, risk-first framework rooted in structure, liquidity, time &amp; execution models.</p>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">Structure &amp; Ranges</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">9 lessons</span></div><p class="text-white/80 mt-2 text-sm">Market structure, ranges, displacement, top-down.</p></article>
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">Liquidity &amp; Orderflow</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">12 lessons</span></div><p class="text-white/80 mt-2 text-sm">Liquidity concepts, FVGs vs voids, order/ breaker blocks.</p></article>
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">Time &amp; Sessions</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">7 lessons</span></div><p class="text-white/80 mt-2 text-sm">Time–price relationship and session behavior.</p></article>
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">Models &amp; Entries</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">15 lessons</span></div><p class="text-white/80 mt-2 text-sm">Models, entries, manipulation, execution flows.</p></article>
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">Execution &amp; Risk</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">7 lessons</span></div><p class="text-white/80 mt-2 text-sm">Risk, sizing, slippage, planning, backtesting.</p></article>
-          <article class="poster p-6 reveal tilt"><div class="flex items-center justify-between"><h4 class="font-semibold">Mindset &amp; Process</h4><span class="text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full">6 lessons</span></div><p class="text-white/80 mt-2 text-sm">Mindset, journaling, potential, habits.</p></article>
-        </div>
-        <div class="mt-8 reveal">
-          <button class="h-11 px-5 inline-flex items-center gap-2 btn-ghost magnet" data-ict-open>
-            <i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus (ICT)
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== HOW =================== -->
-  <section id="how" class="py-16 bg-[color:var(--panel)]/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold">How We <span class="brand-grad">Trade</span> (Simple Pipeline)</h2>
-        <p class="mt-2 text-white/80 max-w-3xl">From preparation to execution—clear steps you can repeat daily.</p>
-      </div>
-
-      <div class="grid lg:grid-cols-4 gap-6">
-        <div class="poster p-6 reveal tilt"><div class="font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div><p class="mt-3 text-white/80">Map S/D, S/R, ORB on HTF. Note news &amp; sessions.</p></div>
-        <div class="poster p-6 reveal tilt"><div class="font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div><p class="mt-3 text-white/80">Swings, BOS/CHoCH, FVG, balance. Shift in control.</p></div>
-        <div class="poster p-6 reveal tilt"><div class="font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div><p class="mt-3 text-white/80">Context → signal → invalidation. If clean: execute.</p></div>
-        <div class="poster p-6 reveal tilt"><div class="font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div><p class="mt-3 text-white/80">Journal, note mistakes, adjust plan. Compound process.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== COMMUNITY (Join button under chips) =================== -->
-  <section id="discord" class="py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-6 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold"><span class="brand-grad">Community</span> That Accelerates Progress</h2>
-        <p class="mt-2 text-white/80 max-w-3xl">One place to read the market together, post daily levels, review trades, and learn live.</p>
-
-        <!-- Chips first, Join button below -->
-        <div class="mt-4">
-          <div class="flex flex-wrap items-center gap-2 text-sm">
-            <span class="chip"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>
-            <span class="text-white/60">→ progress to</span>
-            <span class="chip"><i data-lucide="wallet" class="w-4 h-4"></i> Funded Trader</span>
-            <span class="text-white/60">→ unlock</span>
-            <span class="chip"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span>
-            <span class="text-white/60">+ daily live trading</span>
-          </div>
-
-          <a href="https://discord.gg/RFbe3nHB" target="_blank"
-             class="inline-flex items-center gap-2 px-5 h-11 btn-primary magnet mt-4">
-            <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px]"> Join the Discord
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#pricing" class="btn-primary h-12 px-6 text-base">
+            Get Access <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+          </a>
+          <a href="#curriculum" class="btn-ghost h-12 px-6 text-base">
+            <i data-lucide="book-open" class="mr-2 w-5 h-5"></i> See Curriculum
           </a>
         </div>
       </div>
 
-      <!-- Grid (6 cards) -->
+      <div class="relative z-10 flex items-center justify-center reveal">
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo"
+             width="520" height="520" fetchpriority="high"
+             class="w-[520px] max-w-full h-auto object-contain opacity-[0.92]" />
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold">The <span class="gradient-text">FusionTicks</span> Approach</h2>
+      <p class="mt-2 text-white/70 max-w-3xl">
+        Strategies alone are a 50/50 gamble. We flip the odds by <b>reading the market</b>,
+        identifying who’s in control (buyers vs sellers), and <b>stacking confirmations</b> before any entry.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="scan-line" class="w-5 h-5"></i> Read, Don’t Guess</div>
+        <p class="mt-3 text-white/70">We use core price concepts to understand control and intent—candles, swings, BOS/CHoCH, FVG, balance/imbalance.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="layers" class="w-5 h-5"></i> Stack Confirmations</div>
+        <p class="mt-3 text-white/70">Setups form when evidence stacks: context → shift in control → clean risk. More confirmations = higher quality.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="shield" class="w-5 h-5"></i> Risk First</div>
+        <p class="mt-3 text-white/70">Sizing, loss caps, and invalidations come before outcomes. Survival is the edge that compounds.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="route" class="w-5 h-5"></i> Levels ≠ Signals</div>
+        <p class="mt-3 text-white/70">Supply/Demand or S/R are <em>areas of interest</em>—we prepare there, then wait for our tools to confirm.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="chart-line" class="w-5 h-5"></i> Simple, Repeatable</div>
+        <p class="mt-3 text-white/70">You’ll stop collecting strategies and start executing a consistent process you actually understand.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center gap-2 text-white/90 font-semibold"><i data-lucide="notebook-pen" class="w-5 h-5"></i> Feedback Loop</div>
+        <p class="mt-3 text-white/70">Journaling and weekly reviews lock in lessons fast. Progress becomes visible and measurable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-4 sm:mb-6 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">Curriculum</span></h2>
+      <!-- S/R subtitle moved ABOVE the description + gradient emerald→blue -->
+      <h3 class="mt-3 text-2xl font-bold gradient-eb">FusionTicks Academy</h3>
+      <p class="mt-2 text-white/70 max-w-3xl">Three stages to build real understanding—then what happens behind the scenes.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Reading the Market -->
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">A · Reading the Market</h3>
+          <span class="badge">6 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG (balance &amp; imbalance).</p>
+      </article>
+
+      <!-- Market Levels -->
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">B · Market Levels</h3>
+          <span class="badge">3 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout. <span class="text-white/50">Levels are preparation—wait for confirmation.</span></p>
+      </article>
+
+      <!-- Market Indicators -->
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">C · Market Indicators</h3>
+          <span class="badge">3 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">Volume Profile, VWAP (and Anchored), and EMA—how to use them inside context.</p>
+      </article>
+
+      <!-- Behind the Scenes -->
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">D · Behind the Scenes</h3>
+          <span class="badge">7 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">TradingView basics, futures &amp; prop firms, order types, risk first, journaling, news, and psychology.</p>
+      </article>
+    </div>
+
+    <!-- CTA like ICT -->
+    <div class="mt-8 flex flex-wrap gap-3 reveal">
+      <button class="btn-primary h-11 px-5 inline-flex items-center gap-2" data-curr-open>
+        <i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus
+      </button>
+    </div>
+  </section>
+
+  <!-- ICT (COMING SOON) -->
+  <section id="ict" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-300"></span>
+        </span>
+        ICT Concepts · Deep Dive — Coming Soon
+      </div>
+      <!-- Font size matched to S/R and gradient emerald→blue -->
+      <h2 class="mt-3 text-2xl font-bold gradient-eb">ICT Concepts · Deep Dive</h2>
+      <p class="mt-2 text-white/70 max-w-3xl">
+        A comprehensive, risk-first framework rooted in structure, liquidity, time &amp; execution models. Outline below is in progress and may evolve based on community feedback.
+      </p>
+    </div>
+
+    <!-- Teaser modules -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">Structure &amp; Ranges</h3>
+          <span class="badge">9 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">Market structure, ranges, displacement, and top-down alignment.</p>
+      </article>
+
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">Liquidity &amp; Orderflow</h3>
+          <span class="badge">12 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">Liquidity concepts, FVGs vs voids, and orderblocks/breakers.</p>
+      </article>
+
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">Time &amp; Sessions</h3>
+          <span class="badge">7 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">Time–price relationship and session-specific behaviors.</p>
+      </article>
+
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">Models &amp; Entries</h3>
+          <span class="badge">15 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">Models, entries, manipulation, and execution flows.</p>
+      </article>
+
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">Execution &amp; Risk</h3>
+          <span class="badge">7 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">Risk, sizing, slippage, planning, backtesting, and checklists.</p>
+      </article>
+
+      <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="flex items-center justify-between">
+          <h3 class="text-white/90 font-semibold">Mindset &amp; Process</h3>
+          <span class="badge">6 lessons</span>
+        </div>
+        <p class="text-white/60 mt-2 text-sm">Mindset, journaling, potential, and sustainable habits.</p>
+      </article>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-8 flex flex-wrap gap-3 reveal">
+      <button class="btn-primary h-11 px-5 inline-flex items-center gap-2" data-ict-open>
+        <i data-lucide="list-checks" class="w-5 h-5"></i> View full syllabus
+      </button>
+      <a href="https://discord.gg/RFbe3nHB" target="_blank" rel="noopener noreferrer"
+         class="btn-ghost h-11 px-5 inline-flex items-center gap-2">
+        <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/>
+        Get notified on Discord
+      </a>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold">How We <span class="gradient-text">Trade</span> (Simple Pipeline)</h2>
+      <p class="mt-2 text-white/70 max-w-3xl">From preparation to execution—clear steps you can repeat daily.</p>
+    </div>
+    <div class="grid lg:grid-cols-4 gap-6">
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div>
+        <p class="mt-3 text-white/70">Map Market Levels (S/D, S/R, ORB) on HTF. Note news &amp; sessions.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div>
+        <p class="mt-3 text-white/70">Use tools: swings, BOS/CHoCH, FVG, balance. Identify a shift in control.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div>
+        <p class="mt-3 text-white/70">Stack confirmations (context → signal → invalidation). If it’s clean: execute.</p>
+      </div>
+      <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+        <div class="text-white/90 font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div>
+        <p class="mt-3 text-white/70">Journal entries, note mistakes, adjust plan. Compound the process.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCORD / COMMUNITY -->
+  <section id="discord" class="relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <div class="mb-8 sm:mb-12 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm">
+          FusionTicks Discord
+        </div>
+
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold"><span class="gradient-text">Community</span> That Accelerates Progress</h2>
+        <p class="mt-2 text-white/70 max-w-2xl">
+          One place to read the market together, post daily levels, review trades, and learn live.
+          Start as a <span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>,
+          progress to <span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span>,
+          unlock <span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span> + daily live trading.
+        </p>
+
+        <div class="mt-5">
+          <a href="https://discord.gg/RFbe3nHB" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-5 h-11 btn-primary">
+            <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px] object-contain"/>
+            Join the Discord
+          </a>
+        </div>
+      </div>
+
       <div class="grid lg:grid-cols-3 gap-6">
-        <article class="poster p-6 reveal tilt">
-          <div class="flex items-center gap-2 font-semibold">
-            <span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
             #chatroom
           </div>
-          <p class="text-white/80 mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
-        </article>
-
-        <article class="poster p-6 reveal tilt">
-          <div class="flex items-center gap-2 font-semibold">
-            <span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
+          <p class="text-white/70 mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
+        </div>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
             #market-news
           </div>
-          <p class="text-white/80 mt-3">Weekly market calendar: which days to lean in and which days to stay light.</p>
-        </article>
-
-        <article class="poster p-6 reveal tilt">
-          <div class="flex items-center gap-2 font-semibold">
-            <span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="target" class="w-5 h-5"></i></span>
+          <p class="text-white/70 mt-3">Weekly market calendar: which days to lean in and which days to stay light.</p>
+        </div>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="target" class="w-5 h-5"></i></span>
             #market-levels
           </div>
-          <p class="text-white/80 mt-3">Daily levels so you’re prepared. We still wait for tool-based confirmation.</p>
-          <div class="mt-4 flex flex-wrap gap-2 text-sm">
-            <span class="chip">NQ</span><span class="chip">ES</span><span class="chip">CL (Crude)</span><span class="chip">GC (Gold)</span>
+          <p class="text-white/70 mt-3">Daily levels so you’re prepared. We still wait for tool-based confirmation.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="badge">NQ</span><span class="badge">ES</span><span class="badge">CL (Crude)</span><span class="badge">GC (Gold)</span>
           </div>
-        </article>
+        </div>
 
-        <article class="poster p-6 reveal tilt">
-          <div class="flex items-center gap-2 font-semibold">
-            <span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="calendar-check" class="w-5 h-5"></i></span>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="calendar-check" class="w-5 h-5"></i></span>
             Weekly Session
           </div>
-          <p class="text-white/80 mt-3">Weekend live: review the week, map scenarios for next week—calm, focused.</p>
-        </article>
-
-        <article class="poster p-6 reveal tilt">
-          <div class="flex items-center gap-2 font-semibold">
-            <span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="radio" class="w-5 h-5"></i></span>
+          <p class="text-white/70 mt-3">Weekend live: review the week, map scenarios for next week—calm, focused.</p>
+        </div>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="radio" class="w-5 h-5"></i></span>
             Live Session
           </div>
-          <p class="text-white/80 mt-3">Mid-week live for Q&amp;A, coaching, and process refinement.</p>
-        </article>
-
-        <article class="poster p-6 reveal tilt">
-          <div class="flex items-center gap-2 font-semibold">
-            <span class="p-2 rounded-xl bg-[color:var(--glass)] border border-[color:var(--border)]"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>
+          <p class="text-white/70 mt-3">Mid-week live for Q&amp;A, coaching, and process refinement.</p>
+        </div>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="lock-keyhole" class="w-5 h-5"></i></span>
             Live Trading (Unlocked)
           </div>
-          <p class="text-white/80 mt-3">Daily live trading room for <b>Fusion Legend</b> only — after your first prop payout.</p>
-        </article>
+          <p class="text-white/70 mt-3">Daily live trading room for <b>Fusion Legend</b> only—after your first prop payout.</p>
+        </div>
       </div>
 
-      <!-- Two info panels -->
-      <div class="grid lg:grid-cols-2 gap-6 mt-6">
-        <article class="poster p-6 reveal tilt">
-          <div class="font-semibold flex items-center gap-2"><i data-lucide="id-card" class="w-5 h-5"></i> Role Path &amp; Rules</div>
-          <div class="mt-4 space-y-2 text-white/90">
-            <div class="flex items-center gap-2"><span class="chip"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span>Your starting role. Build foundations.</span></div>
-            <div class="flex items-center gap-2"><span class="chip"><i data-lucide="wallet" class="w-4 h-4"></i> Funded Trader</span><span>Show your prop pass → upgrade.</span></div>
-            <div class="flex items-center gap-2"><span class="chip"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span><span>First payout → unlock daily live trading.</span></div>
+      <div class="mt-10 grid lg:grid-cols-2 gap-6">
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="route" class="w-5 h-5"></i></span>
+            Role Path & Rules
           </div>
-          <ul class="mt-4 space-y-2 text-white/80">
-            <li class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-[color:var(--accent1)]"></i> Respect first. No spam or blind signals.</li>
-            <li class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-[color:var(--accent1)]"></i> Use the reading tools before any entry.</li>
-            <li class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-[color:var(--accent1)]"></i> Education only. Not financial advice.</li>
+          <div class="mt-4 space-y-4">
+            <div class="role-step"><span class="badge"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span><span class="text-white/70 text-sm">Your starting role. Build foundations.</span></div>
+            <div class="role-step"><span class="badge"><i data-lucide="award" class="w-4 h-4"></i> Funded Trader</span><span class="text-white/70 text-sm">Show your prop pass → upgrade.</span></div>
+            <div class="role-step"><span class="badge"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span><span class="text-white/70 text-sm">First payout → unlock daily live trading.</span></div>
+          </div>
+          <ul class="mt-5 space-y-2 text-white/70 text-sm">
+            <li class="flex gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cyan-300"></i> Respect first. No spam or blind signals.</li>
+            <li class="flex gap-2"><i data-lucide="book-open-check" class="w-4 h-4 text-cyan-300"></i> Use the reading tools before any entry.</li>
+            <li class="flex gap-2"><i data-lucide="triangle-alert" class="w-4 h-4 text-cyan-300"></i> Education only. Not financial advice.</li>
           </ul>
-        </article>
+        </div>
 
-        <article class="poster p-6 reveal tilt">
-          <div class="font-semibold flex items-center gap-2"><i data-lucide="helping-hand" class="w-5 h-5"></i> Why Community Helps</div>
-          <p class="text-white/80 mt-3">You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial &amp; error.</p>
-          <div class="mt-4 grid sm:grid-cols-2 gap-3 text-white/90">
-            <ul class="space-y-2">
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Daily chart reviews &amp; peer feedback</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Shared levels for NQ · ES · CL · GC</li>
-            </ul>
-            <ul class="space-y-2">
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Accountability via weekly summaries</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Process-first mindset, zero signals</li>
-            </ul>
+        <div class="card-glow bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition reveal">
+          <div class="flex items-center gap-2 text-white/90 font-semibold">
+            <span class="p-2 rounded-xl bg-white/5"><i data-lucide="sparkle" class="w-5 h-5"></i></span>
+            Why Community Helps
           </div>
-        </article>
+          <p class="text-white/70 mt-3">
+            You learn faster seeing multiple reads, sharing plans, and getting feedback.
+            Discipline becomes easier—and you’ll skip years of trial &amp; error.
+          </p>
+          <ul class="mt-5 grid sm:grid-cols-2 gap-3 text-white/80">
+            <li class="flex items-start gap-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
+              Daily chart reviews & peer feedback
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
+              Accountability via weekly summaries
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
+              Shared levels for NQ · ES · CL · GC
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-300 mt-0.5"></i>
+              Process-first mindset, zero signals
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- =================== PRICING =================== -->
-  <section id="pricing" class="py-16 bg-[color:var(--panel)]/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold">Choose Your <span class="brand-grad">Access</span></h2>
-        <p class="mt-2 text-white/80">First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through text-white/70">$1000</span>). Lifetime updates included.</p>
-      </div>
+  <!-- PRICING -->
+  <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold">Choose Your <span class="gradient-text">Access</span></h2>
+      <p class="mt-2 text-white/70">
+        First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through text-white/50">$1000</span>). Lifetime updates included.
+      </p>
+    </div>
 
-      <div class="grid lg:grid-cols-3 gap-6">
-        <article class="poster p-6 reveal tilt flex flex-col">
-          <div class="flex flex-col items-center gap-2 text-center">
-            <div class="font-semibold">FusionTicks Academy · Lifetime</div>
+    <div class="grid lg:grid-cols-3 gap-6">
+      <!-- Academy - Lifetime -->
+      <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal flex flex-col">
+        <div class="flex items-start justify-between">
+          <div>
+            <span class="font-semibold">FusionTicks Academy · Lifetime</span>
+            <div class="mt-2"><span class="badge">First 40 only</span></div>
+          </div>
+          <div class="text-right">
             <div class="text-3xl font-extrabold">$550</div>
-            <div class="text-sm text-white/70 line-through -mt-2">$1000</div>
-            <div class="mt-1 text-xs bg-[color:var(--glass)] border border-[color:var(--border)] px-2 py-1 rounded-full inline-block">First 40 only</div>
+            <div class="text-sm text-white/50 line-through">$1000</div>
           </div>
-          <p class="text-white/80 mt-4 text-center">One-time payment. Includes all lessons now and all future updates.</p>
-          <ul class="mt-3 space-y-2 text-white/90">
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Full course (current lessons)</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Lifetime updates (future lessons)</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Private Discord access (no live/levels/news)</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Weekly live Q&amp;A &amp; group study</li>
-          </ul>
-          <div class="mt-auto pt-4">
-            <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="inline-block w-full text-center h-11 leading-[44px] btn-primary magnet">Get Course — $550</a>
-            <p class="text-xs text-white/70 mt-2 text-center">Use code <b>FIRST40</b></p>
-          </div>
-        </article>
+        </div>
+        <p class="text-white/70 mt-2">One-time payment. Includes all lessons now and all future updates.</p>
+        <ul class="mt-3 space-y-2 text-white/80">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Full course (current lessons)</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Lifetime updates (future lessons)</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord access (no live, levels, or news)</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly live Q&amp;A &amp; group study</li>
+        </ul>
+        <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
+          <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true"
+             class="btn-primary inline-block w-full text-center px-4 py-2">
+            Get Course — $550
+          </a>
+          <p class="text-xs text-white/50 mt-2">Don’t miss the launch offer — use <b>FIRST40</b></p>
+        </div>
+      </div>
 
-        <article class="poster p-6 reveal tilt flex flex-col">
-          <div class="flex flex-col items-center gap-2 text-center">
-            <div class="font-semibold">Live &amp; Levels · Subscription</div>
-            <div class="text-2xl font-extrabold">$20<span class="text-sm font-medium text-white/70">/mo</span></div>
-          </div>
-          <p class="text-white/80 mt-4 text-center">Everything you need day-to-day to stay prepared.</p>
-          <ul class="mt-3 space-y-2 text-white/90">
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Daily pre-market live (plan + levels)</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Today’s outlook &amp; scenarios</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[color:var(--accent1)]"></i> Weekly news calendar</li>
-          </ul>
-          <div class="mt-auto pt-4">
-            <a href="https://YOUR_WHOP_LINK_SUB_20" class="inline-block w-full text-center h-11 leading-[44px] btn-primary magnet">Subscribe — $20/mo</a>
-          </div>
-        </article>
+      <!-- Live & Levels Subscription -->
+      <div class="plan relative bg-white/5 border border-white/10 rounded-2xl p-6 reveal flex flex-col">
+        <div class="flex items-start justify-between">
+          <span class="font-semibold">Live &amp; Levels · Subscription</span>
+          <span class="text-2xl font-extrabold">$20<span class="text-sm font-medium text-white/60">/mo</span></span>
+        </div>
+        <p class="text-white/70 mt-2">Everything you need day-to-day to stay prepared.</p>
+        <ul class="mt-3 space-y-2 text-white/80">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Daily pre-market live (plan + levels)</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Today’s outlook &amp; trade scenarios</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly news calendar + trade/avoid days</li>
+        </ul>
+        <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
+          <a href="https://YOUR_WHOP_LINK_SUB_20"
+             class="btn-primary inline-block w-full text-center px-4 py-2">
+            Subscribe — $20/mo
+          </a>
+        </div>
+      </div>
 
-        <article class="poster p-6 reveal tilt flex flex-col">
-          <div class="flex flex-col items-center gap-2 text-center">
-            <div class="font-semibold">ICT Concepts · Deep Dive</div>
-            <div class="text-2xl font-extrabold">$1000</div>
-            <div class="inline-flex items-center gap-2 text-white/80 text-sm mt-1">
-              <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[color:var(--accent1)] opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-[color:var(--accent1)]"></span>
-              </span>
-              In progress — coming soon
-            </div>
-          </div>
-          <p class="text-white/80 mt-4 text-center">Full ICT framework: structure, execution models, case studies.</p>
-          <ul class="mt-3 space-y-2 text-white/90">
-            <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/60"></i> Comprehensive ICT framework</li>
-            <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/60"></i> Clear setups &amp; management rules</li>
-            <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/60"></i> Real chart walk-throughs</li>
-          </ul>
-          <div class="mt-auto pt-4">
-            <button disabled class="inline-block w-full text-center h-11 leading-[44px] btn-ghost opacity-60 cursor-not-allowed">Coming Soon</button>
-          </div>
-        </article>
+      <!-- ICT Concepts - Coming Soon -->
+      <div class="plan bg-white/5 border border-white/10 rounded-2xl p-6 reveal flex flex-col">
+        <div class="flex items-start justify-between">
+          <span class="font-semibold">ICT Concepts · Deep Dive</span>
+          <span class="text-2xl font-extrabold">$1000</span>
+        </div>
+        <div class="mt-2 inline-flex items-center gap-2 text-white/70 text-sm">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-300"></span>
+          </span>
+          In progress — coming soon
+        </div>
+        <p class="text-white/70 mt-2">I’m building a full ICT concepts course. It will cover structure, execution models, and case studies.</p>
+        <ul class="mt-3 space-y-2 text-white/80">
+          <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Comprehensive ICT framework</li>
+          <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Clear setups &amp; management rules</li>
+          <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-white/40"></i> Real chart walk-throughs</li>
+        </ul>
+        <div class="mt-auto pt-4 h-[100px] flex flex-col justify-start">
+          <button disabled class="inline-block w-full text-center px-4 py-2 rounded-lg bg-white/10 opacity-60 cursor-not-allowed">
+            Coming Soon
+          </button>
+          <p class="text-xs text-white/50 mt-2">Join the Discord to get notified at launch.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- =================== FAQ =================== -->
-  <section id="faq" class="py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold brand-grad">FAQ</h2>
-        <p class="mt-2 text-white/80">Still curious? Start here.</p>
-      </div>
-      <div class="space-y-4">
-        <details class="poster p-4 reveal">
-          <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
-          <p class="text-white/80 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
-        </details>
-        <details class="poster p-4 reveal">
-          <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
-          <p class="text-white/80 mt-2">Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
-        </details>
-        <details class="poster p-4 reveal">
-          <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
-          <p class="text-white/80 mt-2">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
-        </details>
-        <details class="poster p-4 reveal">
-          <summary class="cursor-pointer font-medium">What time are the live sessions and in which timezone?</summary>
-          <p class="text-white/80 mt-2">30 minutes before the New York session opens — timezone: New York.</p>
-        </details>
-        <details class="poster p-4 reveal">
-          <summary class="cursor-pointer font-medium">What language is the content?</summary>
-          <p class="text-white/80 mt-2">Arabic.</p>
-        </details>
-      </div>
+  <!-- FAQ -->
+  <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8 sm:mb-12 reveal">
+      <h2 class="text-3xl sm:text-4xl font-bold"><span class="gradient-text">FAQ</span></h2>
+      <p class="mt-2 text-white/70">Still curious? Start here.</p>
+    </div>
+    <div class="space-y-4">
+      <!-- 5 visible -->
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal" open>
+        <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
+        <p class="text-white/70 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
+      </details>
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
+        <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
+        <p class="text-white/70 mt-2">Focus on NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
+      </details>
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
+        <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
+        <p class="text-white/70 mt-2">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
+      </details>
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
+        <summary class="cursor-pointer font-medium">What time are the live sessions and in which timezone?</summary>
+        <p class="text-white/70 mt-2">30 minutes before the New York session opens — timezone: New York.</p>
+      </details>
+      <details class="bg-white/5 border border-white/10 rounded-xl p-4 reveal">
+        <summary class="cursor-pointer font-medium">What language is the content?</summary>
+        <p class="text-white/70 mt-2">Arabic.</p>
+      </details>
     </div>
   </section>
 
-  <!-- =================== FOOTER =================== -->
-  <footer class="py-10 border-t border-[color:var(--border)]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/70">
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
       <div class="flex items-center gap-3">
         <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
-        <a class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[color:var(--glass)] border border-[color:var(--border)]" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+        <!-- Instagram -->
+        <a class="social" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1"></circle>
+          </svg>
         </a>
-        <a class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[color:var(--glass)] border border-[color:var(--border)]" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2 .7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c .6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/></svg>
+        <!-- YouTube -->
+        <a class="social" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2 .7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c .6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
+          </svg>
         </a>
-        <a class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[color:var(--glass)] border border-[color:var(--border)]" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
-          <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor"><path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/></svg>
+        <!-- TikTok -->
+        <a class="social" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
+          <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
+            <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
+          </svg>
         </a>
       </div>
     </div>
   </footer>
 
+  <!-- ===== Curriculum Modal ===== -->
+  <div id="currModal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70" data-curr-close></div>
+    <div class="relative max-w-4xl mx-auto mt-16 mb-10 glass-panel">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
+        <h3 class="text-lg font-semibold">Curriculum · Full Syllabus</h3>
+        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-curr-close aria-label="Close syllabus">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar">
+        <div class="grid sm:grid-cols-2 gap-6 text-white/80 text-sm leading-relaxed">
+          <!-- A -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="scan" class="w-4 h-4"></i> A · Reading the Market
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Who’s in Control? <span class="text-white/60">(Candlesticks)</span></li>
+              <li>Market Stages <span class="text-white/60">(Phases)</span></li>
+              <li>Price in Motion <span class="text-white/60">(How price moves)</span></li>
+              <li>Swings &amp; Shifts <span class="text-white/60">(Swing High/Low)</span></li>
+              <li>Breaks &amp; Flips <span class="text-white/60">(BOS &amp; CHoCH)</span></li>
+              <li>Balance &amp; Imbalance <span class="text-white/60">(FVG)</span></li>
+            </ol>
+          </article>
+
+          <!-- B -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="layout" class="w-4 h-4"></i> B · Market Levels
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="7">
+              <li>Where it Starts <span class="text-white/60">(Supply &amp; Demand)</span></li>
+              <li>Key Zones <span class="text-white/60">(Support &amp; Resistance)</span></li>
+              <li>The Explosion <span class="text-white/60">(Opening Range Breakout)</span></li>
+            </ol>
+            <p class="mt-3 text-xs text-white/60">Levels are not entries—prepare there, then wait for tool-based confirmation.</p>
+          </article>
+
+          <!-- C -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="activity" class="w-4 h-4"></i> C · Market Indicators
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="10">
+              <li>Volume Map <span class="text-white/60">(Volume Profile)</span></li>
+              <li>VWAP Logic <span class="text-white/60">(VWAP &amp; Anchored)</span></li>
+              <li>Moving Power <span class="text-white/60">(EMA)</span></li>
+            </ol>
+          </article>
+
+          <!-- D -->
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="settings" class="w-4 h-4"></i> D · Behind the Scenes
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="13">
+              <li>Quick Guide to TradingView</li>
+              <li>The Trading Game <span class="text-white/60">(Futures &amp; Prop Firms)</span></li>
+              <li>Types of Orders</li>
+              <li>Risk First <span class="text-white/60">(Risk Management)</span></li>
+              <li>Learn from You <span class="text-white/60">(Journaling &amp; Reviews)</span></li>
+              <li>News &amp; Economic Events</li>
+              <li>Mind over Market <span class="text-white/60">(Psychology)</span></li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ICT Modal ===== -->
+  <div id="ictModal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70" data-ict-close></div>
+    <div class="relative max-w-4xl mx-auto mt-16 mb-10 glass-panel">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
+        <h3 class="text-lg font-semibold">ICT Concepts · Full Syllabus (Coming Soon)</h3>
+        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-ict-close aria-label="Close syllabus">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar">
+        <div class="grid sm:grid-cols-2 gap-6 text-white/80 text-sm leading-relaxed">
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="layers" class="w-4 h-4"></i> Structure &amp; Ranges
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Candles &amp; Market Structure</li>
+              <li>Premium &amp; Discount - Understanding Ranges</li>
+              <li>Using Range Structure</li>
+              <li>Displacement/Impulsive Structure</li>
+              <li>Top Down Analysis</li>
+              <li>Time Frame Alignment</li>
+              <li>Price Projection</li>
+              <li>OHLC / OLHC Misconceptions</li>
+            </ol>
+          </article>
+
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="waves" class="w-4 h-4"></i> Liquidity &amp; Orderflow
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Intro to Liquidity</li>
+              <li>Liquidity Sweeps Vs Liquidity Runs</li>
+              <li>Intra-day Liquidity</li>
+              <li>Liquidity Based Bias</li>
+              <li>Orderblocks</li>
+              <li>Breaker Blocks</li>
+              <li>Rejection Blocks</li>
+              <li>Fair Value Gaps (FVG's)</li>
+              <li>FVG's vs Liquidity Voids &amp; Volume Imbalances</li>
+              <li>Be One With The Market (Orderflow)</li>
+              <li>Understanding Displacement For Draw On Liquidity</li>
+            </ol>
+          </article>
+
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="clock" class="w-4 h-4"></i> Time &amp; Sessions
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Intro To The Relationship Of Time &amp; Price</li>
+              <li>Key Time</li>
+              <li>Asia Session</li>
+              <li>London Session</li>
+              <li>New York AM Session</li>
+              <li>New York PM Session</li>
+              <li>Utilizing the Economic Calendar</li>
+              <li>The Weekly Approach to Force High Probability Trades</li>
+            </ol>
+          </article>
+
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="list-checks" class="w-4 h-4"></i> Models &amp; Entries
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Starting the Foundation of Every Model</li>
+              <li>Unicorn Model</li>
+              <li>Candle Range Theory</li>
+              <li>3 Candle Model</li>
+              <li>CRT Entry Models</li>
+              <li>MOC Entry Model</li>
+              <li>Time Based Entry and Exit Models</li>
+              <li>Confirming Manipulation</li>
+              <li>OTE</li>
+              <li>Dealing Ranges</li>
+              <li>The only daily bias video you need</li>
+              <li>Trutle Soup How to Trade them</li>
+            </ol>
+          </article>
+
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="shield" class="w-4 h-4"></i> Execution &amp; Risk
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Introduction to Risk Management</li>
+              <li>How to size positions</li>
+              <li>Slippage</li>
+              <li>The Game of Probability</li>
+              <li>How to Backtest</li>
+              <li>Creating Your Trading Plan</li>
+              <li>A-Z trading checklist</li>
+            </ol>
+          </article>
+
+          <article class="card-glow bg-white/5 border border-white/10 rounded-2xl p-5">
+            <h4 class="text-white font-semibold text-base flex items-center gap-2">
+              <i data-lucide="brain" class="w-4 h-4"></i> Mindset &amp; Process
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Developing the right Mind</li>
+              <li>Journaling &amp; Organization</li>
+              <li>Unlocking your potential</li>
+              <li>The Building Blocks to a Successful Life</li>
+              <li>What Holds traders back from success</li>
+              <li>Accepting Losses and Moving on</li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Back to top -->
-  <button id="toTopBtn" aria-label="Back to top"
-    class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[color:var(--panel)]
-           border border-[color:var(--border)] shadow-xl flex items-center justify-center
-           transition-opacity duration-300 opacity-0 pointer-events-none">
+  <button id="backToTop" aria-label="Back to top"
+          class="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-40 hidden
+                 flex items-center justify-center
+                 w-12 h-12 rounded-2xl
+                 bg-white/5 hover:bg-white/10
+                 border border-white/10
+                 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)]">
     <i data-lucide="arrow-up" class="w-5 h-5"></i>
   </button>
 
-  <!-- =================== MODALS =================== -->
-  <div id="currModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/70" data-curr-close></div>
-    <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl bg-[color:var(--panel)] border border-[color:var(--border)]">
-      <div class="flex items-center justify-between px-5 py-4 border-b border-[color:var(--border)]">
-        <h3 class="text-lg font-semibold">Curriculum · Full Syllabus</h3>
-        <button class="p-2 rounded-lg bg-[color:var(--glass)] border border-[color:var(--border)]" data-curr-close aria-label="Close"><i data-lucide="x"></i></button>
-      </div>
-      <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar text-white/90 text-sm leading-relaxed">
-        <div class="grid sm:grid-cols-2 gap-6">
-          <article class="poster p-5"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="scan" class="w-4 h-4"></i> A · Reading the Market</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Who’s in Control? <span class="text-white/70">(Candlesticks)</span></li><li>Market Stages <span class="text-white/70">(Phases)</span></li><li>Price in Motion</li><li>Swings &amp; Shifts</li><li>Breaks &amp; Flips</li><li>Balance &amp; Imbalance (FVG)</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="layout" class="w-4 h-4"></i> B · Market Levels</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="7"><li>Where it Starts (S/D)</li><li>Key Zones (S/R)</li><li>The Explosion (ORB)</li></ol><p class="mt-3 text-xs text-white/70">Levels are not entries—wait for confirmations.</p></article>
-          <article class="poster p-5"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="activity" class="w-4 h-4"></i> C · Market Indicators</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="10"><li>Volume Map (VP)</li><li>VWAP &amp; Anchored</li><li>EMA</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="settings" class="w-4 h-4"></i> D · Behind the Scenes</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="13"><li>TradingView</li><li>Futures &amp; Prop Firms</li><li>Order Types</li><li>Risk First</li><li>Journaling &amp; Reviews</li><li>News &amp; Economic Events</li><li>Psychology</li></ol></article>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="ictModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/70" data-ict-close></div>
-    <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl bg-[color:var(--panel)] border border-[color:var(--border)]">
-      <div class="flex items-center justify-between px-5 py-4 border-b border-[color:var(--border)]">
-        <h3 class="text-lg font-semibold">ICT Concepts · Full Syllabus (Coming Soon)</h3>
-        <button class="p-2 rounded-lg bg-[color:var(--glass)] border border-[color:var(--border)]" data-ict-close aria-label="Close"><i data-lucide="x"></i></button>
-      </div>
-      <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar text-white/90 text-sm leading-relaxed">
-        <div class="grid sm:grid-cols-2 gap-6">
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4"></i> Structure &amp; Ranges</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Candles &amp; Structure</li><li>Premium/Discount</li><li>Using Ranges</li><li>Displacement</li><li>Top Down</li><li>Alignment</li><li>Projection</li><li>OHLC / OLHC</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="waves" class="w-4 h-4"></i> Liquidity &amp; Orderflow</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Intro to Liquidity</li><li>Sweeps vs Runs</li><li>Intraday Liquidity</li><li>Liquidity Bias</li><li>Orderblocks / Breakers / Rejections</li><li>FVGs &amp; Voids</li><li>Orderflow</li><li>Draw on Liquidity</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Time &amp; Sessions</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Time–Price</li><li>Key Time</li><li>Asia</li><li>London</li><li>NY AM</li><li>NY PM</li><li>Calendar</li><li>Weekly Approach</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="list-checks" class="w-4 h-4"></i> Models &amp; Entries</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Foundation</li><li>Unicorn · CRT · 3 Candle</li><li>MOC</li><li>Time-Based</li><li>Manipulation</li><li>OTE / Dealing Ranges</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4"></i> Execution &amp; Risk</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Risk</li><li>Sizing</li><li>Slippage</li><li>Probability</li><li>Backtesting</li><li>Trading Plan</li><li>A–Z Checklist</li></ol></article>
-          <article class="poster p-5"><h4 class="font-semibold flex items-center gap-2"><i data-lucide="brain" class="w-4 h-4"></i> Mindset &amp; Process</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Mind</li><li>Journaling</li><li>Potential</li><li>Building Blocks</li><li>What Holds Traders</li><li>Accepting Losses</li></ol></article>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Icons & Year
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
-    });
 
-    // Reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
-    },{threshold:0.14});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+      // Reveal on scroll
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('in');   // <-- fixed dot here
+            io.unobserve(e.target);
+          }
+        });
+      },{threshold:0.12});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Theme switch
-    const root = document.body;
-    const themeBtn = document.getElementById('themeBtn');
-    const themeMenu = document.getElementById('themeMenu');
-    const setTheme = (t)=>{ root.setAttribute('data-theme', t); localStorage.setItem('ft_theme', t); };
-    (()=>{ const saved = localStorage.getItem('ft_theme'); if(saved) setTheme(saved); })();
-    themeBtn?.addEventListener('click', ()=> themeMenu.classList.toggle('hidden'));
-    document.querySelectorAll('[data-theme-sel]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{ setTheme(btn.getAttribute('data-theme-sel')); themeMenu?.classList.add('hidden'); });
-    });
-    document.addEventListener('click',(e)=>{ if(!themeBtn?.contains(e.target) && !themeMenu?.contains(e.target)) themeMenu?.classList.add('hidden'); });
+      // Back to top
+      const backBtn = document.getElementById('backToTop');
+      const toggleTop = () => {
+        if (window.scrollY > 500) backBtn.classList.remove('hidden');
+        else backBtn.classList.add('hidden');
+      };
+      toggleTop();
+      window.addEventListener('scroll', toggleTop);
+      backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-    // Mobile menu
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const openMenu = () => { mobileMenu.classList.remove('hidden'); document.body.classList.add('menu-open'); };
-    const closeMenu = () => { mobileMenu.classList.add('hidden'); document.body.classList.remove('menu-open'); };
-    menuBtn?.addEventListener('click', openMenu);
-    mobileMenu?.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
-    mobileMenu?.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => setTimeout(closeMenu, 50)));
+      // Mobile menu
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const openMenu = () => { mobileMenu.classList.remove('hidden'); document.body.classList.add('menu-open'); };
+      const closeMenu = () => { mobileMenu.classList.add('hidden'); document.body.classList.remove('menu-open'); };
+      menuBtn.addEventListener('click', openMenu);
+      mobileMenu.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
+      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => setTimeout(closeMenu, 50)));
 
-    // Modals
-    const hookModal = (openSel, modalId, closeSel) => {
-      const modal = document.getElementById(modalId);
-      document.querySelectorAll(openSel).forEach(btn=>btn.addEventListener('click', ()=>{ modal.classList.remove('hidden'); document.body.classList.add('modal-open'); }));
-      modal.querySelectorAll(closeSel).forEach(btn=>btn.addEventListener('click', ()=>{ modal.classList.add('hidden'); document.body.classList.remove('modal-open'); }));
-    };
-    hookModal('[data-curr-open]','currModal','[data-curr-close]');
-    hookModal('[data-ict-open]','ictModal','[data-ict-close]');
-
-    // Magnetic buttons
-    document.querySelectorAll('.magnet').forEach(btn=>{
-      btn.addEventListener('mousemove', (e)=>{
-        const r = btn.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width/2;
-        const y = e.clientY - r.top - r.height/2;
-        btn.style.transform = `translate(${x*0.08}px, ${y*0.12}px)`;
+      // ICT modal
+      const ictModal = document.getElementById('ictModal');
+      document.querySelectorAll('[data-ict-open]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          ictModal.classList.remove('hidden');
+          document.body.classList.add('modal-open');
+        });
       });
-      btn.addEventListener('mouseleave', ()=> btn.style.transform = 'translate(0,0)');
+      ictModal.querySelectorAll('[data-ict-close]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          ictModal.classList.add('hidden');
+          document.body.classList.remove('modal-open');
+        });
+      });
+
+      // Curriculum modal
+      const currModal = document.getElementById('currModal');
+      document.querySelectorAll('[data-curr-open]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          currModal.classList.remove('hidden');
+          document.body.classList.add('modal-open');
+        });
+      });
+      currModal.querySelectorAll('[data-curr-close]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          currModal.classList.add('hidden');
+          document.body.classList.remove('modal-open');
+        });
+      });
     });
 
-    // Back to top
-    const toTopBtn = document.getElementById('toTopBtn');
-    const toggleTop = () => {
-      if (window.scrollY > 500) { toTopBtn?.classList.remove('opacity-0','pointer-events-none'); }
-      else { toTopBtn?.classList.add('opacity-0','pointer-events-none'); }
-    };
-    window.addEventListener('scroll', toggleTop);
-    toTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // Particles Canvas
+    /* ===== NEW: Particles Canvas (interactive) ===== */
     (function(){
       const canvas = document.getElementById('fxCanvas');
+      if(!canvas) return;
       const ctx = canvas.getContext('2d');
       let W,H, DPR = Math.min(2, window.devicePixelRatio || 1);
-      function resize(){ W=canvas.width=innerWidth*DPR; H=canvas.height=innerHeight*DPR; canvas.style.width=innerWidth+'px'; canvas.style.height=innerHeight+'px'; }
-      resize(); addEventListener('resize', resize);
+      function resize(){
+        W = canvas.width  = innerWidth * DPR;
+        H = canvas.height = innerHeight * DPR;
+        canvas.style.width  = innerWidth + 'px';
+        canvas.style.height = innerHeight + 'px';
+      }
+      resize();
+      addEventListener('resize', resize);
 
       const N = 70, P = [];
-      for(let i=0;i<N;i++) P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*0.3*DPR,vy:(Math.random()-.5)*0.3*DPR});
+      for(let i=0;i<N;i++){
+        P.push({
+          x: Math.random()*W,
+          y: Math.random()*H,
+          vx: (Math.random()-.5)*0.3*DPR,
+          vy: (Math.random()-.5)*0.3*DPR
+        });
+      }
       let mx = W/2, my = H/2;
       addEventListener('mousemove', e=>{ mx = e.clientX*DPR; my = e.clientY*DPR; });
 
       function step(){
         ctx.clearRect(0,0,W,H);
+        const styles = getComputedStyle(document.body);
+        const c1 = styles.getPropertyValue('--accent1') || '#67E8F9';
+        const c2 = styles.getPropertyValue('--accent2') || '#60A5FA';
+
         for(const p of P){
           p.x += p.vx; p.y += p.vy;
-          if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1;
+          if(p.x<0||p.x>W) p.vx*=-1;
+          if(p.y<0||p.y>H) p.vy*=-1;
 
           // nodes
           ctx.beginPath(); ctx.arc(p.x,p.y,1.2*DPR,0,Math.PI*2);
-          ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--accent1'); ctx.fill();
+          ctx.fillStyle = c1.trim(); ctx.fill();
 
           // link to cursor
           const dx = p.x - mx, dy = p.y - my, d = Math.hypot(dx,dy);
           if(d < 140*DPR){
-            ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--accent2');
+            ctx.strokeStyle = c2.trim();
             ctx.globalAlpha = 1 - d/(140*DPR);
             ctx.lineWidth = .6*DPR;
-            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(mx,my); ctx.stroke(); ctx.globalAlpha = 1;
+            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(mx,my); ctx.stroke();
+            ctx.globalAlpha = 1;
           }
         }
         requestAnimationFrame(step);
