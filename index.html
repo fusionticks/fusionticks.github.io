@@ -70,7 +70,6 @@
       animation: floatA 22s linear infinite alternate;
     }
     .bg-aurora:after{ animation: floatB 26s linear infinite alternate-reverse; mix-blend-mode:screen; opacity:.25}
-    /* softer aurora on light theme */
     [data-theme="ivory"] .bg-aurora:before,
     [data-theme="ivory"] .bg-aurora:after{ opacity:.18; filter:blur(36px) }
 
@@ -142,7 +141,7 @@
 
     /* ===== Utilities ===== */
     .chip{ display:inline-flex; align-items:center; gap:.4rem; padding:.35rem .6rem; border-radius:999px; background:var(--glass); border:1px solid var(--border); }
-    .chips span{ display:inline-block; padding:.35rem .6rem; border-radius:999px; background:var(--glass); border:1px solid var(--border) } /* legacy */
+    .chips span{ display:inline-block; padding:.35rem .6rem; border-radius:999px; background:var(--glass); border:1px solid var(--border) }
   </style>
 </head>
 
@@ -168,7 +167,6 @@
       </nav>
 
       <div class="hidden md:flex items-center gap-2">
-        <!-- Theme switcher -->
         <div class="relative z-[80]">
           <button id="themeBtn" class="btn-ghost h-10 px-3"><i data-lucide="palette" class="w-4 h-4 mr-2"></i> Theme</button>
           <div id="themeMenu" class="absolute right-0 mt-2 w-48 rounded-xl bg-[color:var(--panel)] border border-[color:var(--border)] shadow-xl hidden z-[90]">
@@ -228,7 +226,6 @@
   <section id="hero" class="relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 sm:pt-24 pb-10 grid lg:grid-cols-12 gap-10 items-center">
       <div class="lg:col-span-7 reveal">
-        <!-- removed the small badge per your request -->
         <h1 class="headline mt-5 text-5xl sm:text-6xl font-black leading-[1.02] tracking-tight">
           <span class="brand-grad">Trade with Clarity</span><br><span class="stroke">Not Noise</span>
         </h1>
@@ -242,7 +239,6 @@
           <a href="#pricing" class="btn-primary h-12 magnet">Get Access <i data-lucide="arrow-right" class="w-5 h-5"></i></a>
           <a href="#curriculum" class="btn-ghost h-12"><i data-lucide="book-open" class="w-5 h-5"></i> See Curriculum</a>
         </div>
-        <!-- removed the chips row per your request -->
       </div>
 
       <div class="lg:col-span-5 reveal">
@@ -352,18 +348,15 @@
     </div>
   </section>
 
-  <!-- =================== COMMUNITY (Updated to match Image 2) =================== -->
+  <!-- =================== COMMUNITY (Join button under chips) =================== -->
   <section id="discord" class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-6 reveal">
         <h2 class="text-3xl sm:text-4xl font-bold"><span class="brand-grad">Community</span> That Accelerates Progress</h2>
         <p class="mt-2 text-white/80 max-w-3xl">One place to read the market together, post daily levels, review trades, and learn live.</p>
 
-        <!-- Top actions: Join + role path chips -->
-        <div class="mt-4 flex flex-wrap items-center gap-3">
-          <a href="https://discord.gg/RFbe3nHB" target="_blank" class="inline-flex items-center gap-2 px-4 h-10 btn-primary magnet">
-            <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px]"> Join the Discord
-          </a>
+        <!-- Chips first, Join button below -->
+        <div class="mt-4">
           <div class="flex flex-wrap items-center gap-2 text-sm">
             <span class="chip"><i data-lucide="sparkles" class="w-4 h-4"></i> Tick Starter</span>
             <span class="text-white/60">→ progress to</span>
@@ -372,6 +365,11 @@
             <span class="chip"><i data-lucide="crown" class="w-4 h-4"></i> Fusion Legend</span>
             <span class="text-white/60">+ daily live trading</span>
           </div>
+
+          <a href="https://discord.gg/RFbe3nHB" target="_blank"
+             class="inline-flex items-center gap-2 px-5 h-11 btn-primary magnet mt-4">
+            <img src="./discord%20logo.png" alt="Discord" class="w-[18px] h-[18px]"> Join the Discord
+          </a>
         </div>
       </div>
 
@@ -431,7 +429,6 @@
 
       <!-- Two info panels -->
       <div class="grid lg:grid-cols-2 gap-6 mt-6">
-        <!-- Role Path & Rules -->
         <article class="poster p-6 reveal tilt">
           <div class="font-semibold flex items-center gap-2"><i data-lucide="id-card" class="w-5 h-5"></i> Role Path &amp; Rules</div>
           <div class="mt-4 space-y-2 text-white/90">
@@ -446,7 +443,6 @@
           </ul>
         </article>
 
-        <!-- Why Community Helps -->
         <article class="poster p-6 reveal tilt">
           <div class="font-semibold flex items-center gap-2"><i data-lucide="helping-hand" class="w-5 h-5"></i> Why Community Helps</div>
           <p class="text-white/80 mt-3">You learn faster seeing multiple reads, sharing plans, and getting feedback. Discipline becomes easier—and you’ll skip years of trial &amp; error.</p>
@@ -474,7 +470,6 @@
       </div>
 
       <div class="grid lg:grid-cols-3 gap-6">
-        <!-- Card 1 -->
         <article class="poster p-6 reveal tilt flex flex-col">
           <div class="flex flex-col items-center gap-2 text-center">
             <div class="font-semibold">FusionTicks Academy · Lifetime</div>
@@ -495,7 +490,6 @@
           </div>
         </article>
 
-        <!-- Card 2 -->
         <article class="poster p-6 reveal tilt flex flex-col">
           <div class="flex flex-col items-center gap-2 text-center">
             <div class="font-semibold">Live &amp; Levels · Subscription</div>
@@ -512,7 +506,6 @@
           </div>
         </article>
 
-        <!-- Card 3 -->
         <article class="poster p-6 reveal tilt flex flex-col">
           <div class="flex flex-col items-center gap-2 text-center">
             <div class="font-semibold">ICT Concepts · Deep Dive</div>
@@ -601,7 +594,6 @@
   </button>
 
   <!-- =================== MODALS =================== -->
-  <!-- Curriculum Modal -->
   <div id="currModal" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/70" data-curr-close></div>
     <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl bg-[color:var(--panel)] border border-[color:var(--border)]">
@@ -620,7 +612,6 @@
     </div>
   </div>
 
-  <!-- ICT Modal -->
   <div id="ictModal" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/70" data-ict-close></div>
     <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl bg-[color:var(--panel)] border border-[color:var(--border)]">
@@ -642,19 +633,19 @@
   </div>
 
   <script>
-    // ===== Icons & Year
+    // Icons & Year
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
     });
 
-    // ===== Reveal on scroll
+    // Reveal on scroll
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
     },{threshold:0.14});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // ===== Theme Switch
+    // Theme switch
     const root = document.body;
     const themeBtn = document.getElementById('themeBtn');
     const themeMenu = document.getElementById('themeMenu');
@@ -666,7 +657,7 @@
     });
     document.addEventListener('click',(e)=>{ if(!themeBtn?.contains(e.target) && !themeMenu?.contains(e.target)) themeMenu?.classList.add('hidden'); });
 
-    // ===== Mobile Menu
+    // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const openMenu = () => { mobileMenu.classList.remove('hidden'); document.body.classList.add('menu-open'); };
@@ -675,7 +666,7 @@
     mobileMenu?.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
     mobileMenu?.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => setTimeout(closeMenu, 50)));
 
-    // ===== Modals
+    // Modals
     const hookModal = (openSel, modalId, closeSel) => {
       const modal = document.getElementById(modalId);
       document.querySelectorAll(openSel).forEach(btn=>btn.addEventListener('click', ()=>{ modal.classList.remove('hidden'); document.body.classList.add('modal-open'); }));
@@ -684,7 +675,7 @@
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
     hookModal('[data-ict-open]','ictModal','[data-ict-close]');
 
-    // ===== Magnetic buttons
+    // Magnetic buttons
     document.querySelectorAll('.magnet').forEach(btn=>{
       btn.addEventListener('mousemove', (e)=>{
         const r = btn.getBoundingClientRect();
@@ -695,7 +686,7 @@
       btn.addEventListener('mouseleave', ()=> btn.style.transform = 'translate(0,0)');
     });
 
-    // ===== Back to top
+    // Back to top
     const toTopBtn = document.getElementById('toTopBtn');
     const toggleTop = () => {
       if (window.scrollY > 500) { toTopBtn?.classList.remove('opacity-0','pointer-events-none'); }
@@ -704,7 +695,7 @@
     window.addEventListener('scroll', toggleTop);
     toTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // ===== Particles Canvas
+    // Particles Canvas
     (function(){
       const canvas = document.getElementById('fxCanvas');
       const ctx = canvas.getContext('2d');
