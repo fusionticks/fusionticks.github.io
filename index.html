@@ -3,483 +3,577 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FusionTicks — افهم السوق قبل ما تتداول</title>
-  <meta name="description" content="FusionTicks مع خالد كحيل: كورس تداول عربي يعلمك كيف تقرأ السوق، تعرف مين المسيطر (بايرز ولا سيلرز)، وتبني قرارات نظيفة بدون استراتيجيات وهمية.">
+  <title>FusionTicks – افهم السوق قبل ما تدخل</title>
+  <meta name="description" content="كورس FusionTicks: إطار عملي بالعربي يعلمك تقرأ السوق، تميّز بين البايرز والسيلرز، وتبني ست أبّات قوية بدون ما تقامر باسم استراتيجية.">
 
-  <!-- Favicon (عدّل المسارات حسب ملفاتك) -->
-  <link rel="icon" type="image/png" href="./favicon-32x32.png" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-  <link rel="manifest" href="./site.webmanifest" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./favicon-512x512.png">
+  <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="manifest" href="./site.webmanifest">
 
-  <!-- OpenGraph -->
-  <meta property="og:title" content="FusionTicks — افهم السوق قبل ما تتداول" />
-  <meta property="og:description" content="كورسات تداول عربية حقيقية، بدون وهم، بدون نصب." />
+  <!-- Open Graph -->
+  <meta property="og:title" content="FusionTicks – افهم السوق قبل ما تدخل" />
+  <meta property="og:description" content="تعلم تقرأ السوق، تكدّس كونفرميشنز، وتوقف المقامرة." />
   <meta property="og:image" content="./FT%20Logo.png" />
-  <meta property="og:type" content="website" />
 
-  <!-- Tailwind CDN -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'ft-bg': '#030307',
-            'ft-red': '#FF1744',
-            'ft-red-soft': '#FF3366',
-            'ft-gray': '#9CA3AF'
-          },
-          fontFamily: {
-            sans: ['system-ui', 'ui-sans-serif', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
 
-  <!-- Lucide Icons -->
+  <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
     html { scroll-behavior: smooth; }
-    body { background:#030307; color:#f9fafb; }
+    body { background:#030712; color:#f9fafb; font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro", -ui-sans-serif; }
 
     :root {
-      --ft-red: #FF1744;
-      --ft-red-soft: #FF3355;
-      --ft-dark: #030307;
+      --ft-main: #2563EB;       /* أزرق رئيسي */
+      --ft-main-soft: #38BDF8;  /* أزرق سماوي */
+      --ft-dark: #030712;
     }
 
-    /* Fusion-Red cinematic background */
+    /* خلفية سينمائية هادية */
     .ft-bg-layer {
       position: fixed;
       inset: 0;
       z-index: -10;
       pointer-events: none;
       background:
-        radial-gradient(circle at top left, rgba(255,23,68,0.12), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(255,51,85,0.10), transparent 55%),
-        radial-gradient(circle at top right, rgba(255,255,255,0.03), transparent 60%);
+        radial-gradient(circle at top left, rgba(37,99,235,0.16), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(56,189,248,0.10), transparent 55%),
+        radial-gradient(circle at top right, rgba(15,23,42,0.22), transparent 70%);
     }
 
+    /* زجاج */
     .glass {
-      background: rgba(9,9,11,0.86);
-      border: 1px solid rgba(148,163,253,0.06);
+      background: rgba(6,9,17,0.96);
+      border: 1px solid rgba(148,163,253,0.16);
       backdrop-filter: blur(18px) saturate(150%);
       -webkit-backdrop-filter: blur(18px) saturate(150%);
+      border-radius: 22px;
+      box-shadow: 0 22px 70px rgba(0,0,0,0.9);
     }
 
+    /* أزرار أساسية */
     .btn-ft-primary {
-      @apply inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold text-sm;
-      background: linear-gradient(135deg, var(--ft-red), var(--ft-red-soft));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem;
+      padding: .8rem 1.8rem;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 600;
       color: #020817;
-      box-shadow: 0 14px 40px rgba(255,23,68,0.35);
-      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(135deg, var(--ft-main), var(--ft-main-soft));
+      box-shadow:
+        0 14px 40px rgba(37,99,235,0.35),
+        0 0 0 1px rgba(148,163,253,0.32) inset;
       transition: all .16s ease-out;
+      border: none;
+      text-decoration: none;
+      white-space: nowrap;
     }
     .btn-ft-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 50px rgba(255,23,68,0.42);
-      filter: saturate(1.1);
+      transform: translateY(-2px);
+      box-shadow:
+        0 20px 55px rgba(3,7,18,1),
+        0 0 0 1px rgba(191,219,254,0.7) inset;
+      filter: saturate(1.1) brightness(1.03);
     }
 
+    /* أزرار ثانوية */
     .btn-ft-ghost {
-      @apply inline-flex items-center justify-center px-5 py-3 rounded-2xl font-medium text-xs;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      padding: .7rem 1.6rem;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 500;
       color: #e5e7eb;
-      border: 1px solid rgba(148,163,253,0.18);
-      background: rgba(10,10,15,0.9);
+      background: rgba(9,9,13,0.98);
+      border: 1px solid rgba(148,163,253,0.22);
       transition: all .16s ease-out;
+      text-decoration: none;
+      white-space: nowrap;
     }
     .btn-ft-ghost:hover {
-      background: rgba(15,15,23,1);
-      border-color: rgba(255,23,68,0.4);
+      background: rgba(15,23,42,1);
+      border-color: var(--ft-main-soft);
       color: #fff;
     }
 
+    /* Badge */
     .badge {
-      display:inline-flex;align-items:center;gap:.4rem;
-      padding:.25rem .65rem;border-radius:999px;
-      font-size:.65rem;
-      background:rgba(15,23,42,0.92);
-      border:1px solid rgba(156,163,175,0.45);
-      color:#9CA3AF;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .25rem .7rem;
+      border-radius: 999px;
+      font-size: .63rem;
+      background: rgba(9,9,15,0.98);
+      border: 1px solid rgba(148,163,253,0.25);
+      color: #9CA3AF;
     }
 
+    /* كروت */
     .card {
-      position:relative;
-      border-radius:18px;
-      padding:1.1rem 1.1rem 1.15rem;
-      background: radial-gradient(circle at top left, rgba(255,23,68,0.12), transparent 65%) rgba(9,9,11,0.98);
-      border:1px solid rgba(75,85,99,0.55);
-      box-shadow:0 18px 50px rgba(0,0,0,0.7);
+      position: relative;
+      padding: 1.2rem 1.3rem 1.3rem;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at top left, rgba(37,99,235,0.12), transparent 75%)
+        rgba(6,9,17,0.98);
+      border: 1px solid rgba(51,65,85,0.9);
+      box-shadow: 0 18px 55px rgba(0,0,0,0.85);
       transition: all .18s ease-out;
+      overflow: hidden;
+    }
+    .card::before {
+      content:"";
+      position:absolute;
+      inset:-35%;
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,0.06), transparent 70%);
+      opacity:0;
+      transform:translateY(14px);
+      transition:all .25s ease-out;
+      pointer-events:none;
     }
     .card:hover {
-      border-color: rgba(255,23,68,0.65);
-      box-shadow:0 22px 70px rgba(0,0,0,0.9);
       transform: translateY(-3px);
+      border-color: rgba(56,189,248,0.65);
+      box-shadow: 0 26px 80px rgba(3,4,9,1);
+    }
+    .card:hover::before {
+      opacity:1;
+      transform:translateY(0);
     }
 
+    /* عناوين متدرجة */
     .gradient-text {
-      background: linear-gradient(to left, #FFE4E6, #FF1744, #FB7185);
+      background: linear-gradient(to left, #EFF6FF, var(--ft-main-soft), var(--ft-main));
       -webkit-background-clip: text;
       color: transparent;
     }
 
-    .reveal {opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease;}
-    .reveal.in{opacity:1;transform:none;}
+    /* Ticker */
+    .ticker {
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      background: rgba(3,7,18,0.98);
+      border-top: 1px solid rgba(15,23,42,1);
+      border-bottom: 1px solid rgba(15,23,42,1);
+      font-size: .7rem;
+    }
+    .ticker-track {
+      display: inline-block;
+      padding-block: .4rem;
+      animation: ticker 40s linear infinite;
+      color: #9CA3AF;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
 
-    section[id]{scroll-margin-top:92px;}
+    /* Scroll reveal */
+    .reveal { opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+    .reveal.in { opacity:1; transform:none; }
 
+    section[id] { scroll-margin-top: 92px; }
+
+    /* Social icons */
     .social {
-      width:38px;height:38px;
-      border-radius:999px;
-      display:flex;align-items:center;justify-content:center;
-      border:1px solid rgba(148,163,253,0.22);
-      background:rgba(10,10,15,1);
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(148,163,253,0.26);
+      background:rgba(5,7,11,1);
+      color:#9CA3AF;
       transition:all .16s ease;
+      text-decoration:none;
     }
-    .social:hover{
-      border-color:var(--ft-red);
-      background:rgba(17,17,25,1);
-      color:var(--ft-red);
+    .social:hover {
+      border-color:var(--ft-main-soft);
+      color:var(--ft-main-soft);
+      background:rgba(10,16,30,1);
     }
 
-    body.menu-open, body.modal-open {overflow:hidden;}
+    /* Back to top */
+    #backToTop {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    body.menu-open,
+    body.modal-open { overflow: hidden; }
   </style>
 </head>
-<body class="font-sans antialiased">
-<div class="ft-bg-layer"></div>
 
-<!-- NAV -->
-<header class="fixed top-0 inset-x-0 z-40 bg-black/70 border-b border-white/10 backdrop-blur-xl">
-  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-    <a href="#top" class="flex items-center gap-2">
-      <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto" />
-      <span class="text-sm font-semibold tracking-tight">FusionTicks</span>
-    </a>
+<body class="min-h-screen relative">
+  <!-- خلفية -->
+  <div class="ft-bg-layer"></div>
 
-    <nav class="hidden md:flex items-center gap-5 text-[0.8rem] text-zinc-300">
-      <a href="#why" class="hover:text-white">ليش FusionTicks؟</a>
-      <a href="#curriculum" class="hover:text-white">محتوى الكورس</a>
-      <a href="#journal" class="hover:text-white">Trading Journal</a>
-      <a href="#community" class="hover:text-white">الكوميونتي</a>
-      <a href="#pricing" class="hover:text-white">السعر</a>
-      <a href="#faq" class="hover:text-white">FAQ</a>
-    </nav>
+  <!-- ناف بار -->
+  <header class="sticky top-0 z-40 bg-[#020817]/92 backdrop-blur border-b border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <a href="#hero" class="flex items-center gap-2">
+        <img src="./FT%20Logo.png" alt="FusionTicks" class="w-8 h-8 object-contain">
+        <span class="text-sm font-semibold tracking-tight">FusionTicks</span>
+      </a>
 
-    <div class="hidden md:flex items-center gap-2">
-      <a href="#pricing" class="btn-ft-primary text-xs">ابدأ الآن</a>
-    </div>
+      <nav class="hidden md:flex items-center gap-6 text-[0.78rem] text-slate-300">
+        <a href="#hero" class="hover:text-white">الرئيسية</a>
+        <a href="#how" class="hover:text-white">Process</a>
+        <a href="#curriculum" class="hover:text-white">محتوى الكورس</a>
+        <a href="#discord" class="hover:text-white">الكوميونيتي</a>
+        <a href="#pricing" class="hover:text-white">السعر</a>
+        <a href="#faq" class="hover:text-white">FAQ</a>
+      </nav>
 
-    <!-- Mobile menu -->
-    <button id="menuBtn" class="md:hidden p-2 rounded-xl bg-white/5 border border-white/15">
-      <i data-lucide="menu" class="w-5 h-5"></i>
-    </button>
-  </div>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#pricing" class="btn-ft-primary text-[0.75rem] px-4 py-2">ادخل الكورس الآن</a>
+      </div>
 
-  <!-- Simple strip بدل التخفيضات الكذابة -->
-  <div class="text-[0.65rem] text-center text-zinc-400 bg-black/80 border-t border-white/5 px-4 py-1">
-    أول مجموعة من المتداولين اللي ينضمّوا هم أساس FusionTicks. لو أنت جدي، هذي الدعوة إلك.
-  </div>
-</header>
-
-<!-- Mobile Menu -->
-<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
-  <div class="absolute inset-0 bg-black/80" data-close></div>
-  <div class="absolute left-3 right-3 top-24 glass rounded-2xl p-4 space-y-3 text-sm">
-    <div class="flex justify-between items-center mb-1">
-      <span class="text-xs text-zinc-400">القائمة</span>
-      <button class="p-2 rounded-xl bg-white/5" data-close>
-        <i data-lucide="x" class="w-4 h-4"></i>
+      <!-- موبايل -->
+      <button id="menuBtn" class="md:hidden p-2 rounded-xl bg-slate-900/80 border border-slate-700/80">
+        <i data-lucide="menu" class="w-4 h-4 text-slate-200"></i>
       </button>
     </div>
-    <a href="#why" class="block py-2 border-t border-white/10">ليش FusionTicks؟</a>
-    <a href="#curriculum" class="block py-2 border-t border-white/10">محتوى الكورس</a>
-    <a href="#journal" class="block py-2 border-t border-white/10">Trading Journal</a>
-    <a href="#community" class="block py-2 border-t border-white/10">الكوميونتي</a>
-    <a href="#pricing" class="block py-2 border-t border-white/10">السعر</a>
-    <a href="#faq" class="block py-2 border-t border-white/10">FAQ</a>
-    <a href="#pricing" class="mt-2 btn-ft-primary w-full text-center text-xs">ابدأ الآن</a>
-  </div>
-</div>
 
-<!-- HERO -->
-<main id="top" class="pt-28 pb-10">
-  <section class="max-w-6xl mx-auto px-4 grid md:grid-cols-[1.7fr,1.3fr] gap-10 items-center">
-    <!-- Text -->
-    <div class="reveal">
-      <p class="badge mb-3">
-        <i data-lucide="activity" class="w-3 h-3"></i>
-        من تريدر تحطّم… لتريدر فاهم — بدون تمثيل
-      </p>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-4">
-        <span class="gradient-text">افهم السوق قبل ما تدخل.</span><br/>
-        توقف عن المقامرة باسم “استراتيجية”.
-      </h1>
-      <p class="text-sm text-zinc-300 leading-relaxed max-w-xl">
-        اسمي خالد كحيل. مريت بكل الخراب اللي أغلب التريدرز حالياً عايشينه:
-        كورسات فاضية، استراتيجيات جاهزة، حسابات محروقة، وإدمان تشالنجات بروب فيرم.
-        النقطة اللي غيرت حياتي؟ لما بطلت أدور على “سر”،
-        وركزت أفهم <span class="text-ft-red-soft font-semibold">مين المسيطر: البايرز ولا السيلرز</span>،
-        وكيف أجمع تأكيد فوق تأكيد… وأدخل بس لما السوق يحترم شروطي.
-      </p>
-      <p class="mt-2 text-[0.78rem] text-zinc-400">
-        FusionTicks هو نفس السيستم اللي بمشي عليه اليوم:
-        بسيط، نظيف، بلا وعود كاذبة، وبالعربي.
-      </p>
-
-      <div class="mt-6 flex flex-wrap gap-3 items-center">
-        <a href="#pricing" class="btn-ft-primary text-xs">
-          ادخل الكورس الآن
-          <i data-lucide="arrow-left" class="w-4 h-4"></i>
-        </a>
-        <a href="#curriculum" class="btn-ft-ghost">
-          <i data-lucide="list-checks" class="w-4 h-4"></i>
-          شوف محتوى الكورس
-        </a>
-      </div>
-
-      <div class="mt-4 flex flex-wrap gap-4 text-[0.7rem] text-zinc-500">
-        <div class="flex items-center gap-1.5">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-ft-red"></i>
-          لا سيغنالز · لا وعود يومية · تعليم حقيقي فقط
-        </div>
-        <div class="flex items-center gap-1.5">
-          <i data-lucide="users" class="w-3.5 h-3.5 text-ft-red"></i>
-          وصول لديسكورد مغلق + تحديثات مدى الحياة
-        </div>
+    <!-- Ticker -->
+    <div class="ticker">
+      <div class="ticker-track">
+        <span class="mx-10">لعرض محدود: أول ٤٠ شخص بسعر ٥٥٠$ بدلاً من ١٠٠٠$ – تحديثات مدى الحياة.</span>
+        <span class="mx-10">الكورس بالعربي – بدون وهم أرباح، بدون "استراتيجية سحرية".</span>
+        <span class="mx-10">افهم مين المسيطر: Buyers ولا Sellers قبل ما تفكر تدخل.</span>
+        <span class="mx-10">مجتمع FusionTicks + كورس + Framework واحد واضح.</span>
       </div>
     </div>
+  </header>
 
-    <!-- Visual -->
-    <div class="reveal">
-      <div class="relative">
-        <div class="absolute -inset-6 rounded-3xl bg-gradient-to-bl from-ft-red/25 via-transparent to-black blur-3xl opacity-60"></div>
-        <div class="relative glass rounded-3xl p-4 border border-ft-red/20 flex flex-col gap-3">
+  <!-- مينو موبايل -->
+  <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70" data-close></div>
+    <div class="absolute top-20 right-4 left-4 glass p-4 space-y-2 text-sm">
+      <div class="flex justify-between items-center mb-1">
+        <span class="font-semibold text-slate-100 text-xs">القائمة</span>
+        <button class="p-2 rounded-xl bg-slate-900/90 border border-slate-700" data-close>
+          <i data-lucide="x" class="w-4 h-4 text-slate-200"></i>
+        </button>
+      </div>
+      <a href="#hero" class="block py-2 border-t border-slate-800/70">الرئيسية</a>
+      <a href="#how" class="block py-2 border-t border-slate-800/70">Process</a>
+      <a href="#curriculum" class="block py-2 border-t border-slate-800/70">محتوى الكورس</a>
+      <a href="#discord" class="block py-2 border-t border-slate-800/70">الكوميونيتي</a>
+      <a href="#pricing" class="block py-2 border-t border-slate-800/70">السعر</a>
+      <a href="#faq" class="block py-2 border-t border-slate-800/70">FAQ</a>
+      <a href="#pricing" class="mt-3 btn-ft-primary w-full justify-center">ادخل الكورس الآن</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <main id="hero" class="max-w-6xl mx-auto px-4 pt-10 pb-8">
+    <section class="grid lg:grid-cols-[1.7fr_minmax(260px,1.1fr)] gap-8 items-start">
+      <!-- نص -->
+      <div class="reveal">
+        <p class="text-[0.7rem] text-slate-400 mb-2 flex items-center gap-2">
+          <span class="w-1 h-6 bg-gradient-to-b from-[var(--ft-main-soft)] to-transparent rounded-full"></span>
+          من تريدر حقيقي… مش "كورس سوشيل ميديا".
+        </p>
+        <h1 class="text-3xl md:text-4xl font-black leading-relaxed mb-4">
+          <span class="gradient-text">افهم السوق قبل ما تدخل.</span><br />
+          توقّف عن المقامرة باسم
+          <span class="font-extrabold text-slate-100">"استراتيجية".</span>
+        </h1>
+        <p class="text-[0.82rem] text-slate-300 leading-relaxed mb-4">
+          اسمي خالد كحيل، مريت بكل الخراب اللي انت مريت فيه: يوتيوب، كورسات،
+          استراتيجيات، حسابات محترقة، إحباط… لحد ما فهمت إن اللعبة كلها مين المسيطر:
+          <span class="text-[var(--ft-main-soft)] font-semibold">الـ Buyers ولا الـ Sellers</span>،
+          وكيف تكدّس كونفرميشن فوق كونفرميشن عشان تدخل بس لما الصورة تكون واضحة.
+        </p>
+        <p class="text-[0.8rem] text-slate-400 mb-5">
+          FusionTicks مش كورس "سحر". هو Framework واحد بالعربي،
+          يعلمك تقرأ السوق، تبعد عن المقامرة، وتبني الـ setups على فهم… مش حفظ.
+        </p>
+        <div class="flex flex-wrap gap-3 items-center mb-4">
+          <a href="#pricing" class="btn-ft-primary">ادخل الكورس الآن</a>
+          <a href="#curriculum" class="btn-ft-ghost">شوف محتوى الكورس</a>
+        </div>
+        <div class="flex flex-wrap gap-2 text-[0.65rem] text-slate-500">
+          <span class="badge">٢٣ درس عربي</span>
+          <span class="badge">إطار واضح من A → D</span>
+          <span class="badge">مجتمع خاص على Discord</span>
+          <span class="badge">تحديثات مدى الحياة</span>
+        </div>
+      </div>
+
+      <!-- بطاقة الكورس -->
+      <aside class="reveal">
+        <div class="glass px-4 py-4 flex flex-col gap-2">
           <div class="flex items-center justify-between gap-3">
             <div class="flex items-center gap-2">
-              <div class="w-9 h-9 rounded-2xl bg-ft-red/80 flex items-center justify-center text-xs font-bold text-black">
-                FT
-              </div>
-              <div>
-                <div class="text-[0.75rem] font-semibold">FusionTicks Course</div>
-                <div class="text-[0.6rem] text-zinc-500">Process over Emotion</div>
+              <img src="./FT%20Logo.png" alt="FT" class="w-8 h-8">
+              <div class="leading-tight">
+                <div class="text-[0.78rem] text-slate-300">FusionTicks Course</div>
+                <div class="text-[0.6rem] text-slate-500">Process over Emotion</div>
               </div>
             </div>
-            <img src="./FT%20Logo.png" alt="FusionTicks" class="h-9 w-auto opacity-90">
-          </div>
-          <div class="mt-2 text-[0.72rem] text-zinc-300 leading-relaxed">
-            • ٢٣ درس مسجل عربي<br/>
-            • Framework واضح لقراءة السوق (A → D)<br/>
-            • تطبيق عملي على نفس الأدوات اللي بتستخدمها يومياً<br/>
-            • دخول لديسكورد الخاص عشان تكمل التطوير مع ناس جديّة
-          </div>
-          <div class="mt-2 flex items-baseline justify-between">
-            <div class="flex flex-col gap-0.5">
-              <span class="text-[0.65rem] text-zinc-500">سعر الكورس</span>
-              <span class="text-xl font-extrabold text-ft-red-soft">$550</span>
-              <span class="text-[0.6rem] text-zinc-500">دفع مرة واحدة — تحديثات مدى الحياة</span>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--ft-main)] to-[var(--ft-main-soft)]
+                        flex items-center justify-center text-[0.6rem] font-semibold text-slate-900">
+              FT
             </div>
-            <a href="#pricing" class="btn-ft-primary text-[0.7rem] px-4 py-2">
-              التفاصيل
-            </a>
+          </div>
+
+          <ul class="mt-2 space-y-1 text-[0.7rem] text-slate-300">
+            <li>▪️ ٢٣ درس مسجل بالعربي.</li>
+            <li>▪️ Framework من A → D: قراءة السوق → مستويات → مؤشرات → خلف الكواليس.</li>
+            <li>▪️ تطبيق عملي على نفس الأدوات اللي أنا بستخدمها يومياً.</li>
+            <li>▪️ دخول للكوميونيتي الخاص على Discord عشان تكمّل التطور مع ناس جادة.</li>
+          </ul>
+
+          <div class="mt-3 pt-2 border-t border-slate-800 flex items-center justify-between gap-3">
+            <div class="text-[0.7rem] text-slate-400">
+              سعر الإطلاق لأول ٤٠ شخص فقط:
+              <div class="flex items-baseline gap-1">
+                <span class="text-xs line-through text-slate-500">$1000</span>
+                <span class="text-xl font-extrabold text-[var(--ft-main-soft)]">$550</span>
+              </div>
+            </div>
+            <a href="#pricing" class="btn-ft-primary text-[0.7rem] px-3 py-2">شراء الكورس الآن</a>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </aside>
+    </section>
 
-  <!-- WHY -->
-  <section id="why" class="max-w-6xl mx-auto px-4 py-10">
-    <div class="grid md:grid-cols-3 gap-4">
+    <!-- 3 كروت توضيحية -->
+    <section class="mt-8 grid md:grid-cols-3 gap-4 text-[0.72rem]">
       <div class="card reveal">
-        <h3 class="text-sm font-semibold mb-1">مش كورس استراتيجيات سحرية</h3>
-        <p class="text-[0.75rem] text-zinc-300">
-          مافي “ادخل من هون واطلع من هون وتطق معك ملايين”.
-          تتعلم تقرأ البنية، تفهم السلوك، تعرف وين احتمالك يزيد،
-          وتبني <span class="text-ft-red-soft">setups منطقية</span> بنفسك.
+        <div class="text-slate-100 font-semibold mb-1">مش كورس استراتيجيات سحرية</div>
+        <p class="text-slate-400 leading-relaxed">
+          مافي "زر سحري". في أدوات بتخليك تفهم السوق، وتبني الـ setups اللي تناسبك،
+          بدون ما تعيش عبد لإشارات غيرك.
         </p>
       </div>
       <div class="card reveal">
-        <h3 class="text-sm font-semibold mb-1">مين المسيطر؟</h3>
-        <p class="text-[0.75rem] text-zinc-300">
-          كل درس مبني على سؤال واحد: من ماسك السوق الآن؟
-          Buyers ولا Sellers؟ من هون تطلع قراراتك، مو من مؤشر عشوائي.
+        <div class="text-slate-100 font-semibold mb-1">مين المسيطر؟</div>
+        <p class="text-slate-400">
+          كل درس مبني على سؤال واحد: "العين المهيمنة الآن Buyers ولا Sellers؟"
+          لو ما عرفت تجاوب… انت حرفياً بتقامر.
         </p>
       </div>
       <div class="card reveal">
-        <h3 class="text-sm font-semibold mb-1">Process قبل الربح</h3>
-        <p class="text-[0.75rem] text-zinc-300">
-          الهدف إنك توقف تعيش من صفقة لصفقة،
-          وتبني هوية متداول منضبط. الكورس + الجيرنال + الديسكورد
-          شغالين كمنظومة وحدة.
+        <div class="text-slate-100 font-semibold mb-1">Process قبل الربح</div>
+        <p class="text-slate-400">
+          هدف الكورس يوقفك تدمّر حسابك من صفقة غبية. هوية واضحة:
+          Journal + Rules + أدوات قراءة السوق + كوميونيتي منضبط.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="max-w-6xl mx-auto px-4 py-10">
+    <div class="mb-4 reveal">
+      <h2 class="text-2xl md:text-3xl font-bold">
+        كيف بنشتغل؟ <span class="gradient-text text-2xl">Pipeline بسيط تلتزم فيه</span>
+      </h2>
+      <p class="text-[0.8rem] text-slate-400 mt-1">
+        أربع خطوات توضح لك كل يوم: تجهّز، تقرأ، تأكد، تراجع.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-4 gap-4 text-[0.72rem]">
+      <div class="card reveal">
+        <div class="flex items-center gap-1 text-slate-100 font-semibold text-[0.75rem]">
+          <i data-lucide="map" class="w-4 h-4 text-[var(--ft-main-soft)]"></i>
+          ١) التحضير
+        </div>
+        <p class="mt-2 text-slate-400">
+          تحديد مستويات HTF، مناطق العرض/الطلب، الأخبار، والجلسة اللي حتشتغل فيها.
+        </p>
+      </div>
+      <div class="card reveal">
+        <div class="flex items-center gap-1 text-slate-100 font-semibold text-[0.75rem]">
+          <i data-lucide="scan" class="w-4 h-4 text-[var(--ft-main-soft)]"></i>
+          ٢) قراءة السوق
+        </div>
+        <p class="mt-2 text-slate-400">
+          Swings، BOS / CHoCH، FVG، توازن/عدم توازن… عشان تعرف مين مسيطر.
+        </p>
+      </div>
+      <div class="card reveal">
+        <div class="flex items-center gap-1 text-slate-100 font-semibold text-[0.75rem]">
+          <i data-lucide="goal" class="w-4 h-4 text-[var(--ft-main-soft)]"></i>
+          ٣) الكونفرميشن
+        </div>
+        <p class="mt-2 text-slate-400">
+          تكديس سياق + سلوك سعر + إلغاء واضح. لو الصورة مش نظيفة → ما في دخول.
+        </p>
+      </div>
+      <div class="card reveal">
+        <div class="flex items-center gap-1 text-slate-100 font-semibold text-[0.75rem]">
+          <i data-lucide="repeat" class="w-4 h-4 text-[var(--ft-main-soft)]"></i>
+          ٤) المراجعة
+        </div>
+        <p class="mt-2 text-slate-400">
+          Journal، Screenshots، دروس مستفادة. تربّي هوية تريدر… مو مقامر.
         </p>
       </div>
     </div>
   </section>
 
   <!-- CURRICULUM -->
-  <section id="curriculum" class="max-w-6xl mx-auto px-4 py-8">
-    <div class="reveal mb-4">
-      <h2 class="text-2xl font-bold mb-1">
-        محتوى الكورس <span class="gradient-text">FusionTicks</span>
-      </h2>
-      <p class="text-[0.75rem] text-zinc-400 max-w-xl">
-        ٤ مراحل واضحة. بدون حشو. بدون تعقيد. كل شيء مربوط بسؤال:
-        “كيف أرفع الاحتمال وأبعد عن المقامرة؟”
+  <section id="curriculum" class="max-w-6xl mx-auto px-4 py-10">
+    <div class="mb-4 reveal">
+      <h2 class="text-2xl md:text-3xl font-bold gradient-text">محتوى الكورس</h2>
+      <p class="text-[0.8rem] text-slate-400 mt-1">
+        ٤ مراحل مترابطة تبني فهم حقيقي، مو حفظ شكل شمعة.
       </p>
     </div>
-
-    <div class="grid sm:grid-cols-2 gap-4 text-[0.78rem]">
+    <div class="grid md:grid-cols-2 gap-4 text-[0.72rem]">
       <div class="card reveal">
-        <div class="flex items-center justify-between">
-          <h3 class="font-semibold">A · Reading The Market</h3>
+        <div class="flex items-center justify-between gap-2">
+          <h3 class="text-slate-100 text-[0.8rem] font-semibold">A · Reading The Market</h3>
           <span class="badge">٦ دروس</span>
         </div>
-        <p class="mt-1 text-zinc-300">
-          الشموع، مراحل السوق، الحركة، الـ Swings، BOS &amp; CHoCH،
-          و FVG كأداة لفهم التوازن، مش دخول عشوائي.
+        <p class="mt-2 text-slate-400">
+          الشموع، مراحل السوق، حركة السعر، Swings، BOS/CHoCH، FVG.
         </p>
       </div>
       <div class="card reveal">
-        <div class="flex items-center justify-between">
-          <h3 class="font-semibold">B · Market Levels</h3>
+        <div class="flex items-center justify-between gap-2">
+          <h3 class="text-slate-100 text-[0.8rem] font-semibold">B · Market Levels</h3>
           <span class="badge">٣ دروس</span>
         </div>
-        <p class="mt-1 text-zinc-300">
-          Supply/Demand, Support/Resistance, Opening Range.
-          مش “استراتيجية”، بل مناطق نراقب عندها سلوك السعر ونستنى
-          تأكيد الأدوات.
+        <p class="mt-2 text-slate-400">
+          Supply / Demand، Support / Resistance، Opening Range Breakout كمناطق تحضير،
+          مش إشارات دخول لحالها.
         </p>
       </div>
       <div class="card reveal">
-        <div class="flex items-center justify-between">
-          <h3 class="font-semibold">C · Market Indicators</h3>
+        <div class="flex items-center justify-between gap-2">
+          <h3 class="text-slate-100 text-[0.8rem] font-semibold">C · Market Indicators</h3>
           <span class="badge">٣ دروس</span>
         </div>
-        <p class="mt-1 text-zinc-300">
-          Volume Profile، VWAP & Anchored، EMA.
-          كيف تستخدمهم جوّا الـ context بدل ما يخلوك أعمى.
+        <p class="mt-2 text-slate-400">
+          Volume Profile، VWAP & Anchored، EMA – كيف تخدم الفكرة، مو تسيطر عليها.
         </p>
       </div>
       <div class="card reveal">
-        <div class="flex items-center justify-between">
-          <h3 class="font-semibold">D · Behind The Scenes</h3>
+        <div class="flex items-center justify-between gap-2">
+          <h3 class="text-slate-100 text-[0.8rem] font-semibold">D · Behind The Scenes</h3>
           <span class="badge">٧ دروس</span>
         </div>
-        <p class="mt-1 text-zinc-300">
-          TradingView، أنواع الأوامر، Prop Firms، إدارة المخاطر،
-          الجيرنال، الأخبار، السيكولوجيا. كل شيء حوالين الشارت
-          اللي فعلاً يحدد إذا حتعيش في السوق أو لا.
+        <p class="mt-2 text-slate-400">
+          TradingView، Prop Firms، أنواع الأوامر، إدارة المخاطر، الجيرنال، الأخبار،
+          وسيكولوجية التريدر.
         </p>
       </div>
     </div>
-  </section>
-
-  <!-- JOURNAL -->
-  <section id="journal" class="max-w-6xl mx-auto px-4 py-8">
-    <div class="card reveal">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h3 class="text-sm font-semibold mb-1">FusionTicks Trading Journal (Notion)</h3>
-          <p class="text-[0.72rem] text-zinc-300">
-            تيمبلِيت جاهز على Notion يخلّيك تراقب قراراتك، التزامك، وأخطائك
-            بنفس منطق الكورس: Process over Emotion.
-            مناسب كمنتج مستقل، أو كأداة تكمل مع الكورس.
-          </p>
-          <p class="mt-1 text-[0.68rem] text-zinc-500">
-            اللي يشتري الجيرنال ويقرر يدخل الكورس بعدها، قيمة الجيرنال تنخصم من سعر الكورس (تفاصيل عند الشراء).
-          </p>
-        </div>
-        <div class="text-right">
-          <div class="text-[0.7rem] text-zinc-500 mb-1">السعر</div>
-          <div class="text-lg font-bold text-ft-red-soft">$20</div>
-          <!-- عدّل الرابط حسب صفحة البيع في Notion -->
-          <a href="#" class="btn-ft-ghost mt-2 text-[0.7rem]">
-            احصل على الجيرنال
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMMUNITY -->
-  <section id="community" class="max-w-6xl mx-auto px-4 py-10">
-    <div class="reveal mb-4">
-      <h2 class="text-2xl font-bold">
-        الكوميونتي المغلق <span class="gradient-text">FusionTicks Discord</span>
-      </h2>
-      <p class="text-[0.75rem] text-zinc-400 max-w-xl">
-        مش سيرفر سبام. مكان صغير لناس جدية:
-        مستويات يومية، نظرة للسوق، أسئلة، مراجعة، وانضباط جماعي.
-      </p>
-    </div>
-
-    <div class="grid sm:grid-cols-3 gap-4 text-[0.74rem]">
-      <div class="card reveal">
-        <h3 class="font-semibold text-sm flex items-center gap-1">
-          <i data-lucide="messages-square" class="w-4 h-4 text-ft-red"></i> غرفة النقاش
-        </h3>
-        <p class="mt-1 text-zinc-300">تحليلات، أسئلة، تصحيح تفكير — بدون استعلاء.</p>
-      </div>
-      <div class="card reveal">
-        <h3 class="font-semibold text-sm flex items-center gap-1">
-          <i data-lucide="target" class="w-4 h-4 text-ft-red"></i> Market Levels
-        </h3>
-        <p class="mt-1 text-zinc-300">مستويات رئيسية للسوق كتحضير — الدخول دايمًا مربوط بتأكيد الأدوات.</p>
-      </div>
-      <div class="card reveal">
-        <h3 class="font-semibold text-sm flex items-center gap-1">
-          <i data-lucide="calendar" class="w-4 h-4 text-ft-red"></i> جلسات مراجعة
-        </h3>
-        <p class="mt-1 text-zinc-300">مراجعة أسبوعية للـ process، الأخطاء المتكررة، وأسئلة الطلاب.</p>
-      </div>
-    </div>
-
     <div class="mt-5 reveal">
-      <a href="https://discord.gg/WpurM7d5F" target="_blank" rel="noopener noreferrer" class="btn-ft-ghost text-[0.72rem]">
-        <img src="./discord%20logo.png" class="w-4 h-4" alt="Discord" />
-        ادخل الديسكورد بعد شراء الكورس / الجيرنال
+      <button id="openCurriculum" class="btn-ft-ghost">
+        <i data-lucide="list-checks" class="w-4 h-4"></i>
+        عرض المنهج بالتفصيل
+      </button>
+    </div>
+  </section>
+
+  <!-- DISCORD -->
+  <section id="discord" class="max-w-6xl mx-auto px-4 py-10">
+    <div class="mb-4 reveal">
+      <h2 class="text-2xl md:text-3xl font-bold">
+        كوميونيتي <span class="gradient-text">FusionTicks</span>
+      </h2>
+      <p class="text-[0.8rem] text-slate-400 mt-1">
+        مكان واحد نشارك فيه الليفيلز، التحليل، الأخطاء، والتطور الحقيقي… بدون تهريج.
+      </p>
+      <a href="https://discord.gg/WpurM7d5F" target="_blank" class="btn-ft-primary mt-3">
+        <img src="./discord%20logo.png" class="w-4 h-4" alt="">
+        دخول Discord
       </a>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4 text-[0.72rem]">
+      <div class="card reveal">
+        <div class="text-slate-100 text-[0.8rem] font-semibold mb-1">#chatroom</div>
+        <p class="text-slate-400">دردشة يومية، أسئلة، Screenshots، ومساعدة بدون حكم.</p>
+      </div>
+      <div class="card reveal">
+        <div class="text-slate-100 text-[0.8rem] font-semibold mb-1">#market-news</div>
+        <p class="text-slate-400">أهم الأخبار والأيام الخطرة عشان ما تطير حسابك على خبر.</p>
+      </div>
+      <div class="card reveal">
+        <div class="text-slate-100 text-[0.8rem] font-semibold mb-1">#market-levels</div>
+        <p class="text-slate-400">ليفيلز يومية (NQ, ES, Gold, Oil) + تذكير: الدخول بعد الكونفرميشن.</p>
+      </div>
     </div>
   </section>
 
   <!-- PRICING -->
   <section id="pricing" class="max-w-6xl mx-auto px-4 py-10">
-    <div class="reveal mb-4">
-      <h2 class="text-2xl font-bold">
-        استثمار واحد واضح. بدون لعب.
+    <div class="mb-4 reveal">
+      <h2 class="text-2xl md:text-3xl font-bold">
+        استثمار واحد… <span class="gradient-text">ووصول كامل</span>
       </h2>
-      <p class="text-[0.75rem] text-zinc-400 max-w-xl">
-        FusionTicks موجه للي فعلاً ناوي يتعامل مع التداول كبزنس.
-        عدد المقاعد محدود مبدئياً عشان أظل قريب من كل Student.
+      <p class="text-[0.8rem] text-slate-400 mt-1">
+        أول <b>٤٠</b> شخص: <span class="line-through text-slate-500">$1000</span>
+        <span class="font-semibold text-[var(--ft-main-soft)]">$550</span> فقط – تحديثات مدى الحياة.
       </p>
     </div>
 
-    <div class="card reveal flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-      <div>
-        <div class="flex items-center gap-2 mb-1">
-          <span class="text-sm font-semibold">FusionTicks Course + Community</span>
-          <span class="badge">دفع مرة واحدة</span>
+    <div class="grid md:grid-cols-2 gap-4 text-[0.75rem]">
+      <div class="card reveal flex flex-col gap-2">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="text-slate-100 text-[0.85rem] font-semibold">FusionTicks Course · Lifetime Access</div>
+            <div class="mt-1 badge">إطلاق محدود · أول ٤٠ فقط</div>
+          </div>
+          <div class="text-left">
+            <div class="text-2xl font-extrabold text-[var(--ft-main-soft)]">$550</div>
+            <div class="text-[0.65rem] text-slate-500 line-through">$1000</div>
+          </div>
         </div>
-        <ul class="text-[0.72rem] text-zinc-300 space-y-1">
-          <li>٢٣ درس فيديو مسجل بالعربي (A→D Framework).</li>
-          <li>تحديثات مدى الحياة بدون رسوم إضافية.</li>
-          <li>وصول للديسكورد المغلق (Levels + Q&A + مراجعات).</li>
-          <li>Bonus: خصم كامل لقيمة الجيرنال لو كنت مشتريه.</li>
-          <li>لا وعود دخل، لا أرباح مضمونة — تعليم فقط.</li>
+        <ul class="mt-1 space-y-1 text-slate-300">
+          <li>✔️ ٢٣ درس مسجل بالعربي بإطار واضح وسهل.</li>
+          <li>✔️ دخول دائم للكوميونيتي على Discord.</li>
+          <li>✔️ جلسات Q&amp;A دورية ومراجعة Process.</li>
+          <li>✔️ كل التحديثات المستقبلية مشمولة بدون أي دفع إضافي.</li>
         </ul>
+        <div class="mt-3 flex flex-col gap-1">
+          <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true"
+             class="btn-ft-primary w-full justify-center">
+            شراء الكورس الآن
+          </a>
+          <p class="text-[0.6rem] text-slate-500 text-center">
+            الدفع يتم عبر Whop بشكل آمن. أماكن الإطلاق محدودة.
+          </p>
+        </div>
       </div>
-      <div class="text-left md:text-right mt-3 md:mt-0">
-        <div class="text-[0.7rem] text-zinc-500">السعر</div>
-        <div class="text-2xl font-extrabold text-ft-red-soft">$550</div>
-        <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true"
-           class="btn-ft-primary mt-2 w-full md:w-auto text-[0.8rem]">
-          شراء الكورس الآن
-        </a>
-        <p class="mt-1 text-[0.6rem] text-zinc-500">
-          الدفع يتم عبر Whop بشكل آمن. وصول مباشر بعد الشراء.
+
+      <div class="card reveal flex flex-col gap-2 opacity-70">
+        <div class="flex items-start justify-between gap-2">
+          <div class="text-slate-100 text-[0.85rem] font-semibold">
+            Trading Journal Template (قريباً)
+          </div>
+          <span class="badge">Soon</span>
+        </div>
+        <p class="text-slate-400 text-[0.72rem]">
+          جيرنال جاهز على Notion مبني على نفس الProcess:
+          حساباتك، قواعدك، Checklist التنفيذ، ونتائجك… بمكان واحد.
+        </p>
+        <p class="text-[0.65rem] text-slate-500">
+          هيكون خيار مستقل بسعر رمزي، أو Bonus لفئة معيّنة من الطلاب.
         </p>
       </div>
     </div>
@@ -487,93 +581,180 @@
 
   <!-- FAQ -->
   <section id="faq" class="max-w-6xl mx-auto px-4 py-10">
-    <div class="reveal mb-3">
-      <h2 class="text-2xl font-bold gradient-text">FAQ</h2>
+    <div class="mb-4 reveal">
+      <h2 class="text-2xl md:text-3xl font-bold gradient-text">FAQ</h2>
     </div>
-    <div class="space-y-2 text-[0.75rem]">
+    <div class="space-y-3 text-[0.75rem]">
       <details class="card reveal" open>
-        <summary class="cursor-pointer font-semibold text-sm">هل الكورس للمبتدئين ولا للمتقدمين؟</summary>
-        <p class="mt-1 text-zinc-300">
-          يبدأ من الأساسيات (قراءة السوق) لكن بأسلوب ناضج،
-          ويوصل معك لمرحلة تبني فيها setups خاصة فيك.
+        <summary class="cursor-pointer text-slate-100 font-medium">
+          الكورس للمبتدئين ولا للناس اللي عندها خبرة؟
+        </summary>
+        <p class="mt-2 text-slate-400">
+          الإثنين. نبدأ من أساسيات قراءة السوق، ونوصل لمرحلة تبني Setups خاصة فيك.
         </p>
       </details>
       <details class="card reveal">
-        <summary class="cursor-pointer font-semibold text-sm">هل في نتائج مضمونة؟</summary>
-        <p class="mt-1 text-zinc-300">
-          لا. ما في أي ضمان ربح. المحتوى للتعليم فقط.
-          التنفيذ، الانضباط، وإدارة رأس المال مسؤوليتك ١٠٠٪.
+        <summary class="cursor-pointer text-slate-100 font-medium">
+          أي أسواق بنركز عليها؟
+        </summary>
+        <p class="mt-2 text-slate-400">
+          التركيز على NQ, ES, Gold, Oil – بس الإطار يشتغل على أي سوق.
         </p>
       </details>
       <details class="card reveal">
-        <summary class="cursor-pointer font-semibold text-sm">لغة الكورس؟</summary>
-        <p class="mt-1 text-zinc-300">
-          عربي، بأسلوب بسيط وواقعي، مع استخدام المصطلحات الإنجليزية الضرورية للتداول.
+        <summary class="cursor-pointer text-slate-100 font-medium">
+          هل في دخول للكوميونيتي مع الكورس؟
+        </summary>
+        <p class="mt-2 text-slate-400">
+          نعم، الكورس يتضمن دخول للكوميونيتي الخاص على Discord.
         </p>
       </details>
       <details class="card reveal">
-        <summary class="cursor-pointer font-semibold text-sm">هل يشمل الكورس لايفات؟</summary>
-        <p class="mt-1 text-zinc-300">
-          حالياً: جلسات مراجعة و Q&amp;A داخل الديسكورد.
-          أي لايفات إضافية تُعتبر Bonus مو جزء من وعد أساسي.
-        </p>
-      </details>
-      <details class="card reveal">
-        <summary class="cursor-pointer font-semibold text-sm">كيف أدخل الديسكورد؟</summary>
-        <p class="mt-1 text-zinc-300">
-          بعد الشراء توصلك التفاصيل على Whop/الإيميل مع رابط الدخول.
+        <summary class="cursor-pointer text-slate-100 font-medium">
+          محتوى الكورس بأي لغة؟
+        </summary>
+        <p class="mt-2 text-slate-400">
+          المحتوى بالكامل بالعربي + أمثلة عملية على السوق الحقيقي.
         </p>
       </details>
     </div>
   </section>
-</main>
 
-<!-- FOOTER -->
-<footer class="border-t border-white/10 py-6 mt-4">
-  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3 text-[0.7rem] text-zinc-500">
-    <div class="flex items-center gap-2">
-      <img src="./FT%20Logo.png" class="h-6 w-auto" alt="FusionTicks">
-      <span>© <span id="year"></span> FusionTicks — خالد كحيل. كل الحقوق محفوظة.</span>
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/90 py-6 mt-4">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-[0.7rem] text-slate-500">
+      <div class="flex items-center gap-2">
+        <img src="./FT%20Logo.png" class="w-6 h-6" alt="">
+        <span>© <span id="year"></span> FusionTicks. كل الحقوق محفوظة.</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a class="social" href="https://www.instagram.com/fusionticks" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1"></circle>
+          </svg>
+        </a>
+        <a class="social" href="https://youtube.com/@fusionticks" target="_blank" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+            <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2 .7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c .6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
+          </svg>
+        </a>
+        <a class="social" href="https://www.tiktok.com/@fusionticks" target="_blank" aria-label="TikTok">
+          <svg viewBox="0 0 48 48" width="14" height="14" fill="currentColor">
+            <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
+          </svg>
+        </a>
+      </div>
     </div>
-    <div class="flex items-center gap-2">
-      <a class="social" href="https://www.instagram.com/fusionticks" target="_blank" aria-label="Instagram">
-        <i data-lucide="instagram" class="w-4 h-4"></i>
-      </a>
-      <a class="social" href="https://youtube.com/@fusionticks" target="_blank" aria-label="YouTube">
-        <i data-lucide="youtube" class="w-4 h-4"></i>
-      </a>
-      <a class="social" href="https://www.tiktok.com/@fusionticks" target="_blank" aria-label="TikTok">
-        <i data-lucide="music-3" class="w-4 h-4"></i>
-      </a>
+  </footer>
+
+  <!-- Curriculum Modal -->
+  <div id="currModal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/75" data-close></div>
+    <div class="relative max-w-3xl mx-auto mt-16 mb-10 glass p-4">
+      <div class="flex items-center justify-between mb-2">
+        <h3 class="text-sm font-semibold text-slate-100">تفاصيل المنهج</h3>
+        <button class="p-2 rounded-xl bg-slate-900/90 border border-slate-700" data-close>
+          <i data-lucide="x" class="w-4 h-4 text-slate-200"></i>
+        </button>
+      </div>
+      <div class="max-h-[70vh] overflow-y-auto space-y-3 text-[0.7rem] text-slate-300">
+        <div>
+          <h4 class="font-semibold text-slate-100 mb-1">A · Reading The Market</h4>
+          <ol class="list-decimal pr-4 space-y-1">
+            <li>Who’s in Control? (الشموع من منظور Buyers / Sellers)</li>
+            <li>Market Phases (تجميع، اتجاه، تصريف، تذبذب)</li>
+            <li>Price in Motion (كيف يتحرك السعر فعلياً)</li>
+            <li>Swings & Shifts (قمم وقيعان + تغيير اتجاه)</li>
+            <li>BOS & CHoCH</li>
+            <li>Balance & Imbalance (FVG)</li>
+          </ol>
+        </div>
+        <div>
+          <h4 class="font-semibold text-slate-100 mb-1">B · Market Levels</h4>
+          <ol class="list-decimal pr-4 space-y-1" start="7">
+            <li>Supply & Demand</li>
+            <li>Support & Resistance</li>
+            <li>Opening Range Breakout</li>
+          </ol>
+        </div>
+        <div>
+          <h4 class="font-semibold text-slate-100 mb-1">C · Market Indicators</h4>
+          <ol class="list-decimal pr-4 space-y-1" start="10">
+            <li>Volume Profile</li>
+            <li>VWAP & Anchored VWAP</li>
+            <li>EMA</li>
+          </ol>
+        </div>
+        <div>
+          <h4 class="font-semibold text-slate-100 mb-1">D · Behind The Scenes</h4>
+          <ol class="list-decimal pr-4 space-y-1" start="13">
+            <li>TradingView Setup</li>
+            <li>Futures & Prop Firms</li>
+            <li>Types of Orders</li>
+            <li>Risk Management</li>
+            <li>Journaling & Reviews</li>
+            <li>News & Events</li>
+            <li>Psychology</li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
-</footer>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.lucide) lucide.createIcons();
-    document.getElementById('year').textContent = new Date().getFullYear();
+  <!-- Back To Top -->
+  <button id="backToTop"
+          class="hidden fixed bottom-4 left-4 w-10 h-10 rounded-2xl bg-slate-900/95 border border-slate-700/80
+                 flex items-center justify-center text-slate-300 z-40">
+    <i data-lucide="arrow-up" class="w-4 h-4"></i>
+  </button>
 
-    // reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add('in');
-          io.unobserve(e.target);
-        }
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // reveal
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      // back to top
+      const backBtn = document.getElementById('backToTop');
+      const toggleTop = () => {
+        if (window.scrollY > 500) backBtn.classList.remove('hidden');
+        else backBtn.classList.add('hidden');
+      };
+      toggleTop();
+      window.addEventListener('scroll', toggleTop);
+      backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // mobile menu
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const openMenu = () => { mobileMenu.classList.remove('hidden'); document.body.classList.add('menu-open'); };
+      const closeMenu = () => { mobileMenu.classList.add('hidden'); document.body.classList.remove('menu-open'); };
+      if (menuBtn) menuBtn.addEventListener('click', openMenu);
+      mobileMenu.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
+      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => setTimeout(closeMenu, 80)));
+
+      // curriculum modal
+      const currModal = document.getElementById('currModal');
+      const openCurrBtn = document.getElementById('openCurriculum');
+      const closeCurr = () => { currModal.classList.add('hidden'); document.body.classList.remove('modal-open'); };
+      if (openCurrBtn) openCurrBtn.addEventListener('click', () => {
+        currModal.classList.remove('hidden');
+        document.body.classList.add('modal-open');
       });
-    },{threshold:0.12});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-    // mobile menu
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const openMenu = () => { mobileMenu.classList.remove('hidden'); document.body.classList.add('menu-open'); };
-    const closeMenu = () => { mobileMenu.classList.add('hidden'); document.body.classList.remove('menu-open'); };
-    if (menuBtn) menuBtn.addEventListener('click', openMenu);
-    mobileMenu.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
-    mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => setTimeout(closeMenu, 60)));
-  });
-</script>
+      currModal.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeCurr));
+    });
+  </script>
 </body>
 </html>
