@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FusionTicks</title>
 
-  <meta name="description" content="FusionTicks: كورس تداول عربي يعلّمك كيف تقرأ السوق، تميّز بين الـ Buyers و الـ Sellers وتبني الـ setups بنفسك بدون مقامرة." />
+  <meta name="description" content="FusionTicks: كورس تداول عربي عملي، Framework واحد يعلّمك كيف تقرأ السوق، تميّز بين الـ Buyers و الـ Sellers، وتبني الـ setups الخاصة فيك بدون مقامرة." />
 
-  <!-- Favicon (عدّل المسارات حسب ملفاتك) -->
+  <!-- Favicons (عدّل المسارات حسب ملفاتك) -->
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="./favicon-512x512.png">
@@ -16,7 +16,7 @@
 
   <!-- Social / OpenGraph -->
   <meta property="og:title" content="FusionTicks" />
-  <meta property="og:description" content="افهم السوق قبل ما تدخل. تعلّم framework واضح بدل حفظ استراتيجيات عشوائية." />
+  <meta property="og:description" content="افهم السوق قبل ما تدخل. Framework واحد واضح بدل حفظ 10 استراتيجيات عالفاضي." />
   <meta property="og:image" content="./FT%20Logo.png" />
 
   <!-- Tailwind -->
@@ -26,13 +26,13 @@
       theme: {
         extend: {
           colors: {
-            'ft-bg': '#020817',          // خلفية داكنة
-            'ft-card': '#040d1f',        // كروت
+            'ft-bg': '#020817',
+            'ft-card': '#040d1f',
             'ft-card-soft': '#020b18',
-            'ft-border': 'rgba(148, 163, 253, 0.18)',
+            'ft-border': 'rgba(148,163,253,0.18)',
             'ft-blue': '#2563EB',
             'ft-blue-soft': '#38BDF8',
-            'ft-text-soft': 'rgba(226,232,240,0.82)'
+            'ft-text-soft': 'rgba(226,232,240,0.86)'
           },
           boxShadow: {
             'ft-soft': '0 18px 55px rgba(15,23,42,0.9)'
@@ -49,14 +49,13 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 17px;              /* تكبير عام */
-      line-height: 1.9;             /* قراءة أريح */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.9;
     }
 
     p { margin-top: 0.35rem; }
 
-    /* خلفية تدرج أزرق خفيف */
     .ft-bg-grad {
       background:
         radial-gradient(circle at top left, rgba(37,99,235,0.10), transparent 55%),
@@ -64,47 +63,40 @@
         #020817;
     }
 
-    /* كرت الكورس */
     .ft-course-card {
-      background: radial-gradient(circle at top left, rgba(56,189,248,0.09), transparent 65%) ,
-                  radial-gradient(circle at bottom right, rgba(37,99,235,0.09), transparent 70%) ,
-                  #040d1f;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.09), transparent 65%),
+        radial-gradient(circle at bottom right, rgba(37,99,235,0.09), transparent 70%),
+        #040d1f;
       border-radius: 26px;
       padding: 22px 26px 20px;
-      border: 1px solid rgba(148,163,253,0.22);
+      border: 1px solid rgba(148,163,253,0.25);
       box-shadow: 0 22px 65px rgba(15,23,42,0.95);
       backdrop-filter: blur(18px);
     }
 
-    .ft-course-card h3 {
-      letter-spacing: .01em;
-    }
-
-    /* زر أساسي */
     .btn-primary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: .35rem;
-      padding: .75rem 1.6rem;
+      padding: .78rem 1.8rem;
       border-radius: 999px;
       font-weight: 600;
       font-size: 15px;
       color: #0f172a;
       background: linear-gradient(to left, #38BDF8, #2563EB);
       box-shadow: 0 12px 35px rgba(37,99,235,0.5);
-      border: 1px solid rgba(148,163,253,0.6);
+      border: 1px solid rgba(148,163,253,0.7);
       transition: all .18s ease;
       white-space: nowrap;
     }
-
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 18px 45px rgba(15,23,42,0.9);
-      filter: brightness(1.04);
+      box-shadow: 0 18px 45px rgba(15,23,42,0.95);
+      filter: brightness(1.05);
     }
 
-    /* زر ثانوي */
     .btn-ghost {
       display: inline-flex;
       align-items: center;
@@ -116,17 +108,15 @@
       font-size: 14px;
       color: #E5E7EB;
       border: 1px solid rgba(148,163,253,0.26);
-      background: rgba(10,17,35,0.9);
+      background: rgba(7,12,24,0.96);
       transition: all .18s ease;
       white-space: nowrap;
     }
-
     .btn-ghost:hover {
-      background: rgba(15,23,42,1);
+      background: rgba(10,16,32,1);
       box-shadow: 0 10px 30px rgba(15,23,42,0.9);
     }
 
-    /* شارة صغيرة */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -137,9 +127,9 @@
       color: #bfdbfe;
       gap: .3rem;
       background: rgba(10,16,32,1);
+      white-space: nowrap;
     }
 
-    /* تدرج للنص */
     .gradient-text {
       background: linear-gradient(to left, #38BDF8, #2563EB);
       -webkit-background-clip: text;
@@ -149,45 +139,65 @@
 
     .reveal { opacity:0; transform:translateY(18px); transition:all .6s ease; }
     .reveal.in { opacity:1; transform:none; }
+
+    details summary::-webkit-details-marker { display:none; }
+    details summary { list-style:none; }
+
+    .social-icon-wrap {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:32px;
+      height:32px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,253,0.35);
+      background:rgba(2,6,23,0.98);
+      transition:all .18s ease;
+    }
+    .social-icon-wrap:hover {
+      background:#0f172a;
+      box-shadow:0 8px 20px rgba(15,23,42,0.9);
+      border-color:#38BDF8;
+    }
   </style>
 </head>
 
 <body class="ft-bg-grad text-slate-100">
 
   <!-- NAV -->
-  <header class="sticky top-0 z-40 backdrop-blur bg-black/70 border-b border-slate-800/80">
+  <header class="sticky top-0 z-40 backdrop-blur bg-black/80 border-b border-slate-800/80">
     <div class="max-w-6xl mx-auto px-4 lg:px-2 py-3 flex items-center justify-between gap-4">
-      <!-- Logo + Name -->
       <a href="#top" class="flex items-center gap-2">
         <img src="./FT%20Logo.png" alt="FusionTicks" class="w-8 h-8 object-contain">
         <span class="font-semibold text-slate-100 tracking-tight">FusionTicks</span>
       </a>
 
-      <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-6 text-[13px] text-slate-300">
-        <a href="#course" class="hover:text-white">الكورس</a>
+        <a href="#course" class="hover:text-white">الرئيسية</a>
+        <a href="#process" class="hover:text-white">Process</a>
         <a href="#curriculum" class="hover:text-white">محتوى الكورس</a>
+        <a href="#journal" class="hover:text-white">Trading Journal</a>
         <a href="#discord" class="hover:text-white">الكوميونيتي</a>
         <a href="#pricing" class="hover:text-white">السعر</a>
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
 
-      <!-- CTA -->
       <div class="hidden md:flex items-center gap-3">
         <a href="#pricing" class="btn-primary">ادخل الكورس الآن</a>
       </div>
 
-      <!-- Mobile -->
       <button id="menuBtn" class="md:hidden p-2 rounded-xl bg-slate-900/90 border border-slate-700">
-        <span class="sr-only">القائمة</span>
-        ☰
+        <span class="sr-only">القائمة</span>☰
       </button>
     </div>
 
     <!-- شريط الخصم -->
     <div class="w-full bg-slate-950/95 border-t border-slate-800 text-[12px] text-sky-300 text-center py-1.5">
-      العرض للإطلاق الأول: السعر الأصلي <span class="line-through text-slate-500">$1000</span> ·
-      مع كود الخصم <span class="font-semibold text-sky-400">FIRST40</span> يصير <span class="font-semibold text-sky-300">$550</span> لأول 40 مشترك فقط.
+      السعر الأصلي في Whop
+      <span class="line-through text-slate-500">$1000</span> –
+      لأول <span class="font-semibold text-sky-400">40</span> شخص:
+      استخدم كود <span class="font-semibold text-sky-400">FIRST40</span>
+      ليصير السعر <span class="font-semibold text-sky-300">$550</span>.
     </div>
   </header>
 
@@ -195,8 +205,10 @@
   <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/80" data-close></div>
     <div class="absolute top-20 right-3 left-3 bg-slate-950/98 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-2xl">
-      <a href="#course" class="block text-sm text-slate-200 border-b border-slate-800 pb-2">الكورس</a>
+      <a href="#course" class="block text-sm text-slate-200 border-b border-slate-800 pb-2">الرئيسية</a>
+      <a href="#process" class="block text-sm text-slate-200 border-b border-slate-800 pb-2">Process</a>
       <a href="#curriculum" class="block text-sm text-slate-200 border-b border-slate-800 pb-2">محتوى الكورس</a>
+      <a href="#journal" class="block text-sm text-slate-200 border-b border-slate-800 pb-2">Trading Journal</a>
       <a href="#discord" class="block text-sm text-slate-200 border-b border-slate-800 pb-2">الكوميونيتي</a>
       <a href="#pricing" class="block text-sm text-slate-200 border-b border-slate-800 pb-2">السعر</a>
       <a href="#faq" class="block text-sm text-slate-200">FAQ</a>
@@ -204,8 +216,10 @@
     </div>
   </div>
 
-  <!-- HERO -->
+  <!-- MAIN -->
   <main id="top" class="max-w-6xl mx-auto px-4 lg:px-2 pt-10 pb-14">
+
+    <!-- HERO -->
     <section id="course" class="grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,2fr)] gap-8 items-start">
       <!-- Course Card -->
       <aside class="ft-course-card reveal">
@@ -218,14 +232,15 @@
         </div>
 
         <div class="mt-4 text-[13px] text-ft-text-soft space-y-1.5">
-          <p>٢٣ درس مسجل بالعربي.</p>
+          <p>٢٣ درس مسجل بالعربي بأسلوب بسيط ومباشر.</p>
           <p>Framework واحد من A → D: قراءة السوق → مستويات → مؤشرات → خلف الكواليس.</p>
-          <p>تطبيق عملي على نفس الأدوات اللي أنا بستخدمها يوميًا.</p>
-          <p>دخول لـ Discord الخاص عشان تكمل التطور مع ناس جادّة.</p>
+          <p>تطبيق عملي على نفس الأدوات اللي أنا بستخدمها في حساباتي الحقيقية.</p>
+          <p>دخول لـ Discord الخاص للمتداولين الجديين فقط.</p>
+          <p>نسخة كاملة من <b>Trading Journal</b> على Notion عشان تراقب التزامك ومؤشراتك بوضوح.</p>
         </div>
 
         <div class="mt-4 border-t border-slate-800/80 pt-3 flex flex-col gap-1.5 text-[12px] text-slate-400">
-          <p>سعر الإطلاق الأول لأول <span class="font-semibold text-sky-400">40 شخص فقط</span> باستخدام كود <span class="font-semibold text-sky-300">FIRST40</span> في صفحة الدفع.</p>
+          <p>سعر الإطلاق لأول <span class="font-semibold text-sky-400">40 شخص</span> باستخدام كود <span class="font-semibold text-sky-300">FIRST40</span> في صفحة الدفع.</p>
           <div class="flex items-baseline gap-2">
             <span class="text-[22px] font-extrabold text-sky-300">$550</span>
             <span class="text-[12px] line-through text-slate-500">$1000</span>
@@ -240,41 +255,40 @@
         </div>
       </aside>
 
-      <!-- Text -->
+      <!-- Hero Text -->
       <div class="space-y-4 reveal">
-        <p class="text-[12px] text-sky-400">مش كورس “سوشيال ميديا”.</p>
+        <p class="text-[12px] text-sky-400">مش “كورس سوشيال ميديا” تقليدي.</p>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-snug">
           افهم السوق قبل ما تدخل.<br />
-          توقّف عن المقامرة باسم <span class="gradient-text">“استراتيجية”.</span>
+          وقّف المقامرة باسم <span class="gradient-text">“استراتيجية”.</span>
         </h1>
         <p class="text-ft-text-soft text-[15px]">
-          اسمي خالد كحيل، مريت بكل الخراب اللي انت مريت فيه: استراتيجيات جاهزة، كورسات منطّرة، حسابات محترقة، إحباط...
-          لحد ما فهمت إن اللعبة كلها عن سؤال واحد: <span class="text-sky-300 font-semibold">مين المسيطر؟ الـ Buyers ولا الـ Sellers؟</span>
+          أنا خالد كحيل. مريت بكل الخراب اللي أغلب التريدرز مرّوا فيه: استراتيجيات جاهزة، كورسات مترجمة، حسابات محترقة، إحباط...
+          لحد ما فهمت إن الموضوع مش “سر” ولا مؤشر مخفي. الموضوع: <span class="text-sky-300 font-semibold">مين المسيطر؟ Buyers ولا Sellers؟</span>
         </p>
         <p class="text-ft-text-soft text-[15px]">
-          من وقت ما بنيت الـ Framework هذا، بطّلت أحفظ setups، وصرت أجمّع كونفرميشن فوق كونفرميشن، وأدخل بس لما السوق يعطيني
-          صفقة نظيفة. هذا بالضبط اللي حتشوفه داخل FusionTicks.
+          FusionTicks يعطيك Framework واحد واضح يخليك تقرأ السوق بثقة، تجمع كونفرميشنات، وتدخل بس لما الصورة تكون نظيفة.
         </p>
         <div class="flex flex-wrap gap-3 pt-1">
           <a href="#curriculum" class="btn-ghost">شوف محتوى الكورس</a>
-          <a href="#discord" class="btn-ghost">شوف الكوميونيتي</a>
+          <a href="#pricing" class="btn-primary">ادخل الكورس الآن</a>
         </div>
       </div>
     </section>
 
-    <!-- PROCESS SHORT SECTION -->
-    <section class="mt-12 grid md:grid-cols-3 gap-4 text-[13px] text-ft-text-soft">
-      <div class="rounded-2xl bg-ft-card-soft/90 border border-ft-border px-4 py-3 reveal">
+    <!-- PROCESS -->
+    <section id="process" class="mt-12 grid md:grid-cols-3 gap-4 text-[13px] text-ft-text-soft">
+      <div class="rounded-2xl bg-ft-card-soft/95 border border-ft-border px-4 py-3 reveal">
         <h3 class="text-sky-300 font-semibold mb-1.5 text-[14px]">مش كورس استراتيجيات سحرية</h3>
-        <p>ما في حفظ مؤشرات، في فهم منطق حركة السعر، وكيف تطلع setups تخصك انت.</p>
+        <p>ما في “setups سرية”. في منطق واحد للحركة، وتتعلم كيف تبني قواعدك الخاصة بدل نسخ غيرك.</p>
       </div>
-      <div class="rounded-2xl bg-ft-card-soft/90 border border-ft-border px-4 py-3 reveal">
+      <div class="rounded-2xl bg-ft-card-soft/95 border border-ft-border px-4 py-3 reveal">
         <h3 class="text-sky-300 font-semibold mb-1.5 text-[14px]">مين المسيطر؟</h3>
-        <p>كل الأدوات مبنية عشان تشوف مناطق سيطرة الـ Buyers والـ Sellers بدون تخمين.</p>
+        <p>الأدوات كلها مربوطة بسؤال واحد: مين يضغط على السوق الآن؟ Buyers ولا Sellers؟ وين يتغيّر الميزان؟</p>
       </div>
-      <div class="rounded-2xl bg-ft-card-soft/90 border border-ft-border px-4 py-3 reveal">
+      <div class="rounded-2xl bg-ft-card-soft/95 border border-ft-border px-4 py-3 reveal">
         <h3 class="text-sky-300 font-semibold mb-1.5 text-[14px]">Process قبل الربح</h3>
-        <p>الهدف إنك توقف لعب، وتبني هوية متداول منضبط: كورس + جيرنال + Discord يمسكو يدك خطوة بخطوة.</p>
+        <p>الهدف إنك توقف تلعب، وتشتغل بنظام واضح: كورس + Journal + كوميونيتي يتابع التزامك.</p>
       </div>
     </section>
   </main>
@@ -286,7 +300,7 @@
         محتوى الكورس <span class="gradient-text">FusionTicks</span>
       </h2>
       <p class="text-[14px] text-ft-text-soft mt-1">
-        4 مراحل واضحة تخليك تشوف كل حركة في السوق كـ setup مرتبط بسياق، بدل ما تكون مقامرة.
+        4 مراحل تخليك تشوف كل حركة في السوق كجزء من صورة كاملة، مش شمعة معزولة.
       </p>
     </div>
 
@@ -296,28 +310,63 @@
           <h3 class="text-sky-300 font-semibold text-[15px]">A · Reading The Market</h3>
           <span class="badge">6 دروس</span>
         </div>
-        <p>شموع، مراحل السوق، Price in Motion، Swings، BOS &amp; CHoCH، FVG. كلهم كـ Tools لتحديد مين المسيطر.</p>
+        <p>شموع، مراحل السوق، Price in Motion، Swings، BOS &amp; CHoCH، FVG. كيف نستخدمهم لتحديد الاتجاه وصراع القوة.</p>
       </div>
+
       <div class="rounded-2xl bg-ft-card border border-ft-border px-4 py-4 reveal">
         <div class="flex items-center justify-between mb-1.5">
           <h3 class="text-sky-300 font-semibold text-[15px]">B · Market Levels</h3>
           <span class="badge">3 دروس</span>
         </div>
-        <p>Supply/Demand، Support/Resistance، Opening Range. مستويات نترقب عندها، مش أزرار دخول عشوائي.</p>
+        <p>Supply/Demand، Support/Resistance، Opening Range. نحدد مناطق العمل، لكن الدخول مربوط بتأكيدات، مش لمس السعر.</p>
       </div>
+
       <div class="rounded-2xl bg-ft-card border border-ft-border px-4 py-4 reveal">
         <div class="flex items-center justify-between mb-1.5">
           <h3 class="text-sky-300 font-semibold text-[15px]">C · Indicators</h3>
           <span class="badge">3 دروس</span>
         </div>
-        <p>Volume Profile، VWAP &amp; Anchored، EMA. كيف تدعم قراءتك بدل ما تتحكم فيك.</p>
+        <p>Volume Profile، VWAP &amp; Anchored، EMA. أدوات مساعدة داخل الـ Framework، مش عصا سحرية.</p>
       </div>
+
       <div class="rounded-2xl bg-ft-card border border-ft-border px-4 py-4 reveal">
         <div class="flex items-center justify-between mb-1.5">
           <h3 class="text-sky-300 font-semibold text-[15px]">D · Behind The Scenes</h3>
           <span class="badge">7 دروس</span>
         </div>
-        <p>TradingView، Futures &amp; Prop Firms، أنواع الأوامر، Risk Management، Journaling، الأخبار، Psychology.</p>
+        <p>TradingView، Futures &amp; Prop Firms، أوامر، Risk First، Journaling عملي، الأخبار، Psychology.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING JOURNAL SECTION -->
+  <section id="journal" class="max-w-6xl mx-auto px-4 lg:px-2 pb-14">
+    <div class="rounded-2xl bg-ft-card border border-ft-border px-5 py-5 grid md:grid-cols-2 gap-5 items-center shadow-ft-soft reveal">
+      <div class="space-y-2 text-[14px] text-ft-text-soft">
+        <h2 class="text-2xl font-bold text-sky-300">Trading Journal على Notion</h2>
+        <p>
+          من غير جيرنال واضح، كل الكورس بيضل “معلومة حلوة”. عشان هيك عملت
+          <b>Trading Journal كامل</b> على Notion:
+        </p>
+        <ul class="list-disc pr-5 space-y-1 text-[13px]">
+          <li>لوحة لحساباتك: Combine, Funded, Personal مع الأهداف والـ PnL.</li>
+          <li>سجل تداول يومي: نوع الـ setup، الجلسة، الصور، النتيجة، الإحساس وقت الدخول.</li>
+          <li>Execution Checklist قبل أي صفقة عشان تمسك نفسك قبل ما تخرب.</li>
+          <li>Views متعددة: Table, Calendar, Gallery, Performance.</li>
+        </ul>
+        <p class="text-sky-300/90 text-[13px]">
+          مشتركي الكورس بياخدوا نسخة مفعّلة من الجيرنال ضمن الباقة.
+        </p>
+      </div>
+      <div class="flex flex-col gap-3 text-[11px] text-slate-400">
+        <div class="rounded-2xl bg-ft-card-soft/95 border border-ft-border px-4 py-3">
+          <p class="text-sky-300 font-semibold mb-1 text-[13px]">ليش مهم؟</p>
+          <p>من غير أرقام، انت بتحس إن مشكلتك “استراتيجية”. الجيرنال يفضح إن مشكلتك غالبًا التزام، حجم، أو وقت دخول.</p>
+        </div>
+        <div class="rounded-2xl bg-ft-card-soft/95 border border-ft-border px-4 py-3">
+          <p class="text-sky-300 font-semibold mb-1 text-[13px]">متوافق مع Framework الكورس</p>
+          <p>كل خانة مبنية على نفس اللغة والأدوات اللي تتعلمها في FusionTicks، عشان التحليل والمراجعة يكونوا منطقيين.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -329,7 +378,7 @@
         الكوميونيتي <span class="gradient-text">FusionTicks</span>
       </h2>
       <p class="text-[14px] text-ft-text-soft mt-1">
-        Discord خاص: مستويات يومية، أخبار، شات مع المتداولين، ولايفات مراجعة. بيئة للناس الجدية بس.
+        Discord خاص للناس الجديّة: مستويات يومية، نقاشات، مراجعات، وإتاحة أسئلة مباشرة.
       </p>
       <a href="https://discord.gg/WpurM7d5F"
          target="_blank"
@@ -341,15 +390,15 @@
     <div class="grid md:grid-cols-3 gap-4 text-[12px] text-ft-text-soft">
       <div class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal">
         <h3 class="text-sky-300 font-semibold mb-1.5 text-[14px]">#chat</h3>
-        <p>نقاشات يومية + أسئلة + مشاركة شارتات بدون هجص.</p>
+        <p>مكان نظيف لأسئلة حقيقية، Charts، ومتابعة تطورك بدون سبام.</p>
       </div>
       <div class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal">
         <h3 class="text-sky-300 font-semibold mb-1.5 text-[14px]">#levels</h3>
-        <p>مستويات NQ, ES, GOLD, OIL عشان تدخل اليوم وانت مجهز.</p>
+        <p>مستويات NQ, ES, GOLD, OIL يوميًا. تجهيز، مو إشارات.</p>
       </div>
       <div class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal">
-        <h3 class="text-sky-300 font-semibold mb-1.5 text-[14px]">جلسات حية</h3>
-        <p>مراجعة أسبوعية + لايفات تعليمية حسب خطة المتداولين داخل الكورس.</p>
+        <h3 class="text-sky-300 font-semibold mb-1.5 text-[14px]">Sessions</h3>
+        <p>جلسات مراجعة أسبوعية + لايفات تعليمية حسب خطة الأعضاء.</p>
       </div>
     </div>
   </section>
@@ -358,18 +407,19 @@
   <section id="pricing" class="max-w-6xl mx-auto px-4 lg:px-2 pb-14">
     <div class="mb-6 reveal">
       <h2 class="text-2xl sm:text-3xl font-bold text-slate-100">
-        سعر واحد واضح <span class="gradient-text">بدون اشتراكات</span>
+        سعر واحد واضح <span class="gradient-text">بدون اشتراك شهري</span>
       </h2>
     </div>
 
     <div class="rounded-2xl bg-ft-card border border-ft-border p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 reveal">
       <div class="space-y-1 text-[14px] text-ft-text-soft">
         <h3 class="text-sky-300 font-semibold text-[16px]">FusionTicks Course · Lifetime Access</h3>
-        <p>دفع مرة واحدة. تحديثات مدى الحياة. دخول للكورس + الكوميونيتي.</p>
+        <p>كل دروس الكورس + دخول Discord + Trading Journal على Notion + تحديثات مدى الحياة.</p>
         <p class="text-sky-300/90 text-[13px]">
-          السعر في صفحة الدفع <span class="line-through text-slate-500">$1000</span> —
+          السعر في Whop <span class="line-through text-slate-500">$1000</span> —
+          لأول <span class="font-semibold text-sky-400">40 شخص</span>:
           استخدم كود <span class="font-semibold text-sky-400">FIRST40</span> ليصير
-          <span class="font-semibold text-sky-300">$550</span> (محدود لأول 40 شخص).
+          <span class="font-semibold text-sky-300">$550</span>.
         </p>
       </div>
       <div class="flex flex-col items-start md:items-end gap-2">
@@ -381,13 +431,13 @@
            class="btn-primary w-full md:w-auto justify-center">
           ادخل الكورس الآن
         </a>
-        <span class="text-[10px] text-slate-500">لا يوجد تجديد شهري. وصول كامل للكورس والتحديثات.</span>
+        <span class="text-[10px] text-slate-500">دفع لمرة واحدة. لا اشتراك شهري. وصول لكل التحديثات.</span>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="max-w-6xl mx-auto px-4 lg:px-2 pb-14">
+  <section id="faq" class="max-w-6xl mx-auto px-4 lg:px-2 pb-16">
     <div class="mb-4 reveal">
       <h2 class="text-2xl sm:text-3xl font-bold text-slate-100">FAQ</h2>
     </div>
@@ -395,15 +445,52 @@
     <div class="space-y-3 text-[13px]">
       <details class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal" open>
         <summary class="cursor-pointer text-sky-300 font-semibold">لمين مناسب الكورس؟</summary>
-        <p class="text-ft-text-soft">للمبتدئ اللي تايه، وللي وصل لمرحلة break-even وواقف. الفكرة إنك تفهم السوق وتبني setups خاصة فيك.</p>
+        <p class="text-ft-text-soft mt-1">
+          للمبتدئ اللي تايه، وللي جرّب استراتيجيات كثيرة ووصل لمرحلة break-even أو خسارة. الهدف إنك تفهم السوق وتبني نظامك.
+        </p>
       </details>
+
+      <details class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal">
+        <summary class="cursor-pointer text-sky-300 font-semibold">أي أسواق نشتغل عليها؟</summary>
+        <p class="text-ft-text-soft mt-1">
+          التركيز الأساسي على Futures مثل NQ, ES, GOLD, OIL.
+          المنطق نفسه تقدر تطبّقه على أسواق ثانية إذا فهمت الـ Framework.
+        </p>
+      </details>
+
+      <details class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal">
+        <summary class="cursor-pointer text-sky-300 font-semibold">هل في دخول لـ Discord؟</summary>
+        <p class="text-ft-text-soft mt-1">
+          نعم، اشتراكك يشمل Discord الخاص: مستويات، نقاشات، وتحديثات. ما في جروب توصيات، في تعليم ومتابعة جدية.
+        </p>
+      </details>
+
+      <details class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal">
+        <summary class="cursor-pointer text-sky-300 font-semibold">اللايفات بأي توقيت؟</summary>
+        <p class="text-ft-text-soft mt-1">
+          جلسات المراجعة واللايفات يتم الإعلان عنها داخل Discord حسب توقيت نيويورك، قبل/بعد جلسة نيويورك.
+        </p>
+      </details>
+
       <details class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal">
         <summary class="cursor-pointer text-sky-300 font-semibold">المحتوى بأي لغة؟</summary>
-        <p class="text-ft-text-soft">كل الدروس بالعربي.</p>
+        <p class="text-ft-text-soft mt-1">كل شيء بالعربي الواضح، بدون تعقيد مصطلحات زيادة عن اللزوم.</p>
       </details>
+
       <details class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal">
-        <summary class="cursor-pointer text-sky-300 font-semibold">هل في جروب توصيات؟</summary>
-        <p class="text-ft-text-soft">لا. مافي إشارات. في تعليم + مستويات + توجيه يساعدك تعتمد على نفسك.</p>
+        <summary class="cursor-pointer text-sky-300 font-semibold">وش قصة Trading Journal؟</summary>
+        <p class="text-ft-text-soft mt-1">
+          الجيرنال على Notion جزء أساسي من الكورس. يعطيك Tracking لحساباتك، تنفيذك، وأخطاءك.
+          من غيره صعب تعرف إذا مشكلتك في الاستراتيجية ولا في سلوكك.
+        </p>
+      </details>
+
+      <details class="rounded-2xl bg-ft-card border border-ft-border px-4 py-3 reveal">
+        <summary class="cursor-pointer text-sky-300 font-semibold">هل في استرجاع؟</summary>
+        <p class="text-ft-text-soft mt-1">
+          بحكم أن المحتوى رقمي وينفتح بالكامل مباشرة بعد الشراء، ما في سياسة استرجاع تلقائية.
+          إذا صار ظرف استثنائي تقدر تتواصل معي ونشوف حل عادل.
+        </p>
       </details>
     </div>
   </section>
@@ -416,9 +503,26 @@
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
-        <a href="https://www.instagram.com/fusionticks" target="_blank" class="text-slate-400 hover:text-sky-400">Instagram</a>
-        <a href="https://youtube.com/@fusionticks" target="_blank" class="text-slate-400 hover:text-sky-400">YouTube</a>
-        <a href="https://www.tiktok.com/@fusionticks" target="_blank" class="text-slate-400 hover:text-sky-400">TikTok</a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/fusionticks" target="_blank" class="social-icon-wrap" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1.2"></circle>
+          </svg>
+        </a>
+        <!-- YouTube -->
+        <a href="https://youtube.com/@fusionticks" target="_blank" class="social-icon-wrap" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+            <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2.7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9A4 4 0 0 0 4 19.8c2 .6 8 .6 8 .6s6.1 0 8.1-.6a4 4 0 0 0 2.9-2.8c.4-2 .4-4.9.4-4.9s0-2.9-.4-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
+          </svg>
+        </a>
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@fusionticks" target="_blank" class="social-icon-wrap" aria-label="TikTok">
+          <svg viewBox="0 0 48 48" width="15" height="15" fill="currentColor">
+            <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
+          </svg>
+        </a>
       </div>
     </div>
   </footer>
@@ -436,7 +540,6 @@
         }
       });
     }, { threshold: 0.12 });
-
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
     // Mobile menu
