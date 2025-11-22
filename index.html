@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FusionTicks</title>
-  <meta name="description" content="FusionTicks: كورس تداول عربي عملي يعلّمك قراءة السوق وبناء صفقات نظيفة دون مطاردة إستراتيجيات.">
+  <meta name="description" content="FusionTicks: a practical Arabic-to-English trading program focused on reading the market, stacking confirmations, and executing clean setups—without chasing strategies.">
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +15,6 @@
           colors: {
             ftBg: "#050a18",
             ftCard: "#091227",
-            ftBorder: "rgba(148,163,253,.18)",
             ftBlue: "#2563eb",
             ftCyan: "#38bdf8"
           }
@@ -26,21 +25,21 @@
 
   <style>
     html{scroll-behavior:smooth}
-    body{font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Tahoma, Arial;}
-    /* خلفية ناعمة */
+    body{font-family: ui-sans-serif, system-ui, -apple-system, "Inter", "Segoe UI", Roboto, Arial;}
+    /* Soft backdrop */
     .ft-bg{
       background:
         radial-gradient(1200px 600px at 90% -10%, rgba(37,99,235,.12), transparent 60%),
         radial-gradient(900px 500px at 10% 110%, rgba(56,189,248,.10), transparent 55%),
         #050a18;
     }
-    /* كروت */
+    /* Cards */
     .ft-card{
-      background: rgba(9,18,39,.9);
-      border:1px solid var(--ft-border, rgba(148,163,253,.18));
+      background: rgba(9,18,39,.92);
+      border:1px solid rgba(148,163,253,.18);
       border-radius: 18px;
     }
-    /* أزرار */
+    /* Buttons */
     .btn-primary{
       display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
       padding:.9rem 1.4rem;border-radius:999px;font-weight:700;
@@ -54,7 +53,7 @@
       padding:.85rem 1.2rem;border-radius:999px;border:1px solid rgba(148,163,253,.22);
       color:#e5e7eb;background:rgba(255,255,255,.04);
     }
-    /* ظهور هادئ */
+    /* Subtle reveal */
     .reveal{opacity:0; transform:translateY(14px); transition:all .6s ease}
     .reveal.in{opacity:1; transform:none}
   </style>
@@ -66,22 +65,21 @@
   <header class="sticky top-0 z-40 backdrop-blur bg-black/60 border-b border-slate-800">
     <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-2">
-        <img src="./FT%20Logo.png" alt="FusionTicks" class="w-8 h-8 object-contain">
+        <img src="./FT%20Logo.png" alt="FusionTicks logo" class="w-8 h-8 object-contain">
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300">
-        <a href="#process" class="hover:text-white">المنهج</a>
-        <a href="#curriculum" class="hover:text-white">المحتوى</a>
-        <a href="#journal" class="hover:text-white">الجيرنال</a>
-        <a href="#pricing" class="hover:text-white">السعر</a>
+        <a href="#process" class="hover:text-white">Process</a>
+        <a href="#curriculum" class="hover:text-white">Curriculum</a>
+        <a href="#journal" class="hover:text-white">Journal</a>
+        <a href="#pricing" class="hover:text-white">Pricing</a>
         <a href="#faq" class="hover:text-white">FAQ</a>
       </nav>
-      <a href="#pricing" class="hidden md:inline-flex btn-primary text-sm">ادخل الكورس الآن</a>
+      <a href="#pricing" class="hidden md:inline-flex btn-primary text-sm">Get the Course</a>
       <button id="menuBtn" class="md:hidden px-3 py-2 rounded-lg bg-slate-900 border border-slate-700">☰</button>
     </div>
     <div class="text-xs text-sky-300/90 text-center border-t border-slate-800 py-1.5">
-      السعر في Whop <span class="line-through text-slate-500">$1000</span> · لأول 40 شخص استخدم كود
-      <b>FIRST40</b> ⟵ السعر يصير <b>$550</b>
+      Whop price <span class="line-through text-slate-500">$1000</span> · First 40 use code <b>FIRST40</b> → pay <b>$550</b>
     </div>
   </header>
 
@@ -89,12 +87,12 @@
   <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/70" data-close></div>
     <div class="absolute top-20 right-3 left-3 ft-card p-3 space-y-2">
-      <a href="#process" class="block py-2 border-b border-slate-800">المنهج</a>
-      <a href="#curriculum" class="block py-2 border-b border-slate-800">المحتوى</a>
-      <a href="#journal" class="block py-2 border-b border-slate-800">الجيرنال</a>
-      <a href="#pricing" class="block py-2 border-b border-slate-800">السعر</a>
+      <a href="#process" class="block py-2 border-b border-slate-800">Process</a>
+      <a href="#curriculum" class="block py-2 border-b border-slate-800">Curriculum</a>
+      <a href="#journal" class="block py-2 border-b border-slate-800">Journal</a>
+      <a href="#pricing" class="block py-2 border-b border-slate-800">Pricing</a>
       <a href="#faq" class="block py-2">FAQ</a>
-      <a href="#pricing" class="btn-primary w-full">ادخل الكورس الآن</a>
+      <a href="#pricing" class="btn-primary w-full">Get the Course</a>
     </div>
   </div>
 
@@ -104,20 +102,19 @@
     <section class="grid lg:grid-cols-2 gap-8 items-center">
       <div class="reveal">
         <h1 class="text-4xl md:text-5xl font-extrabold leading-snug">
-          افهم السوق <span class="text-sky-400">قبل</span> ما تدخل.<br>
-          تداول بـ <span class="text-sky-400">وضوح</span> مش ضجيج.
+          Trade with <span class="text-sky-400">clarity</span>—not noise.
         </h1>
         <p class="mt-4 text-lg text-slate-300/90">
-          Framework عملي بالعربي يربط التحليل بسؤال واحد:
-          <span class="text-sky-300">مين المسيطر الآن—Buyers ولا Sellers؟</span>
+          A practical framework that ties your analysis to one question:
+          <span class="text-sky-300">who’s in control right now—buyers or sellers?</span>
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href="#pricing" class="btn-primary">ادخل الكورس الآن</a>
-          <a href="#curriculum" class="btn-ghost">شوف المحتوى</a>
+          <a href="#pricing" class="btn-primary">Get the Course</a>
+          <a href="#curriculum" class="btn-ghost">See Curriculum</a>
         </div>
       </div>
 
-      <!-- بطاقة مختصرة -->
+      <!-- Compact product card -->
       <aside class="ft-card p-5 reveal">
         <div class="flex items-center justify-between">
           <div>
@@ -127,45 +124,45 @@
           <img src="./FT%20Logo.png" alt="FusionTicks" class="w-9 h-9 object-contain">
         </div>
         <ul class="mt-4 space-y-2 text-slate-300 text-sm">
-          <li>٢٣ درس عربي مختصر وخالي من الحشو.</li>
-          <li>قراءة السوق ➜ مستويات ➜ مؤشرات ➜ خلف الكواليس.</li>
-          <li>نسخة كاملة من <b>Trading Journal</b> على Notion.</li>
-          <li>دخول Discord للمراجعة والمتابعة.</li>
+          <li>23 concise lessons, zero fluff.</li>
+          <li>Reading → Levels → Indicators → Behind the scenes.</li>
+          <li>Full <b>Trading Journal</b> template on Notion.</li>
+          <li>Private Discord for reviews & support.</li>
         </ul>
         <div class="mt-4 flex items-baseline gap-2">
           <span class="text-2xl font-extrabold text-sky-300">$550</span>
           <span class="text-xs line-through text-slate-500">$1000</span>
-          <span class="text-xs text-slate-400">باستخدام كود <b>FIRST40</b></span>
+          <span class="text-xs text-slate-400">with code <b>FIRST40</b></span>
         </div>
         <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn-primary w-full mt-4">
-          شراء الكورس الآن
+          Buy Now
         </a>
       </aside>
     </section>
 
-    <!-- PROCESS (3 نقاط فقط) -->
+    <!-- PROCESS -->
     <section id="process" class="mt-14 grid md:grid-cols-3 gap-4">
       <div class="ft-card p-4 reveal">
-        <h3 class="text-sky-300 font-semibold mb-1">حضّر</h3>
-        <p class="text-slate-300/90">مستويات HTF + خبر اليوم + جلسة التداول.</p>
+        <h3 class="text-sky-300 font-semibold mb-1">Prepare</h3>
+        <p class="text-slate-300/90">HTF levels + today’s news + your trading session.</p>
       </div>
       <div class="ft-card p-4 reveal">
-        <h3 class="text-sky-300 font-semibold mb-1">اقرأ</h3>
-        <p class="text-slate-300/90">Swings, BOS/CHoCH, FVG لتحديد تغيّر السيطرة.</p>
+        <h3 class="text-sky-300 font-semibold mb-1">Read</h3>
+        <p class="text-slate-300/90">Swings, BOS/CHoCH, FVG to spot a shift in control.</p>
       </div>
       <div class="ft-card p-4 reveal">
-        <h3 class="text-sky-300 font-semibold mb-1">نفِّذ ودوّن</h3>
-        <p class="text-slate-300/90">تأكيدات واضحة + مراجعة بالجيرنال.</p>
+        <h3 class="text-sky-300 font-semibold mb-1">Execute & Review</h3>
+        <p class="text-slate-300/90">Clean confirmations, then log it in the journal.</p>
       </div>
     </section>
 
-    <!-- CURRICULUM المختصر -->
+    <!-- CURRICULUM -->
     <section id="curriculum" class="mt-14">
-      <h2 class="text-2xl font-bold mb-4">محتوى الكورس</h2>
+      <h2 class="text-2xl font-bold mb-4">Curriculum</h2>
       <div class="grid sm:grid-cols-2 gap-4 text-slate-300">
         <div class="ft-card p-4 reveal">
           <h3 class="text-sky-300 font-semibold mb-1">A · Reading the Market (6)</h3>
-          <p class="text-sm">شموع · مراحل · حركة السعر · Swings · BOS/CHoCH · FVG.</p>
+          <p class="text-sm">Candles · Phases · Price in Motion · Swings · BOS/CHoCH · FVG.</p>
         </div>
         <div class="ft-card p-4 reveal">
           <h3 class="text-sky-300 font-semibold mb-1">B · Market Levels (3)</h3>
@@ -173,30 +170,30 @@
         </div>
         <div class="ft-card p-4 reveal">
           <h3 class="text-sky-300 font-semibold mb-1">C · Indicators (3)</h3>
-          <p class="text-sm">Volume Profile · VWAP/Anchored · EMA داخل السياق.</p>
+          <p class="text-sm">Volume Profile · VWAP/Anchored · EMA in context.</p>
         </div>
         <div class="ft-card p-4 reveal">
           <h3 class="text-sky-300 font-semibold mb-1">D · Behind the Scenes (7)</h3>
-          <p class="text-sm">TradingView · Futures/Prop · أوامر · Risk · Journal · News · Psychology.</p>
+          <p class="text-sm">TradingView · Futures/Prop · Order types · Risk · Journal · News · Psychology.</p>
         </div>
       </div>
     </section>
 
-    <!-- JOURNAL المختصر -->
+    <!-- JOURNAL -->
     <section id="journal" class="mt-14">
       <div class="ft-card p-5 reveal grid md:grid-cols-2 gap-4 items-center">
         <div>
           <h2 class="text-2xl font-bold mb-2 text-sky-300">Trading Journal (Notion)</h2>
           <ul class="text-slate-300/90 text-sm space-y-1.5">
-            <li>لوحة حسابات: الرصيد، الهدف، PnL، عدد الصفقات.</li>
-            <li>سجل تداول يومي بصور وترتيب الجلسة/الست-أب.</li>
-            <li>Execution Checklist قبل أي دخول.</li>
+            <li>Accounts board: balance, goal, PnL, trade count.</li>
+            <li>Daily trade log with screenshots, session & setup tags.</li>
+            <li>Execution Checklist before every entry.</li>
             <li>Views: Table · Calendar · Gallery · Performance.</li>
           </ul>
-          <p class="text-xs text-sky-300/90 mt-3">مشمول مع الكورس.</p>
+          <p class="text-xs text-sky-300/90 mt-3">Included with the course.</p>
         </div>
         <div class="ft-card p-4 border-dashed border-slate-700 text-center text-slate-400 text-sm">
-          لقطة للشاشات / صور الجيرنال (اختياري)
+          (Optional) Add journal screenshots or a sample chart here.
         </div>
       </div>
     </section>
@@ -205,41 +202,41 @@
     <section id="pricing" class="mt-14">
       <div class="ft-card p-6 reveal flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h3 class="text-xl font-bold text-sky-300">FusionTicks · وصول دائم</h3>
-          <p class="text-slate-300/90 mt-1 text-sm">كل الدروس + Discord + Notion Journal + تحديثات مدى الحياة.</p>
-          <p class="text-xs text-slate-400 mt-1">السعر في Whop $1000 → مع كود <b>FIRST40</b> يصير $550 (للـ 40 الأوائل).</p>
+          <h3 class="text-xl font-bold text-sky-300">FusionTicks · Lifetime Access</h3>
+          <p class="text-slate-300/90 mt-1 text-sm">All lessons + Discord + Notion Journal + lifetime updates.</p>
+          <p class="text-xs text-slate-400 mt-1">Whop price $1000 → with <b>FIRST40</b> it’s $550 (first 40 seats).</p>
         </div>
         <div class="flex items-center gap-3">
           <div class="text-3xl font-extrabold text-sky-300">$550</div>
           <div class="text-xs line-through text-slate-500">$1000</div>
-          <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn-primary">ادخل الكورس الآن</a>
+          <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn-primary">Get the Course</a>
         </div>
       </div>
     </section>
 
-    <!-- FAQ المختصر -->
+    <!-- FAQ -->
     <section id="faq" class="mt-14">
       <h2 class="text-2xl font-bold mb-4">FAQ</h2>
       <div class="space-y-3">
         <details class="ft-card p-4 reveal" open>
-          <summary class="cursor-pointer text-sky-300 font-semibold">مين مناسب له الكورس؟</summary>
-          <p class="text-slate-300/90 mt-2 text-sm">للمبتدئ واللي جرّب كثير وتعب. نركّز على الفهم والبساطة.</p>
+          <summary class="cursor-pointer text-sky-300 font-semibold">Who is this for?</summary>
+          <p class="text-slate-300/90 mt-2 text-sm">Beginners and frustrated traders. We focus on clarity and repetition.</p>
         </details>
         <details class="ft-card p-4 reveal">
-          <summary class="cursor-pointer text-sky-300 font-semibold">أي أسواق؟</summary>
-          <p class="text-slate-300/90 mt-2 text-sm">Futures (NQ/ES/GC/CL). المنهج قابل للنقل لأسواق أخرى.</p>
+          <summary class="cursor-pointer text-sky-300 font-semibold">What markets?</summary>
+          <p class="text-slate-300/90 mt-2 text-sm">Futures (NQ/ES/GC/CL). The framework ports to other markets.</p>
         </details>
         <details class="ft-card p-4 reveal">
-          <summary class="cursor-pointer text-sky-300 font-semibold">هل في Discord وجيرنال؟</summary>
-          <p class="text-slate-300/90 mt-2 text-sm">نعم، يدخل معاك Discord + Notion Journal ضمن الباقة.</p>
+          <summary class="cursor-pointer text-sky-300 font-semibold">Do I get Discord and the journal?</summary>
+          <p class="text-slate-300/90 mt-2 text-sm">Yes—Discord access and the Notion journal are included.</p>
         </details>
         <details class="ft-card p-4 reveal">
-          <summary class="cursor-pointer text-sky-300 font-semibold">اللغة والتوقيت؟</summary>
-          <p class="text-slate-300/90 mt-2 text-sm">العربية. اللايفات تُعلن داخل Discord بتوقيت نيويورك.</p>
+          <summary class="cursor-pointer text-sky-300 font-semibold">Language & timing?</summary>
+          <p class="text-slate-300/90 mt-2 text-sm">English delivery. Live sessions announced in Discord (New York time).</p>
         </details>
         <details class="ft-card p-4 reveal">
-          <summary class="cursor-pointer text-sky-300 font-semibold">هل فيه استرجاع؟</summary>
-          <p class="text-slate-300/90 mt-2 text-sm">محتوى رقمي فـ لا يوجد استرجاع تلقائي، لو ظرف استثنائي تواصل معي.</p>
+          <summary class="cursor-pointer text-sky-300 font-semibold">Refunds?</summary>
+          <p class="text-slate-300/90 mt-2 text-sm">Digital content—no automatic refunds. If there’s an edge case, contact me.</p>
         </details>
       </div>
     </section>
@@ -247,7 +244,7 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="border-t border-slate-800">
+  <footer class="border-top border-slate-800">
     <div class="max-w-5xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
       <div class="flex items-center gap-2">
         <img src="./FT%20Logo.png" alt="FusionTicks" class="w-6 h-6">
@@ -281,13 +278,13 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ظهور هادئ
+    // reveal on scroll
     const io = new IntersectionObserver((es)=>es.forEach(e=>{
       if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
     }),{threshold:.15});
     document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
-    // القائمة للجوال
+    // mobile menu
     const menuBtn=document.getElementById("menuBtn");
     const mobileMenu=document.getElementById("mobileMenu");
     const open=()=>mobileMenu.classList.remove("hidden");
