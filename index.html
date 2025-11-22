@@ -1,389 +1,452 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FusionTicks — Trade with Clarity</title>
-  <meta name="description" content="Read the market. Stack confirmations. Trade with clarity — not noise. FusionTicks by Khalid Kuhail."/>
-  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <meta name="description" content="FusionTicks: a practical, risk-first trading program by Khalid Kuhail. Learn to read the market, stack confirmations, and build repeatable setups—without chasing strategies.">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./favicon-512x512.png">
+  <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="FusionTicks — Trade with Clarity"/>
+  <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
+  <meta property="og:image" content="./FT%20Logo.png"/>
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preload" as="image" href="./FT%20Logo.png">
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: { bg: "#0B0F17", ink: "#E6F0FF" },
-          fontFamily: { sans: ["ui-sans-serif","Inter","system-ui","Segoe UI","Roboto","Helvetica","Arial"] }
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            bg: '#0b0d12',
+            ink: '#e7ecf2',
+            sub: '#b7c0cc',
+            card: '#121620',
+            line: '#1a2030',
+            fx1: '#60A5FA', // blue
+            fx2: '#67E8F9', // cyan
+          },
+          boxShadow: {
+            glass: '0 12px 40px rgba(0,0,0,.45)',
+          }
         }
       }
     }
   </script>
+
+  <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
   <style>
-    html{scroll-behavior:smooth}
     :root{
-      --c1:#5CA9FF; /* blue */
-      --c2:#6FE4FF; /* cyan */
-      --glow: 0 0 0 1px rgba(255,255,255,.06), 0 10px 30px rgba(0,0,0,.45);
+      --fx1:#60A5FA; /* blue */
+      --fx2:#67E8F9; /* cyan */
     }
-    /* DeepCharts-like subtle grid background */
-    .bg-grid{
-      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    html{ scroll-behavior:smooth; }
+    /* Scale up base type for readability */
+    html { font-size: 17px; }
+    @media (min-width: 768px){ html { font-size: 18px; } }
+    @media (min-width: 1280px){ html { font-size: 19px; } }
+
+    /* Aurora/nebula background */
+    .bg-aurora{ position:fixed; inset:0; z-index:-10; pointer-events:none; }
+    .bg-aurora::before,
+    .bg-aurora::after{
+      content:"";
+      position:absolute; inset:-20%;
       background:
-        linear-gradient(to bottom, rgba(255,255,255,.04), transparent 16rem) no-repeat,
-        radial-gradient(1200px 600px at 80% -10%, rgba(96,165,250,.25), transparent 60%) no-repeat,
-        radial-gradient(1000px 600px at -10% 100%, rgba(103,232,249,.20), transparent 55%) no-repeat,
-        color-mix(in srgb, #0B0F17 92%, black 8%);
-      mask-image: linear-gradient(#000, #000);
+        radial-gradient(700px 500px at 20% 15%, var(--fx1) 0%, transparent 55%),
+        radial-gradient(800px 600px at 85% 80%, var(--fx2) 0%, transparent 60%);
+      filter: blur(40px);
+      opacity:.28;
+      animation: floatA 24s linear infinite alternate;
     }
-    .bg-grid:after{
-      content:""; position:absolute; inset:0; opacity:.35;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
-      background-size: 32px 32px, 32px 32px;
-      mask-image: radial-gradient(80% 60% at 50% 20%, #000 60%, transparent 100%);
+    .bg-aurora::after{
+      mix-blend-mode: screen; opacity:.22; animation: floatB 28s linear infinite alternate-reverse;
+    }
+    @keyframes floatA{ from{ transform: translate3d(0,0,0) } to{ transform: translate3d(2%, -1%, 0) } }
+    @keyframes floatB{ from{ transform: translate3d(0,0,0) } to{ transform: translate3d(-1%, 2%, 0) } }
+
+    /* Glass panel */
+    .glass{
+      background: rgba(20,26,38,.55);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
     }
 
     /* Buttons */
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
-      padding:.9rem 1.2rem; border-radius:14px; font-weight:700; letter-spacing:.2px;
-      transition: transform .06s ease, filter .2s ease, background-color .2s ease, border-color .2s ease;
-      backdrop-filter: saturate(130%) blur(2px);
-    }
-    .btn:hover{ filter:brightness(1.05) }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.6rem; border-radius:14px; font-weight:700; }
     .btn-primary{
-      background: linear-gradient(180deg, var(--c1), var(--c2));
-      color:#0B0F17; box-shadow: var(--glow); border:1px solid rgba(255,255,255,.12);
+      color:#0a0f15; padding:.9rem 1.2rem;
+      background: linear-gradient(180deg, var(--fx1), var(--fx2));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 28px rgba(96,165,250,.25), inset 0 1px 0 rgba(255,255,255,.25);
+      transition: transform .08s ease, filter .2s ease;
     }
+    .btn-primary:hover{ filter:brightness(1.05) }
     .btn-ghost{
-      color:white; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+      padding:.9rem 1.2rem; color:#e7ecf2;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
     }
+    .btn-ghost:hover{ background: rgba(255,255,255,.1) }
 
-    /* Cards */
+    /* Card */
     .card{
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 16px; box-shadow: var(--glow);
-      transition: border-color .2s ease, background-color .2s ease, transform .08s ease;
+      border:1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.018));
+      border-radius: 16px;
     }
-    .card:hover{ border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.055) }
+    .card:hover{ border-color: rgba(255,255,255,.14) }
 
-    /* Accent text */
-    .grad{background: linear-gradient(90deg, var(--c1), var(--c2)); -webkit-background-clip:text; background-clip:text; color: transparent;}
+    /* Subtle divider line */
+    .line{ border-color: rgba(255,255,255,.08); }
 
-    /* Ticker (promo) */
-    .ticker{ position:relative; overflow:hidden; white-space:nowrap; mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); }
-    .track{ display:inline-block; padding-block:.5rem; animation: tick 48s linear infinite; }
-    @keyframes tick{ from{ transform: translateX(0) } to{ transform: translateX(-50%) } }
-
-    /* Reveal */
-    .reveal{opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease;}
-    .reveal.in{opacity:1; transform:none;}
-
-    /* Utilities */
-    .prose-lite p{margin-top:.9rem}
+    /* Promo ticker (simple + accessible) */
+    .ticker{
+      position:relative; overflow:hidden; white-space:nowrap;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .ticker-track{ display:inline-block; padding-block:.6rem; animation: slide 48s linear infinite; }
+    @keyframes slide { from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
+    @media (prefers-reduced-motion: reduce){ .ticker-track{ animation-duration:0s } }
   </style>
 </head>
-<body class="bg-bg text-ink/90 font-sans antialiased selection:bg-blue-600/30">
-  <div class="bg-grid"></div>
+
+<body class="bg-bg text-ink antialiased selection:bg-blue-600/30">
+  <div class="bg-aurora"></div>
 
   <!-- NAV -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
+  <header class="sticky top-0 z-40 backdrop-blur bg-[#0b0d12cc] border-b line">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto">
-        <span class="text-white/90 font-semibold tracking-tight">FusionTicks</span>
+        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"/>
+        <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
-      <nav class="hidden md:flex items-center gap-7 text-sm text-white/70">
-        <a class="hover:text-white" href="#process">Process</a>
-        <a class="hover:text-white" href="#curriculum">Curriculum</a>
-        <a class="hover:text-white" href="#journal">Journal</a>
-        <a class="hover:text-white" href="#pricing">Pricing</a>
-        <a class="hover:text-white" href="#faq">FAQ</a>
+
+      <nav class="hidden md:flex items-center gap-8 text-[0.95rem] text-sub">
+        <a class="hover:text-ink" href="#how">How We Trade</a>
+        <a class="hover:text-ink" href="#curriculum">Curriculum</a>
+        <a class="hover:text-ink" href="#community">Community</a>
+        <a class="hover:text-ink" href="#pricing">Pricing</a>
+        <a class="hover:text-ink" href="#faq">FAQ</a>
       </nav>
-      <div class="hidden md:block">
+
+      <div class="hidden md:flex items-center gap-3">
         <a href="#pricing" class="btn btn-primary">Get Access</a>
       </div>
-      <button id="menuBtn" class="md:hidden btn btn-ghost px-3 py-2"><i data-lucide="menu"></i></button>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20" aria-label="Open menu">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
-    <div class="ticker border-t border-white/10 text-white/70 text-sm">
-      <div class="track" aria-hidden="true">
-        <span class="mx-10">Launch deal: use code <b>FIRST40</b> at checkout → course drops from $1000 to <b>$550</b></span>
-        <span class="mx-10">Launch deal: use code <b>FIRST40</b> at checkout → course drops from $1000 to <b>$550</b></span>
-        <span class="mx-10">Launch deal: use code <b>FIRST40</b> at checkout → course drops from $1000 to <b>$550</b></span>
-        <span class="mx-10">Launch deal: use code <b>FIRST40</b> at checkout → course drops from $1000 to <b>$550</b></span>
+
+    <!-- Ticker -->
+    <div class="ticker border-t line bg-black/30 text-sub text-sm" aria-label="Promotion">
+      <div class="ticker-track" aria-hidden="true">
+        <span class="mx-10">Use code <b class="text-ink">FIRST40</b> on Whop to drop <b>$1000 → $550</b></span>
+        <span class="mx-10">Use code <b class="text-ink">FIRST40</b> on Whop to drop <b>$1000 → $550</b></span>
+        <span class="mx-10">Use code <b class="text-ink">FIRST40</b> on Whop to drop <b>$1000 → $550</b></span>
+        <span class="mx-10">Use code <b class="text-ink">FIRST40</b> on Whop to drop <b>$1000 → $550</b></span>
       </div>
     </div>
   </header>
 
   <!-- MOBILE MENU -->
-  <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div id="mobileMenu" class="md:hidden fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/70" data-close></div>
-    <div class="absolute left-3 right-3 top-24 card p-3">
-      <div class="flex justify-end">
-        <button class="btn btn-ghost px-3 py-2" data-close><i data-lucide="x"></i></button>
+    <div class="absolute right-3 left-3 top-[84px] glass rounded-2xl">
+      <div class="p-3 flex justify-end">
+        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-close aria-label="Close menu">
+          <i data-lucide="x"></i>
+        </button>
       </div>
-      <nav class="px-2 pb-3 text-base">
-        <a class="block py-3 border-t border-white/10" href="#process" data-close>Process</a>
-        <a class="block py-3 border-t border-white/10" href="#curriculum" data-close>Curriculum</a>
-        <a class="block py-3 border-t border-white/10" href="#journal" data-close>Journal</a>
-        <a class="block py-3 border-t border-white/10" href="#pricing" data-close>Pricing</a>
-        <a class="block py-3 border-t border-white/10" href="#faq" data-close>FAQ</a>
-        <a href="#pricing" class="mt-4 block text-center btn btn-primary">Get Access</a>
+      <nav class="px-4 pb-5 text-base text-ink/90">
+        <a class="block py-3 border-t line" href="#how">How We Trade</a>
+        <a class="block py-3 border-t line" href="#curriculum">Curriculum</a>
+        <a class="block py-3 border-t line" href="#community">Community</a>
+        <a class="block py-3 border-t line" href="#pricing">Pricing</a>
+        <a class="block py-3 border-t line" href="#faq">FAQ</a>
+        <a href="#pricing" class="mt-4 block text-center rounded-xl py-3 bg-gradient-to-r from-fx1 to-fx2 text-bg font-semibold">Get Access</a>
       </nav>
     </div>
   </div>
 
   <!-- HERO -->
   <section class="relative">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-14 items-center">
-      <div class="reveal">
-        <h1 class="text-4xl sm:text-5xl lg:text-[56px] leading-[1.05] font-black text-white">
-          Trade with <span class="grad">Clarity</span><br/>Not Noise
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.06]">
+          <span class="bg-gradient-to-r from-fx1 to-fx2 bg-clip-text text-transparent">Trade with Clarity</span><br/>
+          Not Noise
         </h1>
-        <div class="prose-lite text-white/75 text-lg leading-8 mt-6 max-w-xl">
-          <p>Stop chasing “strategies”. Start reading the market. Bias from higher-timeframe levels, execution from lower-timeframe context, and stacked confirmations to know who’s in control.</p>
-        </div>
+        <p class="mt-6 text-[1.05rem] leading-8 text-sub max-w-xl">
+          I started like most traders: YouTube strategies, paid courses, and frustration.
+          Progress came when I stopped memorizing and started <b class="text-ink/90">reading the market</b>.
+          Time is fractal: HTF levels set the bias, LTF defines entries, and we track who’s in control.
+          That’s the FusionTicks framework.
+        </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#pricing" class="btn btn-primary">Get the Course</a>
-          <a href="#process" class="btn btn-ghost">See the Process</a>
+          <a href="#pricing" class="btn btn-primary">
+            Get Course <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </a>
+          <a href="#how" class="btn btn-ghost">
+            <i data-lucide="book-open" class="w-5 h-5"></i> How We Trade
+          </a>
         </div>
       </div>
-      <div class="reveal flex items-center justify-center">
-        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="w-[520px] max-w-full h-auto opacity-90">
+      <div class="flex items-center justify-center">
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo" width="560" height="560" class="w-[520px] max-w-full h-auto opacity-[0.95]" />
       </div>
     </div>
   </section>
 
-  <!-- PROCESS -->
-  <section id="process" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="reveal mb-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white">Process</h2>
-      <p class="text-white/70 mt-2">From prep to review — simple, repeatable, calm.</p>
+  <!-- HOW -->
+  <section id="how" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-10">
+      <h2 class="text-4xl font-bold">How We <span class="bg-gradient-to-r from-fx1 to-fx2 bg-clip-text text-transparent">Trade</span></h2>
+      <p class="mt-2 text-sub max-w-3xl">A simple, repeatable pipeline from preparation to execution.</p>
     </div>
     <div class="grid md:grid-cols-4 gap-6">
-      <div class="card p-6 reveal">
-        <div class="text-white font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i>Prepare</div>
-        <p class="text-white/70 mt-3">Mark HTF S/D, S/R, ORB. Note sessions & news.</p>
+      <div class="card p-6">
+        <div class="text-ink/90 font-semibold flex items-center gap-2"><i data-lucide="map" class="w-5 h-5"></i> 1) Prepare</div>
+        <p class="mt-3 text-sub">Map S/D, S/R, ORB on HTF. Note news & sessions.</p>
       </div>
-      <div class="card p-6 reveal">
-        <div class="text-white font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i>Read</div>
-        <p class="text-white/70 mt-3">Swings, BOS/CHoCH, FVG. Spot the shift in control.</p>
+      <div class="card p-6">
+        <div class="text-ink/90 font-semibold flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i> 2) Read</div>
+        <p class="mt-3 text-sub">Swings, BOS/CHoCH, FVG, balance. Wait for shift in control.</p>
       </div>
-      <div class="card p-6 reveal">
-        <div class="text-white font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i>Confirm</div>
-        <p class="text-white/70 mt-3">Context → signal → invalidation. Execute only when clean.</p>
+      <div class="card p-6">
+        <div class="text-ink/90 font-semibold flex items-center gap-2"><i data-lucide="goal" class="w-5 h-5"></i> 3) Confirm</div>
+        <p class="mt-3 text-sub">Stack confirmations (context → signal → invalidation). Execute only when clean.</p>
       </div>
-      <div class="card p-6 reveal">
-        <div class="text-white font-semibold flex items-center gap-2"><i data-lucide="notebook-pen" class="w-5 h-5"></i>Review</div>
-        <p class="text-white/70 mt-3">Journal, tag mistakes, refine rules. Compound the process.</p>
+      <div class="card p-6">
+        <div class="text-ink/90 font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5"></i> 4) Review</div>
+        <p class="mt-3 text-sub">Journal, note mistakes, adjust plan. Compound the process.</p>
       </div>
     </div>
   </section>
 
   <!-- CURRICULUM -->
-  <section id="curriculum" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="reveal mb-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white">Curriculum</h2>
-      <p class="text-white/70 mt-2">Three stages of understanding + behind the scenes.</p>
+  <section id="curriculum" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8">
+      <h2 class="text-4xl font-bold"><span class="bg-gradient-to-r from-fx1 to-fx2 bg-clip-text text-transparent">Curriculum</span></h2>
+      <p class="mt-2 text-sub max-w-3xl">Three stages to build understanding—plus the foundations behind the scenes.</p>
     </div>
-    <div class="grid sm:grid-cols-2 gap-6">
-      <article class="card p-6 reveal">
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <article class="card p-6">
         <div class="flex items-center justify-between">
-          <h3 class="text-white/90 font-semibold">A · Reading the Market</h3>
-          <span class="text-xs px-2 py-1 rounded-full border border-white/15 text-white/70">6 lessons</span>
+          <h3 class="text-ink/90 font-semibold">A · Reading the Market</h3>
+          <span class="px-2 py-1 rounded-full text-xs bg-white/5 border line">6 lessons</span>
         </div>
-        <p class="text-white/60 mt-2 text-sm">Candles, phases, price in motion, swings, BOS/CHoCH, FVG.</p>
+        <p class="text-ink/70 mt-2 text-[0.98rem]">Candlesticks · Phases · Price in Motion · Swings · BOS/CHoCH · FVG (balance/imbalance)</p>
       </article>
-      <article class="card p-6 reveal">
+
+      <article class="card p-6">
         <div class="flex items-center justify-between">
-          <h3 class="text-white/90 font-semibold">B · Market Levels</h3>
-          <span class="text-xs px-2 py-1 rounded-full border border-white/15 text-white/70">3 lessons</span>
+          <h3 class="text-ink/90 font-semibold">B · Market Levels</h3>
+          <span class="px-2 py-1 rounded-full text-xs bg-white/5 border line">3 lessons</span>
         </div>
-        <p class="text-white/60 mt-2 text-sm">Supply & Demand, Support & Resistance, Opening Range.</p>
+        <p class="text-ink/70 mt-2 text-[0.98rem]">Supply & Demand · Support & Resistance · Opening Range Breakout (prepare first, confirm later)</p>
       </article>
-      <article class="card p-6 reveal">
+
+      <article class="card p-6">
         <div class="flex items-center justify-between">
-          <h3 class="text-white/90 font-semibold">C · Indicators</h3>
-          <span class="text-xs px-2 py-1 rounded-full border border-white/15 text-white/70">3 lessons</span>
+          <h3 class="text-ink/90 font-semibold">C · Market Indicators</h3>
+          <span class="px-2 py-1 rounded-full text-xs bg-white/5 border line">3 lessons</span>
         </div>
-        <p class="text-white/60 mt-2 text-sm">Volume Profile, VWAP (Anchored), EMA inside context.</p>
+        <p class="text-ink/70 mt-2 text-[0.98rem]">Volume Profile · VWAP (and Anchored) · EMA—used inside context</p>
       </article>
-      <article class="card p-6 reveal">
+
+      <article class="card p-6">
         <div class="flex items-center justify-between">
-          <h3 class="text-white/90 font-semibold">D · Behind the Scenes</h3>
-          <span class="text-xs px-2 py-1 rounded-full border border-white/15 text-white/70">7 lessons</span>
+          <h3 class="text-ink/90 font-semibold">D · Behind the Scenes</h3>
+          <span class="px-2 py-1 rounded-full text-xs bg-white/5 border line">7 lessons</span>
         </div>
-        <p class="text-white/60 mt-2 text-sm">TradingView, futures/prop, orders, risk, journaling, news, psychology.</p>
+        <p class="text-ink/70 mt-2 text-[0.98rem]">TradingView · Futures & Prop Firms · Order Types · Risk First · Journaling · News · Psychology</p>
       </article>
     </div>
   </section>
 
-  <!-- JOURNAL FEATURE -->
-  <section id="journal" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="grid md:grid-cols-2 gap-6 items-start">
-      <div class="card p-6 reveal">
-        <h2 class="text-3xl font-bold text-white">Trading Journal <span class="grad">(Notion)</span></h2>
-        <ul class="mt-4 text-white/80 leading-7 text-[15px] space-y-1.5">
-          <li>Accounts dashboard: balance, goal, PnL, trade count.</li>
-          <li>Daily trade log with screenshots, setup/session tags.</li>
-          <li>Execution Checklist before every entry.</li>
-          <li>Multiple views: Table · Calendar · Gallery · Performance.</li>
-          <li>Minimal, fast, readable for weekly reviews.</li>
-        </ul>
-        <p class="text-white/50 text-xs mt-3">One-time purchase • Personal use license</p>
+  <!-- COMMUNITY -->
+  <section id="community" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8">
+      <h2 class="text-4xl font-bold"><span class="bg-gradient-to-r from-fx1 to-fx2 bg-clip-text text-transparent">Community</span> that accelerates progress</h2>
+      <p class="mt-2 text-sub max-w-2xl">
+        Read the market together, post daily levels, review trades, and learn live.
+      </p>
+      <div class="mt-5">
+        <a href="https://discord.gg/RFbe3nHB" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.222 4.008A19.791 19.791 0 0 0 16.5 3c-.176.31-.383.73-.525 1.06a18.3 18.3 0 0 0-7.95 0A10.75 10.75 0 0 0 7.5 3a19.87 19.87 0 0 0-3.722 1.008C1.718 7.116 1.2 10.118 1.5 13.08A19.9 19.9 0 0 0 8.25 18c.27-.37.57-.82.78-1.22- .86-.33-1.67-.78-2.4-1.32.2-.15.4-.31.59-.47 4.61 2.16 9.6 2.16 14.2 0 .2.16.39.32.59.47-.72.54-1.54.99-2.4 1.32.21.4.5.85.78 1.22a19.9 19.9 0 0 0 6.75-4.92c.36-3.05-.1-6.06-1.876-9.072zM9.75 13.5c-.83 0-1.5-.9-1.5-2s.67-2 1.5-2 1.5.9 1.5 2-.67 2-1.5 2zm6 0c-.83 0-1.5-.9-1.5-2s.67-2 1.5-2 1.5.9 1.5 2-.67 2-1.5 2z"/></svg>
+          Join the Discord
+        </a>
       </div>
-      <div class="card p-6 reveal border-dashed text-center text-white/60">
-        (Add 2–3 screenshots from your Notion template here)
+    </div>
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="card p-6"><div class="font-semibold">#chatroom</div><p class="mt-2 text-sub">Daily hangout. Share charts, ideas, and quick help.</p></div>
+      <div class="card p-6"><div class="font-semibold">#market-news</div><p class="mt-2 text-sub">Weekly market calendar—when to lean in and when to stay light.</p></div>
+      <div class="card p-6">
+        <div class="font-semibold">#market-levels</div>
+        <p class="mt-2 text-sub">Daily levels so you’re prepared. We still wait for confirmation.</p>
+        <div class="mt-3 flex flex-wrap gap-2 text-sm">
+          <span class="px-2 py-1 rounded-full bg-white/5 border line">NQ</span>
+          <span class="px-2 py-1 rounded-full bg-white/5 border line">ES</span>
+          <span class="px-2 py-1 rounded-full bg-white/5 border line">CL</span>
+          <span class="px-2 py-1 rounded-full bg-white/5 border line">GC</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- PRICING -->
-  <section id="pricing" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="reveal mb-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white">Pricing</h2>
-      <p class="text-white/70 mt-2">Use code <b>FIRST40</b> at checkout — course drops from <span class="line-through text-white/50">$1000</span> to <b>$550</b>.</p>
+  <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8">
+      <h2 class="text-4xl font-bold">Choose your <span class="bg-gradient-to-r from-fx1 to-fx2 bg-clip-text text-transparent">Access</span></h2>
+      <p class="mt-2 text-sub">First <b class="text-ink">40</b> get the full course for <b class="text-ink">$550</b> (regular <span class="line-through text-ink/60">$1000</span>). Lifetime updates included.</p>
     </div>
+
     <div class="grid lg:grid-cols-2 gap-6">
       <!-- Course -->
-      <div class="card p-6 reveal flex flex-col">
+      <div class="card p-6 flex flex-col">
         <div class="flex items-start justify-between">
           <div>
-            <div class="text-white font-semibold">FusionTicks Academy · Lifetime</div>
-            <div class="mt-1 text-xs text-white/60">First 40 only</div>
+            <p class="font-semibold">FusionTicks Academy · Lifetime</p>
+            <div class="mt-2"><span class="px-2 py-1 rounded-full text-xs bg-white/5 border line">First 40 only</span></div>
           </div>
           <div class="text-right">
-            <div class="text-3xl font-extrabold text-white">$550</div>
-            <div class="text-sm text-white/50 line-through">$1000</div>
+            <div class="text-3xl font-extrabold">$550</div>
+            <div class="text-sm text-ink/60 line-through">$1000</div>
           </div>
         </div>
-        <p class="text-white/70 mt-3">One-time payment. All current lessons + future updates.</p>
-        <ul class="mt-4 space-y-2 text-white/80">
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-sky-300"></i> Full course</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-sky-300"></i> Lifetime updates</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-sky-300"></i> Private Discord access</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-sky-300"></i> Weekly live Q&A & group study</li>
+        <ul class="mt-4 space-y-2 text-ink/90">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-fx2"></i> Full course + lifetime updates</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-fx2"></i> Private Discord (weekly Q&A)</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-fx2"></i> Daily levels & study workflow</li>
         </ul>
         <div class="mt-6">
-          <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn btn-primary w-full">Get Course — $550</a>
-          <p class="text-xs text-white/50 mt-2">Apply code <b>FIRST40</b> in checkout.</p>
+          <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn btn-primary w-full text-center">
+            Get Course — $550
+          </a>
+          <p class="text-xs text-sub mt-2">Use coupon <b class="text-ink">FIRST40</b> at checkout on Whop.</p>
         </div>
       </div>
-      <!-- Journal -->
-      <div class="card p-6 reveal flex flex-col">
+
+      <!-- Trading Journal -->
+      <div class="card p-6 flex flex-col">
         <div class="flex items-start justify-between">
-          <div class="text-white font-semibold">Trading Journal · Notion Template</div>
-          <div class="text-3xl font-extrabold text-white">$20</div>
+          <p class="font-semibold">FusionTicks Trading Journal (Notion Template)</p>
+          <div class="text-3xl font-extrabold">$20</div>
         </div>
-        <p class="text-white/70 mt-3">A clean, fast workflow to log trades and learn quicker.</p>
-        <ul class="mt-4 space-y-2 text-white/80">
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-sky-300"></i> Accounts dashboard & KPIs</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-sky-300"></i> Daily log + screenshots</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-sky-300"></i> Execution Checklist</li>
-          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-sky-300"></i> Table · Calendar · Gallery · Performance</li>
+        <p class="mt-2 text-sub">A clean system to log trades, tag setups, track emotions, and review performance.</p>
+        <ul class="mt-4 space-y-2 text-ink/90">
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-fx2"></i> One-click duplicate to your Notion</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-fx2"></i> Dashboards: P&L, win rate, R-multiple</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-fx2"></i> Review prompts & weekly reset</li>
         </ul>
         <div class="mt-6">
-          <!-- Swap this with your Notion listing URL -->
-          <a href="REPLACE_WITH_NOTION_URL" class="btn btn-primary w-full">Get Journal — $20</a>
-          <p class="text-xs text-white/50 mt-2">Instant access • Personal use</p>
+          <a href="https://www.notion.so/" target="_blank" rel="noopener" class="btn btn-ghost w-full text-center">
+            Get Journal — $20
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-    <div class="reveal mb-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white">FAQ</h2>
+  <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-8">
+      <h2 class="text-4xl font-bold"><span class="bg-gradient-to-r from-fx1 to-fx2 bg-clip-text text-transparent">FAQ</span></h2>
     </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <details class="card p-5 reveal" open>
-        <summary class="cursor-pointer font-semibold text-white">Who is this for?</summary>
-        <p class="text-white/70 mt-2">Beginners and frustrated traders. We focus on clarity and repetition.</p>
+    <div class="space-y-4">
+      <details class="card p-5" open>
+        <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
+        <p class="text-sub mt-2">Both. We start with reading the market and build toward execution so you can create your own setups—not copy signals.</p>
       </details>
-      <details class="card p-5 reveal">
-        <summary class="cursor-pointer font-semibold text-white">Which markets?</summary>
-        <p class="text-white/70 mt-2">Futures: NQ, ES, CL, GC. The framework ports to other markets.</p>
+      <details class="card p-5">
+        <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
+        <p class="text-sub mt-2">NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
       </details>
-      <details class="card p-5 reveal">
-        <summary class="cursor-pointer font-semibold text-white">Discord & Journal included?</summary>
-        <p class="text-white/70 mt-2">Course includes both. The Journal is also sold separately.</p>
+      <details class="card p-5">
+        <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
+        <p class="text-sub mt-2">Yes. Every plan includes access to the private community with weekly sessions and daily levels.</p>
       </details>
-      <details class="card p-5 reveal">
-        <summary class="cursor-pointer font-semibold text-white">Live session times?</summary>
-        <p class="text-white/70 mt-2">Announced in Discord. Most around the New York session.</p>
+      <details class="card p-5">
+        <summary class="cursor-pointer font-medium">When are live sessions?</summary>
+        <p class="text-sub mt-2">30 minutes before New York session opens (timezone: New York).</p>
       </details>
-      <details class="card p-5 reveal">
-        <summary class="cursor-pointer font-semibold text-white">Refunds?</summary>
-        <p class="text-white/70 mt-2">Digital content — no automatic refunds. If there’s an edge case, contact me.</p>
-      </details>
-      <details class="card p-5 reveal">
-        <summary class="cursor-pointer font-semibold text-white">Language?</summary>
-        <p class="text-white/70 mt-2">Arabic (course & community).</p>
+      <details class="card p-5">
+        <summary class="cursor-pointer font-medium">What language is the content?</summary>
+        <p class="text-sub mt-2">Arabic (with English captions coming soon).</p>
       </details>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t border-white/10">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6 text-white/60 text-sm">
+  <footer class="py-12 border-t line">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-[0.95rem] text-sub">
       <div class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto">
+        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
         <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-3">
-        <a class="card w-10 h-10 flex items-center justify-center" href="https://www.instagram.com/fusionticks" target="_blank" aria-label="Instagram">
-          <!-- Instagram logo -->
+        <!-- Instagram -->
+        <a class="p-2 rounded-full bg-white/5 border line hover:bg-white/10" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
             <circle cx="12" cy="12" r="4"></circle>
             <circle cx="17.5" cy="6.5" r="1"></circle>
           </svg>
         </a>
-        <a class="card w-10 h-10 flex items-center justify-center" href="https://youtube.com/@fusionticks" target="_blank" aria-label="YouTube">
-          <!-- YouTube logo -->
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+        <!-- YouTube -->
+        <a class="p-2 rounded-full bg-white/5 border line hover:bg-white/10" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2 .7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c .6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
           </svg>
         </a>
-        <a class="card w-10 h-10 flex items-center justify-center" href="https://www.tiktok.com/@fusionticks" target="_blank" aria-label="TikTok">
-          <!-- TikTok logo -->
-          <svg viewBox="0 0 48 48" width="20" height="20" fill="currentColor">
+        <!-- TikTok -->
+        <a class="p-2 rounded-full bg-white/5 border line hover:bg-white/10" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
+          <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
             <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
           </svg>
+        </a>
+        <!-- Notion (Journal) -->
+        <a class="p-2 rounded-full bg-white/5 border line hover:bg-white/10" href="https://www.notion.so/" target="_blank" aria-label="Notion">
+          <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M44 36c5-2 10-3 16-2l141 14c10 1 18 3 18 15v146c0 10-5 17-16 16L52 214c-13-1-20-6-20-20V50c0-7 3-12 12-14Zm21 27 0 0 0 0 0 0Zm21 17v94h24v-72l34 72h22v-94h-24v66l-31-66Z"/></svg>
         </a>
       </div>
     </div>
   </footer>
 
-  <!-- SCRIPTS -->
-  <button id="toTop" class="hidden fixed bottom-5 right-5 btn btn-ghost"><i data-lucide="arrow-up"></i></button>
+  <!-- Scripts -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Reveal on scroll
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-      },{threshold: .15});
-      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-      // Back to top
-      const toTop = document.getElementById('toTop');
-      const toggleTop=()=>{ if(scrollY>600) toTop.classList.remove('hidden'); else toTop.classList.add('hidden'); };
-      toggleTop(); addEventListener('scroll', toggleTop);
-      toTop.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
-
       // Mobile menu
-      const m=document.getElementById('mobileMenu'), b=document.getElementById('menuBtn');
-      const open=()=>{ m.classList.remove('hidden'); document.body.style.overflow='hidden'; };
-      const close=()=>{ m.classList.add('hidden'); document.body.style.overflow=''; };
-      b.addEventListener('click',open);
-      m.querySelectorAll('[data-close], a[data-close]').forEach(el=>el.addEventListener('click',close));
-      m.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>setTimeout(close,50)));
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const openMenu = () => { mobileMenu.classList.remove('hidden'); document.body.style.overflow='hidden'; };
+      const closeMenu = () => { mobileMenu.classList.add('hidden'); document.body.style.overflow=''; };
+      menuBtn.addEventListener('click', openMenu);
+      mobileMenu.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
+      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => setTimeout(closeMenu, 50)));
     });
   </script>
 </body>
