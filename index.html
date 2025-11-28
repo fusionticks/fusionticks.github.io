@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FusionTicks — Trade With Clarity</title>
-  <meta name="description" content="FusionTicks: a risk-first, process-driven trading program by Khalid Kuhail. Read the market, stack confirmations, and build repeatable setups. Includes a Notion Trading Journal.">
+  <title>FusionTicks – Trade With Clarity</title>
+  <meta name="description" content="A risk-first, process-driven program to read the market, stack confirmations, and build repeatable setups.">
 
-  <!-- FAVICONS / MANIFEST (you already have these files) -->
-  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="./favicon-512x512.png">
-  <link rel="shortcut icon" href="./favicon.ico">
-  <link rel="manifest" href="./site.webmanifest">
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <!-- Favicons / Manifest (اختياري حسب ملفاتك) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Social -->
-  <meta property="og:title" content="FusionTicks — Trade With Clarity"/>
-  <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise."/>
-  <meta property="og:image" content="./banner-ft.webp"/>
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:title" content="FusionTicks – Trade With Clarity">
+  <meta property="og:description" content="Read the market. Stack confirmations. Trade without noise.">
+  <meta property="og:image" content="/banner-ft.webp?v=3">
 
   <!-- Performance -->
   <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-  <link rel="preconnect" href="https://unpkg.com" crossorigin>
-  <link rel="preload" as="image" href="./banner-ft.webp" imagesrcset="./banner-ft.webp" imagesizes="100vw">
+  <link rel="preload" as="image" href="/banner-ft.webp?v=3" imagesrcset="/banner-ft.webp?v=3" imagesizes="100vw">
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -31,11 +28,7 @@
     tailwind.config = {
       theme: {
         extend: {
-          colors: { 'bg-dark':'#0a0f15' },
-          boxShadow: {
-            'soft':'0 10px 30px rgba(0,0,0,.35)',
-            'inner':'inset 0 1px 0 rgba(255,255,255,.06)'
-          }
+          colors: { 'bg-dark':'#0b1016' }
         }
       }
     }
@@ -45,123 +38,89 @@
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
-    html{scroll-behavior:smooth}
+    html { scroll-behavior: smooth }
     :root{
       --accent1:#67E8F9; /* cyan */
       --accent2:#60A5FA; /* blue */
+      --nav-h: 0px;      /* يُضبط تلقائياً عبر JS */
     }
 
-    /* Buttons */
+    /* ===== Buttons ===== */
     .btn-primary{
       display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-      height:48px;padding:0 22px;border-radius:14px;font-weight:700;color:#081017;
-      background:linear-gradient(180deg,var(--accent2),var(--accent1));
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow:0 12px 28px rgba(96,165,250,.25), inset 0 1px 0 rgba(255,255,255,.25);
-      transition:transform .06s ease,filter .15s ease;
+      padding:.75rem 1.25rem;border-radius:14px;font-weight:700;
+      color:#0A0F15;background:linear-gradient(180deg,var(--accent2),var(--accent1));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 12px 30px rgba(103,232,249,.28), inset 0 1px 0 rgba(255,255,255,.25);
+      transition:filter .2s ease, transform .08s ease;
     }
-    .btn-primary:hover{filter:brightness(1.05)}
+    .btn-primary:hover{ filter:brightness(1.04) }
     .btn-ghost{
       display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-      height:48px;padding:0 22px;border-radius:14px;font-weight:600;color:#fff;
-      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+      padding:.75rem 1.25rem;border-radius:14px;font-weight:600;
+      color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+      transition: border-color .2s ease, background-color .2s ease;
     }
-    .badge{
-      display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .55rem;border-radius:999px;
-      font-size:.75rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)
-    }
+    .btn-ghost:hover{ border-color: rgba(255,255,255,.22); background:rgba(255,255,255,.08) }
 
-    /* Reveal on scroll */
-    .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease, transform .6s ease}
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1;transform:none}
 
-    /* Cards */
-    .card{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;
-      box-shadow:0 12px 30px rgba(0,0,0,.35);
-    }
-
-    /* Subtle gradient section bg */
-    .sec{
-      background: radial-gradient(80% 140% at 0% -10%, rgba(96,165,250,.10) 0%, rgba(0,0,0,0) 40%),
-                  radial-gradient(70% 120% at 100% 110%, rgba(103,232,249,.08) 0%, rgba(0,0,0,0) 40%);
+    /* ===== Hero fills first viewport (minus nav) ===== */
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
     }
   </style>
 </head>
+<body class="bg-bg-dark text-white selection:bg-blue-600/30">
 
-<body class="min-h-screen bg-bg-dark text-white selection:bg-blue-600/30">
   <!-- NAV -->
-  <header class="sticky top-0 z-50 backdrop-blur bg-black/55 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <header id="siteNav" class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto">
+        <img src="/FT%20Logo.png" alt="FusionTicks logo" class="h-7 w-auto">
         <span class="font-semibold tracking-tight">FusionTicks</span>
       </a>
-      <nav class="hidden md:flex items-center gap-7 text-sm text-white/80">
+      <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#about" class="hover:text-white">About</a>
         <a href="#products" class="hover:text-white">Products</a>
         <a href="#curriculum" class="hover:text-white">Curriculum</a>
-        <a href="#insights" class="hover:text-white">Insights</a>
         <a href="#contact" class="hover:text-white">Contact</a>
       </nav>
-      <div class="hidden md:flex">
-        <a href="#pricing" class="btn-primary">Get Access</a>
-      </div>
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20">
+      <a href="#pricing" class="hidden md:inline-flex btn-primary">Get Access</a>
+      <button class="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20" aria-label="Menu">
         <i data-lucide="menu"></i>
       </button>
     </div>
-    <!-- top promo bar -->
-    <div class="text-xs md:text-sm text-white/80 bg-black/60 border-t border-white/10">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-col md:flex-row gap-2 md:gap-6 justify-center">
-        <span>Launch offer: use <b>FIRST40</b> at checkout to get the course for <b>$550</b> <span class="text-white/60">(regular $1000)</span></span>
-        <span class="hidden md:inline text-white/40">•</span>
-        <span>Journal: Notion Trading Journal <b>$20</b> — instant access</span>
-        <span class="hidden md:inline text-white/40">•</span>
-        <span>Discord community • Weekly Q&amp;A • Levels • Reviews</span>
-      </div>
-    </div>
   </header>
 
-  <!-- MOBILE MENU -->
-  <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/70" data-close></div>
-    <div class="absolute right-3 left-3 top-20 card">
-      <div class="p-3 flex justify-end">
-        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20" data-close aria-label="Close menu">
-          <i data-lucide="x"></i>
-        </button>
-      </div>
-      <nav class="px-4 pb-4 text-base">
-        <a class="block py-3 border-t border-white/10" href="#about">About</a>
-        <a class="block py-3 border-t border-white/10" href="#products">Products</a>
-        <a class="block py-3 border-t border-white/10" href="#curriculum">Curriculum</a>
-        <a class="block py-3 border-t border-white/10" href="#insights">Insights</a>
-        <a class="block py-3 border-t border-white/10" href="#contact">Contact</a>
-        <a href="#pricing" class="mt-4 block text-center rounded-xl py-3 bg-gradient-to-r from-blue-600 to-cyan-400">Get Access</a>
-      </nav>
-    </div>
-  </div>
-
-  <!-- HERO with your banner -->
-  <section class="relative overflow-hidden">
+  <!-- HERO (fills first screen) -->
+  <section class="hero relative overflow-hidden">
+    <!-- Background image -->
     <div class="absolute inset-0 -z-10">
       <picture>
-        <source type="image/webp" srcset="./banner-ft.webp" sizes="100vw">
-        <img src="./banner-ft.webp" alt="FusionTicks banner"
-             class="w-full h-full object-cover object-[center_45%]" fetchpriority="high" decoding="async">
+        <source srcset="/banner-ft.webp?v=3" type="image/webp" sizes="100vw">
+        <source srcset="/banner-ft.png?v=3" type="image/png" sizes="100vw">
+        <source srcset="/banner-ft.jpg?v=3" type="image/jpeg" sizes="100vw">
+        <img
+          src="/banner-ft.webp?v=3"
+          alt="FusionTicks banner"
+          class="w-full h-full object-cover object-center"
+          fetchpriority="high"
+          decoding="async"
+        />
       </picture>
-      <div class="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-bg-dark/85"></div>
+      <!-- overlay لزيادة التباين للنص -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-bg-dark/85"></div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 sm:pt-32 sm:pb-28">
+    <!-- Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center h-full py-16">
       <h1 class="reveal text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
         <span class="text-white/95">Trade With Clarity,</span><br class="hidden sm:block">
-        <span class="text-white/70">Not Noise.</span>
+        <span class="text-white/80">Not Noise.</span>
       </h1>
-      <p class="reveal mt-5 max-w-2xl text-white/80 text-lg">
+      <p class="reveal mt-5 max-w-2xl text-white/85 text-lg">
         A risk-first, process-driven program to read the market, stack confirmations, and build repeatable setups.
       </p>
       <div class="reveal mt-8 flex flex-wrap gap-3">
@@ -171,268 +130,83 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="sec">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <div class="grid lg:grid-cols-3 gap-6">
-        <div class="card p-6 reveal">
-          <div class="text-white/90 font-semibold flex items-center gap-2">
-            <i data-lucide="map" class="w-5 h-5"></i> Prepare
-          </div>
-          <p class="mt-3 text-white/70 text-sm md:text-base leading-relaxed">
-            Map S/D, S/R, ORB on higher timeframes. Note sessions &amp; news.
-          </p>
+  <!-- QUICK STEPS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+        <div class="font-semibold flex items-center gap-2 text-white/90">
+          <i data-lucide="map" class="w-5 h-5"></i> Prepare
         </div>
-        <div class="card p-6 reveal">
-          <div class="text-white/90 font-semibold flex items-center gap-2">
-            <i data-lucide="scan" class="w-5 h-5"></i> Read
-          </div>
-          <p class="mt-3 text-white/70 text-sm md:text-base leading-relaxed">
-            Swings, BOS/CHoCH, FVG &amp; balance. Identify a clear shift in control.
-          </p>
+        <p class="mt-3 text-white/75">Map S/D, S/R, ORB on higher timeframes. Note sessions & news.</p>
+      </div>
+      <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+        <div class="font-semibold flex items-center gap-2 text-white/90">
+          <i data-lucide="scan" class="w-5 h-5"></i> Read
         </div>
-        <div class="card p-6 reveal">
-          <div class="text-white/90 font-semibold flex items-center gap-2">
-            <i data-lucide="goal" class="w-5 h-5"></i> Execute &amp; Review
-          </div>
-          <p class="mt-3 text-white/70 text-sm md:text-base leading-relaxed">
-            Stack confirmations → execute → journal → improve. Process over emotion.
-          </p>
+        <p class="mt-3 text-white/75">Swings, BOS/CHoCH, FVG & balance. Identify a clear shift in control.</p>
+      </div>
+      <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+        <div class="font-semibold flex items-center gap-2 text-white/90">
+          <i data-lucide="goal" class="w-5 h-5"></i> Execute & Review
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRODUCTS (Course + Journal) -->
-  <section id="products" class="sec">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="mb-8 sm:mb-10">
-        <h2 class="text-3xl sm:text-4xl font-bold">Products</h2>
-        <p class="mt-2 text-white/70 max-w-2xl">Choose what you need now. You can always upgrade later.</p>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-6">
-        <!-- Course -->
-        <article class="card p-6 flex flex-col reveal">
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <h3 class="text-xl font-semibold">FusionTicks Course</h3>
-              <p class="text-white/60 text-sm mt-1">Process over Emotion • Arabic</p>
-            </div>
-            <img src="./FT%20Logo.png" alt="FT" class="h-8 w-8 opacity-80">
-          </div>
-
-          <ul class="mt-4 space-y-2 text-white/80 text-sm md:text-base leading-relaxed">
-            <li>• 23 recorded lessons (A → D)</li>
-            <li>• Practical framework: read → levels → indicators → behind the scenes</li>
-            <li>• Same tools I use daily + live examples</li>
-            <li>• Private Discord access + weekly Q&amp;A</li>
-          </ul>
-
-          <div class="mt-5 text-sm text-white/60">
-            Launch: first <b>40</b> use code <b>FIRST40</b> → <b class="text-white/90">$550</b> <span class="line-through">$1000</span>
-          </div>
-
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn-primary">
-              Get Course — $550 with FIRST40
-            </a>
-            <a href="#curriculum" class="btn-ghost">See Curriculum</a>
-          </div>
-        </article>
-
-        <!-- Journal -->
-        <article id="journal" class="card p-6 flex flex-col reveal">
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <h3 class="text-xl font-semibold">Notion Trading Journal</h3>
-              <p class="text-white/60 text-sm mt-1">Template • Instant access</p>
-            </div>
-            <i data-lucide="notebook-pen" class="w-7 h-7 text-white/70"></i>
-          </div>
-
-          <ul class="mt-4 space-y-2 text-white/80 text-sm md:text-base leading-relaxed">
-            <li>• Structured daily log: plan, execution, post-trade review</li>
-            <li>• Dashboard for stats, mistakes, and improvement loops</li>
-            <li>• Tags for setups, sessions, market conditions</li>
-          </ul>
-
-          <div class="mt-6">
-            <a href="#" class="btn-primary">Buy Journal — $20</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CURRICULUM -->
-  <section id="curriculum" class="sec">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="mb-6">
-        <h2 class="text-3xl sm:text-4xl font-bold">Curriculum</h2>
-        <p class="mt-2 text-white/70 max-w-3xl">Three stages to understanding, then what happens behind the scenes.</p>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <article class="card p-5 reveal">
-          <div class="flex items-center gap-2"><i data-lucide="scan" class="w-5 h-5"></i><b>A · Reading the Market</b></div>
-          <p class="text-white/70 text-sm mt-2">Candlesticks, phases, price in motion, swings, BOS/CHoCH, FVG.</p>
-        </article>
-        <article class="card p-5 reveal">
-          <div class="flex items-center gap-2"><i data-lucide="layout" class="w-5 h-5"></i><b>B · Market Levels</b></div>
-          <p class="text-white/70 text-sm mt-2">Supply/Demand, Support/Resistance, Opening Range Breakout.</p>
-        </article>
-        <article class="card p-5 reveal">
-          <div class="flex items-center gap-2"><i data-lucide="activity" class="w-5 h-5"></i><b>C · Indicators</b></div>
-          <p class="text-white/70 text-sm mt-2">Volume Profile, VWAP (anchored), EMA — inside context.</p>
-        </article>
-        <article class="card p-5 reveal">
-          <div class="flex items-center gap-2"><i data-lucide="settings" class="w-5 h-5"></i><b>D · Behind the Scenes</b></div>
-          <p class="text-white/70 text-sm mt-2">TradingView, futures/prop, order types, risk first, journaling, news, psychology.</p>
-        </article>
+        <p class="mt-3 text-white/75">Stack confirmations → execute → journal → improve. Process over emotion.</p>
       </div>
     </div>
   </section>
 
   <!-- PRICING -->
-  <section id="pricing" class="sec">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="mb-8">
-        <h2 class="text-3xl sm:text-4xl font-bold">Choose Your Access</h2>
-        <p class="mt-2 text-white/70">Lifetime updates for the course. Journal is a one-time purchase.</p>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-6">
-        <div class="card p-6 reveal flex flex-col">
-          <div class="flex items-start justify-between">
-            <div>
-              <span class="font-semibold">FusionTicks Course · Lifetime</span>
-              <div class="mt-2"><span class="badge">First 40 — use code <b>FIRST40</b></span></div>
-            </div>
-            <div class="text-right">
-              <div class="text-3xl font-extrabold">$550</div>
-              <div class="text-sm text-white/50 line-through">$1000</div>
-            </div>
-          </div>
-          <ul class="mt-3 space-y-2 text-white/80">
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Full course + future updates</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Weekly Q&amp;A &amp; group study</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-300"></i> Private Discord access</li>
-          </ul>
-          <div class="mt-6">
-            <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn-primary w-full text-center">Get Course — Apply FIRST40</a>
-          </div>
-        </div>
-
-        <div class="card p-6 reveal flex flex-col">
-          <div class="flex items-start justify-between">
-            <span class="font-semibold">Notion Trading Journal</span>
-            <span class="text-2xl font-extrabold">$20</span>
-          </div>
-          <p class="text-white/70 mt-2">Template + guide. Track plans, executions, mistakes, and stats.</p>
-          <div class="mt-6">
-            <a href="#" class="btn-ghost w-full text-center">Buy Journal — $20</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="reveal text-3xl sm:text-4xl font-bold">Pricing</h2>
+    <p class="reveal mt-3 text-white/85">
+      Launch offer: use code <b>FIRST40</b> at checkout to get the course for <b>$550</b>
+      (regular <span class="line-through">$1000</span>). Lifetime updates included.
+    </p>
   </section>
 
-  <!-- INSIGHTS / SOCIAL -->
-  <section id="insights" class="sec">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="mb-6">
-        <h2 class="text-3xl sm:text-4xl font-bold">Join the Community</h2>
-        <p class="mt-2 text-white/70">Discord is where we review trades, post levels, and learn live.</p>
-      </div>
-      <a href="https://discord.gg/RFbe3nHB" target="_blank" rel="noopener" class="btn-primary">
-        <img src="./discord%20logo.png" alt="" class="w-5 h-5"> Join Discord
-      </a>
-
-      <div class="mt-8 flex items-center gap-3 text-white/70">
-        <span>Follow:</span>
-        <a class="p-2 rounded-full border border-white/15 hover:bg-white/10" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
-          <i data-lucide="instagram" class="w-5 h-5"></i>
-        </a>
-        <a class="p-2 rounded-full border border-white/15 hover:bg-white/10" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
-          <i data-lucide="youtube" class="w-5 h-5"></i>
-        </a>
-        <a class="p-2 rounded-full border border-white/15 hover:bg-white/10" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
-          <i data-lucide="music" class="w-5 h-5"></i>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="sec">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="mb-6">
-        <h2 class="text-3xl sm:text-4xl font-bold">FAQ</h2>
-      </div>
-
-      <div class="space-y-4">
-        <details class="card p-4 reveal" open>
-          <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
-          <p class="text-white/70 mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups—not copy signals.</p>
-        </details>
-        <details class="card p-4 reveal">
-          <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
-          <p class="text-white/70 mt-2">NQ, ES, CL, and GC with session-specific tactics and clear risk templates.</p>
-        </details>
-        <details class="card p-4 reveal">
-          <summary class="cursor-pointer font-medium">Do I get Discord access?</summary>
-          <p class="text-white/70 mt-2">Yes. Every plan includes the private community with weekly sessions and daily levels.</p>
-        </details>
-        <details class="card p-4 reveal">
-          <summary class="cursor-pointer font-medium">When are live sessions, which timezone?</summary>
-          <p class="text-white/70 mt-2">30 minutes before New York session open — timezone: New York.</p>
-        </details>
-        <details class="card p-4 reveal">
-          <summary class="cursor-pointer font-medium">What language is the content?</summary>
-          <p class="text-white/70 mt-2">Arabic (with clear visuals and English terms where helpful).</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT / FOOTER -->
-  <footer id="contact" class="border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-sm text-white/70 flex flex-col md:flex-row items-center justify-between gap-6">
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-white/60 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks Logo" class="h-7 w-auto">
-        <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
+        <img src="/FT%20Logo.png" alt="FusionTicks logo small" class="h-6 w-auto">
+        <span>© <span id="year"></span> FusionTicks</span>
       </div>
-      <div class="flex items-center gap-4">
-        <a href="mailto:fusionticks@gmail.com" class="hover:text-white"><i data-lucide="mail" class="w-5 h-5"></i></a>
-        <a href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" class="hover:text-white" target="_blank" rel="noopener"><i data-lucide="youtube" class="w-5 h-5"></i></a>
-        <a href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" class="hover:text-white" target="_blank" rel="noopener"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+      <div class="flex items-center gap-3">
+        <a class="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
+          <i data-lucide="instagram" class="w-4 h-4"></i>
+        </a>
+        <a class="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
+          <i data-lucide="youtube" class="w-4 h-4"></i>
+        </a>
+        <a class="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
+          <i data-lucide="music-2" class="w-4 h-4"></i>
+        </a>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script>
+    // Set --nav-h so hero = full viewport minus header height
+    function setNavHeightVar(){
+      const nav = document.getElementById('siteNav');
+      const h = nav ? nav.offsetHeight : 0;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Reveal on scroll
+      // init & keep in sync on resize
+      setNavHeightVar();
+      window.addEventListener('resize', setNavHeightVar);
+
+      // reveal on scroll
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{
           if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
         });
-      },{threshold:0.12});
+      },{threshold:0.15});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-      // Mobile menu
-      const menuBtn = document.getElementById('menuBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const openMenu = () => { mobileMenu.classList.remove('hidden'); document.body.style.overflow='hidden'; };
-      const closeMenu = () => { mobileMenu.classList.add('hidden'); document.body.style.overflow=''; };
-      menuBtn?.addEventListener('click', openMenu);
-      mobileMenu.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', closeMenu));
-      mobileMenu.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => setTimeout(closeMenu, 50)));
     });
   </script>
 </body>
