@@ -10,6 +10,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Space Grotesk (display) + Inter (body) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind (utilities only) -->
@@ -30,12 +31,10 @@
   <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
-  <!-- Preload hero banner (put /banner-ft.webp in repo root) -->
-  <link rel="preload" as="image" href="./banner-ft.webp"/>
-
   <style>
     /* =================== APERTURE LIGHT — BRAND NEW DNA =================== */
     :root{
+      /* Palette (light, editorial) */
       --bg:#F8FAFD;        /* paper */
       --ink:#0A0D14;       /* text */
       --muted:#5B667A;     /* secondary text */
@@ -48,21 +47,21 @@
       --shadow:rgba(2,7,18,.12);
       --shadow-strong:rgba(2,7,18,.18);
 
-      --grid:#0A0D14;
+      --grid:#0A0D14;      /* used in patterns */
     }
 
     html{scroll-behavior:smooth}
     body{background:var(--bg); color:var(--ink);}
-    body.modal-open, body.menu-open{overflow:hidden}
 
-    /* ===== Patterned header background ===== */
+    /* ===== Patterned header background (angled stripes + dots) ===== */
     .aperture-bg{
       position:absolute; inset:0; z-index:-1; pointer-events:none;
       background:
         radial-gradient(1200px 600px at 85% -10%, rgba(20,184,166,.12), transparent 60%),
         radial-gradient(900px 500px at -10% 20%, rgba(37,99,235,.12), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.75));
-      mask: linear-gradient(180deg, rgba(0,0,0,.96), rgba(0,0,0,.86) 40%, rgba(0,0,0,.6) 80%, rgba(0,0,0,0));
+      mask:
+        linear-gradient(180deg, rgba(0,0,0,.96), rgba(0,0,0,.86) 40%, rgba(0,0,0,.60) 80%, rgba(0,0,0,0));
     }
     .aperture-stripes{
       position:absolute; inset:0; opacity:.06; mix-blend-mode:multiply; pointer-events:none;
@@ -73,26 +72,6 @@
       background-image:radial-gradient(var(--grid) 1px, transparent 1px);
       background-size:20px 20px;
       mask: linear-gradient(180deg, #000, transparent 70%);
-    }
-
-    /* ===== Full-bleed hero banner ===== */
-    .hero-wrap{
-      position:relative;
-      min-height:88vh;
-      display:flex;
-      align-items:flex-end;
-    }
-    .hero-bg{
-      position:absolute; inset:0; z-index:-2;
-      background: url('./banner-ft.webp') center/cover no-repeat;
-      filter: saturate(0.9) contrast(1.02);
-    }
-    .hero-overlay{
-      position:absolute; inset:0; z-index:-1;
-      background:
-        linear-gradient(180deg, rgba(248,250,253,.82), rgba(248,250,253,.86) 35%, rgba(248,250,253,.94) 60%, rgba(248,250,253,1) 85%),
-        radial-gradient(1000px 500px at 20% 0%, rgba(255,255,255,.35), transparent 60%);
-      backdrop-filter: blur(.1px);
     }
 
     /* ===== Nav ===== */
@@ -122,11 +101,14 @@
       box-shadow: 0 16px 34px rgba(14,165,233,.25), inset 0 1px 0 rgba(255,255,255,.6);
     }
 
-    /* ===== Hero content grid ===== */
+    /* ===== Hero ===== */
     .hero-grid{ display:grid; grid-template-columns: 1.05fr .95fr; gap:2rem }
     @media (max-width: 1024px){ .hero-grid{ grid-template-columns:1fr } }
 
-    .k-title{ letter-spacing:-.01em; line-height:1.02; font-family:var(--font-display, Space Grotesk); }
+    .k-title{
+      font-family:var(--font-display, Space Grotesk);
+      letter-spacing:-.01em; line-height:1.02;
+    }
 
     .strapline{
       display:inline-flex; align-items:center; gap:.6rem; height:34px; padding:0 .75rem; border-radius:999px; font-size:.82rem;
@@ -151,18 +133,25 @@
     .spark-wrap{ position:relative; height:380px }
     .spark-wrap canvas{ position:absolute; inset:0; width:100%; height:100% }
 
-    /* ===== Cards / sections ===== */
-    .card{ background:var(--panel); border:1px solid var(--edge); border-radius:16px; padding:18px; box-shadow: 0 14px 28px var(--shadow); }
+    /* ===== Cards ===== */
+    .card{
+      background:var(--panel); border:1px solid var(--edge); border-radius:16px; padding:18px;
+      box-shadow: 0 14px 28px var(--shadow);
+    }
+
+    /* ===== Section head ===== */
     .eyebrow{ display:inline-flex; align-items:center; gap:.5rem; height:32px; padding:0 .7rem; border-radius:999px; font-size:.82rem; background:#fff; border:1px solid var(--edge); box-shadow:0 6px 16px var(--shadow) }
     .beam{ height:2px; background:linear-gradient(90deg, transparent, var(--strap), var(--strap2), transparent); opacity:.9 }
 
-    /* ===== Timeline ===== */
+    /* ===== Timeline (clean) ===== */
     .rail{ position:relative; padding-left:1.4rem }
     .rail:before{ content:""; position:absolute; left:.6rem; top:.2rem; bottom:.3rem; width:2px; background:linear-gradient(180deg, var(--strap), var(--strap2)); border-radius:2px; }
     .dot{ width:12px; height:12px; border-radius:999px; background:var(--strap); box-shadow:0 0 0 6px rgba(14,165,233,.14); border:1px solid #fff }
 
-    /* ===== Pricing ===== */
-    .price{ display:grid; grid-template-columns:1fr auto; align-items:start; gap:1rem; }
+    /* ===== Pricing (modules) ===== */
+    .price{
+      display:grid; grid-template-columns:1fr auto; align-items:start; gap:1rem;
+    }
     .tag{ display:inline-flex; align-items:center; gap:.45rem; height:28px; padding:0 .6rem; border-radius:999px; font-size:.78rem; background:#F1F6FF; border:1px solid var(--edge) }
     .ring{
       display:inline-grid; place-items:center; width:92px; height:92px; border-radius:999px;
@@ -173,8 +162,13 @@
     .ring span{ background:linear-gradient(180deg, var(--strap2), var(--strap)); -webkit-background-clip:text; background-clip:text; color:transparent }
 
     /* ===== Sticky Checkout dock ===== */
-    .dock{ position:fixed; left:0; right:0; bottom:16px; z-index:40; display:flex; justify-content:center; pointer-events:none; }
-    .dock-inner{ pointer-events:auto; display:flex; align-items:center; gap:.8rem; border:1px solid var(--edge); background:#fff; border-radius:14px; padding:.5rem .6rem; box-shadow:0 18px 40px var(--shadow-strong); }
+    .dock{
+      position:fixed; left:0; right:0; bottom:16px; z-index:40; display:flex; justify-content:center; pointer-events:none;
+    }
+    .dock-inner{
+      pointer-events:auto; display:flex; align-items:center; gap:.8rem; border:1px solid var(--edge); background:#fff; border-radius:14px; padding:.5rem .6rem;
+      box-shadow:0 18px 40px var(--shadow-strong);
+    }
 
     /* ===== Reveal ===== */
     .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
@@ -182,17 +176,13 @@
 
     /* Helpers */
     .muted{ color:var(--muted) }
-    .no-scrollbar::-webkit-scrollbar{display:none} .no-scrollbar{scrollbar-width:none}
+    .gridCols{ display:grid; grid-template-columns:repeat(12,1fr); gap:1rem }
+    .no-scrollbar::-webkit-scrollbar{display:none} .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
   </style>
 </head>
 <body>
   <!-- HERO WRAPPER -->
-  <header class="relative hero-wrap">
-    <!-- Full banner image + soft overlay -->
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-
-    <!-- Pattern accents -->
+  <header class="relative">
     <div class="aperture-bg"></div>
     <div class="aperture-stripes"></div>
     <div class="aperture-dots"></div>
@@ -240,55 +230,53 @@
     </div>
 
     <!-- HERO CONTENT -->
-    <section id="hero" class="w-full">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 lg:pt-16">
-        <div class="hero-grid">
-          <div class="relative">
-            <span class="strapline">
-              <span class="strap-badge">FT</span> Trade Education — No Signals · Risk-First
-            </span>
-            <h1 class="k-title mt-4 text-5xl sm:text-6xl font-extrabold">
-              Trade with <span style="background:linear-gradient(90deg,var(--strap2),var(--strap));-webkit-background-clip:text;background-clip:text;color:transparent">Clarity</span>,<br/>
-              Not Noise.
-            </h1>
-            <p class="mt-5 muted max-w-2xl">
-              I started like most traders: YouTube strategies, paid courses, and a lot of frustration.
-              Real progress came when I stopped memorizing and began understanding the market. I treat each trade as a setup
-              based on the idea that time is fractal: higher timeframe key levels set the bias, lower timeframe levels define
-              the entry, and I identify who is in control. Now I teach the same framework inside FusionTicks.
-            </p>
-            <div class="mt-7 flex flex-wrap gap-3">
-              <a href="#pricing" class="btn btn-primary"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
-              <a href="#curriculum" class="btn"><i data-lucide="book-open" class="w-4 h-4"></i> See Curriculum</a>
-              <span class="tag">NQ · ES · CL · GC</span>
-              <span class="tag">Context → Confirm</span>
-            </div>
-
-            <div class="mt-8 rounded-xl border border-[var(--edge)] bg-white p-3 flex items-center text-sm">
-              <div class="px-3 py-1 rounded-full text-white font-semibold" style="background:linear-gradient(180deg, var(--strap2), var(--strap))">FIRST40</div>
-              <div class="ml-3">Launch offer — first 40 get the course for <b>$550</b> (regular <span class="line-through">$1000</span>).</div>
-            </div>
+    <section id="hero" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 lg:pt-16">
+      <div class="hero-grid">
+        <div class="relative">
+          <span class="strapline">
+            <span class="strap-badge">FT</span> Trade Education — No Signals · Risk-First
+          </span>
+          <h1 class="k-title mt-4 text-5xl sm:text-6xl font-extrabold">
+            Trade with <span style="background:linear-gradient(90deg,var(--strap2),var(--strap));-webkit-background-clip:text;background-clip:text;color:transparent">Clarity</span>,<br/>
+            Not Noise.
+          </h1>
+          <p class="mt-5 muted max-w-2xl">
+            I started like most traders: YouTube strategies, paid courses, and a lot of frustration.
+            Real progress came when I stopped memorizing and began understanding the market. I treat each trade as a setup
+            based on the idea that time is fractal: higher timeframe key levels set the bias, lower timeframe levels define
+            the entry, and I identify who is in control. Now I teach the same framework inside FusionTicks.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="#pricing" class="btn btn-primary"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
+            <a href="#curriculum" class="btn"><i data-lucide="book-open" class="w-4 h-4"></i> See Curriculum</a>
+            <span class="tag">NQ · ES · CL · GC</span>
+            <span class="tag">Context → Confirm</span>
           </div>
 
-          <div class="poster">
-            <div class="poster-header">
-              <div class="flex items-center gap-2">
-                <img src="./FT%20Logo.png" alt="FusionTicks" class="h-6 w-auto"/>
-                <span class="text-sm" style="color:var(--muted)">Signal-free Education</span>
-              </div>
-              <div class="flex items-center gap-2 text-xs">
-                <span class="tag">Risk-First</span>
-                <span class="tag">Process &gt; Outcome</span>
-              </div>
+          <div class="mt-8 rounded-xl border border-[var(--edge)] bg-white p-3 flex items-center text-sm">
+            <div class="px-3 py-1 rounded-full text-white font-semibold" style="background:linear-gradient(180deg, var(--strap2), var(--strap))">FIRST40</div>
+            <div class="ml-3">Launch offer — first 40 get the course for <b>$550</b> (regular <span class="line-through">$1000</span>).</div>
+          </div>
+        </div>
+
+        <div class="poster">
+          <div class="poster-header">
+            <div class="flex items-center gap-2">
+              <img src="./FT%20Logo.png" alt="FusionTicks" class="h-6 w-auto"/>
+              <span class="text-sm text-[var(--muted)]">Signal-free Education</span>
             </div>
-            <div class="spark-wrap">
-              <canvas id="spark"></canvas>
-              <!-- Spark footer stats -->
-              <div class="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-3 text-center text-[13px]">
-                <div class="tag">Context → Confirm</div>
-                <div class="tag">Bias from HTF</div>
-                <div class="tag">Execution on LTF</div>
-              </div>
+            <div class="flex items-center gap-2 text-xs">
+              <span class="tag">Risk-First</span>
+              <span class="tag">Process &gt; Outcome</span>
+            </div>
+          </div>
+          <div class="spark-wrap">
+            <canvas id="spark"></canvas>
+            <!-- Spark footer stats -->
+            <div class="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-3 text-center text-[13px]">
+              <div class="tag">Context → Confirm</div>
+              <div class="tag">Bias from HTF</div>
+              <div class="tag">Execution on LTF</div>
             </div>
           </div>
         </div>
@@ -343,10 +331,34 @@
       </div>
 
       <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <article class="card reveal"><div class="flex items-center justify-between"><h4 class="font-semibold">A · Reading the Market</h4><span class="tag">6 lessons</span></div><p class="muted mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG.</p></article>
-        <article class="card reveal"><div class="flex items-center justify-between"><h4 class="font-semibold">B · Market Levels</h4><span class="tag">3 lessons</span></div><p class="muted mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout.</p></article>
-        <article class="card reveal"><div class="flex items-center justify-between"><h4 class="font-semibold">C · Market Indicators</h4><span class="tag">3 lessons</span></div><p class="muted mt-2 text-sm">Volume Profile, VWAP (Anchored), and EMA—inside context.</p></article>
-        <article class="card reveal"><div class="flex items-center justify-between"><h4 class="font-semibold">D · Behind the Scenes</h4><span class="tag">7 lessons</span></div><p class="muted mt-2 text-sm">TradingView, futures &amp; prop firms, order types, risk, journaling, news, psychology.</p></article>
+        <article class="card reveal">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold">A · Reading the Market</h4>
+            <span class="tag">6 lessons</span>
+          </div>
+          <p class="muted mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG.</p>
+        </article>
+        <article class="card reveal">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold">B · Market Levels</h4>
+            <span class="tag">3 lessons</span>
+          </div>
+          <p class="muted mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout.</p>
+        </article>
+        <article class="card reveal">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold">C · Market Indicators</h4>
+            <span class="tag">3 lessons</span>
+          </div>
+          <p class="muted mt-2 text-sm">Volume Profile, VWAP (Anchored), and EMA—inside context.</p>
+        </article>
+        <article class="card reveal">
+          <div class="flex items-center justify-between">
+            <h4 class="font-semibold">D · Behind the Scenes</h4>
+            <span class="tag">7 lessons</span>
+          </div>
+          <p class="muted mt-2 text-sm">TradingView, futures &amp; prop firms, order types, risk, journaling, news, psychology.</p>
+        </article>
       </div>
 
       <div class="mt-8">
@@ -493,26 +505,20 @@
           </div>
         </article>
 
-        <!-- Trading Journal (One-time $20) -->
+        <!-- Sub -->
         <article class="card reveal">
           <div class="price">
-            <div>
-              <div class="font-semibold">Notion Trading Journal · Template</div>
-              <div class="mt-2 tag">Instant Access</div>
-            </div>
-            <div class="text-right">
-              <div class="ring"><span class="text-2xl">$20</span></div>
-            </div>
+            <div class="font-semibold">Live &amp; Levels · Subscription</div>
+            <div class="text-2xl font-extrabold">$20<span class="text-sm muted">/mo</span></div>
           </div>
-          <p class="muted mt-2">Simple, structured journaling that closes your feedback loop. Track setups, confirmations, risk, and lessons.</p>
+          <p class="muted mt-2">Everything you need day-to-day to stay prepared.</p>
           <ul class="mt-3 space-y-2">
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Daily log + screenshots</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Setup tags & stats</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly review dashboard</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Daily pre-market live (plan + levels)</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Today’s outlook & scenarios</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly news calendar</li>
           </ul>
           <div class="pt-4">
-            <!-- TODO: replace with your real checkout link -->
-            <a id="journalLink" href="https://YOUR_JOURNAL_CHECKOUT_LINK" class="btn btn-primary w-full justify-center">Buy Trading Journal — $20</a>
+            <a href="https://YOUR_WHOP_LINK_SUB_20" class="btn btn-primary w-full justify-center">Subscribe — $20/mo</a>
           </div>
         </article>
 
@@ -543,7 +549,7 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- FAQ + FOOTER -->
+    <!-- FAQ -->
     <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow">FAQ</span>
@@ -574,20 +580,31 @@
       </div>
 
       <footer class="mt-14 py-10 border-t" style="border-color:var(--edge)">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm" style="color:var(--muted)" >
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--muted)] px-4">
           <div class="flex items-center gap-3">
             <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto">
             <span>© <span id="year"></span> FusionTicks. All rights reserved.</span>
           </div>
           <div class="flex items-center gap-3">
+            <!-- Instagram -->
             <a class="p-2 rounded-full border border-[var(--edge)] bg-white" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                <circle cx="12" cy="12" r="4"></circle>
+                <circle cx="17.5" cy="6.5" r="1"></circle>
+              </svg>
             </a>
+            <!-- YouTube -->
             <a class="p-2 rounded-full border border-[var(--edge)] bg-white" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2 .7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c .6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/></svg>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2 .7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c .6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
+              </svg>
             </a>
+            <!-- TikTok -->
             <a class="p-2 rounded-full border border-[var(--edge)] bg-white" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
-              <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor"><path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/></svg>
+              <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
+                <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -613,10 +630,61 @@
       </div>
       <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar text-sm leading-relaxed">
         <div class="grid sm:grid-cols-2 gap-6">
-          <article class="card"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="scan" class="w-4 h-4"></i> A · Reading the Market</h4><ol class="mt-2 list-decimal pl-5 space-y-1"><li>Who’s in Control? (Candlesticks)</li><li>Market Stages (Phases)</li><li>Price in Motion</li><li>Swings &amp; Shifts</li><li>Breaks &amp; Flips (BOS &amp; CHoCH)</li><li>Balance &amp; Imbalance (FVG)</li></ol></article>
-          <article class="card"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="layout" class="w-4 h-4"></i> B · Market Levels</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="7"><li>Where it Starts (Supply &amp; Demand)</li><li>Key Zones (Support &amp; Resistance)</li><li>The Explosion (Opening Range Breakout)</li></ol><p class="mt-3 text-xs muted">Levels are not entries—wait for confirmations.</p></article>
-          <article class="card"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="activity" class="w-4 h-4"></i> C · Market Indicators</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="10"><li>Volume Map (Volume Profile)</li><li>VWAP &amp; Anchored</li><li>EMA</li></ol></article>
-          <article class="card"><h4 class="font-semibold text-base flex items-center gap-2"><i data-lucide="settings" class="w-4 h-4"></i> D · Behind the Scenes</h4><ol class="mt-2 list-decimal pl-5 space-y-1" start="13"><li>Quick Guide to TradingView</li><li>Futures &amp; Prop Firms</li><li>Order Types</li><li>Risk First (Risk Management)</li><li>Journaling &amp; Reviews</li><li>News &amp; Economic Events</li><li>Psychology</li></ol></article>
+          <!-- A -->
+          <article class="card">
+            <h4 class="font-semibold text-base flex items-center gap-2">
+              <i data-lucide="scan" class="w-4 h-4"></i> A · Reading the Market
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Who’s in Control? (Candlesticks)</li>
+              <li>Market Stages (Phases)</li>
+              <li>Price in Motion</li>
+              <li>Swings &amp; Shifts</li>
+              <li>Breaks &amp; Flips (BOS &amp; CHoCH)</li>
+              <li>Balance &amp; Imbalance (FVG)</li>
+            </ol>
+          </article>
+
+          <!-- B -->
+          <article class="card">
+            <h4 class="font-semibold text-base flex items-center gap-2">
+              <i data-lucide="layout" class="w-4 h-4"></i> B · Market Levels
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="7">
+              <li>Where it Starts (Supply &amp; Demand)</li>
+              <li>Key Zones (Support &amp; Resistance)</li>
+              <li>The Explosion (Opening Range Breakout)</li>
+            </ol>
+            <p class="mt-3 text-xs muted">Levels are not entries—wait for confirmations.</p>
+          </article>
+
+          <!-- C -->
+          <article class="card">
+            <h4 class="font-semibold text-base flex items-center gap-2">
+              <i data-lucide="activity" class="w-4 h-4"></i> C · Market Indicators
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="10">
+              <li>Volume Map (Volume Profile)</li>
+              <li>VWAP &amp; Anchored</li>
+              <li>EMA</li>
+            </ol>
+          </article>
+
+          <!-- D -->
+          <article class="card">
+            <h4 class="font-semibold text-base flex items-center gap-2">
+              <i data-lucide="settings" class="w-4 h-4"></i> D · Behind the Scenes
+            </h4>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="13">
+              <li>Quick Guide to TradingView</li>
+              <li>Futures &amp; Prop Firms</li>
+              <li>Order Types</li>
+              <li>Risk First (Risk Management)</li>
+              <li>Journaling &amp; Reviews</li>
+              <li>News &amp; Economic Events</li>
+              <li>Psychology</li>
+            </ol>
+          </article>
         </div>
       </div>
     </div>
@@ -659,26 +727,17 @@
     // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    const openMenu = ()=>{ mobileMenu.classList.remove('hidden'); document.body.classList.add('menu-open'); };
-    const closeMenu = ()=>{ mobileMenu.classList.add('hidden'); document.body.classList.remove('menu-open'); };
-    menuBtn?.addEventListener('click', openMenu);
-    mobileMenu?.querySelectorAll('[data-close]').forEach(b=> b.addEventListener('click', closeMenu));
-    mobileMenu?.querySelectorAll('a[href^="#"]').forEach(a=> a.addEventListener('click', ()=> setTimeout(closeMenu, 50)));
+    const closeAll = ()=> mobileMenu.classList.add('hidden');
+    menuBtn?.addEventListener('click', ()=> mobileMenu.classList.remove('hidden'));
+    mobileMenu?.querySelectorAll('[data-close]').forEach(b=> b.addEventListener('click', closeAll));
+    mobileMenu?.querySelectorAll('a[href^="#"]').forEach(a=> a.addEventListener('click', ()=> setTimeout(closeAll, 50)));
 
     // Modals
     const hookModal = (openSel, modalId, closeSel) => {
       const modal = document.getElementById(modalId);
-      document.querySelectorAll(openSel).forEach(btn=>btn.addEventListener('click', ()=>{
-        modal.classList.remove('hidden'); document.body.classList.add('modal-open');
-      }));
-      modal.querySelectorAll(closeSel).forEach(btn=>btn.addEventListener('click', ()=>{
-        modal.classList.add('hidden'); document.body.classList.remove('modal-open');
-      }));
-      modal.addEventListener('click', (e)=>{
-        if(e.target === modal.firstElementChild){
-          modal.classList.add('hidden'); document.body.classList.remove('modal-open');
-        }
-      });
+      document.querySelectorAll(openSel).forEach(btn=>btn.addEventListener('click', ()=>{ modal.classList.remove('hidden'); document.body.classList.add('modal-open'); }));
+      modal.querySelectorAll(closeSel).forEach(btn=>btn.addEventListener('click', ()=>{ modal.classList.add('hidden'); document.body.classList.remove('modal-open'); }));
+      modal.addEventListener('click', (e)=>{ if(e.target === modal.firstElementChild) { modal.classList.add('hidden'); document.body.classList.remove('modal-open'); }});
     };
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
     hookModal('[data-ict-open]','ictModal','[data-ict-close]');
