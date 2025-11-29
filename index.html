@@ -31,7 +31,6 @@
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
-    /* =================== APERTURE LIGHT - BRAND NEW DNA =================== */
     :root{
       --bg:#F8FAFD;
       --ink:#0A0D14;
@@ -70,6 +69,32 @@
       mask: linear-gradient(180deg, #000, transparent 70%);
     }
 
+    /* Reusable diagonal background for sections (Pricing) */
+    .section-diagonal{
+      position:relative;
+      background:
+        radial-gradient(1200px 520px at 85% -10%, rgba(20,184,166,.10), transparent 60%),
+        radial-gradient(900px 500px at -10% 20%, rgba(37,99,235,.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.82));
+      border-top:1px solid var(--edge);
+      border-bottom:1px solid var(--edge);
+      overflow:hidden;
+    }
+    .section-diagonal:before{
+      content:"";
+      position:absolute; inset:0;
+      opacity:.06; mix-blend-mode:multiply; pointer-events:none;
+      background-image: repeating-linear-gradient(135deg, var(--grid) 0 2px, transparent 2px 12px);
+    }
+    .section-diagonal:after{
+      content:"";
+      position:absolute; inset:0;
+      opacity:.06; pointer-events:none;
+      background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+      background-size:20px 20px;
+      mask: linear-gradient(180deg, #000, transparent 70%);
+    }
+
     .nav{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px) saturate(140%);
@@ -98,8 +123,8 @@
       box-shadow: 0 16px 34px rgba(14,165,233,.25), inset 0 1px 0 rgba(255,255,255,.6);
     }
 
-    .hero-grid{ display:grid; grid-template-columns: 1.05fr .95fr; gap:2rem }
-    @media (max-width: 1024px){ .hero-grid{ grid-template-columns:1fr } }
+    /* HERO now single column (chart removed) */
+    .hero-grid{ display:grid; grid-template-columns: 1fr; gap:2rem }
 
     .k-title{
       font-family:var(--font-display, Space Grotesk);
@@ -116,19 +141,6 @@
       background:linear-gradient(180deg, var(--strap2), var(--strap)); font-size:.72rem; font-weight:700;
       box-shadow: 0 8px 18px rgba(37,99,235,.25);
     }
-
-    .poster{
-      position:relative; border-radius:18px; background:var(--panel); border:1px solid var(--edge);
-      box-shadow: 0 24px 60px var(--shadow-strong);
-      overflow:hidden;
-    }
-    .poster-header{
-      display:flex; align-items:center; justify-content:space-between; gap:1rem;
-      padding:10px 12px; border-bottom:1px solid var(--edge);
-      background:linear-gradient(180deg, #fff, #F7FAFF);
-    }
-    .spark-wrap{ position:relative; height:380px }
-    .spark-wrap canvas{ position:absolute; inset:0; width:100%; height:100% }
 
     .card{
       background:var(--panel); border:1px solid var(--edge); border-radius:16px; padding:18px;
@@ -168,6 +180,22 @@
 
     .muted{ color:var(--muted) }
     .no-scrollbar::-webkit-scrollbar{display:none} .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
+
+    /* Gradient text used for Clarity + section titles */
+    .grad{
+      background:linear-gradient(90deg,var(--strap2),var(--strap));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+
+    /* Logo fallback */
+    .logo-fallback{
+      display:none;
+      width:28px;height:28px;border-radius:10px;
+      background:linear-gradient(180deg,var(--strap2),var(--strap));
+      color:#fff; font-weight:900; font-size:12px;
+      align-items:center; justify-content:center;
+      box-shadow:0 10px 22px rgba(37,99,235,.22);
+    }
   </style>
 </head>
 
@@ -181,21 +209,23 @@
     <div class="nav">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
         <a href="#" class="flex items-center gap-3">
-          <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto"/>
+          <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"/>
+          <span class="logo-fallback">FT</span>
           <span class="font-semibold tracking-tight">FUSIONTICKS</span>
         </a>
 
         <nav class="hidden md:flex items-center gap-6 text-[15px]">
           <a href="#how">How We Trade</a>
-          <a href="#academy">FT Academy</a>
-          <a href="#journal">FT Journal</a>
-          <a href="#discord">Discord</a>
+          <a href="#academy">FusionTicks Academy</a>
+          <a href="#journal">FusionTicks Journal</a>
+          <a href="#discord">Discord Community</a>
           <a href="#pricing">Prices</a>
           <a href="#faq">FAQ</a>
         </nav>
 
+        <!-- keep only ONE CTA to reduce duplicates -->
         <div class="hidden md:flex items-center gap-2">
-          <a class="btn-ghost btn" href="#academy"><i data-lucide="book-open" class="w-4 h-4"></i> FT Academy</a>
           <a class="btn btn-primary" href="#pricing"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
         </div>
 
@@ -212,9 +242,9 @@
         </div>
         <nav class="px-4 pb-5 grid gap-2 text-base">
           <a class="btn" href="#how">How We Trade</a>
-          <a class="btn" href="#academy">FT Academy</a>
-          <a class="btn" href="#journal">FT Journal</a>
-          <a class="btn" href="#discord">Discord</a>
+          <a class="btn" href="#academy">FusionTicks Academy</a>
+          <a class="btn" href="#journal">FusionTicks Journal</a>
+          <a class="btn" href="#discord">Discord Community</a>
           <a class="btn" href="#pricing">Prices</a>
           <a class="btn" href="#faq">FAQ</a>
           <a class="btn btn-primary mt-2" href="#pricing">Get Access</a>
@@ -222,16 +252,16 @@
       </div>
     </div>
 
-    <!-- HERO CONTENT -->
+    <!-- HERO CONTENT (chart removed) -->
     <section id="hero" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 lg:pt-16">
       <div class="hero-grid">
         <div class="relative">
           <span class="strapline">
-            <span class="strap-badge">FT</span> Trade Education - No Signals · Risk-First
+            <span class="strap-badge">FT</span> Trade Education - No Signals
           </span>
 
           <h1 class="k-title mt-4 text-5xl sm:text-6xl font-extrabold">
-            Trade with <span style="background:linear-gradient(90deg,var(--strap2),var(--strap));-webkit-background-clip:text;background-clip:text;color:transparent">Clarity</span>,<br/>
+            Trade with <span class="grad">Clarity</span>,<br/>
             Not Noise.
           </h1>
 
@@ -244,36 +274,13 @@
 
           <div class="mt-7 flex flex-wrap gap-3">
             <a href="#pricing" class="btn btn-primary"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
-            <a href="#academy" class="btn"><i data-lucide="book-open" class="w-4 h-4"></i> FT Academy</a>
+            <a href="#academy" class="btn"><i data-lucide="book-open" class="w-4 h-4"></i> FusionTicks Academy</a>
             <span class="tag">NQ · ES · CL · GC · QQQ · SPY</span>
-            <span class="tag">Context → Confirm</span>
           </div>
 
           <div class="mt-8 rounded-xl border border-[var(--edge)] bg-white p-3 flex items-center text-sm">
             <div class="px-3 py-1 rounded-full text-white font-semibold" style="background:linear-gradient(180deg, var(--strap2), var(--strap))">FIRST40</div>
             <div class="ml-3">Launch offer: first 40 get the course for <b>$550</b> (regular <span class="line-through">$1000</span>).</div>
-          </div>
-        </div>
-
-        <div class="poster">
-          <div class="poster-header">
-            <div class="flex items-center gap-2">
-              <img src="./FT%20Logo.png" alt="FusionTicks" class="h-6 w-auto"/>
-              <span class="text-sm text-[var(--muted)]">Signal-free Education</span>
-            </div>
-            <div class="flex items-center gap-2 text-xs">
-              <span class="tag">Risk-First</span>
-              <span class="tag">Process &gt; Outcome</span>
-            </div>
-          </div>
-
-          <div class="spark-wrap">
-            <canvas id="spark"></canvas>
-            <div class="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-3 text-center text-[13px]">
-              <div class="tag">Context → Confirm</div>
-              <div class="tag">Bias from HTF</div>
-              <div class="tag">Execution on LTF</div>
-            </div>
           </div>
         </div>
       </div>
@@ -286,8 +293,6 @@
       <div class="reveal">
         <span class="eyebrow">Simple Pipeline</span>
         <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">How We Trade</h3>
-
-        <!-- merged + removed em dash -->
         <p class="mt-2 muted max-w-4xl">
           From preparation to execution, this is a clear process you can repeat daily; strategies alone are a 50/50 gamble, so we flip the odds by reading the market, identifying who’s in control, and stacking confirmations before any entry.
         </p>
@@ -322,16 +327,15 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- FT ACADEMY -->
+    <!-- FUSIONTICKS ACADEMY -->
     <section id="academy" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="book-open" class="w-4 h-4"></i> Course</span>
-        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">FT Academy</h3>
+        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold"><span class="grad">FusionTicks Academy</span></h3>
         <p class="mt-2 muted max-w-3xl">Short lessons. Clear structure. Built for daily use.</p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
-        <!-- LEFT (windows stacked) -->
         <div class="lg:col-span-1 space-y-4">
           <article class="card reveal">
             <div class="flex items-center justify-between">
@@ -370,7 +374,6 @@
           </button>
         </div>
 
-        <!-- RIGHT (placeholder for images later) -->
         <div class="lg:col-span-2">
           <div class="card reveal h-full flex items-center justify-center text-center">
             <div>
@@ -384,16 +387,15 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- FT JOURNAL -->
+    <!-- FUSIONTICKS JOURNAL -->
     <section id="journal" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="notebook-pen" class="w-4 h-4"></i> Notion Journal</span>
-        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">FT Journal</h3>
+        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold"><span class="grad">FusionTicks Journal</span></h3>
         <p class="mt-2 muted max-w-3xl">Track your trades, mistakes, and progress. Included with the course, or get it alone for $20.</p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
-        <!-- LEFT (windows stacked) -->
         <div class="lg:col-span-1 space-y-4">
           <article class="card reveal">
             <div class="flex items-center gap-2 font-semibold"><i data-lucide="check-square" class="w-5 h-5 text-[var(--strap2)]"></i> Daily Trade Log</div>
@@ -417,7 +419,6 @@
           </div>
         </div>
 
-        <!-- RIGHT (placeholder for images later) -->
         <div class="lg:col-span-2">
           <div class="card reveal h-full flex items-center justify-center text-center">
             <div>
@@ -435,10 +436,8 @@
     <section id="discord" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="users" class="w-4 h-4"></i> Community</span>
-        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Discord Community</h3>
-        <p class="mt-2 muted max-w-2xl">
-          Chat, weekly news, and daily levels. Simple and useful.
-        </p>
+        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold"><span class="grad">Discord Community</span></h3>
+        <p class="mt-2 muted max-w-2xl">Chat, weekly news, and daily levels. Simple and useful.</p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
@@ -486,80 +485,71 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- PRICES -->
-    <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-      <div class="reveal">
-        <span class="eyebrow">Choose Your Access</span>
-        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Prices</h3>
-        <p class="mt-2 muted">First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through">$1000</span>). Lifetime updates included.</p>
-      </div>
+    <!-- PRICES (with diagonal background + subscription removed + ICT replaced by Journal) -->
+    <section id="pricing" class="section-diagonal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 relative">
+        <div class="reveal">
+          <span class="eyebrow">Choose Your Access</span>
+          <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Prices</h3>
+          <p class="mt-2 muted">First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through">$1000</span>). Lifetime updates included.</p>
+        </div>
 
-      <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <article class="card reveal">
-          <div class="price">
-            <div>
-              <div class="font-semibold">FT Academy · Lifetime</div>
-              <div class="mt-2 tag">First 40 only</div>
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Course -->
+          <article class="card reveal">
+            <div class="price">
+              <div>
+                <div class="font-semibold">FusionTicks Academy · Lifetime</div>
+                <div class="mt-2 tag">First 40 only</div>
+              </div>
+              <div class="text-right">
+                <div class="ring"><span class="text-2xl">$550</span></div>
+                <div class="text-sm muted mt-1 line-through">$1000</div>
+              </div>
             </div>
-            <div class="text-right">
-              <div class="ring"><span class="text-2xl">$550</span></div>
-              <div class="text-sm muted mt-1 line-through">$1000</div>
+            <p class="muted mt-2">One-time payment. Includes all lessons now and all future updates.</p>
+            <ul class="mt-3 space-y-2">
+              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Full course (current lessons)</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Lifetime updates (future lessons)</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Private Discord access (no live/levels/news)</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly live Q&amp;A & group study</li>
+            </ul>
+            <div class="pt-4">
+              <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn btn-primary w-full justify-center">Get Course - $550</a>
+              <p class="text-xs muted mt-2">Use code <b>FIRST40</b></p>
             </div>
-          </div>
-          <p class="muted mt-2">One-time payment. Includes all lessons now and all future updates.</p>
-          <ul class="mt-3 space-y-2">
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Full course (current lessons)</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Lifetime updates (future lessons)</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Private Discord access (no live/levels/news)</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly live Q&amp;A & group study</li>
-          </ul>
-          <div class="pt-4">
-            <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn btn-primary w-full justify-center">Get Course - $550</a>
-            <p class="text-xs muted mt-2">Use code <b>FIRST40</b></p>
-          </div>
-        </article>
+          </article>
 
-        <article class="card reveal">
-          <div class="price">
-            <div class="font-semibold">Live &amp; Levels · Subscription</div>
-            <div class="text-2xl font-extrabold">$20<span class="text-sm muted">/mo</span></div>
-          </div>
-          <p class="muted mt-2">Everything you need day-to-day to stay prepared.</p>
-          <ul class="mt-3 space-y-2">
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Daily pre-market live (plan + levels)</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Today’s outlook & scenarios</li>
-            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly news calendar</li>
-          </ul>
-          <div class="pt-4">
-            <a href="https://YOUR_WHOP_LINK_SUB_20" class="btn btn-primary w-full justify-center">Subscribe - $20/mo</a>
-          </div>
-        </article>
+          <!-- Blank space (Live & Levels removed) -->
+          <div class="hidden lg:block"></div>
 
-        <article class="card reveal">
-          <div class="price">
-            <div class="font-semibold">ICT Concepts · Deep Dive</div>
-            <div class="text-2xl font-extrabold">$1000</div>
-          </div>
-          <div class="mt-2 flex items-center gap-2 text-sm muted">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full" style="background:var(--strap);opacity:.65"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2" style="background:var(--strap)"></span>
-            </span>
-            In progress: coming soon
-          </div>
-          <p class="muted mt-2">Full ICT framework: structure, execution models, case studies.</p>
-          <ul class="mt-3 space-y-2">
-            <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-[var(--muted)]"></i> Comprehensive ICT framework</li>
-            <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-[var(--muted)]"></i> Clear setups & management rules</li>
-            <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-[var(--muted)]"></i> Real chart walk-throughs</li>
-          </ul>
-          <div class="pt-4">
-            <button disabled class="btn w-full" style="opacity:.6; cursor:not-allowed">Coming Soon</button>
-          </div>
-        </article>
+          <!-- Journal (replaces ICT) -->
+          <article class="card reveal">
+            <div class="price">
+              <div>
+                <div class="font-semibold">FusionTicks Journal</div>
+                <div class="mt-2 tag">Included with course</div>
+              </div>
+              <div class="text-right">
+                <div class="ring"><span class="text-2xl">$20</span></div>
+              </div>
+            </div>
+            <p class="muted mt-2">A clean journal to track trades, spot mistakes, and improve faster.</p>
+            <ul class="mt-3 space-y-2">
+              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Daily trade log</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly review workflow</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Simple stats and patterns</li>
+            </ul>
+            <div class="pt-4">
+              <!-- ضع رابط الجيرنال الحقيقي إذا عندك -->
+              <a href="#pricing" class="btn btn-primary w-full justify-center">Get Journal - $20</a>
+              <p class="text-xs muted mt-2">Included free with the course.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="mt-10 beam"></div>
       </div>
-
-      <div class="mt-10 beam"></div>
     </section>
 
     <!-- FAQ -->
@@ -570,7 +560,6 @@
       </div>
 
       <div class="mt-6 space-y-4">
-        <!-- all hidden by default (no open) -->
         <details class="card reveal">
           <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
           <p class="muted mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups, not copy signals.</p>
@@ -592,7 +581,9 @@
       <footer class="mt-14 py-10 border-t" style="border-color:var(--edge)">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--muted)] px-4">
           <div class="flex items-center gap-3">
-            <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto">
+            <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+            <span class="logo-fallback">FT</span>
             <span>© <span id="year"></span> FUSIONTICKS. All rights reserved.</span>
           </div>
           <div class="flex items-center gap-3">
@@ -727,78 +718,6 @@
       });
     };
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
-
-    (function(){
-      const c = document.getElementById('spark'); if(!c) return;
-      const ctx = c.getContext('2d');
-      let DPR = Math.min(2, devicePixelRatio||1);
-      const resize = ()=>{
-        const r = c.getBoundingClientRect();
-        c.width = Math.floor(r.width*DPR);
-        c.height = Math.floor(r.height*DPR);
-      };
-      const ro = new ResizeObserver(resize); ro.observe(c.parentElement); resize();
-
-      const W = ()=> c.width, H = ()=> c.height;
-      let t = 0;
-      const dots = Array.from({length:42}, ()=>({o:Math.random()}));
-
-      function grid(){
-        ctx.save();
-        ctx.globalAlpha = .18;
-        ctx.strokeStyle = "#CBD8EE";
-        ctx.lineWidth = 1*DPR;
-        const s = 36*DPR;
-        for(let x=0;x<W();x+=s){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H()); ctx.stroke(); }
-        for(let y=0;y<H();y+=s){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W(),y); ctx.stroke(); }
-        ctx.restore();
-      }
-
-      function lineGrad(){
-        const g = ctx.createLinearGradient(0,0,W(),0);
-        g.addColorStop(0, "#2563EB");
-        g.addColorStop(1, "#0EA5E9");
-        return g;
-      }
-
-      function curve(x){
-        return H()*0.55 + (Math.sin(x*0.010 + t)*0.9 + Math.sin(x*0.0035 - t*1.15)*0.65)*H()*0.18;
-      }
-
-      function draw(){
-        t += .012;
-        ctx.clearRect(0,0,W(),H());
-        grid();
-
-        ctx.beginPath();
-        for(let x=0;x<W();x++){ const y=curve(x); x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
-        ctx.lineTo(W(),H()); ctx.lineTo(0,H()); ctx.closePath();
-        const ag = ctx.createLinearGradient(0,0,0,H());
-        ag.addColorStop(0,"rgba(37,99,235,.14)");
-        ag.addColorStop(1,"rgba(14,165,233,.04)");
-        ctx.fillStyle = ag; ctx.fill();
-
-        ctx.lineWidth = 2*DPR; ctx.strokeStyle = lineGrad();
-        ctx.beginPath();
-        for(let x=0;x<W();x++){ const y=curve(x); x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
-        ctx.stroke();
-
-        ctx.save();
-        ctx.shadowColor = "rgba(14,165,233,.6)"; ctx.shadowBlur = 18*DPR;
-        ctx.stroke();
-        ctx.restore();
-
-        ctx.fillStyle = "#0EA5E9";
-        dots.forEach((d,i)=>{
-          const x = (((i/dots.length) + (t*0.03)) % 1) * W();
-          const y = curve(x);
-          ctx.beginPath(); ctx.arc(x,y,1.6*DPR,0,Math.PI*2); ctx.fill();
-        });
-
-        requestAnimationFrame(draw);
-      }
-      draw();
-    })();
   </script>
 </body>
 </html>
