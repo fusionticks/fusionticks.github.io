@@ -438,7 +438,6 @@
           </div>
         </div>
 
-        <!-- Right side removed chart, keep clean premium panel -->
         <div class="card p-6">
           <div class="flex items-center gap-3">
             <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"
@@ -511,7 +510,7 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- FUSIONTICKS ACADEMY (ONLY section changed: modern slider + text) -->
+    <!-- ACADEMY -->
     <section id="academy" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="book-open" class="w-4 h-4"></i> Course</span>
@@ -522,7 +521,6 @@
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
-        <!-- LEFT -->
         <div class="lg:col-span-1 space-y-4">
           <article class="card reveal p-5">
             <div class="flex items-center justify-between">
@@ -561,7 +559,6 @@
           </button>
         </div>
 
-        <!-- RIGHT (Modern Slider) -->
         <div class="lg:col-span-2 reveal">
           <div class="showcase p-4">
             <div class="carousel-topbar">
@@ -579,7 +576,8 @@
               </div>
             </div>
 
-            <div class="carousel-viewport placeholder" data-carousel data-folder="./academy/">
+            <!-- IMPORTANT: dataset tells JS which group -->
+            <div class="carousel-viewport placeholder" data-carousel data-set="academy">
               <div class="carousel-track"></div>
             </div>
 
@@ -594,7 +592,7 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- FUSIONTICKS JOURNAL (ONLY section changed: modern slider + text) -->
+    <!-- JOURNAL -->
     <section id="journal" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="notebook-pen" class="w-4 h-4"></i> Notion Journal</span>
@@ -605,7 +603,6 @@
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
-        <!-- LEFT -->
         <div class="lg:col-span-1 space-y-4">
           <article class="card reveal p-5">
             <div class="flex items-center gap-2 font-extrabold">
@@ -639,7 +636,6 @@
           </div>
         </div>
 
-        <!-- RIGHT (Modern Slider) -->
         <div class="lg:col-span-2 reveal">
           <div class="showcase p-4">
             <div class="carousel-topbar">
@@ -657,7 +653,7 @@
               </div>
             </div>
 
-            <div class="carousel-viewport placeholder" data-carousel data-folder="./journal/">
+            <div class="carousel-viewport placeholder" data-carousel data-set="journal">
               <div class="carousel-track"></div>
             </div>
 
@@ -672,7 +668,7 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- DISCORD COMMUNITY (ONLY section changed: modern slider + text) -->
+    <!-- DISCORD -->
     <section id="discord" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="users" class="w-4 h-4"></i> Community</span>
@@ -683,7 +679,6 @@
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
-        <!-- LEFT -->
         <div class="lg:col-span-1 space-y-4">
           <article class="card reveal p-5">
             <div class="flex items-center gap-2 font-extrabold">
@@ -723,7 +718,6 @@
           </a>
         </div>
 
-        <!-- RIGHT (Modern Slider) -->
         <div class="lg:col-span-2 reveal">
           <div class="showcase p-4">
             <div class="carousel-topbar">
@@ -741,7 +735,7 @@
               </div>
             </div>
 
-            <div class="carousel-viewport placeholder" data-carousel data-folder="./discord/">
+            <div class="carousel-viewport placeholder" data-carousel data-set="discord">
               <div class="carousel-track"></div>
             </div>
 
@@ -756,7 +750,7 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- PRICES (same band style as hero) -->
+    <!-- PRICES -->
     <section id="pricing" class="aperture-band">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div class="reveal">
@@ -790,7 +784,6 @@
             </div>
           </article>
 
-          <!-- Empty middle card kept as space (as you requested previously) -->
           <article class="card reveal p-6 flex items-center justify-center text-center">
             <div>
               <div class="font-extrabold">Reserved</div>
@@ -993,9 +986,26 @@
     };
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
 
-    // ===== Carousels (Auto-detect ./academy/1.webp.., ./journal/1.webp.., ./discord/1.webp..) =====
+    // ===== Carousels (USE YOUR REAL FILE NAMES) =====
+    const IMAGE_SETS = {
+      academy: [
+        "./academy-1.webp","./academy-2.webp","./academy-3.webp",
+        "./academy-4.webp","./academy-5.webp","./academy-6.webp"
+      ],
+      journal: [
+        "./journal-1.webp","./journal-2.webp","./journal-3.webp",
+        "./journal-4.webp","./journal-5.webp","./journal-6.webp"
+      ],
+      discord: [
+        "./discord-1.webp","./discord-2.webp","./discord-3.webp",
+        "./discord-4.webp","./discord-5.webp"
+      ],
+    };
+
     function buildCarousel(viewport){
-      const folder = viewport.getAttribute('data-folder') || './';
+      const setKey = viewport.getAttribute('data-set'); // academy / journal / discord
+      const slides = IMAGE_SETS[setKey] || [];
+
       const track = viewport.querySelector('.carousel-track');
       const wrap = viewport.closest('.showcase');
       const prevBtn = wrap.querySelector('[data-prev]');
@@ -1003,90 +1013,82 @@
       const countEl = wrap.querySelector('[data-count]');
       const dotsWrap = wrap.querySelector('[data-dots]');
 
-      let slides = [];
       let index = 0;
 
-      const maxProbe = 30; // put any number of images, named 1.webp, 2.webp, etc.
-      const loaders = [];
-      for(let i=1;i<=maxProbe;i++){
-        loaders.push(new Promise((resolve)=>{
-          const img = new Image();
-          img.onload = ()=> resolve({ok:true, src: folder + i + '.webp', i});
-          img.onerror = ()=> resolve({ok:false});
-          img.src = folder + i + '.webp';
-        }));
-      }
-
-      Promise.all(loaders).then(results=>{
-        const ok = results.filter(r=>r.ok).map(r=>r.src);
-
-        if(ok.length === 0){
-          // Placeholder
-          track.innerHTML = `
-            <div class="carousel-slide" style="min-width:100%">
-              <div class="h-full w-full grid place-items-center text-center p-10">
-                <div>
-                  <div style="font-weight:900">No images found</div>
-                  <div class="muted" style="margin-top:8px;font-size:14px">
-                    Put your images in ${folder} named 1.webp, 2.webp, 3.webp
-                  </div>
-                </div>
+      if(!slides.length){
+        track.innerHTML = `
+          <div class="carousel-slide" style="min-width:100%">
+            <div class="h-full w-full grid place-items-center text-center p-10">
+              <div>
+                <div style="font-weight:900">No images set</div>
+                <div class="muted" style="margin-top:8px;font-size:14px">Missing data-set on carousel.</div>
               </div>
             </div>
-          `;
-          if(countEl) countEl.textContent = '0';
-          prevBtn.disabled = true;
-          nextBtn.disabled = true;
-          return;
-        }
-
-        slides = ok;
-        if(countEl) countEl.textContent = String(slides.length);
-
-        // Build slides
-        track.innerHTML = slides.map((src)=>`
-          <div class="carousel-slide">
-            <img src="${src}" alt="" loading="lazy" draggable="false"/>
           </div>
-        `).join('');
+        `;
+        countEl.textContent = '0';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
 
-        // Build dots
-        dotsWrap.innerHTML = slides.map((_,i)=>`<button class="dotBtn" aria-label="Go to slide ${i+1}" data-dot="${i}"></button>`).join('');
+      // Render slides
+      track.innerHTML = slides.map((src)=>`
+        <div class="carousel-slide">
+          <img src="${src}" alt="" loading="lazy" draggable="false"/>
+        </div>
+      `).join('');
 
-        const dotBtns = Array.from(dotsWrap.querySelectorAll('.dotBtn'));
-        dotBtns.forEach(b=>{
-          b.addEventListener('click', ()=>{
-            const to = Number(b.getAttribute('data-dot')||0);
-            setIndex(to);
-          });
-        });
+      // Render dots
+      dotsWrap.innerHTML = slides.map((_,i)=>`
+        <button class="dotBtn" aria-label="Go to slide ${i+1}" data-dot="${i}"></button>
+      `).join('');
 
-        function update(){
-          track.style.transform = `translateX(${-index * 100}%)`;
-          prevBtn.disabled = (index === 0);
-          nextBtn.disabled = (index === slides.length - 1);
-          dotBtns.forEach((d,i)=> d.classList.toggle('active', i===index));
-        }
+      const dotBtns = Array.from(dotsWrap.querySelectorAll('.dotBtn'));
+      countEl.textContent = String(slides.length);
 
-        function setIndex(i){
-          index = Math.max(0, Math.min(slides.length - 1, i));
-          update();
-        }
-
-        prevBtn.addEventListener('click', ()=> setIndex(index - 1));
-        nextBtn.addEventListener('click', ()=> setIndex(index + 1));
-
-        // Keyboard support (when mouse is over carousel)
-        viewport.addEventListener('mouseenter', ()=> viewport.setAttribute('data-active','1'));
-        viewport.addEventListener('mouseleave', ()=> viewport.removeAttribute('data-active'));
-        window.addEventListener('keydown', (e)=>{
-          if(viewport.getAttribute('data-active') !== '1') return;
-          if(e.key === 'ArrowLeft') setIndex(index - 1);
-          if(e.key === 'ArrowRight') setIndex(index + 1);
-        }, {passive:true});
-
+      function update(){
+        track.style.transform = `translateX(${-index * 100}%)`;
+        prevBtn.disabled = (index === 0);
+        nextBtn.disabled = (index === slides.length - 1);
+        dotBtns.forEach((d,i)=> d.classList.toggle('active', i===index));
+      }
+      function setIndex(i){
+        index = Math.max(0, Math.min(slides.length - 1, i));
         update();
+      }
+
+      prevBtn.addEventListener('click', ()=> setIndex(index - 1));
+      nextBtn.addEventListener('click', ()=> setIndex(index + 1));
+      dotBtns.forEach(b=> b.addEventListener('click', ()=> setIndex(Number(b.dataset.dot || 0))));
+
+      // Keyboard support (only when hovering this carousel)
+      viewport.addEventListener('mouseenter', ()=> viewport.setAttribute('data-active','1'));
+      viewport.addEventListener('mouseleave', ()=> viewport.removeAttribute('data-active'));
+      window.addEventListener('keydown', (e)=>{
+        if(viewport.getAttribute('data-active') !== '1') return;
+        if(e.key === 'ArrowLeft') setIndex(index - 1);
+        if(e.key === 'ArrowRight') setIndex(index + 1);
+      }, {passive:true});
+
+      // Touch swipe
+      let startX = 0, startY = 0, down = false;
+      viewport.addEventListener('pointerdown', (e)=>{
+        down = true;
+        startX = e.clientX; startY = e.clientY;
       });
+      viewport.addEventListener('pointerup', (e)=>{
+        if(!down) return;
+        down = false;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){
+          dx > 0 ? setIndex(index - 1) : setIndex(index + 1);
+        }
+      });
+
+      // First paint
+      update();
     }
 
     document.querySelectorAll('[data-carousel]').forEach(buildCarousel);
