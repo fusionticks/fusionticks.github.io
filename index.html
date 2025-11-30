@@ -31,6 +31,7 @@
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
+    /* =================== APERTURE LIGHT - BRAND NEW DNA =================== */
     :root{
       --bg:#F8FAFD;
       --ink:#0A0D14;
@@ -55,7 +56,8 @@
         radial-gradient(1200px 600px at 85% -10%, rgba(20,184,166,.12), transparent 60%),
         radial-gradient(900px 500px at -10% 20%, rgba(37,99,235,.12), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.75));
-      mask: linear-gradient(180deg, rgba(0,0,0,.96), rgba(0,0,0,.86) 40%, rgba(0,0,0,.60) 80%, rgba(0,0,0,0));
+      mask:
+        linear-gradient(180deg, rgba(0,0,0,.96), rgba(0,0,0,.86) 40%, rgba(0,0,0,.60) 80%, rgba(0,0,0,0));
     }
     .aperture-stripes{
       position:absolute; inset:0; opacity:.06; mix-blend-mode:multiply; pointer-events:none;
@@ -165,88 +167,184 @@
     .reveal.in{opacity:1; transform:none}
 
     .muted{ color:var(--muted) }
-    .no-scrollbar::-webkit-scrollbar{display:none}
-    .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
+    .no-scrollbar::-webkit-scrollbar{display:none} .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
 
-    /* ===== Slider ===== */
-    .slider-wrap{
+    /* =================== ONLY FOR 3 SECTIONS (ACADEMY / JOURNAL / DISCORD) =================== */
+    .link-card{
+      cursor:pointer;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .link-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px var(--shadow-strong);
+      border-color: rgba(14,165,233,.35);
+    }
+    .link-card.is-active{
+      border-color: rgba(37,99,235,.35);
+      box-shadow: 0 18px 40px rgba(37,99,235,.18);
+    }
+
+    .showcase{
       position:relative;
+      border-radius:16px;
       border:1px solid var(--edge);
-      border-radius:18px;
       overflow:hidden;
-      background: rgba(10,13,20,.02);
+      background: linear-gradient(180deg, #fff, #F7FAFF);
+      box-shadow: 0 18px 44px var(--shadow-strong);
+      min-height: 360px;
+      --stage-bg: none;
     }
-    .slider-viewport{
-      position:relative;
-      width:100%;
-      height:320px;
-      overflow:hidden;
-      touch-action: pan-y;
-    }
-    @media (min-width:640px){ .slider-viewport{ height:420px; } }
-    @media (min-width:1024px){ .slider-viewport{ height:520px; } }
 
-    .slider-track{
-      display:flex;
-      width:100%;
-      height:100%;
-      transition: transform .35s cubic-bezier(.2,.8,.2,1);
-      will-change: transform;
-    }
-    .slide{
-      flex: 0 0 100%;
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px;
-    }
-    .slide img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      user-select:none;
-      -webkit-user-drag:none;
+    .showcase::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background-image: var(--stage-bg);
+      background-size: cover;
+      background-position: center;
+      filter: blur(22px) saturate(1.25);
+      transform: scale(1.08);
+      opacity: .22;
       pointer-events:none;
     }
 
-    .sbtn{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:44px;
-      height:44px;
-      border-radius:12px;
-      border:1px solid var(--edge);
-      background: rgba(255,255,255,.9);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 14px 28px var(--shadow);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
+    .showcase::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(800px 260px at 20% 10%, rgba(20,184,166,.10), transparent 60%),
+        radial-gradient(900px 340px at 90% 0%, rgba(37,99,235,.10), transparent 60%),
+        repeating-linear-gradient(135deg, rgba(10,13,20,.05) 0 2px, transparent 2px 12px);
+      opacity:.45;
+      pointer-events:none;
+      mix-blend-mode:multiply;
     }
-    .sbtn:hover{ background:#fff; }
-    .sbtn:active{ transform:translateY(-50%) scale(.98); }
-    .sbtn-left{ left:12px; }
-    .sbtn-right{ right:12px; }
 
-    .dots{
+    .showcase-top{
+      position:relative;
+      z-index:2;
       display:flex;
-      gap:8px;
-      justify-content:center;
-      padding:10px 8px 0;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 14px 10px;
     }
-    .dotbtn{
-      width:8px; height:8px; border-radius:999px;
-      border:1px solid rgba(37,99,235,.35);
-      background: rgba(37,99,235,.10);
+
+    .showcase-top .mini{
+      display:flex; align-items:center; gap:8px;
+    }
+    .showcase-count{
+      font-size:12px;
+      color: var(--muted);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--edge);
+      background:rgba(255,255,255,.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .frame{
+      position:relative;
+      z-index:2;
+      margin:0 14px 12px;
+      border-radius:14px;
+      border:1px solid #EAF2FF;
+      overflow:hidden;
+      background: #fff;
+      box-shadow: 0 20px 52px rgba(2,7,18,.18);
+    }
+
+    .frame-bar{
+      height:38px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 12px;
+      background: linear-gradient(180deg, #fff, #F7FAFF);
+      border-bottom:1px solid #EAF2FF;
+    }
+    .dots3{
+      display:flex; gap:7px; align-items:center;
+    }
+    .dots3 span{
+      width:10px; height:10px; border-radius:999px;
+      border:1px solid rgba(10,13,20,.10);
+      background: rgba(10,13,20,.06);
+    }
+
+    .frame-media{
+      position:relative;
+      aspect-ratio: 16/9;
+      width:100%;
+      background: #fff;
+    }
+    .frame-media img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      transform: scale(1.01);
+      opacity:0;
+      transition: opacity .32s ease, transform .55s ease;
+    }
+    .frame-media img.is-visible{
+      opacity:1;
+      transform: scale(1);
+    }
+
+    .nav-arrow{
+      position:absolute;
+      z-index:3;
+      top:50%;
+      transform: translateY(-50%);
+      width:42px; height:42px;
+      border-radius:999px;
+      border:1px solid var(--edge);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 12px 28px rgba(2,7,18,.16);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .nav-arrow:hover{ transform: translateY(-50%) scale(1.03); }
+    .nav-arrow.left{ left:18px; }
+    .nav-arrow.right{ right:18px; }
+    .showcase:hover .nav-arrow,
+    .showcase:focus-within .nav-arrow{ opacity:1; }
+
+    .thumbs{
+      position:relative;
+      z-index:2;
+      display:flex;
+      gap:10px;
+      padding:10px 14px 14px;
+      overflow:auto;
+    }
+    .thumb{
+      flex:0 0 auto;
+      width:86px;
+      height:50px;
+      border-radius:10px;
+      border:1px solid rgba(15,23,42,.10);
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 10px 20px rgba(2,7,18,.10);
+      opacity:.82;
       cursor:pointer;
+      transition: opacity .18s ease, transform .18s ease, border-color .18s ease;
     }
-    .dotbtn[aria-current="true"]{
-      width:22px;
-      background: linear-gradient(90deg, var(--strap2), var(--strap));
-      border-color: transparent;
+    .thumb:hover{ opacity:1; transform: translateY(-1px); border-color: rgba(14,165,233,.35); }
+    .thumb.is-active{ opacity:1; border-color: rgba(37,99,235,.35); box-shadow: 0 16px 30px rgba(37,99,235,.14); }
+    .thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+
+    @media (max-width: 640px){
+      .showcase{ min-height: 320px; }
+      .nav-arrow{ opacity:1; }
+      .thumb{ width:72px; height:44px; }
     }
   </style>
 </head>
@@ -409,8 +507,9 @@
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
+        <!-- LEFT -->
         <div class="lg:col-span-1 space-y-4">
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="academy:0" tabindex="0">
             <div class="flex items-center justify-between">
               <h4 class="font-semibold">A · Reading the Market</h4>
               <span class="tag">6 lessons</span>
@@ -418,7 +517,7 @@
             <p class="muted mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG.</p>
           </article>
 
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="academy:1" tabindex="0">
             <div class="flex items-center justify-between">
               <h4 class="font-semibold">B · Market Levels</h4>
               <span class="tag">3 lessons</span>
@@ -426,7 +525,7 @@
             <p class="muted mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout.</p>
           </article>
 
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="academy:2" tabindex="0">
             <div class="flex items-center justify-between">
               <h4 class="font-semibold">C · Market Indicators</h4>
               <span class="tag">3 lessons</span>
@@ -434,7 +533,7 @@
             <p class="muted mt-2 text-sm">Volume Profile, VWAP (Anchored), and EMA inside context.</p>
           </article>
 
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="academy:3" tabindex="0">
             <div class="flex items-center justify-between">
               <h4 class="font-semibold">D · Behind the Scenes</h4>
               <span class="tag">7 lessons</span>
@@ -447,31 +546,36 @@
           </button>
         </div>
 
+        <!-- RIGHT (SHOWCASE) -->
         <div class="lg:col-span-2">
-          <div class="card reveal">
-            <div class="slider-wrap" data-slider="academy" tabindex="0" aria-label="Academy screenshots slider">
-              <div class="absolute top-3 left-3 tag"><i data-lucide="book-open" class="w-4 h-4"></i> Academy</div>
+          <div class="showcase reveal" data-gallery="academy" aria-label="Academy screenshots slider" tabindex="0">
+            <div class="showcase-top">
+              <div class="mini">
+                <span class="tag"><i data-lucide="book-open" class="w-4 h-4"></i> Academy</span>
+                <span class="tag">Hover cards → preview</span>
+              </div>
+              <div class="showcase-count"><span data-gcur>1</span>/<span data-gtotal>1</span></div>
+            </div>
 
-              <button class="sbtn sbtn-left" type="button" data-prev aria-label="Previous">
-                <i data-lucide="chevron-left"></i>
-              </button>
-              <button class="sbtn sbtn-right" type="button" data-next aria-label="Next">
-                <i data-lucide="chevron-right"></i>
-              </button>
-
-              <div class="slider-viewport">
-                <div class="slider-track">
-                  <div class="slide"><img src="./academy-1.webp" alt="Academy screenshot 1" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./academy-2.webp" alt="Academy screenshot 2" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./academy-3.webp" alt="Academy screenshot 3" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./academy-4.webp" alt="Academy screenshot 4" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./academy-5.webp" alt="Academy screenshot 5" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./academy-6.webp" alt="Academy screenshot 6" loading="lazy" decoding="async"></div>
-                </div>
+            <div class="frame">
+              <div class="frame-bar">
+                <div class="dots3" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="text-xs muted">Course view</div>
+                <div class="text-xs muted">fusionticks</div>
+              </div>
+              <div class="frame-media">
+                <img data-gimg src="" alt="FT Academy screenshot" loading="lazy" decoding="async"/>
               </div>
 
-              <div class="dots" data-dots></div>
+              <button class="nav-arrow left" type="button" data-gprev aria-label="Previous image">
+                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+              </button>
+              <button class="nav-arrow right" type="button" data-gnext aria-label="Next image">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+              </button>
             </div>
+
+            <div class="thumbs no-scrollbar" data-gthumbs aria-label="Thumbnails"></div>
           </div>
         </div>
       </div>
@@ -488,18 +592,19 @@
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
+        <!-- LEFT -->
         <div class="lg:col-span-1 space-y-4">
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="journal:0" tabindex="0">
             <div class="flex items-center gap-2 font-semibold"><i data-lucide="check-square" class="w-5 h-5 text-[var(--strap2)]"></i> Daily Trade Log</div>
             <p class="muted mt-2 text-sm">Entry, exit, setup, risk, and notes. Fast and clean.</p>
           </article>
 
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="journal:1" tabindex="0">
             <div class="flex items-center gap-2 font-semibold"><i data-lucide="repeat" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly Review</div>
             <p class="muted mt-2 text-sm">Spot patterns. Fix one mistake at a time.</p>
           </article>
 
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="journal:2" tabindex="0">
             <div class="flex items-center gap-2 font-semibold"><i data-lucide="bar-chart-3" class="w-5 h-5 text-[var(--strap2)]"></i> Simple Stats</div>
             <p class="muted mt-2 text-sm">Win rate, R-multiples, best setups, and common errors.</p>
           </article>
@@ -511,31 +616,36 @@
           </div>
         </div>
 
+        <!-- RIGHT (SHOWCASE) -->
         <div class="lg:col-span-2">
-          <div class="card reveal">
-            <div class="slider-wrap" data-slider="journal" tabindex="0" aria-label="Journal screenshots slider">
-              <div class="absolute top-3 left-3 tag"><i data-lucide="notebook-pen" class="w-4 h-4"></i> Journal</div>
+          <div class="showcase reveal" data-gallery="journal" aria-label="Journal screenshots slider" tabindex="0">
+            <div class="showcase-top">
+              <div class="mini">
+                <span class="tag"><i data-lucide="notebook-pen" class="w-4 h-4"></i> Journal</span>
+                <span class="tag">Clean workflow</span>
+              </div>
+              <div class="showcase-count"><span data-gcur>1</span>/<span data-gtotal>1</span></div>
+            </div>
 
-              <button class="sbtn sbtn-left" type="button" data-prev aria-label="Previous">
-                <i data-lucide="chevron-left"></i>
-              </button>
-              <button class="sbtn sbtn-right" type="button" data-next aria-label="Next">
-                <i data-lucide="chevron-right"></i>
-              </button>
-
-              <div class="slider-viewport">
-                <div class="slider-track">
-                  <div class="slide"><img src="./journal-1.webp" alt="Journal screenshot 1" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./journal-2.webp" alt="Journal screenshot 2" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./journal-3.webp" alt="Journal screenshot 3" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./journal-4.webp" alt="Journal screenshot 4" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./journal-5.webp" alt="Journal screenshot 5" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./journal-6.webp" alt="Journal screenshot 6" loading="lazy" decoding="async"></div>
-                </div>
+            <div class="frame">
+              <div class="frame-bar">
+                <div class="dots3" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="text-xs muted">Notion template</div>
+                <div class="text-xs muted">trading journal</div>
+              </div>
+              <div class="frame-media">
+                <img data-gimg src="" alt="FT Journal screenshot" loading="lazy" decoding="async"/>
               </div>
 
-              <div class="dots" data-dots></div>
+              <button class="nav-arrow left" type="button" data-gprev aria-label="Previous image">
+                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+              </button>
+              <button class="nav-arrow right" type="button" data-gnext aria-label="Next image">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+              </button>
             </div>
+
+            <div class="thumbs no-scrollbar" data-gthumbs aria-label="Thumbnails"></div>
           </div>
         </div>
       </div>
@@ -548,12 +658,14 @@
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="users" class="w-4 h-4"></i> Community</span>
         <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Discord Community</h3>
-        <p class="mt-2 muted max-w-2xl">Chat, weekly news, and daily levels. Simple and useful.</p>
+        <p class="mt-2 muted max-w-2xl">
+          Chat, weekly news, and daily levels. Simple and useful.
+        </p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
         <div class="lg:col-span-1 space-y-4">
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="discord:0" tabindex="0">
             <div class="flex items-center gap-2 font-semibold">
               <span class="p-2 rounded-lg border border-[var(--edge)] bg-white"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
               #chatroom
@@ -561,7 +673,7 @@
             <p class="muted mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
           </article>
 
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="discord:1" tabindex="0">
             <div class="flex items-center gap-2 font-semibold">
               <span class="p-2 rounded-lg border border-[var(--edge)] bg-white"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
               #market-news
@@ -569,7 +681,7 @@
             <p class="muted mt-3">Weekly calendar: lean-in vs stay-light days.</p>
           </article>
 
-          <article class="card reveal">
+          <article class="card reveal link-card" data-go="discord:2" tabindex="0">
             <div class="flex items-center gap-2 font-semibold">
               <span class="p-2 rounded-lg border border-[var(--edge)] bg-white"><i data-lucide="target" class="w-5 h-5"></i></span>
               #market-levels
@@ -584,29 +696,34 @@
         </div>
 
         <div class="lg:col-span-2">
-          <div class="card reveal">
-            <div class="slider-wrap" data-slider="discord" tabindex="0" aria-label="Discord screenshots slider">
-              <div class="absolute top-3 left-3 tag"><i data-lucide="users" class="w-4 h-4"></i> Discord</div>
+          <div class="showcase reveal" data-gallery="discord" aria-label="Discord screenshots slider" tabindex="0">
+            <div class="showcase-top">
+              <div class="mini">
+                <span class="tag"><i data-lucide="users" class="w-4 h-4"></i> Discord</span>
+                <span class="tag">Community</span>
+              </div>
+              <div class="showcase-count"><span data-gcur>1</span>/<span data-gtotal>1</span></div>
+            </div>
 
-              <button class="sbtn sbtn-left" type="button" data-prev aria-label="Previous">
-                <i data-lucide="chevron-left"></i>
-              </button>
-              <button class="sbtn sbtn-right" type="button" data-next aria-label="Next">
-                <i data-lucide="chevron-right"></i>
-              </button>
-
-              <div class="slider-viewport">
-                <div class="slider-track">
-                  <div class="slide"><img src="./discord-1.webp" alt="Discord screenshot 1" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./discord-2.webp" alt="Discord screenshot 2" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./discord-3.webp" alt="Discord screenshot 3" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./discord-4.webp" alt="Discord screenshot 4" loading="lazy" decoding="async"></div>
-                  <div class="slide"><img src="./discord-5.webp" alt="Discord screenshot 5" loading="lazy" decoding="async"></div>
-                </div>
+            <div class="frame">
+              <div class="frame-bar">
+                <div class="dots3" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="text-xs muted">Server view</div>
+                <div class="text-xs muted">fusionticks</div>
+              </div>
+              <div class="frame-media">
+                <img data-gimg src="" alt="Discord screenshot" loading="lazy" decoding="async"/>
               </div>
 
-              <div class="dots" data-dots></div>
+              <button class="nav-arrow left" type="button" data-gprev aria-label="Previous image">
+                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+              </button>
+              <button class="nav-arrow right" type="button" data-gnext aria-label="Next image">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+              </button>
             </div>
+
+            <div class="thumbs no-scrollbar" data-gthumbs aria-label="Thumbnails"></div>
           </div>
         </div>
       </div>
@@ -821,16 +938,17 @@
   </div>
 
   <script>
+    // icons + year
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.lucide) lucide.createIcons(); });
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Reveal
+    // reveal
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
     },{threshold:.14});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Mobile Menu
+    // mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeAll = ()=> mobileMenu.classList.add('hidden');
@@ -838,7 +956,7 @@
     mobileMenu?.querySelectorAll('[data-close]').forEach(b=> b.addEventListener('click', closeAll));
     mobileMenu?.querySelectorAll('a[href^="#"]').forEach(a=> a.addEventListener('click', ()=> setTimeout(closeAll, 50)));
 
-    // Modal
+    // syllabus modal
     const hookModal = (openSel, modalId, closeSel) => {
       const modal = document.getElementById(modalId);
       document.querySelectorAll(openSel).forEach(btn=>btn.addEventListener('click', ()=>{
@@ -858,7 +976,7 @@
     };
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
 
-    // Spark canvas
+    // sparkline
     (function(){
       const c = document.getElementById('spark'); if(!c) return;
       const ctx = c.getContext('2d');
@@ -884,18 +1002,15 @@
         for(let y=0;y<H();y+=s){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W(),y); ctx.stroke(); }
         ctx.restore();
       }
-
       function lineGrad(){
         const g = ctx.createLinearGradient(0,0,W(),0);
         g.addColorStop(0, "#2563EB");
         g.addColorStop(1, "#0EA5E9");
         return g;
       }
-
       function curve(x){
         return H()*0.55 + (Math.sin(x*0.010 + t)*0.9 + Math.sin(x*0.0035 - t*1.15)*0.65)*H()*0.18;
       }
-
       function draw(){
         t += .012;
         ctx.clearRect(0,0,W(),H());
@@ -931,104 +1046,208 @@
       draw();
     })();
 
-    // ===== Slider Logic (arrows + dots + swipe + keyboard) =====
-    function initSlider(root){
-      const track = root.querySelector('.slider-track');
-      const slides = Array.from(root.querySelectorAll('.slide'));
-      const prev = root.querySelector('[data-prev]');
-      const next = root.querySelector('[data-next]');
-      const dotsWrap = root.querySelector('[data-dots]');
-      if(!track || slides.length === 0) return;
-
-      let index = 0;
-      let isDragging = false;
-      let startX = 0;
-      let dx = 0;
-
-      const clamp = (n)=> (n + slides.length) % slides.length;
-
-      // dots
-      const dots = slides.map((_,i)=>{
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'dotbtn';
-        b.setAttribute('aria-label', `Go to slide ${i+1}`);
-        b.setAttribute('aria-current', i===0 ? 'true' : 'false');
-        b.addEventListener('click', ()=> goTo(i));
-        dotsWrap?.appendChild(b);
-        return b;
-      });
-
-      const setDots = ()=>{
-        dots.forEach((d,i)=> d.setAttribute('aria-current', i===index ? 'true' : 'false'));
+    /* =================== ONLY FOR 3 SECTIONS (ACADEMY / JOURNAL / DISCORD) =================== */
+    (function(){
+      const specs = {
+        academy: { max: 6, prefix: './academy-', ext: 'webp', startIndex: 0 },
+        journal: { max: 6, prefix: './journal-', ext: 'webp', startIndex: 0 },
+        discord: { max: 5, prefix: './discord-', ext: 'webp', startIndex: 0 },
       };
 
-      const apply = (offsetPx = 0)=>{
-        const w = root.querySelector('.slider-viewport')?.clientWidth || root.clientWidth;
-        const base = -index * w;
-        track.style.transition = offsetPx !== 0 && isDragging ? 'none' : 'transform .35s cubic-bezier(.2,.8,.2,1)';
-        track.style.transform = `translate3d(${base + offsetPx}px,0,0)`;
-      };
+      function loadable(url, timeoutMs=2200){
+        return new Promise((resolve)=>{
+          const img = new Image();
+          let done = false;
+          const t = setTimeout(()=>{ if(!done){ done=true; resolve(false); } }, timeoutMs);
+          img.onload = ()=>{ if(done) return; done=true; clearTimeout(t); resolve(true); };
+          img.onerror = ()=>{ if(done) return; done=true; clearTimeout(t); resolve(false); };
+          img.src = url;
+        });
+      }
 
-      const goTo = (i)=>{
-        index = clamp(i);
-        apply(0);
-        setDots();
-      };
+      async function buildUrls(spec){
+        const urls = [];
+        for(let i=1;i<=spec.max;i++){
+          const u = `${spec.prefix}${i}.${spec.ext}`;
+          // keep order, only push if file exists
+          if(await loadable(u)) urls.push(u);
+        }
+        return urls;
+      }
 
-      prev?.addEventListener('click', ()=> goTo(index - 1));
-      next?.addEventListener('click', ()=> goTo(index + 1));
+      function createGallery(root, urls){
+        const imgEl = root.querySelector('[data-gimg]');
+        const prevBtn = root.querySelector('[data-gprev]');
+        const nextBtn = root.querySelector('[data-gnext]');
+        const thumbsWrap = root.querySelector('[data-gthumbs]');
+        const curEl = root.querySelector('[data-gcur]');
+        const totalEl = root.querySelector('[data-gtotal]');
 
-      // keyboard
-      root.addEventListener('keydown', (e)=>{
-        if(e.key === 'ArrowLeft'){ e.preventDefault(); goTo(index - 1); }
-        if(e.key === 'ArrowRight'){ e.preventDefault(); goTo(index + 1); }
-      });
+        let idx = 0;
+        let busy = false;
+        let timer = null;
 
-      // swipe/drag
-      const onDown = (clientX)=>{
-        isDragging = true;
-        startX = clientX;
-        dx = 0;
-        apply(0);
-      };
-      const onMove = (clientX)=>{
-        if(!isDragging) return;
-        dx = clientX - startX;
-        apply(dx);
-      };
-      const onUp = ()=>{
-        if(!isDragging) return;
-        isDragging = false;
+        const thumbs = [];
 
-        const threshold = Math.max(50, (root.querySelector('.slider-viewport')?.clientWidth || 300) * 0.18);
-        if(dx > threshold) goTo(index - 1);
-        else if(dx < -threshold) goTo(index + 1);
-        else apply(0);
-      };
+        function setActiveCardForGallery(name, index){
+          document.querySelectorAll(`[data-go^="${name}:"]`).forEach(el=>{
+            const n = Number(String(el.getAttribute('data-go')).split(':')[1] || -1);
+            el.classList.toggle('is-active', n === index);
+          });
+        }
 
-      // pointer events (works for mouse + touch)
-      root.addEventListener('pointerdown', (e)=>{
-        // don't start drag if clicking arrow button
-        if((e.target).closest?.('.sbtn')) return;
-        root.setPointerCapture?.(e.pointerId);
-        onDown(e.clientX);
-      });
-      root.addEventListener('pointermove', (e)=> onMove(e.clientX));
-      root.addEventListener('pointerup', onUp);
-      root.addEventListener('pointercancel', onUp);
-      root.addEventListener('pointerleave', ()=>{ if(isDragging) onUp(); });
+        function paintThumbs(){
+          thumbsWrap.innerHTML = '';
+          urls.forEach((u, i)=>{
+            const t = document.createElement('button');
+            t.type = 'button';
+            t.className = 'thumb';
+            t.setAttribute('aria-label', `Open image ${i+1}`);
+            const im = document.createElement('img');
+            im.loading = 'lazy';
+            im.decoding = 'async';
+            im.src = u;
+            im.alt = 'thumbnail';
+            t.appendChild(im);
+            t.addEventListener('click', ()=> go(i, true));
+            thumbsWrap.appendChild(t);
+            thumbs.push(t);
+          });
+        }
 
-      // resize correction
-      const ro = new ResizeObserver(()=> apply(0));
-      ro.observe(root.querySelector('.slider-viewport') || root);
+        function updateUI(){
+          if(curEl) curEl.textContent = String(idx + 1);
+          if(totalEl) totalEl.textContent = String(urls.length);
+          thumbs.forEach((t, i)=> t.classList.toggle('is-active', i === idx));
+          root.style.setProperty('--stage-bg', `url("${urls[idx]}")`);
+        }
 
-      // init
-      apply(0);
-      setDots();
-    }
+        function go(newIndex, fromUser=false){
+          if(!urls.length || busy) return;
+          busy = true;
 
-    document.querySelectorAll('[data-slider]').forEach(initSlider);
+          idx = (newIndex + urls.length) % urls.length;
+
+          const nextSrc = urls[idx];
+          const temp = new Image();
+          temp.onload = ()=>{
+            imgEl.classList.remove('is-visible');
+            // small delay for nicer fade
+            setTimeout(()=>{
+              imgEl.src = nextSrc;
+              imgEl.classList.add('is-visible');
+              updateUI();
+              busy = false;
+            }, 110);
+          };
+          temp.onerror = ()=>{ busy = false; };
+          temp.src = nextSrc;
+
+          // pause autoplay قليلاً إذا المستخدم تفاعل
+          if(fromUser) restartAutoplay(6500);
+        }
+
+        function next(){ go(idx+1, true); }
+        function prev(){ go(idx-1, true); }
+
+        function restartAutoplay(delay=5200){
+          if(timer) clearInterval(timer);
+          timer = setInterval(()=> go(idx+1, false), delay);
+        }
+
+        // init
+        paintThumbs();
+        imgEl.src = urls[0];
+        imgEl.classList.add('is-visible');
+        updateUI();
+        restartAutoplay(5200);
+
+        prevBtn?.addEventListener('click', prev);
+        nextBtn?.addEventListener('click', next);
+
+        // pause on hover/focus
+        const stop = ()=>{ if(timer) clearInterval(timer); timer=null; };
+        const resume = ()=> restartAutoplay(5200);
+        root.addEventListener('mouseenter', stop);
+        root.addEventListener('mouseleave', resume);
+        root.addEventListener('focusin', stop);
+        root.addEventListener('focusout', resume);
+
+        // keyboard
+        root.addEventListener('keydown', (e)=>{
+          if(e.key === 'ArrowLeft') prev();
+          if(e.key === 'ArrowRight') next();
+        });
+
+        // touch swipe
+        let sx=0, sy=0, start=false;
+        root.addEventListener('touchstart', (e)=>{
+          const t = e.touches?.[0]; if(!t) return;
+          start=true; sx=t.clientX; sy=t.clientY;
+        }, {passive:true});
+        root.addEventListener('touchend', (e)=>{
+          if(!start) return; start=false;
+          const t = e.changedTouches?.[0]; if(!t) return;
+          const dx = t.clientX - sx;
+          const dy = t.clientY - sy;
+          if(Math.abs(dx) > 40 && Math.abs(dy) < 60){
+            dx > 0 ? prev() : next();
+          }
+        }, {passive:true});
+
+        // return API
+        return {
+          setIndex(i){
+            go(i, true);
+          },
+          setActiveCard(index){
+            setActiveCardForGallery(root.getAttribute('data-gallery'), index);
+          }
+        };
+      }
+
+      (async function initAll(){
+        const roots = Array.from(document.querySelectorAll('[data-gallery]'));
+        const api = {};
+
+        for(const r of roots){
+          const name = r.getAttribute('data-gallery');
+          const spec = specs[name];
+          if(!spec) continue;
+
+          const urls = await buildUrls(spec);
+          if(!urls.length){
+            // fallback if no images found
+            const imgEl = r.querySelector('[data-gimg]');
+            if(imgEl){
+              imgEl.alt = 'No images found';
+              imgEl.removeAttribute('src');
+            }
+            continue;
+          }
+          api[name] = createGallery(r, urls);
+        }
+
+        // connect left cards (hover/focus) to galleries
+        document.querySelectorAll('[data-go]').forEach(el=>{
+          const raw = String(el.getAttribute('data-go') || '');
+          const [name, nStr] = raw.split(':');
+          const n = Number(nStr);
+          if(!api[name] || Number.isNaN(n)) return;
+
+          const fire = ()=>{
+            api[name].setIndex(n);
+            // highlight active card
+            document.querySelectorAll(`[data-go^="${name}:"]`).forEach(x=>x.classList.remove('is-active'));
+            el.classList.add('is-active');
+          };
+
+          el.addEventListener('mouseenter', fire);
+          el.addEventListener('focus', fire);
+          el.addEventListener('click', fire);
+        });
+      })();
+    })();
   </script>
 </body>
 </html>
