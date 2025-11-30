@@ -438,32 +438,27 @@
           </div>
         </div>
 
-        <div class="card p-6">
-          <div class="flex items-center gap-3">
-            <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"
-                 onerror="this.style.display='none'"/>
-            <div>
-              <div class="font-extrabold">FUSIONTICKS</div>
-              <div class="muted text-sm">Signal free education, risk first execution</div>
-            </div>
-          </div>
-          <div class="mt-6 grid grid-cols-2 gap-3">
-            <div class="rounded-xl p-4" style="border:1px solid var(--edge); background:rgba(255,255,255,.04);">
-              <div class="text-sm font-bold">HTF Levels</div>
-              <div class="muted text-xs mt-1">Buyers and sellers zones</div>
-            </div>
-            <div class="rounded-xl p-4" style="border:1px solid var(--edge); background:rgba(255,255,255,.04);">
-              <div class="text-sm font-bold">LTF Confirm</div>
-              <div class="muted text-xs mt-1">Entry after reaction</div>
-            </div>
-            <div class="rounded-xl p-4" style="border:1px solid var(--edge); background:rgba(255,255,255,.04);">
-              <div class="text-sm font-bold">Risk First</div>
-              <div class="muted text-xs mt-1">Invalidation before entry</div>
-            </div>
-            <div class="rounded-xl p-4" style="border:1px solid var(--edge); background:rgba(255,255,255,.04);">
-              <div class="text-sm font-bold">Journal</div>
-              <div class="muted text-xs mt-1">Review and improve</div>
-            </div>
+        <!-- ✅ RIGHT HERO IMAGE (replaces the old card) -->
+        <div class="relative flex items-center justify-center">
+          <div class="relative w-full max-w-[660px] mx-auto">
+            <!-- subtle glow behind (matches theme) -->
+            <div class="absolute -inset-10 rounded-[36px] blur-3xl opacity-40 pointer-events-none"
+                 style="
+                   background:
+                     radial-gradient(520px 320px at 70% 30%, rgba(124,58,237,.32), transparent 60%),
+                     radial-gradient(520px 320px at 30% 70%, rgba(255,45,85,.22), transparent 62%),
+                     radial-gradient(520px 320px at 85% 80%, rgba(20,184,166,.10), transparent 60%);
+                 "></div>
+
+            <img
+              src="./hero-visual.webp"
+              alt="FusionTicks hero visual"
+              class="relative w-full h-auto select-none pointer-events-none"
+              style="filter: drop-shadow(0 26px 70px rgba(0,0,0,.60));"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
           </div>
         </div>
       </div>
