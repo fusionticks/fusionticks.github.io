@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FUSIONTICKS</title>
-  <meta name="description" content="FusionTicks: signal-free, risk-first trading education. Read the market, map key levels, confirm on lower timeframe, and journal."/>
-  <meta name="theme-color" content="#070A0F"/>
+  <title>FUSIONTICKS | Aperture Light</title>
+  <meta name="description" content="FusionTicks: risk-first trading program by Khalid Kuhail. Read the market, stack confirmations, and execute clean setups."/>
+  <meta name="theme-color" content="#0A0D14"/>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,477 +31,391 @@
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
+    /* =================== APERTURE LIGHT - BRAND NEW DNA =================== */
     :root{
-      /* Dark luxe palette */
-      --bg:#070A0F;
-      --panel:#0B111B;
-      --panel2:#0E1624;
-      --edge:rgba(255,255,255,.10);
-      --edge2:rgba(255,255,255,.14);
-      --ink:#EEF3FF;
-      --muted:#A7B2C8;
+      --bg:#F8FAFD;
+      --ink:#0A0D14;
+      --muted:#5B667A;
+      --edge:#E5EDF7;
+      --panel:#FFFFFF;
+      --strap:#0EA5E9;
+      --strap2:#2563EB;
+      --accent:#14B8A6;
 
-      /* Accent (premium) */
-      --a1:#FF2D55; /* rose */
-      --a2:#7C3AED; /* violet */
-      --a3:#14B8A6; /* teal micro */
-
-      --shadow:rgba(0,0,0,.45);
-      --shadow2:rgba(0,0,0,.60);
-      --grid:rgba(255,255,255,.10);
+      --shadow:rgba(2,7,18,.12);
+      --shadow-strong:rgba(2,7,18,.18);
+      --grid:#0A0D14;
     }
 
     html{scroll-behavior:smooth}
     body{background:var(--bg); color:var(--ink);}
 
-    /* Subtle hero / pricing band background (diagonal + glow) */
-    .aperture-band{
-      position:relative;
-      overflow:hidden;
-      border-bottom:1px solid var(--edge);
-    }
-    .aperture-band:before{
-      content:"";
-      position:absolute; inset:-2px;
+    .aperture-bg{
+      position:absolute; inset:0; z-index:-1; pointer-events:none;
       background:
-        radial-gradient(900px 520px at 90% 0%, rgba(124,58,237,.22), transparent 60%),
-        radial-gradient(880px 520px at 10% 12%, rgba(255,45,85,.18), transparent 55%),
-        radial-gradient(780px 460px at 85% 78%, rgba(20,184,166,.10), transparent 60%),
-        repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 2px, transparent 2px 12px);
-      opacity:.55;
-      pointer-events:none;
-      z-index:-1;
-      mask: linear-gradient(180deg, rgba(0,0,0,.95), rgba(0,0,0,.70) 60%, rgba(0,0,0,.35));
+        radial-gradient(1200px 600px at 85% -10%, rgba(20,184,166,.12), transparent 60%),
+        radial-gradient(900px 500px at -10% 20%, rgba(37,99,235,.12), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.75));
+      mask:
+        linear-gradient(180deg, rgba(0,0,0,.96), rgba(0,0,0,.86) 40%, rgba(0,0,0,.60) 80%, rgba(0,0,0,0));
+    }
+    .aperture-stripes{
+      position:absolute; inset:0; opacity:.06; mix-blend-mode:multiply; pointer-events:none;
+      background-image: repeating-linear-gradient(135deg, var(--grid) 0 2px, transparent 2px 12px);
+    }
+    .aperture-dots{
+      position:absolute; inset:0; opacity:.06; pointer-events:none;
+      background-image:radial-gradient(var(--grid) 1px, transparent 1px);
+      background-size:20px 20px;
+      mask: linear-gradient(180deg, #000, transparent 70%);
     }
 
     .nav{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px) saturate(140%);
       -webkit-backdrop-filter: blur(10px) saturate(140%);
-      background: rgba(7,10,15,.72);
+      background: rgba(248,250,253,.75);
       border-bottom:1px solid var(--edge);
     }
-    .nav a{ position:relative; color:rgba(238,243,255,.82); }
-    .nav a:hover{ color:rgba(238,243,255,1); }
+    .nav a{ position:relative }
     .nav a:after{
       content:""; position:absolute; left:0; bottom:-8px; height:2px; width:0%;
-      background:linear-gradient(90deg, var(--a1), var(--a2));
-      transition:width .18s ease;
+      background:linear-gradient(90deg, var(--strap), var(--strap2));
+      transition:width .2s ease;
     }
     .nav a:hover:after{ width:100% }
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
-      height:44px; padding:0 1rem; border-radius:12px; font-weight:800;
-      border:1px solid var(--edge);
-      background:rgba(255,255,255,.05);
-      color:var(--ink);
-      box-shadow: 0 10px 26px var(--shadow);
-      transition: transform .12s ease, filter .12s ease, background .12s ease;
+      height:44px; padding:0 1rem; border-radius:12px; font-weight:700; border:1px solid var(--edge);
+      background:#fff; color:var(--ink);
+      box-shadow: 0 6px 16px var(--shadow);
     }
-    .btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
-    .btn-ghost{ background:transparent; }
+    .btn-ghost{ background:transparent; border-color:var(--edge) }
     .btn-primary{
-      border-color:transparent;
-      background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 18px 45px rgba(255,45,85,.18), 0 18px 55px rgba(124,58,237,.16);
-    }
-
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
-      border:1px solid var(--edge);
-      border-radius:18px;
-      box-shadow: 0 18px 55px var(--shadow2);
-    }
-
-    .muted{ color:var(--muted); }
-
-    .strapline{
-      display:inline-flex; align-items:center; gap:.6rem;
-      height:34px; padding:0 .8rem; border-radius:999px; font-size:.82rem;
-      background:rgba(255,255,255,.06);
-      border:1px solid var(--edge);
-      box-shadow: 0 12px 30px var(--shadow);
-    }
-    .strap-badge{
-      display:inline-grid; place-items:center;
-      width:22px; height:22px; border-radius:999px;
-      color:#0a0d14; font-size:.75rem; font-weight:900;
-      background:linear-gradient(135deg, rgba(255,45,85,1), rgba(124,58,237,1));
-      box-shadow: 0 10px 24px rgba(255,45,85,.18);
-    }
-
-    .k-title{
-      font-family:var(--font-display, Space Grotesk);
-      letter-spacing:-.02em; line-height:1.03;
-    }
-    .heading-gradient{
-      background:linear-gradient(90deg, var(--a2), var(--a1));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-
-    .tag{
-      display:inline-flex; align-items:center; gap:.45rem;
-      height:28px; padding:0 .65rem; border-radius:999px;
-      font-size:.78rem;
-      background:rgba(255,255,255,.06);
-      border:1px solid var(--edge);
-      color:rgba(238,243,255,.88);
-    }
-
-    .eyebrow{
-      display:inline-flex; align-items:center; gap:.5rem;
-      height:32px; padding:0 .75rem; border-radius:999px; font-size:.82rem;
-      background:rgba(255,255,255,.06);
-      border:1px solid var(--edge);
-      box-shadow:0 10px 26px var(--shadow);
-      color:rgba(238,243,255,.90);
-    }
-    .beam{
-      height:2px;
-      background:linear-gradient(90deg, transparent, rgba(255,45,85,.9), rgba(124,58,237,.9), transparent);
-      opacity:.85;
+      background:linear-gradient(180deg, var(--strap), var(--strap2));
+      color:#fff; border-color:transparent;
+      box-shadow: 0 16px 34px rgba(14,165,233,.25), inset 0 1px 0 rgba(255,255,255,.6);
     }
 
     .hero-grid{ display:grid; grid-template-columns: 1.05fr .95fr; gap:2rem }
     @media (max-width: 1024px){ .hero-grid{ grid-template-columns:1fr } }
 
+    .k-title{
+      font-family:var(--font-display, Space Grotesk);
+      letter-spacing:-.01em; line-height:1.02;
+    }
+
+    .strapline{
+      display:inline-flex; align-items:center; gap:.6rem; height:34px; padding:0 .75rem; border-radius:999px; font-size:.82rem;
+      background:linear-gradient(180deg, #fff, #F1F6FF); border:1px solid var(--edge);
+      box-shadow: 0 10px 24px var(--shadow);
+    }
+    .strap-badge{
+      display:inline-grid; place-items:center; width:22px; height:22px; border-radius:999px; color:#fff;
+      background:linear-gradient(180deg, var(--strap2), var(--strap)); font-size:.72rem; font-weight:700;
+      box-shadow: 0 8px 18px rgba(37,99,235,.25);
+    }
+
+    .poster{
+      position:relative; border-radius:18px; background:var(--panel); border:1px solid var(--edge);
+      box-shadow: 0 24px 60px var(--shadow-strong);
+      overflow:hidden;
+    }
+    .poster-header{
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding:10px 12px; border-bottom:1px solid var(--edge);
+      background:linear-gradient(180deg, #fff, #F7FAFF);
+    }
+    .spark-wrap{ position:relative; height:380px }
+    .spark-wrap canvas{ position:absolute; inset:0; width:100%; height:100% }
+
+    .card{
+      background:var(--panel); border:1px solid var(--edge); border-radius:16px; padding:18px;
+      box-shadow: 0 14px 28px var(--shadow);
+    }
+
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:.5rem; height:32px; padding:0 .7rem; border-radius:999px; font-size:.82rem;
+      background:#fff; border:1px solid var(--edge); box-shadow:0 6px 16px var(--shadow)
+    }
+    .beam{ height:2px; background:linear-gradient(90deg, transparent, var(--strap), var(--strap2), transparent); opacity:.9 }
+
     .rail{ position:relative; padding-left:1.4rem }
-    .rail:before{
-      content:""; position:absolute; left:.6rem; top:.2rem; bottom:.3rem;
-      width:2px; border-radius:2px;
-      background:linear-gradient(180deg, var(--a1), var(--a2));
-      opacity:.9;
-    }
-    .dot{
-      width:12px; height:12px; border-radius:999px;
-      background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow:0 0 0 6px rgba(124,58,237,.12);
-      border:1px solid rgba(255,255,255,.35);
-    }
+    .rail:before{ content:""; position:absolute; left:.6rem; top:.2rem; bottom:.3rem; width:2px; background:linear-gradient(180deg, var(--strap), var(--strap2)); border-radius:2px; }
+    .dot{ width:12px; height:12px; border-radius:999px; background:var(--strap); box-shadow:0 0 0 6px rgba(14,165,233,.14); border:1px solid #fff }
 
     .price{ display:grid; grid-template-columns:1fr auto; align-items:start; gap:1rem; }
+    .tag{ display:inline-flex; align-items:center; gap:.45rem; height:28px; padding:0 .6rem; border-radius:999px; font-size:.78rem; background:#F1F6FF; border:1px solid var(--edge) }
     .ring{
-      display:inline-grid; place-items:center;
-      width:92px; height:92px; border-radius:999px;
-      background:
-        radial-gradient(60% 60% at 50% 50%, rgba(255,45,85,.18), transparent 60%),
-        radial-gradient(100% 100% at 50% 50%, rgba(124,58,237,.18), transparent 70%);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 20px 60px rgba(0,0,0,.50);
-      font-weight:900;
+      display:inline-grid; place-items:center; width:92px; height:92px; border-radius:999px;
+      background: radial-gradient(60% 60% at 50% 50%, rgba(14,165,233,.18), transparent 60%),
+                  radial-gradient(100% 100% at 50% 50%, rgba(37,99,235,.18), transparent 70%);
+      border:1px solid #EAF2FF; box-shadow:0 16px 34px rgba(14,165,233,.25); font-weight:800;
     }
-    .ring span{
-      background:linear-gradient(90deg, var(--a2), var(--a1));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
+    .ring span{ background:linear-gradient(180deg, var(--strap2), var(--strap)); -webkit-background-clip:text; background-clip:text; color:transparent }
 
     .dock{
-      position:fixed; left:0; right:0; bottom:16px; z-index:40;
-      display:flex; justify-content:center; pointer-events:none;
+      position:fixed; left:0; right:0; bottom:16px; z-index:40; display:flex; justify-content:center; pointer-events:none;
     }
     .dock-inner{
-      pointer-events:auto;
-      display:flex; align-items:center; gap:.8rem;
-      border:1px solid var(--edge);
-      background:rgba(11,17,27,.78);
-      backdrop-filter: blur(12px);
-      border-radius:14px; padding:.55rem .7rem;
-      box-shadow:0 24px 70px rgba(0,0,0,.65);
+      pointer-events:auto; display:flex; align-items:center; gap:.8rem; border:1px solid var(--edge); background:#fff; border-radius:14px; padding:.5rem .6rem;
+      box-shadow:0 18px 40px var(--shadow-strong);
     }
 
     .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1; transform:none}
 
-    .no-scrollbar::-webkit-scrollbar{display:none}
-    .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
+    .muted{ color:var(--muted) }
+    .no-scrollbar::-webkit-scrollbar{display:none} .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
 
-    /* ===== Modern Carousel (ONLY used in the 3 image sections) ===== */
-    .showcase{
+    /* =================== SLIDER (ONLY FOR 3 SECTIONS) =================== */
+    .slider{
       position:relative;
-      border-radius:22px;
-      border:1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(900px 420px at 85% 10%, rgba(124,58,237,.20), transparent 60%),
-        radial-gradient(900px 420px at 15% 0%, rgba(255,45,85,.16), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      box-shadow: 0 26px 90px rgba(0,0,0,.65);
-      overflow:hidden;
-    }
-    .showcase:before{
-      content:"";
-      position:absolute; inset:0;
-      background-image: radial-gradient(var(--grid) 1px, transparent 1px);
-      background-size: 18px 18px;
-      opacity:.10;
-      pointer-events:none;
-      mask: linear-gradient(180deg, rgba(0,0,0,.85), transparent 70%);
-    }
-
-    .carousel-viewport{
-      position:relative;
-      overflow:hidden;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
-    }
-
-    .carousel-track{
-      display:flex;
-      transition: transform .45s cubic-bezier(.2,.8,.2,1);
-      will-change: transform;
-    }
-
-    .carousel-slide{
-      min-width:100%;
-      position:relative;
-      display:grid;
-      place-items:center;
-      background: rgba(0,0,0,.16);
-    }
-
-    .carousel-slide img{
       width:100%;
-      height:100%;
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid var(--edge);
+      background:linear-gradient(180deg, #fff, #F7FAFF);
+      box-shadow: 0 14px 28px var(--shadow);
+    }
+    .slider-topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+      padding:10px 12px;
+      border-bottom:1px solid var(--edge);
+      background:linear-gradient(180deg, #fff, #F7FAFF);
+    }
+    .slider-topbar .left{
+      display:flex; align-items:center; gap:.5rem; min-width:0;
+    }
+    .slider-topbar .pillbar{
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.35rem .6rem;
+      border-radius:999px;
+      border:1px solid var(--edge);
+      background:#fff;
+      font-size:.78rem;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .slider-topbar .counter{
+      font-size:.78rem;
+      color:var(--muted);
+      border:1px solid var(--edge);
+      background:#fff;
+      padding:.25rem .5rem;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .slider-viewport{
+      position:relative;
+      aspect-ratio: 16 / 9;
+      background: #0A0D14;
+    }
+    .slider-viewport img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
       object-fit:contain;
-      display:block;
-      user-select:none;
-      -webkit-user-drag:none;
+      background:#0A0D14;
+      opacity:0;
+      transform:scale(1.01);
+      transition:opacity .25s ease, transform .35s ease;
     }
-
-    .carousel-topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:.75rem;
-      padding:14px 14px 10px 14px;
-    }
-
-    .carousel-title{
-      display:flex;
-      align-items:center;
-      gap:.6rem;
-      font-weight:900;
-      color: rgba(238,243,255,.95);
-      letter-spacing:.02em;
-    }
-
-    .carousel-title .dotBadge{
-      width:10px;height:10px;border-radius:999px;
-      background: linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 0 0 6px rgba(124,58,237,.12);
-    }
-
-    .carousel-actions{
-      display:flex;
-      align-items:center;
-      gap:.5rem;
-    }
-
-    .iconBtn{
-      height:40px;
-      width:40px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      display:inline-grid;
-      place-items:center;
-      color: rgba(238,243,255,.92);
-      box-shadow: 0 12px 30px rgba(0,0,0,.45);
-      transition: transform .12s ease, filter .12s ease;
-    }
-    .iconBtn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
-    .iconBtn:disabled{ opacity:.35; cursor:not-allowed; transform:none; filter:none; }
-
-    .carousel-footer{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 14px 14px 14px;
-      color: rgba(238,243,255,.70);
-      font-size: 12px;
-    }
-
-    .dots{
-      display:flex;
-      gap:6px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .dotBtn{
-      width:7px;height:7px;border-radius:10px;
-      border:1px solid rgba(255,255,255,.22);
-      background:rgba(255,255,255,.10);
-      transition: width .15s ease, background .15s ease, opacity .15s ease;
-      opacity:.75;
-    }
-    .dotBtn.active{
-      width:18px;
-      background: linear-gradient(90deg, var(--a2), var(--a1));
+    .slider-viewport img.active{
       opacity:1;
-      border-color: transparent;
+      transform:scale(1);
     }
+    .slider-arrow{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:44px; height:44px;
+      display:grid; place-items:center;
+      border-radius:999px;
+      border:1px solid rgba(229,237,247,.9);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 10px 22px rgba(2,7,18,.22);
+      cursor:pointer;
+      user-select:none;
+    }
+    .slider-arrow:hover{ filter:brightness(.98) }
+    .slider-arrow:active{ transform:translateY(-50%) scale(.98) }
+    .slider-arrow.left{ left:14px }
+    .slider-arrow.right{ right:14px }
 
-    .placeholder{
-      min-height: 360px;
-      height: clamp(320px, 40vw, 460px);
+    .slider-bottom{
+      display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+      padding:10px 12px;
+      border-top:1px solid var(--edge);
+      background:linear-gradient(180deg, #fff, #F7FAFF);
     }
-    @media (max-width: 1024px){
-      .placeholder{ height: 320px; min-height: 300px; }
+    .dots{
+      display:flex; align-items:center; gap:8px;
+    }
+    .dotbtn{
+      width:10px; height:10px; border-radius:999px;
+      border:1px solid rgba(14,165,233,.35);
+      background: rgba(14,165,233,.14);
+      cursor:pointer;
+    }
+    .dotbtn.active{
+      background: linear-gradient(180deg, var(--strap2), var(--strap));
+      border-color: transparent;
+      box-shadow: 0 8px 18px rgba(14,165,233,.25);
+    }
+    .slider-hint{
+      font-size:.78rem; color:var(--muted);
+      white-space:nowrap;
+    }
+    @media(max-width:640px){
+      .slider-arrow{ width:40px; height:40px }
+      .slider-viewport{ aspect-ratio: 4 / 3; }
+      .slider-hint{ display:none }
     }
   </style>
 </head>
 
 <body>
-  <!-- NAV -->
-  <header class="nav">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-3">
-        <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto"
-             onerror="this.style.display='none'; this.insertAdjacentHTML('afterend','<span class=&quot;strap-badge&quot;>F</span>')" />
-        <span class="font-semibold tracking-tight">FUSIONTICKS</span>
-      </a>
+  <header class="relative">
+    <div class="aperture-bg"></div>
+    <div class="aperture-stripes"></div>
+    <div class="aperture-dots"></div>
 
-      <nav class="hidden md:flex items-center gap-6 text-[15px]">
-        <a href="#how">How We Trade</a>
-        <a href="#academy">FusionTicks Academy</a>
-        <a href="#journal">FusionTicks Journal</a>
-        <a href="#discord">Discord Community</a>
-        <a href="#pricing">Prices</a>
-        <a href="#faq">FAQ</a>
-      </nav>
+    <!-- Top Nav -->
+    <div class="nav">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
+        <a href="#" class="flex items-center gap-3">
+          <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto"/>
+          <span class="font-semibold tracking-tight">FUSIONTICKS</span>
+        </a>
 
-      <div class="hidden md:flex items-center gap-2">
-        <a class="btn btn-ghost" href="#academy"><i data-lucide="book-open" class="w-4 h-4"></i> Academy</a>
-        <a class="btn btn-primary" href="#pricing"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
+        <nav class="hidden md:flex items-center gap-6 text-[15px]">
+          <a href="#how">How We Trade</a>
+          <a href="#academy">FT Academy</a>
+          <a href="#journal">FT Journal</a>
+          <a href="#discord">Discord</a>
+          <a href="#pricing">Prices</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <div class="hidden md:flex items-center gap-2">
+          <a class="btn-ghost btn" href="#academy"><i data-lucide="book-open" class="w-4 h-4"></i> FT Academy</a>
+          <a class="btn btn-primary" href="#pricing"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
+        </div>
+
+        <button id="menuBtn" class="md:hidden btn-ghost btn" aria-label="Open menu"><i data-lucide="menu"></i></button>
       </div>
-
-      <button id="menuBtn" class="md:hidden btn btn-ghost" aria-label="Open menu">
-        <i data-lucide="menu" class="w-5 h-5"></i>
-      </button>
     </div>
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
-      <div class="absolute inset-0 bg-black/60" data-close></div>
-      <div class="absolute right-3 left-3 top-4 rounded-2xl"
-           style="background:rgba(11,17,27,.92); border:1px solid var(--edge); backdrop-filter: blur(14px);">
+      <div class="absolute inset-0 bg-black/40" data-close></div>
+      <div class="absolute right-3 left-3 top-4 rounded-2xl bg-white border border-[var(--edge)]">
         <div class="p-3 flex justify-end">
-          <button class="btn btn-ghost" data-close aria-label="Close"><i data-lucide="x"></i></button>
+          <button class="btn-ghost btn" data-close aria-label="Close"><i data-lucide="x"></i></button>
         </div>
         <nav class="px-4 pb-5 grid gap-2 text-base">
           <a class="btn" href="#how">How We Trade</a>
-          <a class="btn" href="#academy">FusionTicks Academy</a>
-          <a class="btn" href="#journal">FusionTicks Journal</a>
-          <a class="btn" href="#discord">Discord Community</a>
+          <a class="btn" href="#academy">FT Academy</a>
+          <a class="btn" href="#journal">FT Journal</a>
+          <a class="btn" href="#discord">Discord</a>
           <a class="btn" href="#pricing">Prices</a>
           <a class="btn" href="#faq">FAQ</a>
           <a class="btn btn-primary mt-2" href="#pricing">Get Access</a>
         </nav>
       </div>
     </div>
-  </header>
 
-  <!-- HERO -->
-  <section id="top" class="aperture-band">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10 lg:pt-16">
+    <!-- HERO CONTENT -->
+    <section id="hero" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 lg:pt-16">
       <div class="hero-grid">
         <div class="relative">
           <span class="strapline">
-            <span class="strap-badge">F</span> Trading Education · No Signals · Risk First
+            <span class="strap-badge">FT</span> Trade Education - No Signals · Risk-First
           </span>
 
           <h1 class="k-title mt-4 text-5xl sm:text-6xl font-extrabold">
-            Trade with <span class="heading-gradient">Clarity</span>,<br/>
+            Trade with <span style="background:linear-gradient(90deg,var(--strap2),var(--strap));-webkit-background-clip:text;background-clip:text;color:transparent">Clarity</span>,<br/>
             Not Noise.
           </h1>
 
           <p class="mt-5 muted max-w-2xl">
-            FusionTicks teaches a simple process: map key levels on the higher timeframe, read who is in control, confirm on the lower timeframe, then manage risk and journal the result.
+            I started like most traders: YouTube strategies, paid courses, and a lot of frustration.
+            Real progress came when I stopped memorizing and began understanding the market. I treat each trade as a setup
+            based on the idea that time is fractal: higher timeframe key levels set the bias, lower timeframe levels define
+            the entry, and I identify who is in control. Now I teach the same framework inside FusionTicks.
           </p>
 
           <div class="mt-7 flex flex-wrap gap-3">
             <a href="#pricing" class="btn btn-primary"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
-            <a href="#academy" class="btn"><i data-lucide="book-open" class="w-4 h-4"></i> Academy</a>
+            <a href="#academy" class="btn"><i data-lucide="book-open" class="w-4 h-4"></i> FT Academy</a>
             <span class="tag">NQ · ES · CL · GC · QQQ · SPY</span>
-            <span class="tag">Context to Confirm</span>
+            <span class="tag">Context → Confirm</span>
           </div>
 
-          <div class="mt-8 rounded-xl p-3 flex items-center text-sm"
-               style="border:1px solid var(--edge); background:rgba(255,255,255,.06); backdrop-filter: blur(10px);">
-            <div class="px-3 py-1 rounded-full text-white font-extrabold"
-                 style="background:linear-gradient(135deg, var(--a2), var(--a1));">FIRST40</div>
-            <div class="ml-3">
-              Launch offer: first 40 get the course for <b>$550</b> (regular <span class="line-through">$1000</span>).
-            </div>
+          <div class="mt-8 rounded-xl border border-[var(--edge)] bg-white p-3 flex items-center text-sm">
+            <div class="px-3 py-1 rounded-full text-white font-semibold" style="background:linear-gradient(180deg, var(--strap2), var(--strap))">FIRST40</div>
+            <div class="ml-3">Launch offer: first 40 get the course for <b>$550</b> (regular <span class="line-through">$1000</span>).</div>
           </div>
         </div>
 
-        <!-- Right side removed chart, keep clean premium panel -->
-        <div class="card p-6">
-          <div class="flex items-center gap-3">
-            <img src="./FT%20Logo.png" alt="FusionTicks" class="h-8 w-auto"
-                 onerror="this.style.display='none'"/>
-            <div>
-              <div class="font-extrabold">FUSIONTICKS</div>
-              <div class="muted text-sm">Signal free education, risk first execution</div>
+        <div class="poster">
+          <div class="poster-header">
+            <div class="flex items-center gap-2">
+              <img src="./FT%20Logo.png" alt="FusionTicks" class="h-6 w-auto"/>
+              <span class="text-sm text-[var(--muted)]">Signal-free Education</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <span class="tag">Risk-First</span>
+              <span class="tag">Process &gt; Outcome</span>
             </div>
           </div>
-          <div class="mt-6 grid grid-cols-2 gap-3">
-            <div class="rounded-xl p-4" style="border:1px solid var(--edge); background:rgba(255,255,255,.04);">
-              <div class="text-sm font-bold">HTF Levels</div>
-              <div class="muted text-xs mt-1">Buyers and sellers zones</div>
-            </div>
-            <div class="rounded-xl p-4" style="border:1px solid var(--edge); background:rgba(255,255,255,.04);">
-              <div class="text-sm font-bold">LTF Confirm</div>
-              <div class="muted text-xs mt-1">Entry after reaction</div>
-            </div>
-            <div class="rounded-xl p-4" style="border:1px solid var(--edge); background:rgba(255,255,255,.04);">
-              <div class="text-sm font-bold">Risk First</div>
-              <div class="muted text-xs mt-1">Invalidation before entry</div>
-            </div>
-            <div class="rounded-xl p-4" style="border:1px solid var(--edge); background:rgba(255,255,255,.04);">
-              <div class="text-sm font-bold">Journal</div>
-              <div class="muted text-xs mt-1">Review and improve</div>
+
+          <div class="spark-wrap">
+            <canvas id="spark"></canvas>
+            <div class="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-3 text-center text-[13px]">
+              <div class="tag">Context → Confirm</div>
+              <div class="tag">Bias from HTF</div>
+              <div class="tag">Execution on LTF</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </header>
 
   <main>
-    <!-- HOW WE TRADE -->
+    <!-- HOW IT WORKS -->
     <section id="how" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow">Simple Pipeline</span>
-        <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">How We Trade</h2>
+        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">How We Trade</h3>
+
         <p class="mt-2 muted max-w-4xl">
-          From preparation to execution, this is a clear process you can repeat daily; strategies alone are a 50/50 gamble, so we flip the odds by reading the market, identifying who is in control, and stacking confirmations before any entry.
+          From preparation to execution, this is a clear process you can repeat daily; strategies alone are a 50/50 gamble, so we flip the odds by reading the market, identifying who’s in control, and stacking confirmations before any entry.
         </p>
       </div>
 
       <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="card reveal p-6 rail">
-          <div class="flex items-center gap-3"><span class="dot"></span><div class="font-extrabold">1) Prepare</div></div>
+        <div class="card reveal rail">
+          <div class="flex items-center gap-3"><span class="dot"></span><div class="font-semibold">1) Prepare</div></div>
           <p class="muted mt-2 ml-8">
-            Mark key levels on the higher timeframe: supply and demand plus support and resistance, then confirm the news.
+            Mark KEY LEVELS on the higher timeframe: S&amp;D and S&amp;R (major buyer/seller zones), then confirm the news.
           </p>
 
-          <div class="mt-6 flex items-center gap-3"><span class="dot"></span><div class="font-extrabold">2) Read</div></div>
+          <div class="mt-6 flex items-center gap-3"><span class="dot"></span><div class="font-semibold">2) Read</div></div>
           <p class="muted mt-2 ml-8">
             As price reaches those levels, watch the reaction and understand whether buyers or sellers are taking control.
           </p>
         </div>
 
-        <div class="card reveal p-6 rail">
-          <div class="flex items-center gap-3"><span class="dot"></span><div class="font-extrabold">3) Confirm</div></div>
+        <div class="card reveal rail">
+          <div class="flex items-center gap-3"><span class="dot"></span><div class="font-semibold">3) Confirm</div></div>
           <p class="muted mt-2 ml-8">
-            Drop to a lower timeframe, mark the next buyer and seller zones, and collect confirmations for entry.
+            Drop to a lower timeframe, mark the next buyer/seller zones, and collect confirmations for entry (break or hold of the first zone matters).
           </p>
 
-          <div class="mt-6 flex items-center gap-3"><span class="dot"></span><div class="font-extrabold">4) Review</div></div>
+          <div class="mt-6 flex items-center gap-3"><span class="dot"></span><div class="font-semibold">4) Review</div></div>
           <p class="muted mt-2 ml-8">
             Journal every trade so we can review mistakes and continuously improve the process.
           </p>
@@ -511,49 +425,47 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- FUSIONTICKS ACADEMY (ONLY section changed: modern slider + text) -->
+    <!-- FT ACADEMY -->
     <section id="academy" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="book-open" class="w-4 h-4"></i> Course</span>
-        <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">
-          <span class="heading-gradient">FUSIONTICKS ACADEMY</span>
-        </h2>
-        <p class="mt-2 muted max-w-3xl">Short lessons, clear structure, built for daily use.</p>
+        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">FT Academy</h3>
+        <p class="mt-2 muted max-w-3xl">Short lessons. Clear structure. Built for daily use.</p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
-        <!-- LEFT -->
+        <!-- LEFT (windows stacked) -->
         <div class="lg:col-span-1 space-y-4">
-          <article class="card reveal p-5">
+          <article class="card reveal">
             <div class="flex items-center justify-between">
-              <h3 class="font-extrabold">A · Reading the Market</h3>
+              <h4 class="font-semibold">A · Reading the Market</h4>
               <span class="tag">6 lessons</span>
             </div>
-            <p class="muted mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS, CHoCH, and FVG.</p>
+            <p class="muted mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG.</p>
           </article>
 
-          <article class="card reveal p-5">
+          <article class="card reveal">
             <div class="flex items-center justify-between">
-              <h3 class="font-extrabold">B · Market Levels</h3>
+              <h4 class="font-semibold">B · Market Levels</h4>
               <span class="tag">3 lessons</span>
             </div>
-            <p class="muted mt-2 text-sm">Supply and demand, support and resistance, and opening range breakout.</p>
+            <p class="muted mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout.</p>
           </article>
 
-          <article class="card reveal p-5">
+          <article class="card reveal">
             <div class="flex items-center justify-between">
-              <h3 class="font-extrabold">C · Market Indicators</h3>
+              <h4 class="font-semibold">C · Market Indicators</h4>
               <span class="tag">3 lessons</span>
             </div>
-            <p class="muted mt-2 text-sm">Volume profile, anchored VWAP, and EMA used inside context.</p>
+            <p class="muted mt-2 text-sm">Volume Profile, VWAP (Anchored), and EMA inside context.</p>
           </article>
 
-          <article class="card reveal p-5">
+          <article class="card reveal">
             <div class="flex items-center justify-between">
-              <h3 class="font-extrabold">D · Behind the Scenes</h3>
+              <h4 class="font-semibold">D · Behind the Scenes</h4>
               <span class="tag">7 lessons</span>
             </div>
-            <p class="muted mt-2 text-sm">TradingView, futures, prop firms, order types, risk, journaling, news, psychology.</p>
+            <p class="muted mt-2 text-sm">TradingView, futures &amp; prop firms, order types, risk, journaling, news, psychology.</p>
           </article>
 
           <button class="btn btn-primary w-full justify-center reveal" data-curr-open>
@@ -561,32 +473,10 @@
           </button>
         </div>
 
-        <!-- RIGHT (Modern Slider) -->
-        <div class="lg:col-span-2 reveal">
-          <div class="showcase p-4">
-            <div class="carousel-topbar">
-              <div class="carousel-title">
-                <span class="dotBadge"></span>
-                <span>Academy Preview</span>
-              </div>
-              <div class="carousel-actions">
-                <button class="iconBtn" data-prev aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button class="iconBtn" data-next aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="carousel-viewport placeholder" data-carousel data-folder="./academy/">
-              <div class="carousel-track"></div>
-            </div>
-
-            <div class="carousel-footer">
-              <div class="muted"><span data-count>0</span> slides</div>
-              <div class="dots" data-dots></div>
-            </div>
+        <!-- RIGHT (SLIDER) -->
+        <div class="lg:col-span-2">
+          <div class="reveal">
+            <div class="slider" data-slider="academy"></div>
           </div>
         </div>
       </div>
@@ -594,77 +484,43 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- FUSIONTICKS JOURNAL (ONLY section changed: modern slider + text) -->
+    <!-- FT JOURNAL -->
     <section id="journal" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="notebook-pen" class="w-4 h-4"></i> Notion Journal</span>
-        <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">
-          <span class="heading-gradient">FUSIONTICKS JOURNAL</span>
-        </h2>
-        <p class="mt-2 muted max-w-3xl">Track your trades, mistakes, and progress. Included with the course, or get it standalone for $20.</p>
+        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">FT Journal</h3>
+        <p class="mt-2 muted max-w-3xl">Track your trades, mistakes, and progress. Included with the course, or get it alone for $20.</p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
-        <!-- LEFT -->
+        <!-- LEFT (windows stacked) -->
         <div class="lg:col-span-1 space-y-4">
-          <article class="card reveal p-5">
-            <div class="flex items-center gap-2 font-extrabold">
-              <i data-lucide="check-square" class="w-5 h-5" style="color:var(--a2)"></i> Daily Trade Log
-            </div>
+          <article class="card reveal">
+            <div class="flex items-center gap-2 font-semibold"><i data-lucide="check-square" class="w-5 h-5 text-[var(--strap2)]"></i> Daily Trade Log</div>
             <p class="muted mt-2 text-sm">Entry, exit, setup, risk, and notes. Fast and clean.</p>
           </article>
 
-          <article class="card reveal p-5">
-            <div class="flex items-center gap-2 font-extrabold">
-              <i data-lucide="repeat" class="w-5 h-5" style="color:var(--a2)"></i> Weekly Review
-            </div>
-            <p class="muted mt-2 text-sm">Spot patterns and fix one mistake at a time.</p>
+          <article class="card reveal">
+            <div class="flex items-center gap-2 font-semibold"><i data-lucide="repeat" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly Review</div>
+            <p class="muted mt-2 text-sm">Spot patterns. Fix one mistake at a time.</p>
           </article>
 
-          <article class="card reveal p-5">
-            <div class="flex items-center gap-2 font-extrabold">
-              <i data-lucide="bar-chart-3" class="w-5 h-5" style="color:var(--a2)"></i> Simple Stats
-            </div>
-            <p class="muted mt-2 text-sm">Win rate, R multiples, best setups, and common errors.</p>
+          <article class="card reveal">
+            <div class="flex items-center gap-2 font-semibold"><i data-lucide="bar-chart-3" class="w-5 h-5 text-[var(--strap2)]"></i> Simple Stats</div>
+            <p class="muted mt-2 text-sm">Win rate, R-multiples, best setups, and common errors.</p>
           </article>
 
-          <div class="reveal space-y-2">
-            <a href="#pricing" class="btn btn-primary w-full justify-center">
-              <i data-lucide="arrow-right" class="w-4 h-4"></i> Get Journal
-            </a>
-            <div class="flex flex-wrap gap-2">
-              <span class="tag">Included with Course</span>
-              <span class="tag">$20 Standalone</span>
-            </div>
+          <div class="reveal flex flex-wrap gap-2">
+            <a href="#pricing" class="btn btn-primary w-full justify-center"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Journal</a>
+            <span class="tag">Included with Course</span>
+            <span class="tag">$20 Standalone</span>
           </div>
         </div>
 
-        <!-- RIGHT (Modern Slider) -->
-        <div class="lg:col-span-2 reveal">
-          <div class="showcase p-4">
-            <div class="carousel-topbar">
-              <div class="carousel-title">
-                <span class="dotBadge"></span>
-                <span>Journal Preview</span>
-              </div>
-              <div class="carousel-actions">
-                <button class="iconBtn" data-prev aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button class="iconBtn" data-next aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="carousel-viewport placeholder" data-carousel data-folder="./journal/">
-              <div class="carousel-track"></div>
-            </div>
-
-            <div class="carousel-footer">
-              <div class="muted"><span data-count>0</span> slides</div>
-              <div class="dots" data-dots></div>
-            </div>
+        <!-- RIGHT (SLIDER) -->
+        <div class="lg:col-span-2">
+          <div class="reveal">
+            <div class="slider" data-slider="journal"></div>
           </div>
         </div>
       </div>
@@ -672,83 +528,52 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- DISCORD COMMUNITY (ONLY section changed: modern slider + text) -->
+    <!-- DISCORD -->
     <section id="discord" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="users" class="w-4 h-4"></i> Community</span>
-        <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">
-          <span class="heading-gradient">DISCORD COMMUNITY</span>
-        </h2>
-        <p class="mt-2 muted max-w-2xl">Chat, weekly news, and daily levels. Simple and useful.</p>
+        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Discord Community</h3>
+        <p class="mt-2 muted max-w-2xl">
+          Chat, weekly news, and daily levels. Simple and useful.
+        </p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
-        <!-- LEFT -->
         <div class="lg:col-span-1 space-y-4">
-          <article class="card reveal p-5">
-            <div class="flex items-center gap-2 font-extrabold">
-              <span class="p-2 rounded-lg" style="border:1px solid var(--edge); background:rgba(255,255,255,.05);">
-                <i data-lucide="messages-square" class="w-5 h-5"></i>
-              </span>
+          <article class="card reveal">
+            <div class="flex items-center gap-2 font-semibold">
+              <span class="p-2 rounded-lg border border-[var(--edge)] bg-white"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
               #chatroom
             </div>
-            <p class="muted mt-3 text-sm">Daily hangout. Share charts, ideas, and quick help.</p>
+            <p class="muted mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
           </article>
 
-          <article class="card reveal p-5">
-            <div class="flex items-center gap-2 font-extrabold">
-              <span class="p-2 rounded-lg" style="border:1px solid var(--edge); background:rgba(255,255,255,.05);">
-                <i data-lucide="newspaper" class="w-5 h-5"></i>
-              </span>
+          <article class="card reveal">
+            <div class="flex items-center gap-2 font-semibold">
+              <span class="p-2 rounded-lg border border-[var(--edge)] bg-white"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
               #market-news
             </div>
-            <p class="muted mt-3 text-sm">Weekly calendar with clear focus days.</p>
+            <p class="muted mt-3">Weekly calendar: lean-in vs stay-light days.</p>
           </article>
 
-          <article class="card reveal p-5">
-            <div class="flex items-center gap-2 font-extrabold">
-              <span class="p-2 rounded-lg" style="border:1px solid var(--edge); background:rgba(255,255,255,.05);">
-                <i data-lucide="target" class="w-5 h-5"></i>
-              </span>
+          <article class="card reveal">
+            <div class="flex items-center gap-2 font-semibold">
+              <span class="p-2 rounded-lg border border-[var(--edge)] bg-white"><i data-lucide="target" class="w-5 h-5"></i></span>
               #market-levels
             </div>
-            <p class="muted mt-3 text-sm">Daily levels, prepare then confirm.</p>
-            <div class="mt-3 flex flex-wrap gap-2 text-sm">
-              <span class="tag">NQ</span><span class="tag">ES</span><span class="tag">CL</span><span class="tag">GC</span><span class="tag">QQQ</span><span class="tag">SPY</span>
-            </div>
+            <p class="muted mt-3">Daily levels: prepare, then confirm.</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-sm"><span class="tag">NQ</span><span class="tag">ES</span><span class="tag">CL</span><span class="tag">GC</span></div>
           </article>
 
           <a href="https://discord.gg/RFbe3nHB" target="_blank" class="btn btn-primary reveal w-full justify-center">
-            <img src="./discord%20logo.png" class="w-4 h-4" alt="" onerror="this.style.display='none'"> Join the Discord
+            <img src="./discord%20logo.png" class="w-4 h-4" alt=""> Join the Discord
           </a>
         </div>
 
-        <!-- RIGHT (Modern Slider) -->
-        <div class="lg:col-span-2 reveal">
-          <div class="showcase p-4">
-            <div class="carousel-topbar">
-              <div class="carousel-title">
-                <span class="dotBadge"></span>
-                <span>Community Preview</span>
-              </div>
-              <div class="carousel-actions">
-                <button class="iconBtn" data-prev aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button class="iconBtn" data-next aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="carousel-viewport placeholder" data-carousel data-folder="./discord/">
-              <div class="carousel-track"></div>
-            </div>
-
-            <div class="carousel-footer">
-              <div class="muted"><span data-count>0</span> slides</div>
-              <div class="dots" data-dots></div>
-            </div>
+        <!-- RIGHT (SLIDER) -->
+        <div class="lg:col-span-2">
+          <div class="reveal">
+            <div class="slider" data-slider="discord"></div>
           </div>
         </div>
       </div>
@@ -756,117 +581,131 @@
       <div class="mt-10 beam"></div>
     </section>
 
-    <!-- PRICES (same band style as hero) -->
-    <section id="pricing" class="aperture-band">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div class="reveal">
-          <span class="eyebrow">Choose Your Access</span>
-          <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Prices</h2>
-          <p class="mt-2 muted">First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through">$1000</span>). Lifetime updates included.</p>
-        </div>
-
-        <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <article class="card reveal p-6">
-            <div class="price">
-              <div>
-                <div class="font-extrabold">FUSIONTICKS ACADEMY · Lifetime</div>
-                <div class="mt-2 tag">First 40 only</div>
-              </div>
-              <div class="text-right">
-                <div class="ring"><span class="text-2xl">$550</span></div>
-                <div class="text-sm muted mt-1 line-through">$1000</div>
-              </div>
-            </div>
-            <p class="muted mt-3 text-sm">One time payment. Includes all lessons now and all future updates.</p>
-            <ul class="mt-4 space-y-2 text-sm">
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5" style="color:var(--a2)"></i> Full course (current lessons)</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5" style="color:var(--a2)"></i> Lifetime updates (future lessons)</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5" style="color:var(--a2)"></i> Private Discord access</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5" style="color:var(--a2)"></i> Weekly live Q and A</li>
-            </ul>
-            <div class="pt-5">
-              <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn btn-primary w-full justify-center">Get Course - $550</a>
-              <p class="text-xs muted mt-2">Use code <b>FIRST40</b></p>
-            </div>
-          </article>
-
-          <!-- Empty middle card kept as space (as you requested previously) -->
-          <article class="card reveal p-6 flex items-center justify-center text-center">
-            <div>
-              <div class="font-extrabold">Reserved</div>
-              <div class="muted text-sm mt-2">No subscription plan right now.</div>
-            </div>
-          </article>
-
-          <article class="card reveal p-6">
-            <div class="price">
-              <div>
-                <div class="font-extrabold">FUSIONTICKS JOURNAL</div>
-                <div class="mt-2 tag">Included with course</div>
-              </div>
-              <div class="text-right">
-                <div class="ring"><span class="text-2xl">$20</span></div>
-              </div>
-            </div>
-            <p class="muted mt-3 text-sm">A clean journal to track trades, spot mistakes, and improve faster.</p>
-            <ul class="mt-4 space-y-2 text-sm">
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5" style="color:var(--a2)"></i> Daily trade log</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5" style="color:var(--a2)"></i> Weekly review workflow</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5" style="color:var(--a2)"></i> Simple stats and patterns</li>
-            </ul>
-            <div class="pt-5">
-              <a href="#pricing" class="btn btn-primary w-full justify-center">Get Journal - $20</a>
-              <p class="text-xs muted mt-2">Included free with the course.</p>
-            </div>
-          </article>
-        </div>
-
-        <div class="mt-10 beam"></div>
+    <!-- PRICES -->
+    <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="reveal">
+        <span class="eyebrow">Choose Your Access</span>
+        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Prices</h3>
+        <p class="mt-2 muted">First <b>40</b> get the full course for <b>$550</b> (regular <span class="line-through">$1000</span>). Lifetime updates included.</p>
       </div>
+
+      <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <article class="card reveal">
+          <div class="price">
+            <div>
+              <div class="font-semibold">FT Academy · Lifetime</div>
+              <div class="mt-2 tag">First 40 only</div>
+            </div>
+            <div class="text-right">
+              <div class="ring"><span class="text-2xl">$550</span></div>
+              <div class="text-sm muted mt-1 line-through">$1000</div>
+            </div>
+          </div>
+          <p class="muted mt-2">One-time payment. Includes all lessons now and all future updates.</p>
+          <ul class="mt-3 space-y-2">
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Full course (current lessons)</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Lifetime updates (future lessons)</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Private Discord access (no live/levels/news)</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly live Q&amp;A & group study</li>
+          </ul>
+          <div class="pt-4">
+            <a href="https://whop.com/checkout/plan_G0DWAmriWrJKp?d2c=true" class="btn btn-primary w-full justify-center">Get Course - $550</a>
+            <p class="text-xs muted mt-2">Use code <b>FIRST40</b></p>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="price">
+            <div class="font-semibold">Live &amp; Levels · Subscription</div>
+            <div class="text-2xl font-extrabold">$20<span class="text-sm muted">/mo</span></div>
+          </div>
+          <p class="muted mt-2">Everything you need day-to-day to stay prepared.</p>
+          <ul class="mt-3 space-y-2">
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Daily pre-market live (plan + levels)</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Today’s outlook & scenarios</li>
+            <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly news calendar</li>
+          </ul>
+          <div class="pt-4">
+            <a href="https://YOUR_WHOP_LINK_SUB_20" class="btn btn-primary w-full justify-center">Subscribe - $20/mo</a>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="price">
+            <div class="font-semibold">ICT Concepts · Deep Dive</div>
+            <div class="text-2xl font-extrabold">$1000</div>
+          </div>
+          <div class="mt-2 flex items-center gap-2 text-sm muted">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full" style="background:var(--strap);opacity:.65"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2" style="background:var(--strap)"></span>
+            </span>
+            In progress: coming soon
+          </div>
+          <p class="muted mt-2">Full ICT framework: structure, execution models, case studies.</p>
+          <ul class="mt-3 space-y-2">
+            <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-[var(--muted)]"></i> Comprehensive ICT framework</li>
+            <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-[var(--muted)]"></i> Clear setups & management rules</li>
+            <li class="flex gap-2"><i data-lucide="dot" class="w-5 h-5 text-[var(--muted)]"></i> Real chart walk-throughs</li>
+          </ul>
+          <div class="pt-4">
+            <button disabled class="btn w-full" style="opacity:.6; cursor:not-allowed">Coming Soon</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="mt-10 beam"></div>
     </section>
 
     <!-- FAQ -->
     <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="reveal">
         <span class="eyebrow">FAQ</span>
-        <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Still curious?</h2>
+        <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Still curious?</h3>
       </div>
 
-      <div class="mt-6 space-y-4 max-w-3xl">
-        <details class="card reveal p-5">
-          <summary class="cursor-pointer font-semibold">Is this for beginners or advanced traders?</summary>
-          <p class="muted mt-3 text-sm">Both. Beginners get structure, advanced traders clean noise and tighten execution.</p>
+      <div class="mt-6 space-y-4">
+        <details class="card reveal">
+          <summary class="cursor-pointer font-medium">Is this for beginners or advanced traders?</summary>
+          <p class="muted mt-2">Both. We start with reading the market and build toward execution. Goal: create your own setups, not copy signals.</p>
         </details>
-        <details class="card reveal p-5">
-          <summary class="cursor-pointer font-semibold">What markets do you cover?</summary>
-          <p class="muted mt-3 text-sm">NQ, ES, CL, GC, plus QQQ and SPY for context.</p>
+        <details class="card reveal">
+          <summary class="cursor-pointer font-medium">What markets do you cover?</summary>
+          <p class="muted mt-2">Focus on NQ, ES, CL, GC, plus context tracking through QQQ and SPY.</p>
         </details>
-        <details class="card reveal p-5">
-          <summary class="cursor-pointer font-semibold">Is the journal included?</summary>
-          <p class="muted mt-3 text-sm">Yes. Included with the course, and available standalone for $20.</p>
+        <details class="card reveal">
+          <summary class="cursor-pointer font-medium">Is the journal included?</summary>
+          <p class="muted mt-2">Yes. The journal is included with the course, and it can also be purchased standalone.</p>
         </details>
-        <details class="card reveal p-5">
-          <summary class="cursor-pointer font-semibold">What language is the content?</summary>
-          <p class="muted mt-3 text-sm">Arabic.</p>
+        <details class="card reveal">
+          <summary class="cursor-pointer font-medium">What language is the content?</summary>
+          <p class="muted mt-2">Arabic.</p>
         </details>
       </div>
 
       <footer class="mt-14 py-10 border-t" style="border-color:var(--edge)">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--muted)] px-4">
           <div class="flex items-center gap-3">
-            <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto"
-                 onerror="this.style.display='none'; this.insertAdjacentHTML('afterend','<span class=&quot;strap-badge&quot;>F</span>')" />
-            <span class="muted">© <span id="year"></span> FUSIONTICKS. All rights reserved.</span>
+            <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto">
+            <span>© <span id="year"></span> FUSIONTICKS. All rights reserved.</span>
           </div>
           <div class="flex items-center gap-3">
-            <a class="btn btn-ghost" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
-              <i data-lucide="instagram" class="w-4 h-4"></i>
+            <a class="p-2 rounded-full border border-[var(--edge)] bg-white" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                <circle cx="12" cy="12" r="4"></circle>
+                <circle cx="17.5" cy="6.5" r="1"></circle>
+              </svg>
             </a>
-            <a class="btn btn-ghost" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
-              <i data-lucide="youtube" class="w-4 h-4"></i>
+            <a class="p-2 rounded-full border border-[var(--edge)] bg-white" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2 .7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c .6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
+              </svg>
             </a>
-            <a class="btn btn-ghost" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
-              <span class="font-extrabold">TT</span>
+            <a class="p-2 rounded-full border border-[var(--edge)] bg-white" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
+              <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
+                <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -877,70 +716,69 @@
   <!-- Sticky Checkout dock -->
   <div class="dock">
     <div class="dock-inner">
-      <span class="hidden sm:inline text-sm muted">Use <b style="color:rgba(238,243,255,.92)">FIRST40</b> for launch pricing</span>
+      <span class="hidden sm:inline text-sm">Use <b>FIRST40</b> for launch pricing</span>
       <a href="#pricing" class="btn btn-primary"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
     </div>
   </div>
 
   <!-- ===== Course Syllabus Modal ===== -->
   <div id="currModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/70" data-curr-close></div>
-    <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl"
-         style="background:rgba(11,17,27,.94); border:1px solid var(--edge); backdrop-filter: blur(14px);">
-      <div class="flex items-center justify-between px-5 py-4 border-b" style="border-color:var(--edge)">
-        <h3 class="text-lg font-extrabold">Course · Full Syllabus</h3>
-        <button class="btn btn-ghost" data-curr-close aria-label="Close"><i data-lucide="x"></i></button>
+    <div class="absolute inset-0 bg-black/40" data-curr-close></div>
+    <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl bg-white border border-[var(--edge)]">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-[var(--edge)]">
+        <h3 class="text-lg font-semibold">Course · Full Syllabus</h3>
+        <button class="btn-ghost btn" data-curr-close aria-label="Close"><i data-lucide="x"></i></button>
       </div>
       <div class="p-5 max-h-[70vh] overflow-y-auto no-scrollbar text-sm leading-relaxed">
         <div class="grid sm:grid-cols-2 gap-6">
-          <article class="card p-5">
-            <h4 class="font-extrabold text-base flex items-center gap-2">
+          <article class="card">
+            <h4 class="font-semibold text-base flex items-center gap-2">
               <i data-lucide="scan" class="w-4 h-4"></i> A · Reading the Market
             </h4>
-            <ol class="mt-3 list-decimal pl-5 space-y-1 muted">
-              <li>Who is in Control (Candlesticks)</li>
+            <ol class="mt-2 list-decimal pl-5 space-y-1">
+              <li>Who’s in Control? (Candlesticks)</li>
               <li>Market Stages (Phases)</li>
               <li>Price in Motion</li>
-              <li>Swings and Shifts</li>
-              <li>Breaks and Flips (BOS and CHoCH)</li>
-              <li>Balance and Imbalance (FVG)</li>
+              <li>Swings &amp; Shifts</li>
+              <li>Breaks &amp; Flips (BOS &amp; CHoCH)</li>
+              <li>Balance &amp; Imbalance (FVG)</li>
             </ol>
           </article>
 
-          <article class="card p-5">
-            <h4 class="font-extrabold text-base flex items-center gap-2">
+          <article class="card">
+            <h4 class="font-semibold text-base flex items-center gap-2">
               <i data-lucide="layout" class="w-4 h-4"></i> B · Market Levels
             </h4>
-            <ol class="mt-3 list-decimal pl-5 space-y-1 muted">
-              <li>Supply and Demand</li>
-              <li>Support and Resistance</li>
-              <li>Opening Range Breakout</li>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="7">
+              <li>Where it Starts (Supply &amp; Demand)</li>
+              <li>Key Zones (Support &amp; Resistance)</li>
+              <li>The Explosion (Opening Range Breakout)</li>
             </ol>
             <p class="mt-3 text-xs muted">Levels are not entries, wait for confirmations.</p>
           </article>
 
-          <article class="card p-5">
-            <h4 class="font-extrabold text-base flex items-center gap-2">
+          <article class="card">
+            <h4 class="font-semibold text-base flex items-center gap-2">
               <i data-lucide="activity" class="w-4 h-4"></i> C · Market Indicators
             </h4>
-            <ol class="mt-3 list-decimal pl-5 space-y-1 muted">
-              <li>Volume Profile</li>
-              <li>Anchored VWAP</li>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="10">
+              <li>Volume Map (Volume Profile)</li>
+              <li>VWAP &amp; Anchored</li>
               <li>EMA</li>
             </ol>
           </article>
 
-          <article class="card p-5">
-            <h4 class="font-extrabold text-base flex items-center gap-2">
+          <article class="card">
+            <h4 class="font-semibold text-base flex items-center gap-2">
               <i data-lucide="settings" class="w-4 h-4"></i> D · Behind the Scenes
             </h4>
-            <ol class="mt-3 list-decimal pl-5 space-y-1 muted">
-              <li>Quick guide to TradingView</li>
-              <li>Futures and prop firms</li>
-              <li>Order types</li>
-              <li>Risk management</li>
-              <li>Journaling and reviews</li>
-              <li>News and economic events</li>
+            <ol class="mt-2 list-decimal pl-5 space-y-1" start="13">
+              <li>Quick Guide to TradingView</li>
+              <li>Futures &amp; Prop Firms</li>
+              <li>Order Types</li>
+              <li>Risk First (Risk Management)</li>
+              <li>Journaling &amp; Reviews</li>
+              <li>News &amp; Economic Events</li>
               <li>Psychology</li>
             </ol>
           </article>
@@ -950,146 +788,210 @@
   </div>
 
   <script>
-    // Icons + year
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.lucide) lucide.createIcons(); });
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Reveal on scroll (safe, no auto scrolling)
     const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add('in');
-          io.unobserve(e.target);
-        }
-      });
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
     },{threshold:.14});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    const closeMenu = ()=> mobileMenu.classList.add('hidden');
+    const closeAll = ()=> mobileMenu.classList.add('hidden');
     menuBtn?.addEventListener('click', ()=> mobileMenu.classList.remove('hidden'));
-    mobileMenu?.querySelectorAll('[data-close]').forEach(b=> b.addEventListener('click', closeMenu));
-    mobileMenu?.querySelectorAll('a[href^="#"]').forEach(a=> a.addEventListener('click', ()=> setTimeout(closeMenu, 40)));
+    mobileMenu?.querySelectorAll('[data-close]').forEach(b=> b.addEventListener('click', closeAll));
+    mobileMenu?.querySelectorAll('a[href^="#"]').forEach(a=> a.addEventListener('click', ()=> setTimeout(closeAll, 50)));
 
-    // Modal
     const hookModal = (openSel, modalId, closeSel) => {
       const modal = document.getElementById(modalId);
       document.querySelectorAll(openSel).forEach(btn=>btn.addEventListener('click', ()=>{
         modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+        document.body.classList.add('modal-open');
       }));
       modal.querySelectorAll(closeSel).forEach(btn=>btn.addEventListener('click', ()=>{
         modal.classList.add('hidden');
-        document.body.style.overflow = '';
+        document.body.classList.remove('modal-open');
       }));
       modal.addEventListener('click', (e)=>{
         if(e.target === modal.firstElementChild) {
           modal.classList.add('hidden');
-          document.body.style.overflow = '';
+          document.body.classList.remove('modal-open');
         }
       });
     };
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
 
-    // ===== Carousels (Auto-detect ./academy/1.webp.., ./journal/1.webp.., ./discord/1.webp..) =====
-    function buildCarousel(viewport){
-      const folder = viewport.getAttribute('data-folder') || './';
-      const track = viewport.querySelector('.carousel-track');
-      const wrap = viewport.closest('.showcase');
-      const prevBtn = wrap.querySelector('[data-prev]');
-      const nextBtn = wrap.querySelector('[data-next]');
-      const countEl = wrap.querySelector('[data-count]');
-      const dotsWrap = wrap.querySelector('[data-dots]');
+    /* ===== SLIDERS (academy / journal / discord) ===== */
+    const SLIDERS = {
+      academy: Array.from({length:6}, (_,i)=>`academy-${i+1}.webp`),
+      journal: Array.from({length:6}, (_,i)=>`journal-${i+1}.webp`),
+      discord: Array.from({length:5}, (_,i)=>`discord-${i+1}.webp`)
+    };
 
-      let slides = [];
-      let index = 0;
+    function createSlider(container, title, images){
+      let idx = 0;
 
-      const maxProbe = 30; // put any number of images, named 1.webp, 2.webp, etc.
-      const loaders = [];
-      for(let i=1;i<=maxProbe;i++){
-        loaders.push(new Promise((resolve)=>{
-          const img = new Image();
-          img.onload = ()=> resolve({ok:true, src: folder + i + '.webp', i});
-          img.onerror = ()=> resolve({ok:false});
-          img.src = folder + i + '.webp';
-        }));
-      }
-
-      Promise.all(loaders).then(results=>{
-        const ok = results.filter(r=>r.ok).map(r=>r.src);
-
-        if(ok.length === 0){
-          // Placeholder
-          track.innerHTML = `
-            <div class="carousel-slide" style="min-width:100%">
-              <div class="h-full w-full grid place-items-center text-center p-10">
-                <div>
-                  <div style="font-weight:900">No images found</div>
-                  <div class="muted" style="margin-top:8px;font-size:14px">
-                    Put your images in ${folder} named 1.webp, 2.webp, 3.webp
-                  </div>
-                </div>
-              </div>
+      container.innerHTML = `
+        <div class="slider-topbar">
+          <div class="left">
+            <div class="pillbar">
+              <i data-lucide="image" style="width:16px;height:16px"></i>
+              <span>${title}</span>
             </div>
-          `;
-          if(countEl) countEl.textContent = '0';
-          prevBtn.disabled = true;
-          nextBtn.disabled = true;
-          return;
-        }
-
-        slides = ok;
-        if(countEl) countEl.textContent = String(slides.length);
-
-        // Build slides
-        track.innerHTML = slides.map((src)=>`
-          <div class="carousel-slide">
-            <img src="${src}" alt="" loading="lazy" draggable="false"/>
+            <div class="pillbar" style="overflow:hidden;text-overflow:ellipsis;max-width:320px">
+              Hover cards → preview
+            </div>
           </div>
-        `).join('');
+          <div class="counter"><span data-count>1</span>/${images.length}</div>
+        </div>
 
-        // Build dots
-        dotsWrap.innerHTML = slides.map((_,i)=>`<button class="dotBtn" aria-label="Go to slide ${i+1}" data-dot="${i}"></button>`).join('');
+        <div class="slider-viewport" tabindex="0" aria-label="${title} screenshots slider">
+          ${images.map((src,i)=>`<img src="./${src}" alt="${title} screenshot ${i+1}" loading="${i===0?'eager':'lazy'}" class="${i===0?'active':''}" data-img>`).join('')}
+          <button class="slider-arrow left" type="button" aria-label="Previous">
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <button class="slider-arrow right" type="button" aria-label="Next">
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
 
-        const dotBtns = Array.from(dotsWrap.querySelectorAll('.dotBtn'));
-        dotBtns.forEach(b=>{
-          b.addEventListener('click', ()=>{
-            const to = Number(b.getAttribute('data-dot')||0);
-            setIndex(to);
-          });
-        });
+        <div class="slider-bottom">
+          <div class="dots" aria-label="Slide dots">
+            ${images.map((_,i)=>`<button class="dotbtn ${i===0?'active':''}" type="button" aria-label="Go to slide ${i+1}" data-dot="${i}"></button>`).join('')}
+          </div>
+          <div class="slider-hint">Use ← → keys</div>
+        </div>
+      `;
 
-        function update(){
-          track.style.transform = `translateX(${-index * 100}%)`;
-          prevBtn.disabled = (index === 0);
-          nextBtn.disabled = (index === slides.length - 1);
-          dotBtns.forEach((d,i)=> d.classList.toggle('active', i===index));
-        }
+      const viewport = container.querySelector('.slider-viewport');
+      const imgs = Array.from(container.querySelectorAll('[data-img]'));
+      const dots = Array.from(container.querySelectorAll('[data-dot]'));
+      const countEl = container.querySelector('[data-count]');
+      const prevBtn = container.querySelector('.slider-arrow.left');
+      const nextBtn = container.querySelector('.slider-arrow.right');
 
-        function setIndex(i){
-          index = Math.max(0, Math.min(slides.length - 1, i));
-          update();
-        }
+      const set = (n)=>{
+        idx = (n + images.length) % images.length;
+        imgs.forEach((im,i)=>im.classList.toggle('active', i===idx));
+        dots.forEach((d,i)=>d.classList.toggle('active', i===idx));
+        countEl.textContent = String(idx+1);
+      };
 
-        prevBtn.addEventListener('click', ()=> setIndex(index - 1));
-        nextBtn.addEventListener('click', ()=> setIndex(index + 1));
+      prevBtn.addEventListener('click', ()=> set(idx-1));
+      nextBtn.addEventListener('click', ()=> set(idx+1));
+      dots.forEach(d=> d.addEventListener('click', ()=> set(Number(d.dataset.dot))));
 
-        // Keyboard support (when mouse is over carousel)
-        viewport.addEventListener('mouseenter', ()=> viewport.setAttribute('data-active','1'));
-        viewport.addEventListener('mouseleave', ()=> viewport.removeAttribute('data-active'));
-        window.addEventListener('keydown', (e)=>{
-          if(viewport.getAttribute('data-active') !== '1') return;
-          if(e.key === 'ArrowLeft') setIndex(index - 1);
-          if(e.key === 'ArrowRight') setIndex(index + 1);
-        }, {passive:true});
-
-        update();
+      // Keyboard support
+      viewport.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowLeft') { e.preventDefault(); set(idx-1); }
+        if(e.key === 'ArrowRight'){ e.preventDefault(); set(idx+1); }
       });
+
+      // Swipe (mobile)
+      let sx = 0, sy = 0, active = false;
+      viewport.addEventListener('pointerdown', (e)=>{
+        active = true; sx = e.clientX; sy = e.clientY;
+        viewport.setPointerCapture?.(e.pointerId);
+      });
+      viewport.addEventListener('pointerup', (e)=>{
+        if(!active) return;
+        active = false;
+        const dx = e.clientX - sx;
+        const dy = e.clientY - sy;
+        if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){
+          dx > 0 ? set(idx-1) : set(idx+1);
+        }
+      });
+
+      // Preload next/prev a bit
+      const preload = (n)=>{
+        const im = new Image();
+        im.src = `./${images[(n+images.length)%images.length]}`;
+      };
+      preload(1); preload(images.length-1);
+
+      if(window.lucide) lucide.createIcons();
     }
 
-    document.querySelectorAll('[data-carousel]').forEach(buildCarousel);
+    document.querySelectorAll('[data-slider]').forEach(el=>{
+      const key = el.getAttribute('data-slider');
+      const title = key.charAt(0).toUpperCase() + key.slice(1);
+      createSlider(el, title, SLIDERS[key] || []);
+    });
+
+    /* Spark canvas (unchanged) */
+    (function(){
+      const c = document.getElementById('spark'); if(!c) return;
+      const ctx = c.getContext('2d');
+      let DPR = Math.min(2, devicePixelRatio||1);
+      const resize = ()=>{
+        const r = c.getBoundingClientRect();
+        c.width = Math.floor(r.width*DPR);
+        c.height = Math.floor(r.height*DPR);
+      };
+      const ro = new ResizeObserver(resize); ro.observe(c.parentElement); resize();
+
+      const W = ()=> c.width, H = ()=> c.height;
+      let t = 0;
+      const dots = Array.from({length:42}, ()=>({o:Math.random()}));
+
+      function grid(){
+        ctx.save();
+        ctx.globalAlpha = .18;
+        ctx.strokeStyle = "#CBD8EE";
+        ctx.lineWidth = 1*DPR;
+        const s = 36*DPR;
+        for(let x=0;x<W();x+=s){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H()); ctx.stroke(); }
+        for(let y=0;y<H();y+=s){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W(),y); ctx.stroke(); }
+        ctx.restore();
+      }
+
+      function lineGrad(){
+        const g = ctx.createLinearGradient(0,0,W(),0);
+        g.addColorStop(0, "#2563EB");
+        g.addColorStop(1, "#0EA5E9");
+        return g;
+      }
+
+      function curve(x){
+        return H()*0.55 + (Math.sin(x*0.010 + t)*0.9 + Math.sin(x*0.0035 - t*1.15)*0.65)*H()*0.18;
+      }
+
+      function draw(){
+        t += .012;
+        ctx.clearRect(0,0,W(),H());
+        grid();
+
+        ctx.beginPath();
+        for(let x=0;x<W();x++){ const y=curve(x); x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
+        ctx.lineTo(W(),H()); ctx.lineTo(0,H()); ctx.closePath();
+        const ag = ctx.createLinearGradient(0,0,0,H());
+        ag.addColorStop(0,"rgba(37,99,235,.14)");
+        ag.addColorStop(1,"rgba(14,165,233,.04)");
+        ctx.fillStyle = ag; ctx.fill();
+
+        ctx.lineWidth = 2*DPR; ctx.strokeStyle = lineGrad();
+        ctx.beginPath();
+        for(let x=0;x<W();x++){ const y=curve(x); x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
+        ctx.stroke();
+
+        ctx.save();
+        ctx.shadowColor = "rgba(14,165,233,.6)"; ctx.shadowBlur = 18*DPR;
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.fillStyle = "#0EA5E9";
+        dots.forEach((d,i)=>{
+          const x = (((i/dots.length) + (t*0.03)) % 1) * W();
+          const y = curve(x);
+          ctx.beginPath(); ctx.arc(x,y,1.6*DPR,0,Math.PI*2); ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
   </script>
 </body>
 </html>
