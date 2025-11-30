@@ -163,8 +163,16 @@
       opacity:.85;
     }
 
-    .hero-grid{ display:grid; grid-template-columns: 1.05fr .95fr; gap:2rem }
-    @media (max-width: 1024px){ .hero-grid{ grid-template-columns:1fr } }
+    /* ✅ CHANGED: make right column wider so the image can be bigger */
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap:2rem;
+      align-items:center;
+    }
+    @media (max-width: 1024px){
+      .hero-grid{ grid-template-columns:1fr }
+    }
 
     .rail{ position:relative; padding-left:1.4rem }
     .rail:before{
@@ -438,28 +446,17 @@
           </div>
         </div>
 
-        <!-- ✅ RIGHT HERO IMAGE (replaces the old card) -->
+        <!-- ✅ RIGHT HERO IMAGE (BIG, no glow) -->
         <div class="relative flex items-center justify-center">
-          <div class="relative w-full max-w-[1024px] mx-auto lg:scale-[1.08]">
-            <!-- subtle glow behind (matches theme) -->
-            <div class="absolute -inset-10 rounded-[36px] blur-3xl opacity-40 pointer-events-none"
-                 style="
-                   background:
-                     radial-gradient(520px 320px at 70% 30%, rgba(124,58,237,.32), transparent 60%),
-                     radial-gradient(520px 320px at 30% 70%, rgba(255,45,85,.22), transparent 62%),
-                     radial-gradient(520px 320px at 85% 80%, rgba(20,184,166,.10), transparent 60%);
-                 "></div>
-
-            <img
-              src="./hero-visual.webp"
-              alt="FusionTicks hero visual"
-              class="relative w-full h-auto select-none pointer-events-none"
-              style="filter: drop-shadow(0 26px 70px rgba(0,0,0,.60));"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-            />
-          </div>
+          <img
+            src="./hero-visual.webp"
+            alt="FusionTicks hero visual"
+            class="select-none pointer-events-none max-w-none w-full lg:w-[120%]"
+            style="height:auto;"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
         </div>
       </div>
     </div>
@@ -571,7 +568,6 @@
               </div>
             </div>
 
-            <!-- IMPORTANT: dataset tells JS which group -->
             <div class="carousel-viewport placeholder" data-carousel data-set="academy">
               <div class="carousel-track"></div>
             </div>
