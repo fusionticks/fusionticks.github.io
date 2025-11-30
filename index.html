@@ -169,109 +169,147 @@
     .muted{ color:var(--muted) }
     .no-scrollbar::-webkit-scrollbar{display:none} .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
 
-    /* =================== SLIDER (ONLY FOR 3 SECTIONS) =================== */
-    .slider{
-      position:relative;
-      width:100%;
-      border-radius:16px;
-      overflow:hidden;
+    /* =================== MODERN SLIDER (ONLY FOR 3 IMAGE SECTIONS) =================== */
+    .shot-window{
       border:1px solid var(--edge);
+      border-radius:18px;
+      overflow:hidden;
       background:linear-gradient(180deg, #fff, #F7FAFF);
-      box-shadow: 0 14px 28px var(--shadow);
+      box-shadow: 0 24px 60px var(--shadow-strong);
     }
-    .slider-topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+    .shot-top{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
       padding:10px 12px;
       border-bottom:1px solid var(--edge);
-      background:linear-gradient(180deg, #fff, #F7FAFF);
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(247,250,255,.92));
     }
-    .slider-topbar .left{
-      display:flex; align-items:center; gap:.5rem; min-width:0;
+    .shot-left{
+      display:flex; align-items:center; gap:10px; min-width:0;
     }
-    .slider-topbar .pillbar{
-      display:inline-flex; align-items:center; gap:.5rem;
-      padding:.35rem .6rem;
-      border-radius:999px;
+    .shot-dots{ display:flex; align-items:center; gap:8px; }
+    .shot-dot{ width:10px; height:10px; border-radius:999px; border:1px solid rgba(2,7,18,.12); }
+    .shot-dot.red{ background:#FF5F57 }
+    .shot-dot.yellow{ background:#FEBC2E }
+    .shot-dot.green{ background:#28C840 }
+
+    .shot-pill{
+      display:inline-flex; align-items:center; gap:.45rem;
+      height:28px; padding:0 .7rem; border-radius:999px;
       border:1px solid var(--edge);
       background:#fff;
-      font-size:.78rem;
-      color:var(--muted);
+      font-size:.82rem;
+      box-shadow:0 10px 24px var(--shadow);
       white-space:nowrap;
     }
-    .slider-topbar .counter{
-      font-size:.78rem;
-      color:var(--muted);
+    .shot-pill .muted{ font-size:.82rem }
+    .shot-right{
+      display:flex; align-items:center; gap:10px;
+      flex-shrink:0;
+    }
+    .shot-count{
+      height:28px; padding:0 .7rem; border-radius:999px;
       border:1px solid var(--edge);
       background:#fff;
-      padding:.25rem .5rem;
-      border-radius:999px;
-      white-space:nowrap;
+      font-size:.82rem;
+      color:var(--muted);
+      display:inline-flex; align-items:center;
     }
-    .slider-viewport{
+
+    .shot-stage{
       position:relative;
-      aspect-ratio: 16 / 9;
-      background: #0A0D14;
+      background: radial-gradient(900px 400px at 60% 10%, rgba(37,99,235,.10), transparent 60%),
+                  radial-gradient(900px 500px at 20% 90%, rgba(20,184,166,.10), transparent 60%),
+                  #0B1220;
+      overflow:hidden;
     }
-    .slider-viewport img{
+    /* keep a consistent, premium layout */
+    .shot-stage::before{
+      content:"";
+      display:block;
+      padding-top:56.25%; /* 16:9 */
+    }
+    .shot-img{
       position:absolute; inset:0;
       width:100%; height:100%;
       object-fit:contain;
-      background:#0A0D14;
-      opacity:0;
-      transform:scale(1.01);
-      transition:opacity .25s ease, transform .35s ease;
-    }
-    .slider-viewport img.active{
+      filter: drop-shadow(0 18px 36px rgba(0,0,0,.35));
+      transform: translateZ(0);
       opacity:1;
-      transform:scale(1);
+      transition: opacity .18s ease;
     }
-    .slider-arrow{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:44px; height:44px;
-      display:grid; place-items:center;
-      border-radius:999px;
-      border:1px solid rgba(229,237,247,.9);
-      background: rgba(255,255,255,.92);
-      box-shadow: 0 10px 22px rgba(2,7,18,.22);
-      cursor:pointer;
-      user-select:none;
-    }
-    .slider-arrow:hover{ filter:brightness(.98) }
-    .slider-arrow:active{ transform:translateY(-50%) scale(.98) }
-    .slider-arrow.left{ left:14px }
-    .slider-arrow.right{ right:14px }
+    .shot-img.is-fading{ opacity:.35 }
 
-    .slider-bottom{
-      display:flex; align-items:center; justify-content:space-between; gap:.75rem;
-      padding:10px 12px;
+    .shot-nav{
+      position:absolute; top:50%;
+      transform:translateY(-50%);
+      width:42px; height:42px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(10,13,20,.45);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+      box-shadow: 0 18px 40px rgba(0,0,0,.25);
+      color:#fff;
+      display:inline-flex; align-items:center; justify-content:center;
+    }
+    .shot-nav:hover{ background: rgba(10,13,20,.62) }
+    .shot-nav:active{ transform:translateY(-50%) scale(.98) }
+    .shot-nav.prev{ left:12px }
+    .shot-nav.next{ right:12px }
+
+    .shot-bottom{
+      padding:12px 12px 12px;
       border-top:1px solid var(--edge);
-      background:linear-gradient(180deg, #fff, #F7FAFF);
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(247,250,255,.92));
     }
-    .dots{
-      display:flex; align-items:center; gap:8px;
+    .shot-dotsline{
+      display:flex; justify-content:center; gap:7px; margin-bottom:10px;
     }
-    .dotbtn{
-      width:10px; height:10px; border-radius:999px;
-      border:1px solid rgba(14,165,233,.35);
-      background: rgba(14,165,233,.14);
-      cursor:pointer;
+    .shot-dotbtn{
+      width:7px; height:7px; border-radius:999px;
+      border:1px solid rgba(2,7,18,.18);
+      background: rgba(2,7,18,.10);
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
     }
-    .dotbtn.active{
-      background: linear-gradient(180deg, var(--strap2), var(--strap));
+    .shot-dotbtn[aria-current="true"]{
+      background: linear-gradient(180deg, var(--strap), var(--strap2));
       border-color: transparent;
-      box-shadow: 0 8px 18px rgba(14,165,233,.25);
+      transform: scale(1.25);
     }
-    .slider-hint{
-      font-size:.78rem; color:var(--muted);
-      white-space:nowrap;
+
+    .shot-thumbs{
+      display:flex; gap:10px;
+      overflow:auto;
+      padding-bottom:2px;
     }
-    @media(max-width:640px){
-      .slider-arrow{ width:40px; height:40px }
-      .slider-viewport{ aspect-ratio: 4 / 3; }
-      .slider-hint{ display:none }
+    .shot-thumb{
+      flex:0 0 auto;
+      width:112px; height:64px;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(2,7,18,.12);
+      background:#0B1220;
+      box-shadow: 0 10px 20px rgba(0,0,0,.12);
+      opacity:.72;
+      transition:opacity .15s ease, transform .15s ease, border-color .15s ease;
     }
+    .shot-thumb:hover{ opacity:.95; transform: translateY(-1px) }
+    .shot-thumb[aria-current="true"]{
+      opacity:1;
+      border-color: rgba(37,99,235,.40);
+      box-shadow: 0 16px 30px rgba(37,99,235,.18);
+    }
+    .shot-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Mobile tweaks */
+    @media (max-width: 640px){
+      .shot-thumb{ width:92px; height:54px }
+      .shot-nav{ width:40px; height:40px }
+      .shot-stage::before{ padding-top:62.5%; } /* slightly taller on mobile */
+    }
+
+    /* prevent scroll while modal is open (safe) */
+    body.modal-open{ overflow:hidden; }
   </style>
 </head>
 
@@ -475,8 +513,36 @@
 
         <!-- RIGHT (SLIDER) -->
         <div class="lg:col-span-2">
-          <div class="reveal">
-            <div class="slider" data-slider="academy"></div>
+          <div class="reveal shot-window" data-carousel="academy" data-carousel-label="Academy">
+            <div class="shot-top">
+              <div class="shot-left">
+                <div class="shot-dots" aria-hidden="true">
+                  <span class="shot-dot red"></span>
+                  <span class="shot-dot yellow"></span>
+                  <span class="shot-dot green"></span>
+                </div>
+                <span class="shot-pill"><i data-lucide="book-open" class="w-4 h-4"></i> <span>Academy</span></span>
+                <span class="shot-pill"><span class="muted">Screenshots</span></span>
+              </div>
+              <div class="shot-right">
+                <span class="shot-count" data-count>1/6</span>
+              </div>
+            </div>
+
+            <div class="shot-stage" tabindex="0" aria-label="Academy screenshots carousel">
+              <img class="shot-img" data-img alt="Academy screenshot 1" loading="eager" decoding="async" />
+              <button class="shot-nav prev" type="button" data-prev aria-label="Previous screenshot">
+                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+              </button>
+              <button class="shot-nav next" type="button" data-next aria-label="Next screenshot">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+              </button>
+            </div>
+
+            <div class="shot-bottom">
+              <div class="shot-dotsline" data-dots aria-label="Slide indicators"></div>
+              <div class="shot-thumbs no-scrollbar" data-thumbs aria-label="Thumbnails"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -493,7 +559,7 @@
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
-        <!-- LEFT (windows stacked) -->
+        <!-- LEFT -->
         <div class="lg:col-span-1 space-y-4">
           <article class="card reveal">
             <div class="flex items-center gap-2 font-semibold"><i data-lucide="check-square" class="w-5 h-5 text-[var(--strap2)]"></i> Daily Trade Log</div>
@@ -519,8 +585,36 @@
 
         <!-- RIGHT (SLIDER) -->
         <div class="lg:col-span-2">
-          <div class="reveal">
-            <div class="slider" data-slider="journal"></div>
+          <div class="reveal shot-window" data-carousel="journal" data-carousel-label="Journal">
+            <div class="shot-top">
+              <div class="shot-left">
+                <div class="shot-dots" aria-hidden="true">
+                  <span class="shot-dot red"></span>
+                  <span class="shot-dot yellow"></span>
+                  <span class="shot-dot green"></span>
+                </div>
+                <span class="shot-pill"><i data-lucide="notebook-pen" class="w-4 h-4"></i> <span>Journal</span></span>
+                <span class="shot-pill"><span class="muted">Screenshots</span></span>
+              </div>
+              <div class="shot-right">
+                <span class="shot-count" data-count>1/6</span>
+              </div>
+            </div>
+
+            <div class="shot-stage" tabindex="0" aria-label="Journal screenshots carousel">
+              <img class="shot-img" data-img alt="Journal screenshot 1" loading="lazy" decoding="async"/>
+              <button class="shot-nav prev" type="button" data-prev aria-label="Previous screenshot">
+                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+              </button>
+              <button class="shot-nav next" type="button" data-next aria-label="Next screenshot">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+              </button>
+            </div>
+
+            <div class="shot-bottom">
+              <div class="shot-dotsline" data-dots aria-label="Slide indicators"></div>
+              <div class="shot-thumbs no-scrollbar" data-thumbs aria-label="Thumbnails"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -572,8 +666,36 @@
 
         <!-- RIGHT (SLIDER) -->
         <div class="lg:col-span-2">
-          <div class="reveal">
-            <div class="slider" data-slider="discord"></div>
+          <div class="reveal shot-window" data-carousel="discord" data-carousel-label="Discord">
+            <div class="shot-top">
+              <div class="shot-left">
+                <div class="shot-dots" aria-hidden="true">
+                  <span class="shot-dot red"></span>
+                  <span class="shot-dot yellow"></span>
+                  <span class="shot-dot green"></span>
+                </div>
+                <span class="shot-pill"><i data-lucide="users" class="w-4 h-4"></i> <span>Discord</span></span>
+                <span class="shot-pill"><span class="muted">Screenshots</span></span>
+              </div>
+              <div class="shot-right">
+                <span class="shot-count" data-count>1/5</span>
+              </div>
+            </div>
+
+            <div class="shot-stage" tabindex="0" aria-label="Discord screenshots carousel">
+              <img class="shot-img" data-img alt="Discord screenshot 1" loading="lazy" decoding="async"/>
+              <button class="shot-nav prev" type="button" data-prev aria-label="Previous screenshot">
+                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+              </button>
+              <button class="shot-nav next" type="button" data-next aria-label="Next screenshot">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+              </button>
+            </div>
+
+            <div class="shot-bottom">
+              <div class="shot-dotsline" data-dots aria-label="Slide indicators"></div>
+              <div class="shot-thumbs no-scrollbar" data-thumbs aria-label="Thumbnails"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -788,14 +910,19 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', ()=>{ if(window.lucide) lucide.createIcons(); });
+    document.addEventListener('DOMContentLoaded', ()=>{
+      if(window.lucide) lucide.createIcons();
+    });
+
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // reveal
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
     },{threshold:.14});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+    // mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeAll = ()=> mobileMenu.classList.add('hidden');
@@ -803,6 +930,7 @@
     mobileMenu?.querySelectorAll('[data-close]').forEach(b=> b.addEventListener('click', closeAll));
     mobileMenu?.querySelectorAll('a[href^="#"]').forEach(a=> a.addEventListener('click', ()=> setTimeout(closeAll, 50)));
 
+    // modal
     const hookModal = (openSel, modalId, closeSel) => {
       const modal = document.getElementById(modalId);
       document.querySelectorAll(openSel).forEach(btn=>btn.addEventListener('click', ()=>{
@@ -822,105 +950,129 @@
     };
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
 
-    /* ===== SLIDERS (academy / journal / discord) ===== */
-    const SLIDERS = {
-      academy: Array.from({length:6}, (_,i)=>`academy-${i+1}.webp`),
-      journal: Array.from({length:6}, (_,i)=>`journal-${i+1}.webp`),
-      discord: Array.from({length:5}, (_,i)=>`discord-${i+1}.webp`)
+    // ===== Carousels (Academy / Journal / Discord) =====
+    const CAROUSEL_IMAGES = {
+      academy: Array.from({length:6}, (_,i)=> `academy-${i+1}.webp`),
+      journal: Array.from({length:6}, (_,i)=> `journal-${i+1}.webp`),
+      discord: Array.from({length:5}, (_,i)=> `discord-${i+1}.webp`)
     };
 
-    function createSlider(container, title, images){
-      let idx = 0;
+    function initCarousel(root){
+      const key = root.getAttribute('data-carousel');
+      const label = root.getAttribute('data-carousel-label') || key;
+      const images = CAROUSEL_IMAGES[key] || [];
+      if(!images.length) return;
 
-      container.innerHTML = `
-        <div class="slider-topbar">
-          <div class="left">
-            <div class="pillbar">
-              <i data-lucide="image" style="width:16px;height:16px"></i>
-              <span>${title}</span>
-            </div>
-            <div class="pillbar" style="overflow:hidden;text-overflow:ellipsis;max-width:320px">
-              Hover cards → preview
-            </div>
-          </div>
-          <div class="counter"><span data-count>1</span>/${images.length}</div>
-        </div>
+      const imgEl = root.querySelector('[data-img]');
+      const prevBtn = root.querySelector('[data-prev]');
+      const nextBtn = root.querySelector('[data-next]');
+      const countEl = root.querySelector('[data-count]');
+      const dotsEl = root.querySelector('[data-dots]');
+      const thumbsEl = root.querySelector('[data-thumbs]');
+      const stage = root.querySelector('.shot-stage');
 
-        <div class="slider-viewport" tabindex="0" aria-label="${title} screenshots slider">
-          ${images.map((src,i)=>`<img src="./${src}" alt="${title} screenshot ${i+1}" loading="${i===0?'eager':'lazy'}" class="${i===0?'active':''}" data-img>`).join('')}
-          <button class="slider-arrow left" type="button" aria-label="Previous">
-            <i data-lucide="chevron-left"></i>
-          </button>
-          <button class="slider-arrow right" type="button" aria-label="Next">
-            <i data-lucide="chevron-right"></i>
-          </button>
-        </div>
+      let index = 0;
 
-        <div class="slider-bottom">
-          <div class="dots" aria-label="Slide dots">
-            ${images.map((_,i)=>`<button class="dotbtn ${i===0?'active':''}" type="button" aria-label="Go to slide ${i+1}" data-dot="${i}"></button>`).join('')}
-          </div>
-          <div class="slider-hint">Use ← → keys</div>
-        </div>
-      `;
+      // build dots + thumbs
+      dotsEl.innerHTML = '';
+      thumbsEl.innerHTML = '';
 
-      const viewport = container.querySelector('.slider-viewport');
-      const imgs = Array.from(container.querySelectorAll('[data-img]'));
-      const dots = Array.from(container.querySelectorAll('[data-dot]'));
-      const countEl = container.querySelector('[data-count]');
-      const prevBtn = container.querySelector('.slider-arrow.left');
-      const nextBtn = container.querySelector('.slider-arrow.right');
-
-      const set = (n)=>{
-        idx = (n + images.length) % images.length;
-        imgs.forEach((im,i)=>im.classList.toggle('active', i===idx));
-        dots.forEach((d,i)=>d.classList.toggle('active', i===idx));
-        countEl.textContent = String(idx+1);
-      };
-
-      prevBtn.addEventListener('click', ()=> set(idx-1));
-      nextBtn.addEventListener('click', ()=> set(idx+1));
-      dots.forEach(d=> d.addEventListener('click', ()=> set(Number(d.dataset.dot))));
-
-      // Keyboard support
-      viewport.addEventListener('keydown', (e)=>{
-        if(e.key === 'ArrowLeft') { e.preventDefault(); set(idx-1); }
-        if(e.key === 'ArrowRight'){ e.preventDefault(); set(idx+1); }
+      const dotButtons = images.map((src, i)=>{
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'shot-dotbtn';
+        b.setAttribute('aria-label', `Go to slide ${i+1}`);
+        b.addEventListener('click', ()=> go(i));
+        dotsEl.appendChild(b);
+        return b;
       });
 
-      // Swipe (mobile)
-      let sx = 0, sy = 0, active = false;
-      viewport.addEventListener('pointerdown', (e)=>{
-        active = true; sx = e.clientX; sy = e.clientY;
-        viewport.setPointerCapture?.(e.pointerId);
-      });
-      viewport.addEventListener('pointerup', (e)=>{
-        if(!active) return;
-        active = false;
-        const dx = e.clientX - sx;
-        const dy = e.clientY - sy;
-        if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){
-          dx > 0 ? set(idx-1) : set(idx+1);
-        }
+      const thumbButtons = images.map((src, i)=>{
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'shot-thumb';
+        b.setAttribute('aria-label', `Open ${label} screenshot ${i+1}`);
+        const im = document.createElement('img');
+        im.loading = 'lazy';
+        im.decoding = 'async';
+        im.src = src;
+        im.alt = `${label} thumbnail ${i+1}`;
+        b.appendChild(im);
+        b.addEventListener('click', ()=> go(i, {scrollThumb:true}));
+        thumbsEl.appendChild(b);
+        return b;
       });
 
-      // Preload next/prev a bit
-      const preload = (n)=>{
-        const im = new Image();
-        im.src = `./${images[(n+images.length)%images.length]}`;
-      };
-      preload(1); preload(images.length-1);
+      // preload (light)
+      images.slice(0,3).forEach(src=>{ const p = new Image(); p.src = src; });
 
-      if(window.lucide) lucide.createIcons();
+      function render(){
+        dotButtons.forEach((b,i)=> b.setAttribute('aria-current', i===index ? 'true' : 'false'));
+        thumbButtons.forEach((b,i)=> b.setAttribute('aria-current', i===index ? 'true' : 'false'));
+        countEl.textContent = `${index+1}/${images.length}`;
+      }
+
+      function go(i, opts={}){
+        if(i < 0) i = images.length - 1;
+        if(i >= images.length) i = 0;
+
+        imgEl.classList.add('is-fading');
+        const nextSrc = images[i];
+
+        const tmp = new Image();
+        tmp.onload = ()=>{
+          imgEl.src = nextSrc;
+          imgEl.alt = `${label} screenshot ${i+1}`;
+          index = i;
+          render();
+          requestAnimationFrame(()=> imgEl.classList.remove('is-fading'));
+
+          // preload neighbors
+          const n1 = new Image(); n1.src = images[(index+1)%images.length];
+          const n2 = new Image(); n2.src = images[(index-1+images.length)%images.length];
+
+          if(opts.scrollThumb){
+            const t = thumbButtons[index];
+            t?.scrollIntoView({inline:'center', block:'nearest', behavior:'smooth'});
+          }
+        };
+        tmp.src = nextSrc;
+      }
+
+      prevBtn.addEventListener('click', ()=> go(index-1, {scrollThumb:true}));
+      nextBtn.addEventListener('click', ()=> go(index+1, {scrollThumb:true}));
+
+      // keyboard
+      stage.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowLeft'){ e.preventDefault(); go(index-1, {scrollThumb:true}); }
+        if(e.key === 'ArrowRight'){ e.preventDefault(); go(index+1, {scrollThumb:true}); }
+      });
+
+      // swipe (pointer)
+      let startX = null;
+      stage.addEventListener('pointerdown', (e)=>{
+        startX = e.clientX;
+        stage.setPointerCapture?.(e.pointerId);
+      });
+      stage.addEventListener('pointerup', (e)=>{
+        if(startX === null) return;
+        const dx = e.clientX - startX;
+        startX = null;
+        if(Math.abs(dx) < 35) return;
+        if(dx > 0) go(index-1, {scrollThumb:true});
+        else go(index+1, {scrollThumb:true});
+      });
+      stage.addEventListener('pointercancel', ()=> startX = null);
+
+      // first paint
+      imgEl.src = images[0];
+      imgEl.alt = `${label} screenshot 1`;
+      render();
     }
 
-    document.querySelectorAll('[data-slider]').forEach(el=>{
-      const key = el.getAttribute('data-slider');
-      const title = key.charAt(0).toUpperCase() + key.slice(1);
-      createSlider(el, title, SLIDERS[key] || []);
-    });
+    document.querySelectorAll('[data-carousel]').forEach(initCarousel);
 
-    /* Spark canvas (unchanged) */
+    // spark canvas (unchanged)
     (function(){
       const c = document.getElementById('spark'); if(!c) return;
       const ctx = c.getContext('2d');
