@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FUSIONTICKS | Aperture Light</title>
+  <title>FUSIONTICKS | Dark Luxe</title>
   <meta name="description" content="FusionTicks: risk-first trading program by Khalid Kuhail. Read the market, stack confirmations, and execute clean setups."/>
-  <meta name="theme-color" content="#0A0D14"/>
+  <meta name="theme-color" content="#070A12"/>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,53 +31,60 @@
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <style>
-    /* =================== APERTURE LIGHT - BRAND NEW DNA =================== */
+    /* =================== FUSIONTICKS - DARK LUXE =================== */
     :root{
-      --bg:#F8FAFD;
-      --ink:#0A0D14;
-      --muted:#5B667A;
-      --edge:#E5EDF7;
-      --panel:#FFFFFF;
-      --strap:#0EA5E9;
-      --strap2:#2563EB;
-      --accent:#14B8A6;
+      --bg:#070A12;
+      --ink:#ECF2FF;
+      --muted:#A7B4C8;
 
-      --shadow:rgba(2,7,18,.12);
-      --shadow-strong:rgba(2,7,18,.18);
-      --grid:#0A0D14;
+      --edge:rgba(236,242,255,.10);
+      --panel:rgba(12,16,28,.86);
+      --panel-solid:#0C101C;
+
+      /* Accent (instead of blue) */
+      --strap:#F43F5E;   /* Rose */
+      --strap2:#A855F7;  /* Violet */
+      --accent:#22C55E;
+
+      --shadow:rgba(0,0,0,.55);
+      --shadow-strong:rgba(0,0,0,.75);
+      --grid:rgba(236,242,255,.08);
     }
 
     html{scroll-behavior:smooth}
-    body{background:var(--bg); color:var(--ink);}
+    body{background:var(--bg); color:var(--ink); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell;}
 
+    /* Background aura */
     .aperture-bg{
       position:absolute; inset:0; z-index:-1; pointer-events:none;
       background:
-        radial-gradient(1200px 600px at 85% -10%, rgba(20,184,166,.12), transparent 60%),
-        radial-gradient(900px 500px at -10% 20%, rgba(37,99,235,.12), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.75));
+        radial-gradient(1200px 600px at 85% -10%, rgba(168,85,247,.18), transparent 60%),
+        radial-gradient(900px 500px at -10% 20%, rgba(244,63,94,.18), transparent 60%),
+        linear-gradient(180deg, rgba(7,10,18,.92), rgba(7,10,18,.78));
       mask:
-        linear-gradient(180deg, rgba(0,0,0,.96), rgba(0,0,0,.86) 40%, rgba(0,0,0,.60) 80%, rgba(0,0,0,0));
+        linear-gradient(180deg, rgba(0,0,0,1), rgba(0,0,0,.94) 40%, rgba(0,0,0,.70) 80%, rgba(0,0,0,0));
     }
     .aperture-stripes{
-      position:absolute; inset:0; opacity:.06; mix-blend-mode:multiply; pointer-events:none;
-      background-image: repeating-linear-gradient(135deg, var(--grid) 0 2px, transparent 2px 12px);
+      position:absolute; inset:0; opacity:.22; mix-blend-mode:soft-light; pointer-events:none;
+      background-image: repeating-linear-gradient(135deg, rgba(236,242,255,.10) 0 2px, transparent 2px 14px);
+      mask: linear-gradient(180deg, #000, transparent 70%);
     }
     .aperture-dots{
-      position:absolute; inset:0; opacity:.06; pointer-events:none;
-      background-image:radial-gradient(var(--grid) 1px, transparent 1px);
-      background-size:20px 20px;
+      position:absolute; inset:0; opacity:.22; pointer-events:none;
+      background-image:radial-gradient(rgba(236,242,255,.16) 1px, transparent 1px);
+      background-size:22px 22px;
       mask: linear-gradient(180deg, #000, transparent 70%);
     }
 
     .nav{
       position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px) saturate(140%);
-      -webkit-backdrop-filter: blur(10px) saturate(140%);
-      background: rgba(248,250,253,.75);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+      background: rgba(7,10,18,.62);
       border-bottom:1px solid var(--edge);
     }
-    .nav a{ position:relative }
+    .nav a{ position:relative; color:rgba(236,242,255,.86); }
+    .nav a:hover{ color:rgba(236,242,255,1); }
     .nav a:after{
       content:""; position:absolute; left:0; bottom:-8px; height:2px; width:0%;
       background:linear-gradient(90deg, var(--strap), var(--strap2));
@@ -87,71 +94,87 @@
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
-      height:44px; padding:0 1rem; border-radius:12px; font-weight:700; border:1px solid var(--edge);
-      background:#fff; color:var(--ink);
-      box-shadow: 0 6px 16px var(--shadow);
+      height:44px; padding:0 1rem; border-radius:12px; font-weight:800; border:1px solid var(--edge);
+      background:rgba(12,16,28,.70); color:var(--ink);
+      box-shadow: 0 10px 22px var(--shadow);
     }
+    .btn:hover{ transform: translateY(-1px); transition: transform .15s ease; }
     .btn-ghost{ background:transparent; border-color:var(--edge) }
     .btn-primary{
       background:linear-gradient(180deg, var(--strap), var(--strap2));
       color:#fff; border-color:transparent;
-      box-shadow: 0 16px 34px rgba(14,165,233,.25), inset 0 1px 0 rgba(255,255,255,.6);
+      box-shadow: 0 18px 42px rgba(244,63,94,.22), 0 18px 42px rgba(168,85,247,.18), inset 0 1px 0 rgba(255,255,255,.18);
     }
 
     .hero-grid{ display:grid; grid-template-columns: 1.05fr .95fr; gap:2rem }
     @media (max-width: 1024px){ .hero-grid{ grid-template-columns:1fr } }
 
     .k-title{
-      font-family:var(--font-display, Space Grotesk);
+      font-family: "Space Grotesk", Inter, system-ui;
       letter-spacing:-.01em; line-height:1.02;
     }
 
     .strapline{
       display:inline-flex; align-items:center; gap:.6rem; height:34px; padding:0 .75rem; border-radius:999px; font-size:.82rem;
-      background:linear-gradient(180deg, #fff, #F1F6FF); border:1px solid var(--edge);
-      box-shadow: 0 10px 24px var(--shadow);
+      background:rgba(12,16,28,.65); border:1px solid var(--edge);
+      box-shadow: 0 14px 28px var(--shadow);
+      color:rgba(236,242,255,.92);
     }
     .strap-badge{
       display:inline-grid; place-items:center; width:22px; height:22px; border-radius:999px; color:#fff;
-      background:linear-gradient(180deg, var(--strap2), var(--strap)); font-size:.72rem; font-weight:700;
-      box-shadow: 0 8px 18px rgba(37,99,235,.25);
+      background:linear-gradient(180deg, var(--strap2), var(--strap)); font-size:.72rem; font-weight:900;
+      box-shadow: 0 10px 22px rgba(168,85,247,.20);
     }
 
     .poster{
-      position:relative; border-radius:18px; background:var(--panel); border:1px solid var(--edge);
-      box-shadow: 0 24px 60px var(--shadow-strong);
+      position:relative; border-radius:18px; background:rgba(12,16,28,.62); border:1px solid var(--edge);
+      box-shadow: 0 28px 70px var(--shadow-strong);
       overflow:hidden;
     }
     .poster-header{
       display:flex; align-items:center; justify-content:space-between; gap:1rem;
       padding:10px 12px; border-bottom:1px solid var(--edge);
-      background:linear-gradient(180deg, #fff, #F7FAFF);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
     }
     .spark-wrap{ position:relative; height:380px }
     .spark-wrap canvas{ position:absolute; inset:0; width:100%; height:100% }
 
     .card{
-      background:var(--panel); border:1px solid var(--edge); border-radius:16px; padding:18px;
-      box-shadow: 0 14px 28px var(--shadow);
+      background:rgba(12,16,28,.62);
+      border:1px solid var(--edge);
+      border-radius:16px;
+      padding:18px;
+      box-shadow: 0 16px 34px var(--shadow);
     }
 
     .eyebrow{
       display:inline-flex; align-items:center; gap:.5rem; height:32px; padding:0 .7rem; border-radius:999px; font-size:.82rem;
-      background:#fff; border:1px solid var(--edge); box-shadow:0 6px 16px var(--shadow)
+      background:rgba(12,16,28,.65);
+      border:1px solid var(--edge);
+      box-shadow:0 10px 22px var(--shadow);
+      color:rgba(236,242,255,.92);
     }
     .beam{ height:2px; background:linear-gradient(90deg, transparent, var(--strap), var(--strap2), transparent); opacity:.9 }
 
     .rail{ position:relative; padding-left:1.4rem }
     .rail:before{ content:""; position:absolute; left:.6rem; top:.2rem; bottom:.3rem; width:2px; background:linear-gradient(180deg, var(--strap), var(--strap2)); border-radius:2px; }
-    .dot{ width:12px; height:12px; border-radius:999px; background:var(--strap); box-shadow:0 0 0 6px rgba(14,165,233,.14); border:1px solid #fff }
+    .dot{ width:12px; height:12px; border-radius:999px; background:var(--strap); box-shadow:0 0 0 7px rgba(244,63,94,.12); border:1px solid rgba(255,255,255,.22) }
 
     .price{ display:grid; grid-template-columns:1fr auto; align-items:start; gap:1rem; }
-    .tag{ display:inline-flex; align-items:center; gap:.45rem; height:28px; padding:0 .6rem; border-radius:999px; font-size:.78rem; background:#F1F6FF; border:1px solid var(--edge) }
+    .tag{
+      display:inline-flex; align-items:center; gap:.45rem; height:28px; padding:0 .6rem; border-radius:999px; font-size:.78rem;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--edge);
+      color:rgba(236,242,255,.88);
+    }
     .ring{
       display:inline-grid; place-items:center; width:92px; height:92px; border-radius:999px;
-      background: radial-gradient(60% 60% at 50% 50%, rgba(14,165,233,.18), transparent 60%),
-                  radial-gradient(100% 100% at 50% 50%, rgba(37,99,235,.18), transparent 70%);
-      border:1px solid #EAF2FF; box-shadow:0 16px 34px rgba(14,165,233,.25); font-weight:800;
+      background:
+        radial-gradient(60% 60% at 50% 50%, rgba(244,63,94,.18), transparent 60%),
+        radial-gradient(100% 100% at 50% 50%, rgba(168,85,247,.18), transparent 70%);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 18px 40px rgba(0,0,0,.55);
+      font-weight:900;
     }
     .ring span{ background:linear-gradient(180deg, var(--strap2), var(--strap)); -webkit-background-clip:text; background-clip:text; color:transparent }
 
@@ -159,192 +182,127 @@
       position:fixed; left:0; right:0; bottom:16px; z-index:40; display:flex; justify-content:center; pointer-events:none;
     }
     .dock-inner{
-      pointer-events:auto; display:flex; align-items:center; gap:.8rem; border:1px solid var(--edge); background:#fff; border-radius:14px; padding:.5rem .6rem;
-      box-shadow:0 18px 40px var(--shadow-strong);
+      pointer-events:auto; display:flex; align-items:center; gap:.8rem;
+      border:1px solid var(--edge);
+      background:rgba(12,16,28,.85);
+      border-radius:14px; padding:.55rem .65rem;
+      box-shadow:0 22px 50px var(--shadow-strong);
+      color:rgba(236,242,255,.92);
     }
 
     .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
     .reveal.in{opacity:1; transform:none}
-
     .muted{ color:var(--muted) }
     .no-scrollbar::-webkit-scrollbar{display:none} .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
 
-    /* =================== ONLY FOR 3 SECTIONS (ACADEMY / JOURNAL / DISCORD) =================== */
-    .link-card{
-      cursor:pointer;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    }
-    .link-card:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 16px 34px var(--shadow-strong);
-      border-color: rgba(14,165,233,.35);
-    }
-    .link-card.is-active{
-      border-color: rgba(37,99,235,.35);
-      box-shadow: 0 18px 40px rgba(37,99,235,.18);
-    }
-
+    /* =================== MODERN CAROUSEL (ONLY 3 SECTIONS) =================== */
     .showcase{
+      padding:14px;
+      border-radius:18px;
+      background:
+        radial-gradient(800px 320px at 30% 0%, rgba(244,63,94,.14), transparent 60%),
+        radial-gradient(800px 320px at 70% 0%, rgba(168,85,247,.14), transparent 60%),
+        rgba(12,16,28,.62);
+      border:1px solid var(--edge);
+      box-shadow: 0 26px 70px var(--shadow-strong);
+      overflow:hidden;
+    }
+    .showcase-top{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--edge);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      margin-bottom:12px;
+    }
+    .showcase-top .left{
+      display:flex; align-items:center; gap:.6rem; min-width:0;
+      color:rgba(236,242,255,.92);
+      font-weight:800;
+    }
+    .showcase-top .pill{
+      display:inline-flex; align-items:center; gap:.45rem;
+      font-size:.78rem;
+      padding:.22rem .55rem;
+      border-radius:999px;
+      border:1px solid var(--edge);
+      color:rgba(236,242,255,.86);
+      background:rgba(255,255,255,.04);
+      white-space:nowrap;
+    }
+    .showcase-viewport{
       position:relative;
       border-radius:16px;
       border:1px solid var(--edge);
+      background:rgba(0,0,0,.30);
       overflow:hidden;
-      background: linear-gradient(180deg, #fff, #F7FAFF);
-      box-shadow: 0 18px 44px var(--shadow-strong);
-      min-height: 360px;
-      --stage-bg: none;
     }
-
-    .showcase::before{
-      content:"";
-      position:absolute;
-      inset:-40px;
-      background-image: var(--stage-bg);
-      background-size: cover;
-      background-position: center;
-      filter: blur(22px) saturate(1.25);
-      transform: scale(1.08);
-      opacity: .22;
-      pointer-events:none;
-    }
-
-    .showcase::after{
+    .showcase-viewport:before{
       content:"";
       position:absolute; inset:0;
-      background:
-        radial-gradient(800px 260px at 20% 10%, rgba(20,184,166,.10), transparent 60%),
-        radial-gradient(900px 340px at 90% 0%, rgba(37,99,235,.10), transparent 60%),
-        repeating-linear-gradient(135deg, rgba(10,13,20,.05) 0 2px, transparent 2px 12px);
-      opacity:.45;
+      background-image: repeating-linear-gradient(135deg, rgba(236,242,255,.08) 0 2px, transparent 2px 14px);
+      opacity:.03;
       pointer-events:none;
-      mix-blend-mode:multiply;
     }
-
-    .showcase-top{
-      position:relative;
-      z-index:2;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:12px 14px 10px;
-    }
-
-    .showcase-top .mini{
-      display:flex; align-items:center; gap:8px;
-    }
-    .showcase-count{
-      font-size:12px;
-      color: var(--muted);
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--edge);
-      background:rgba(255,255,255,.85);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .frame{
-      position:relative;
-      z-index:2;
-      margin:0 14px 12px;
+    .showcase-img{
+      width:100%;
+      display:block;
+      padding:8px;
       border-radius:14px;
-      border:1px solid #EAF2FF;
-      overflow:hidden;
-      background: #fff;
-      box-shadow: 0 20px 52px rgba(2,7,18,.18);
+      object-fit:contain;
+      max-height:420px;
+    }
+    @media (max-width: 1024px){
+      .showcase-img{ max-height:360px; }
     }
 
-    .frame-bar{
-      height:38px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 12px;
-      background: linear-gradient(180deg, #fff, #F7FAFF);
-      border-bottom:1px solid #EAF2FF;
-    }
-    .dots3{
-      display:flex; gap:7px; align-items:center;
-    }
-    .dots3 span{
-      width:10px; height:10px; border-radius:999px;
-      border:1px solid rgba(10,13,20,.10);
-      background: rgba(10,13,20,.06);
-    }
-
-    .frame-media{
-      position:relative;
-      aspect-ratio: 16/9;
-      width:100%;
-      background: #fff;
-    }
-    .frame-media img{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      transform: scale(1.01);
-      opacity:0;
-      transition: opacity .32s ease, transform .55s ease;
-    }
-    .frame-media img.is-visible{
-      opacity:1;
-      transform: scale(1);
-    }
-
-    .nav-arrow{
-      position:absolute;
-      z-index:3;
-      top:50%;
-      transform: translateY(-50%);
+    .showcase-navbtn{
+      position:absolute; top:50%; transform:translateY(-50%);
       width:42px; height:42px;
-      border-radius:999px;
-      border:1px solid var(--edge);
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 12px 28px rgba(2,7,18,.16);
-      display:flex; align-items:center; justify-content:center;
-      opacity:0;
-      transition: opacity .18s ease, transform .18s ease;
-    }
-    .nav-arrow:hover{ transform: translateY(-50%) scale(1.03); }
-    .nav-arrow.left{ left:18px; }
-    .nav-arrow.right{ right:18px; }
-    .showcase:hover .nav-arrow,
-    .showcase:focus-within .nav-arrow{ opacity:1; }
-
-    .thumbs{
-      position:relative;
-      z-index:2;
-      display:flex;
-      gap:10px;
-      padding:10px 14px 14px;
-      overflow:auto;
-    }
-    .thumb{
-      flex:0 0 auto;
-      width:86px;
-      height:50px;
-      border-radius:10px;
-      border:1px solid rgba(15,23,42,.10);
-      overflow:hidden;
-      background:#fff;
-      box-shadow: 0 10px 20px rgba(2,7,18,.10);
-      opacity:.82;
+      display:grid; place-items:center;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(12,16,28,.78);
+      box-shadow: 0 18px 44px rgba(0,0,0,.55);
+      color:rgba(236,242,255,.92);
       cursor:pointer;
-      transition: opacity .18s ease, transform .18s ease, border-color .18s ease;
+      z-index:2;
     }
-    .thumb:hover{ opacity:1; transform: translateY(-1px); border-color: rgba(14,165,233,.35); }
-    .thumb.is-active{ opacity:1; border-color: rgba(37,99,235,.35); box-shadow: 0 16px 30px rgba(37,99,235,.14); }
-    .thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+    .showcase-navbtn:hover{
+      border-color: rgba(244,63,94,.22);
+    }
+    .showcase-navbtn.prev{ left:10px; }
+    .showcase-navbtn.next{ right:10px; }
 
-    @media (max-width: 640px){
-      .showcase{ min-height: 320px; }
-      .nav-arrow{ opacity:1; }
-      .thumb{ width:72px; height:44px; }
+    .showcase-strip{
+      display:flex; gap:10px;
+      padding:12px 4px 2px;
+      overflow:auto;
+      scroll-snap-type:x mandatory;
+    }
+    .showcase-thumb{
+      flex:0 0 auto;
+      width:96px; height:56px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.25);
+      padding:6px;
+      scroll-snap-align:start;
+      cursor:pointer;
+      opacity:.70;
+      transition:opacity .15s ease, transform .15s ease, border-color .15s ease;
+    }
+    .showcase-thumb img{
+      width:100%; height:100%;
+      object-fit:cover;
+      border-radius:8px;
+      display:block;
+    }
+    .showcase-thumb:hover{ opacity:.95; transform:translateY(-1px); }
+    .showcase-thumb.active{
+      opacity:1;
+      border-color: rgba(244,63,94,.32);
+      box-shadow: 0 0 0 4px rgba(244,63,94,.10);
     }
   </style>
 </head>
@@ -359,8 +317,8 @@
     <div class="nav">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
         <a href="#" class="flex items-center gap-3">
-          <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto"/>
-          <span class="font-semibold tracking-tight">FUSIONTICKS</span>
+          <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto" style="filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));"/>
+          <span class="font-semibold tracking-tight" style="color:rgba(236,242,255,.92)">FUSIONTICKS</span>
         </a>
 
         <nav class="hidden md:flex items-center gap-6 text-[15px]">
@@ -383,8 +341,8 @@
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
-      <div class="absolute inset-0 bg-black/40" data-close></div>
-      <div class="absolute right-3 left-3 top-4 rounded-2xl bg-white border border-[var(--edge)]">
+      <div class="absolute inset-0 bg-black/60" data-close></div>
+      <div class="absolute right-3 left-3 top-4 rounded-2xl border" style="background:rgba(12,16,28,.96); border-color:var(--edge)">
         <div class="p-3 flex justify-end">
           <button class="btn-ghost btn" data-close aria-label="Close"><i data-lucide="x"></i></button>
         </div>
@@ -427,17 +385,21 @@
             <span class="tag">Context → Confirm</span>
           </div>
 
-          <div class="mt-8 rounded-xl border border-[var(--edge)] bg-white p-3 flex items-center text-sm">
-            <div class="px-3 py-1 rounded-full text-white font-semibold" style="background:linear-gradient(180deg, var(--strap2), var(--strap))">FIRST40</div>
-            <div class="ml-3">Launch offer: first 40 get the course for <b>$550</b> (regular <span class="line-through">$1000</span>).</div>
+          <div class="mt-8 rounded-xl border p-3 flex items-center text-sm"
+               style="border-color:var(--edge); background:rgba(12,16,28,.70)">
+            <div class="px-3 py-1 rounded-full text-white font-extrabold"
+                 style="background:linear-gradient(180deg, var(--strap2), var(--strap))">FIRST40</div>
+            <div class="ml-3">
+              Launch offer: first 40 get the course for <b>$550</b> (regular <span class="line-through">$1000</span>).
+            </div>
           </div>
         </div>
 
         <div class="poster">
           <div class="poster-header">
             <div class="flex items-center gap-2">
-              <img src="./FT%20Logo.png" alt="FusionTicks" class="h-6 w-auto"/>
-              <span class="text-sm text-[var(--muted)]">Signal-free Education</span>
+              <img src="./FT%20Logo.png" alt="FusionTicks" class="h-6 w-auto" style="filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));"/>
+              <span class="text-sm muted">Signal-free Education</span>
             </div>
             <div class="flex items-center gap-2 text-xs">
               <span class="tag">Risk-First</span>
@@ -509,7 +471,7 @@
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
         <!-- LEFT -->
         <div class="lg:col-span-1 space-y-4">
-          <article class="card reveal link-card" data-go="academy:0" tabindex="0">
+          <article class="card reveal">
             <div class="flex items-center justify-between">
               <h4 class="font-semibold">A · Reading the Market</h4>
               <span class="tag">6 lessons</span>
@@ -517,7 +479,7 @@
             <p class="muted mt-2 text-sm">Candlesticks, phases, price in motion, swings, BOS/CHoCH, and FVG.</p>
           </article>
 
-          <article class="card reveal link-card" data-go="academy:1" tabindex="0">
+          <article class="card reveal">
             <div class="flex items-center justify-between">
               <h4 class="font-semibold">B · Market Levels</h4>
               <span class="tag">3 lessons</span>
@@ -525,7 +487,7 @@
             <p class="muted mt-2 text-sm">Supply &amp; Demand, Support &amp; Resistance, and Opening Range Breakout.</p>
           </article>
 
-          <article class="card reveal link-card" data-go="academy:2" tabindex="0">
+          <article class="card reveal">
             <div class="flex items-center justify-between">
               <h4 class="font-semibold">C · Market Indicators</h4>
               <span class="tag">3 lessons</span>
@@ -533,7 +495,7 @@
             <p class="muted mt-2 text-sm">Volume Profile, VWAP (Anchored), and EMA inside context.</p>
           </article>
 
-          <article class="card reveal link-card" data-go="academy:3" tabindex="0">
+          <article class="card reveal">
             <div class="flex items-center justify-between">
               <h4 class="font-semibold">D · Behind the Scenes</h4>
               <span class="tag">7 lessons</span>
@@ -546,36 +508,34 @@
           </button>
         </div>
 
-        <!-- RIGHT (SHOWCASE) -->
+        <!-- RIGHT (CAROUSEL) -->
         <div class="lg:col-span-2">
-          <div class="showcase reveal" data-gallery="academy" aria-label="Academy screenshots slider" tabindex="0">
+          <div class="showcase reveal"
+               data-carousel
+               data-title="Academy"
+               data-subtitle="Course view"
+               data-images="academy-1.webp,academy-2.webp,academy-3.webp,academy-4.webp,academy-5.webp,academy-6.webp">
             <div class="showcase-top">
-              <div class="mini">
-                <span class="tag"><i data-lucide="book-open" class="w-4 h-4"></i> Academy</span>
-                <span class="tag">Hover cards → preview</span>
+              <div class="left">
+                <span class="pill"><i data-lucide="book-open" class="w-4 h-4"></i> Academy</span>
+                <span class="pill">Hover cards → preview</span>
               </div>
-              <div class="showcase-count"><span data-gcur>1</span>/<span data-gtotal>1</span></div>
+              <div class="pill" data-counter>1/1</div>
             </div>
 
-            <div class="frame">
-              <div class="frame-bar">
-                <div class="dots3" aria-hidden="true"><span></span><span></span><span></span></div>
-                <div class="text-xs muted">Course view</div>
-                <div class="text-xs muted">fusionticks</div>
-              </div>
-              <div class="frame-media">
-                <img data-gimg src="" alt="FT Academy screenshot" loading="lazy" decoding="async"/>
-              </div>
-
-              <button class="nav-arrow left" type="button" data-gprev aria-label="Previous image">
+            <div class="showcase-viewport">
+              <button class="showcase-navbtn prev" type="button" aria-label="Previous image" data-prev>
                 <i data-lucide="chevron-left" class="w-5 h-5"></i>
               </button>
-              <button class="nav-arrow right" type="button" data-gnext aria-label="Next image">
+
+              <img class="showcase-img" data-main alt="Academy screenshot" src="academy-1.webp"/>
+
+              <button class="showcase-navbtn next" type="button" aria-label="Next image" data-next>
                 <i data-lucide="chevron-right" class="w-5 h-5"></i>
               </button>
             </div>
 
-            <div class="thumbs no-scrollbar" data-gthumbs aria-label="Thumbnails"></div>
+            <div class="showcase-strip no-scrollbar" data-strip></div>
           </div>
         </div>
       </div>
@@ -594,17 +554,18 @@
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
         <!-- LEFT -->
         <div class="lg:col-span-1 space-y-4">
-          <article class="card reveal link-card" data-go="journal:0" tabindex="0">
+          <article class="card reveal">
             <div class="flex items-center gap-2 font-semibold"><i data-lucide="check-square" class="w-5 h-5 text-[var(--strap2)]"></i> Daily Trade Log</div>
             <p class="muted mt-2 text-sm">Entry, exit, setup, risk, and notes. Fast and clean.</p>
           </article>
 
-          <article class="card reveal link-card" data-go="journal:1" tabindex="0">
+          <article class="card reveal">
+            <!-- FIXED: class (was broken before) -->
             <div class="flex items-center gap-2 font-semibold"><i data-lucide="repeat" class="w-5 h-5 text-[var(--strap2)]"></i> Weekly Review</div>
             <p class="muted mt-2 text-sm">Spot patterns. Fix one mistake at a time.</p>
           </article>
 
-          <article class="card reveal link-card" data-go="journal:2" tabindex="0">
+          <article class="card reveal">
             <div class="flex items-center gap-2 font-semibold"><i data-lucide="bar-chart-3" class="w-5 h-5 text-[var(--strap2)]"></i> Simple Stats</div>
             <p class="muted mt-2 text-sm">Win rate, R-multiples, best setups, and common errors.</p>
           </article>
@@ -616,36 +577,34 @@
           </div>
         </div>
 
-        <!-- RIGHT (SHOWCASE) -->
+        <!-- RIGHT (CAROUSEL) -->
         <div class="lg:col-span-2">
-          <div class="showcase reveal" data-gallery="journal" aria-label="Journal screenshots slider" tabindex="0">
+          <div class="showcase reveal"
+               data-carousel
+               data-title="Journal"
+               data-subtitle="Notion layout"
+               data-images="journal-1.webp,journal-2.webp,journal-3.webp,journal-4.webp,journal-5.webp,journal-6.webp">
             <div class="showcase-top">
-              <div class="mini">
-                <span class="tag"><i data-lucide="notebook-pen" class="w-4 h-4"></i> Journal</span>
-                <span class="tag">Clean workflow</span>
+              <div class="left">
+                <span class="pill"><i data-lucide="notebook-pen" class="w-4 h-4"></i> Journal</span>
+                <span class="pill">Clean tracking → review</span>
               </div>
-              <div class="showcase-count"><span data-gcur>1</span>/<span data-gtotal>1</span></div>
+              <div class="pill" data-counter>1/1</div>
             </div>
 
-            <div class="frame">
-              <div class="frame-bar">
-                <div class="dots3" aria-hidden="true"><span></span><span></span><span></span></div>
-                <div class="text-xs muted">Notion template</div>
-                <div class="text-xs muted">trading journal</div>
-              </div>
-              <div class="frame-media">
-                <img data-gimg src="" alt="FT Journal screenshot" loading="lazy" decoding="async"/>
-              </div>
-
-              <button class="nav-arrow left" type="button" data-gprev aria-label="Previous image">
+            <div class="showcase-viewport">
+              <button class="showcase-navbtn prev" type="button" aria-label="Previous image" data-prev>
                 <i data-lucide="chevron-left" class="w-5 h-5"></i>
               </button>
-              <button class="nav-arrow right" type="button" data-gnext aria-label="Next image">
+
+              <img class="showcase-img" data-main alt="Journal screenshot" src="journal-1.webp"/>
+
+              <button class="showcase-navbtn next" type="button" aria-label="Next image" data-next>
                 <i data-lucide="chevron-right" class="w-5 h-5"></i>
               </button>
             </div>
 
-            <div class="thumbs no-scrollbar" data-gthumbs aria-label="Thumbnails"></div>
+            <div class="showcase-strip no-scrollbar" data-strip></div>
           </div>
         </div>
       </div>
@@ -658,32 +617,30 @@
       <div class="reveal">
         <span class="eyebrow"><i data-lucide="users" class="w-4 h-4"></i> Community</span>
         <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Discord Community</h3>
-        <p class="mt-2 muted max-w-2xl">
-          Chat, weekly news, and daily levels. Simple and useful.
-        </p>
+        <p class="mt-2 muted max-w-2xl">Chat, weekly news, and daily levels. Simple and useful.</p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
         <div class="lg:col-span-1 space-y-4">
-          <article class="card reveal link-card" data-go="discord:0" tabindex="0">
+          <article class="card reveal">
             <div class="flex items-center gap-2 font-semibold">
-              <span class="p-2 rounded-lg border border-[var(--edge)] bg-white"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
+              <span class="p-2 rounded-lg border bg-black/20" style="border-color:var(--edge)"><i data-lucide="messages-square" class="w-5 h-5"></i></span>
               #chatroom
             </div>
             <p class="muted mt-3">Daily hangout. Share charts, ideas, and quick help.</p>
           </article>
 
-          <article class="card reveal link-card" data-go="discord:1" tabindex="0">
+          <article class="card reveal">
             <div class="flex items-center gap-2 font-semibold">
-              <span class="p-2 rounded-lg border border-[var(--edge)] bg-white"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
+              <span class="p-2 rounded-lg border bg-black/20" style="border-color:var(--edge)"><i data-lucide="newspaper" class="w-5 h-5"></i></span>
               #market-news
             </div>
             <p class="muted mt-3">Weekly calendar: lean-in vs stay-light days.</p>
           </article>
 
-          <article class="card reveal link-card" data-go="discord:2" tabindex="0">
+          <article class="card reveal">
             <div class="flex items-center gap-2 font-semibold">
-              <span class="p-2 rounded-lg border border-[var(--edge)] bg-white"><i data-lucide="target" class="w-5 h-5"></i></span>
+              <span class="p-2 rounded-lg border bg-black/20" style="border-color:var(--edge)"><i data-lucide="target" class="w-5 h-5"></i></span>
               #market-levels
             </div>
             <p class="muted mt-3">Daily levels: prepare, then confirm.</p>
@@ -695,35 +652,34 @@
           </a>
         </div>
 
+        <!-- RIGHT (CAROUSEL) -->
         <div class="lg:col-span-2">
-          <div class="showcase reveal" data-gallery="discord" aria-label="Discord screenshots slider" tabindex="0">
+          <div class="showcase reveal"
+               data-carousel
+               data-title="Discord"
+               data-subtitle="Community flow"
+               data-images="discord-1.webp,discord-2.webp,discord-3.webp,discord-4.webp,discord-5.webp">
             <div class="showcase-top">
-              <div class="mini">
-                <span class="tag"><i data-lucide="users" class="w-4 h-4"></i> Discord</span>
-                <span class="tag">Community</span>
+              <div class="left">
+                <span class="pill"><i data-lucide="users" class="w-4 h-4"></i> Discord</span>
+                <span class="pill">Daily levels + weekly news</span>
               </div>
-              <div class="showcase-count"><span data-gcur>1</span>/<span data-gtotal>1</span></div>
+              <div class="pill" data-counter>1/1</div>
             </div>
 
-            <div class="frame">
-              <div class="frame-bar">
-                <div class="dots3" aria-hidden="true"><span></span><span></span><span></span></div>
-                <div class="text-xs muted">Server view</div>
-                <div class="text-xs muted">fusionticks</div>
-              </div>
-              <div class="frame-media">
-                <img data-gimg src="" alt="Discord screenshot" loading="lazy" decoding="async"/>
-              </div>
-
-              <button class="nav-arrow left" type="button" data-gprev aria-label="Previous image">
+            <div class="showcase-viewport">
+              <button class="showcase-navbtn prev" type="button" aria-label="Previous image" data-prev>
                 <i data-lucide="chevron-left" class="w-5 h-5"></i>
               </button>
-              <button class="nav-arrow right" type="button" data-gnext aria-label="Next image">
+
+              <img class="showcase-img" data-main alt="Discord screenshot" src="discord-1.webp"/>
+
+              <button class="showcase-navbtn next" type="button" aria-label="Next image" data-next>
                 <i data-lucide="chevron-right" class="w-5 h-5"></i>
               </button>
             </div>
 
-            <div class="thumbs no-scrollbar" data-gthumbs aria-label="Thumbnails"></div>
+            <div class="showcase-strip no-scrollbar" data-strip></div>
           </div>
         </div>
       </div>
@@ -836,23 +792,23 @@
       <footer class="mt-14 py-10 border-t" style="border-color:var(--edge)">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--muted)] px-4">
           <div class="flex items-center gap-3">
-            <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto">
+            <img src="./FT%20Logo.png" alt="FusionTicks" class="h-7 w-auto" style="filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));">
             <span>© <span id="year"></span> FUSIONTICKS. All rights reserved.</span>
           </div>
           <div class="flex items-center gap-3">
-            <a class="p-2 rounded-full border border-[var(--edge)] bg-white" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
+            <a class="p-2 rounded-full border" style="border-color:var(--edge); background:rgba(12,16,28,.70)" href="https://www.instagram.com/fusionticks?igsh=dGZsOGJ4NnB3aHZo" target="_blank" aria-label="Instagram">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
                 <rect x="3" y="3" width="18" height="18" rx="5"></rect>
                 <circle cx="12" cy="12" r="4"></circle>
                 <circle cx="17.5" cy="6.5" r="1"></circle>
               </svg>
             </a>
-            <a class="p-2 rounded-full border border-[var(--edge)] bg-white" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
+            <a class="p-2 rounded-full border" style="border-color:var(--edge); background:rgba(12,16,28,.70)" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                 <path d="M23 7.1a4 4 0 0 0-2.8-2.8C18.2 3.6 12 3.6 12 3.6s-6.2 0-8.2 .7A4 4 0 0 0 1 7.1C.4 9.1.4 12 .4 12s0 2.9.6 4.9a4 4 0 0 0 2.8 2.8c2 .6 8.2 .6 8.2 .6s6.2 0 8.2-.6a4 4 0 0 0 2.8-2.8c .6-2 .6-4.9 .6-4.9s0-2.9-.6-4.9zM9.8 15.6V8.4L16 12l-6.2 3.6z"/>
               </svg>
             </a>
-            <a class="p-2 rounded-full border border-[var(--edge)] bg-white" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
+            <a class="p-2 rounded-full border" style="border-color:var(--edge); background:rgba(12,16,28,.70)" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
               <svg viewBox="0 0 48 48" width="18" height="18" fill="currentColor">
                 <path d="M34.5 14.5a10.6 10.6 0 0 0 6.8 2.4v6a16.3 16.3 0 0 1-6.8-1.6v9.6a11.9 11.9 0 1 1-11-11.9v6a6 6 0 1 0 5 5.9V6h6v8.5z"/>
               </svg>
@@ -873,9 +829,10 @@
 
   <!-- ===== Course Syllabus Modal ===== -->
   <div id="currModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/40" data-curr-close></div>
-    <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl bg-white border border-[var(--edge)]">
-      <div class="flex items-center justify-between px-5 py-4 border-b border-[var(--edge)]">
+    <div class="absolute inset-0 bg-black/70" data-curr-close></div>
+    <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl border"
+         style="background:rgba(12,16,28,.96); border-color:var(--edge)">
+      <div class="flex items-center justify-between px-5 py-4 border-b" style="border-color:var(--edge)">
         <h3 class="text-lg font-semibold">Course · Full Syllabus</h3>
         <button class="btn-ghost btn" data-curr-close aria-label="Close"><i data-lucide="x"></i></button>
       </div>
@@ -938,7 +895,6 @@
   </div>
 
   <script>
-    // icons + year
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.lucide) lucide.createIcons(); });
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -956,27 +912,101 @@
     mobileMenu?.querySelectorAll('[data-close]').forEach(b=> b.addEventListener('click', closeAll));
     mobileMenu?.querySelectorAll('a[href^="#"]').forEach(a=> a.addEventListener('click', ()=> setTimeout(closeAll, 50)));
 
-    // syllabus modal
+    // modal
     const hookModal = (openSel, modalId, closeSel) => {
       const modal = document.getElementById(modalId);
       document.querySelectorAll(openSel).forEach(btn=>btn.addEventListener('click', ()=>{
         modal.classList.remove('hidden');
-        document.body.classList.add('modal-open');
       }));
       modal.querySelectorAll(closeSel).forEach(btn=>btn.addEventListener('click', ()=>{
         modal.classList.add('hidden');
-        document.body.classList.remove('modal-open');
       }));
       modal.addEventListener('click', (e)=>{
-        if(e.target === modal.firstElementChild) {
-          modal.classList.add('hidden');
-          document.body.classList.remove('modal-open');
-        }
+        if(e.target === modal.firstElementChild) modal.classList.add('hidden');
       });
     };
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
 
-    // sparkline
+    // ===== Carousel (3 sections only) =====
+    function initCarousel(root){
+      const imgEl = root.querySelector('[data-main]');
+      const strip = root.querySelector('[data-strip]');
+      const prevBtn = root.querySelector('[data-prev]');
+      const nextBtn = root.querySelector('[data-next]');
+      const counter = root.querySelector('[data-counter]');
+
+      const images = (root.getAttribute('data-images') || '')
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      if(!images.length) return;
+
+      let idx = 0;
+
+      // build thumbs
+      strip.innerHTML = images.map((src, i) => `
+        <button class="showcase-thumb ${i===0?'active':''}" type="button" aria-label="Open image ${i+1}" data-i="${i}">
+          <img src="${src}" alt="thumbnail ${i+1}" loading="lazy"/>
+        </button>
+      `).join('');
+
+      const thumbs = Array.from(strip.querySelectorAll('.showcase-thumb'));
+
+      function render(){
+        imgEl.src = images[idx];
+        if(counter) counter.textContent = `${idx+1}/${images.length}`;
+        thumbs.forEach((t, i) => t.classList.toggle('active', i === idx));
+        // soft center active thumb
+        const active = thumbs[idx];
+        active?.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+      }
+
+      function go(n){
+        idx = (n + images.length) % images.length;
+        render();
+      }
+
+      prevBtn?.addEventListener('click', ()=> go(idx-1));
+      nextBtn?.addEventListener('click', ()=> go(idx+1));
+
+      strip.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.showcase-thumb');
+        if(!btn) return;
+        const i = Number(btn.getAttribute('data-i'));
+        if(Number.isFinite(i)) go(i);
+      });
+
+      // keyboard
+      root.setAttribute('tabindex', '0');
+      root.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowLeft') { e.preventDefault(); go(idx-1); }
+        if(e.key === 'ArrowRight'){ e.preventDefault(); go(idx+1); }
+      });
+
+      // autoplay (pause on hover/focus), respects reduced motion
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let timer = null;
+
+      const start = ()=> {
+        if(reduce) return;
+        stop();
+        timer = setInterval(()=> go(idx+1), 4500);
+      };
+      const stop = ()=> { if(timer){ clearInterval(timer); timer=null; } };
+
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+      root.addEventListener('focusin', stop);
+      root.addEventListener('focusout', start);
+
+      render();
+      start();
+    }
+
+    document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+
+    // ===== Spark canvas (updated colors to match accent) =====
     (function(){
       const c = document.getElementById('spark'); if(!c) return;
       const ctx = c.getContext('2d');
@@ -994,23 +1024,26 @@
 
       function grid(){
         ctx.save();
-        ctx.globalAlpha = .18;
-        ctx.strokeStyle = "#CBD8EE";
+        ctx.globalAlpha = .22;
+        ctx.strokeStyle = "rgba(236,242,255,.10)";
         ctx.lineWidth = 1*DPR;
         const s = 36*DPR;
         for(let x=0;x<W();x+=s){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H()); ctx.stroke(); }
         for(let y=0;y<H();y+=s){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W(),y); ctx.stroke(); }
         ctx.restore();
       }
+
       function lineGrad(){
         const g = ctx.createLinearGradient(0,0,W(),0);
-        g.addColorStop(0, "#2563EB");
-        g.addColorStop(1, "#0EA5E9");
+        g.addColorStop(0, getComputedStyle(document.documentElement).getPropertyValue('--strap2').trim() || "#A855F7");
+        g.addColorStop(1, getComputedStyle(document.documentElement).getPropertyValue('--strap').trim() || "#F43F5E");
         return g;
       }
+
       function curve(x){
         return H()*0.55 + (Math.sin(x*0.010 + t)*0.9 + Math.sin(x*0.0035 - t*1.15)*0.65)*H()*0.18;
       }
+
       function draw(){
         t += .012;
         ctx.clearRect(0,0,W(),H());
@@ -1020,8 +1053,8 @@
         for(let x=0;x<W();x++){ const y=curve(x); x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
         ctx.lineTo(W(),H()); ctx.lineTo(0,H()); ctx.closePath();
         const ag = ctx.createLinearGradient(0,0,0,H());
-        ag.addColorStop(0,"rgba(37,99,235,.14)");
-        ag.addColorStop(1,"rgba(14,165,233,.04)");
+        ag.addColorStop(0,"rgba(168,85,247,.18)");
+        ag.addColorStop(1,"rgba(244,63,94,.05)");
         ctx.fillStyle = ag; ctx.fill();
 
         ctx.lineWidth = 2*DPR; ctx.strokeStyle = lineGrad();
@@ -1030,11 +1063,12 @@
         ctx.stroke();
 
         ctx.save();
-        ctx.shadowColor = "rgba(14,165,233,.6)"; ctx.shadowBlur = 18*DPR;
+        ctx.shadowColor = "rgba(244,63,94,.55)";
+        ctx.shadowBlur = 18*DPR;
         ctx.stroke();
         ctx.restore();
 
-        ctx.fillStyle = "#0EA5E9";
+        ctx.fillStyle = "rgba(244,63,94,.95)";
         dots.forEach((d,i)=>{
           const x = (((i/dots.length) + (t*0.03)) % 1) * W();
           const y = curve(x);
@@ -1044,209 +1078,6 @@
         requestAnimationFrame(draw);
       }
       draw();
-    })();
-
-    /* =================== ONLY FOR 3 SECTIONS (ACADEMY / JOURNAL / DISCORD) =================== */
-    (function(){
-      const specs = {
-        academy: { max: 6, prefix: './academy-', ext: 'webp', startIndex: 0 },
-        journal: { max: 6, prefix: './journal-', ext: 'webp', startIndex: 0 },
-        discord: { max: 5, prefix: './discord-', ext: 'webp', startIndex: 0 },
-      };
-
-      function loadable(url, timeoutMs=2200){
-        return new Promise((resolve)=>{
-          const img = new Image();
-          let done = false;
-          const t = setTimeout(()=>{ if(!done){ done=true; resolve(false); } }, timeoutMs);
-          img.onload = ()=>{ if(done) return; done=true; clearTimeout(t); resolve(true); };
-          img.onerror = ()=>{ if(done) return; done=true; clearTimeout(t); resolve(false); };
-          img.src = url;
-        });
-      }
-
-      async function buildUrls(spec){
-        const urls = [];
-        for(let i=1;i<=spec.max;i++){
-          const u = `${spec.prefix}${i}.${spec.ext}`;
-          // keep order, only push if file exists
-          if(await loadable(u)) urls.push(u);
-        }
-        return urls;
-      }
-
-      function createGallery(root, urls){
-        const imgEl = root.querySelector('[data-gimg]');
-        const prevBtn = root.querySelector('[data-gprev]');
-        const nextBtn = root.querySelector('[data-gnext]');
-        const thumbsWrap = root.querySelector('[data-gthumbs]');
-        const curEl = root.querySelector('[data-gcur]');
-        const totalEl = root.querySelector('[data-gtotal]');
-
-        let idx = 0;
-        let busy = false;
-        let timer = null;
-
-        const thumbs = [];
-
-        function setActiveCardForGallery(name, index){
-          document.querySelectorAll(`[data-go^="${name}:"]`).forEach(el=>{
-            const n = Number(String(el.getAttribute('data-go')).split(':')[1] || -1);
-            el.classList.toggle('is-active', n === index);
-          });
-        }
-
-        function paintThumbs(){
-          thumbsWrap.innerHTML = '';
-          urls.forEach((u, i)=>{
-            const t = document.createElement('button');
-            t.type = 'button';
-            t.className = 'thumb';
-            t.setAttribute('aria-label', `Open image ${i+1}`);
-            const im = document.createElement('img');
-            im.loading = 'lazy';
-            im.decoding = 'async';
-            im.src = u;
-            im.alt = 'thumbnail';
-            t.appendChild(im);
-            t.addEventListener('click', ()=> go(i, true));
-            thumbsWrap.appendChild(t);
-            thumbs.push(t);
-          });
-        }
-
-        function updateUI(){
-          if(curEl) curEl.textContent = String(idx + 1);
-          if(totalEl) totalEl.textContent = String(urls.length);
-          thumbs.forEach((t, i)=> t.classList.toggle('is-active', i === idx));
-          root.style.setProperty('--stage-bg', `url("${urls[idx]}")`);
-        }
-
-        function go(newIndex, fromUser=false){
-          if(!urls.length || busy) return;
-          busy = true;
-
-          idx = (newIndex + urls.length) % urls.length;
-
-          const nextSrc = urls[idx];
-          const temp = new Image();
-          temp.onload = ()=>{
-            imgEl.classList.remove('is-visible');
-            // small delay for nicer fade
-            setTimeout(()=>{
-              imgEl.src = nextSrc;
-              imgEl.classList.add('is-visible');
-              updateUI();
-              busy = false;
-            }, 110);
-          };
-          temp.onerror = ()=>{ busy = false; };
-          temp.src = nextSrc;
-
-          // pause autoplay قليلاً إذا المستخدم تفاعل
-          if(fromUser) restartAutoplay(6500);
-        }
-
-        function next(){ go(idx+1, true); }
-        function prev(){ go(idx-1, true); }
-
-        function restartAutoplay(delay=5200){
-          if(timer) clearInterval(timer);
-          timer = setInterval(()=> go(idx+1, false), delay);
-        }
-
-        // init
-        paintThumbs();
-        imgEl.src = urls[0];
-        imgEl.classList.add('is-visible');
-        updateUI();
-        restartAutoplay(5200);
-
-        prevBtn?.addEventListener('click', prev);
-        nextBtn?.addEventListener('click', next);
-
-        // pause on hover/focus
-        const stop = ()=>{ if(timer) clearInterval(timer); timer=null; };
-        const resume = ()=> restartAutoplay(5200);
-        root.addEventListener('mouseenter', stop);
-        root.addEventListener('mouseleave', resume);
-        root.addEventListener('focusin', stop);
-        root.addEventListener('focusout', resume);
-
-        // keyboard
-        root.addEventListener('keydown', (e)=>{
-          if(e.key === 'ArrowLeft') prev();
-          if(e.key === 'ArrowRight') next();
-        });
-
-        // touch swipe
-        let sx=0, sy=0, start=false;
-        root.addEventListener('touchstart', (e)=>{
-          const t = e.touches?.[0]; if(!t) return;
-          start=true; sx=t.clientX; sy=t.clientY;
-        }, {passive:true});
-        root.addEventListener('touchend', (e)=>{
-          if(!start) return; start=false;
-          const t = e.changedTouches?.[0]; if(!t) return;
-          const dx = t.clientX - sx;
-          const dy = t.clientY - sy;
-          if(Math.abs(dx) > 40 && Math.abs(dy) < 60){
-            dx > 0 ? prev() : next();
-          }
-        }, {passive:true});
-
-        // return API
-        return {
-          setIndex(i){
-            go(i, true);
-          },
-          setActiveCard(index){
-            setActiveCardForGallery(root.getAttribute('data-gallery'), index);
-          }
-        };
-      }
-
-      (async function initAll(){
-        const roots = Array.from(document.querySelectorAll('[data-gallery]'));
-        const api = {};
-
-        for(const r of roots){
-          const name = r.getAttribute('data-gallery');
-          const spec = specs[name];
-          if(!spec) continue;
-
-          const urls = await buildUrls(spec);
-          if(!urls.length){
-            // fallback if no images found
-            const imgEl = r.querySelector('[data-gimg]');
-            if(imgEl){
-              imgEl.alt = 'No images found';
-              imgEl.removeAttribute('src');
-            }
-            continue;
-          }
-          api[name] = createGallery(r, urls);
-        }
-
-        // connect left cards (hover/focus) to galleries
-        document.querySelectorAll('[data-go]').forEach(el=>{
-          const raw = String(el.getAttribute('data-go') || '');
-          const [name, nStr] = raw.split(':');
-          const n = Number(nStr);
-          if(!api[name] || Number.isNaN(n)) return;
-
-          const fire = ()=>{
-            api[name].setIndex(n);
-            // highlight active card
-            document.querySelectorAll(`[data-go^="${name}:"]`).forEach(x=>x.classList.remove('is-active'));
-            el.classList.add('is-active');
-          };
-
-          el.addEventListener('mouseenter', fire);
-          el.addEventListener('focus', fire);
-          el.addEventListener('click', fire);
-        });
-      })();
     })();
   </script>
 </body>
