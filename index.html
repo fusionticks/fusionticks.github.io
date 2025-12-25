@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FUSIONTICKS</title>
   <meta name="description" content="FusionTicks: signal-free, risk-first trading education. Read the market, map key levels, confirm on lower timeframe, and journal."/>
-  <meta name="theme-color" content="#05050A"/>
+  <meta name="theme-color" content="#030712"/>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,29 +32,30 @@
 
   <style>
     :root{
-      /* Dark luxe palette – Palette 3 (Gold x Emerald) */
-      --bg:#05050A;
-      --panel:#070815;
-      --panel2:#050712;
-      --edge:rgba(255,255,255,.10);
-      --edge2:rgba(255,255,255,.14);
-      --ink:#FFF7E6;
-      --muted:#B3A6CC;
+      /* 🔹 Palette 3 – Royal Blue + Gold */
+      --bg:#030712;
+      --panel:#050816;
+      --panel2:#0B1120;
 
-      /* Accent (Gold + Emerald) */
-      --a1:#FACC15;  /* Gold */
-      --a2:#22C55E;  /* Emerald */
-      --a3:#F97316;  /* Warm orange */
+      --edge:rgba(148,163,184,.40);
+      --edge2:rgba(148,163,184,.65);
+      --ink:#E5ECFF;
+      --muted:#94A3B8;
 
-      --shadow:rgba(0,0,0,.50);
-      --shadow2:rgba(0,0,0,.70);
-      --grid:rgba(255,255,255,.10);
+      /* Accents */
+      --a1:#2563EB; /* Royal Blue */
+      --a2:#14B8A6; /* Teal */
+      --a3:#FACC15; /* Gold */
+
+      --shadow:rgba(15,23,42,.70);
+      --shadow2:rgba(15,23,42,.85);
+      --grid:rgba(148,163,184,.20);
     }
 
     html{scroll-behavior:smooth}
     body{background:var(--bg); color:var(--ink);}
 
-    /* Subtle hero / pricing band background (diagonal + glow) */
+    /* Hero / pricing band background */
     .aperture-band{
       position:relative;
       overflow:hidden;
@@ -64,10 +65,10 @@
       content:"";
       position:absolute; inset:-2px;
       background:
-        radial-gradient(900px 520px at 90% 0%, rgba(250,204,21,.30), transparent 60%),
-        radial-gradient(880px 520px at 10% 12%, rgba(34,197,94,.22), transparent 55%),
-        radial-gradient(780px 460px at 85% 78%, rgba(249,115,22,.18), transparent 60%),
-        repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 2px, transparent 2px 12px);
+        radial-gradient(900px 520px at 90% 0%, rgba(37,99,235,.30), transparent 60%),
+        radial-gradient(880px 520px at 10% 12%, rgba(20,184,166,.26), transparent 55%),
+        radial-gradient(780px 460px at 85% 78%, rgba(250,204,21,.22), transparent 60%),
+        repeating-linear-gradient(135deg, rgba(148,163,184,.20) 0 2px, transparent 2px 12px);
       opacity:.55;
       pointer-events:none;
       z-index:-1;
@@ -78,13 +79,17 @@
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px) saturate(140%);
       -webkit-backdrop-filter: blur(10px) saturate(140%);
-      background: rgba(5,5,10,.85);
+      background: rgba(3,7,18,.92);
       border-bottom:1px solid var(--edge);
     }
-    .nav a{ position:relative; color:rgba(250,249,246,.82); }
-    .nav a:hover{ color:rgba(250,249,246,1); }
+    .nav a{
+      position:relative;
+      color:rgba(229,236,255,.82);
+    }
+    .nav a:hover{ color:rgba(229,236,255,1); }
     .nav a:after{
-      content:""; position:absolute; left:0; bottom:-8px; height:2px; width:0%;
+      content:"";
+      position:absolute; left:0; bottom:-8px; height:2px; width:0%;
       background:linear-gradient(90deg, var(--a1), var(--a2));
       transition:width .18s ease;
     }
@@ -94,7 +99,7 @@
       display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
       height:44px; padding:0 1rem; border-radius:12px; font-weight:800;
       border:1px solid var(--edge);
-      background:rgba(255,255,255,.03);
+      background:rgba(15,23,42,.85);
       color:var(--ink);
       box-shadow: 0 10px 26px var(--shadow);
       transition: transform .12s ease, filter .12s ease, background .12s ease;
@@ -104,12 +109,12 @@
     .btn-primary{
       border-color:transparent;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 18px 45px rgba(250,204,21,.30), 0 18px 55px rgba(34,197,94,.26);
-      color:#062208;
+      box-shadow: 0 18px 45px rgba(37,99,235,.35), 0 18px 55px rgba(20,184,166,.30);
+      color:#EBF4FF;
     }
 
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background:linear-gradient(180deg, rgba(15,23,42,.95), rgba(15,23,42,.90));
       border:1px solid var(--edge);
       border-radius:18px;
       box-shadow: 0 18px 55px var(--shadow2);
@@ -120,16 +125,16 @@
     .strapline{
       display:inline-flex; align-items:center; gap:.6rem;
       height:34px; padding:0 .8rem; border-radius:999px; font-size:.82rem;
-      background:rgba(255,255,255,.06);
+      background:rgba(15,23,42,.95);
       border:1px solid var(--edge);
       box-shadow: 0 12px 30px var(--shadow);
     }
     .strap-badge{
       display:inline-grid; place-items:center;
       width:22px; height:22px; border-radius:999px;
-      color:#0a0d14; font-size:.75rem; font-weight:900;
-      background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 10px 24px rgba(250,204,21,.40);
+      color:#020617; font-size:.75rem; font-weight:900;
+      background:linear-gradient(135deg, var(--a1), var(--a3));
+      box-shadow: 0 10px 24px rgba(37,99,235,.45);
     }
 
     .k-title{
@@ -145,26 +150,27 @@
       display:inline-flex; align-items:center; gap:.45rem;
       height:28px; padding:0 .65rem; border-radius:999px;
       font-size:.78rem;
-      background:rgba(255,255,255,.06);
-      border:1px solid var(--edge);
-      color:rgba(250,249,246,.88);
+      background:rgba(15,23,42,.95);
+      border:1px solid rgba(250,204,21,.65); /* gold frame */
+      color:rgba(250,250,249,.88);
     }
 
     .eyebrow{
       display:inline-flex; align-items:center; gap:.5rem;
       height:32px; padding:0 .75rem; border-radius:999px; font-size:.82rem;
-      background:rgba(255,255,255,.06);
+      background:rgba(15,23,42,.96);
       border:1px solid var(--edge);
       box-shadow:0 10px 26px var(--shadow);
-      color:rgba(250,249,246,.92);
+      color:rgba(226,232,240,.92);
     }
+
     .beam{
       height:2px;
-      background:linear-gradient(90deg, transparent, var(--a1), var(--a2), transparent);
+      background:linear-gradient(90deg, transparent, var(--a1), var(--a3), transparent);
       opacity:.9;
     }
 
-    /* hero columns */
+    /* Hero grid */
     .hero-grid{
       display:grid;
       grid-template-columns: 0.95fr 1.05fr;
@@ -185,23 +191,28 @@
     .dot{
       width:12px; height:12px; border-radius:999px;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow:0 0 0 6px rgba(250,204,21,.30);
-      border:1px solid rgba(255,255,255,.45);
+      box-shadow:0 0 0 6px rgba(37,99,235,.35);
+      border:1px solid rgba(248,250,252,.7);
     }
 
-    .price{ display:grid; grid-template-columns:1fr auto; align-items:start; gap:1rem; }
+    .price{
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:start;
+      gap:1rem;
+    }
     .ring{
       display:inline-grid; place-items:center;
       width:92px; height:92px; border-radius:999px;
       background:
-        radial-gradient(60% 60% at 50% 50%, rgba(250,204,21,.25), transparent 60%),
-        radial-gradient(100% 100% at 50% 50%, rgba(34,197,94,.25), transparent 70%);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 20px 60px rgba(0,0,0,.65);
+        radial-gradient(60% 60% at 50% 40%, rgba(250,204,21,.45), transparent 65%),
+        radial-gradient(100% 100% at 50% 60%, rgba(37,99,235,.35), transparent 75%);
+      border:1px solid rgba(250,204,21,.75);
+      box-shadow:0 20px 60px rgba(15,23,42,.95);
       font-weight:900;
     }
     .ring span{
-      background:linear-gradient(90deg, var(--a1), var(--a2));
+      background:linear-gradient(90deg, var(--a3), var(--a1));
       -webkit-background-clip:text; background-clip:text; color:transparent;
     }
 
@@ -213,10 +224,10 @@
       pointer-events:auto;
       display:flex; align-items:center; gap:.8rem;
       border:1px solid var(--edge);
-      background:rgba(7,7,14,.90);
+      background:rgba(15,23,42,.96);
       backdrop-filter: blur(12px);
       border-radius:14px; padding:.55rem .7rem;
-      box-shadow:0 24px 70px rgba(0,0,0,.80);
+      box-shadow:0 24px 70px rgba(0,0,0,.85);
     }
 
     .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
@@ -225,16 +236,16 @@
     .no-scrollbar::-webkit-scrollbar{display:none}
     .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
 
-    /* ===== Modern Carousel (ONLY used in the 3 image sections) ===== */
+    /* ===== Modern Carousel (3 sections) ===== */
     .showcase{
       position:relative;
       border-radius:22px;
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid rgba(148,163,184,.45);
       background:
-        radial-gradient(900px 420px at 85% 10%, rgba(250,204,21,.26), transparent 60%),
-        radial-gradient(900px 420px at 15% 0%, rgba(34,197,94,.22), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      box-shadow: 0 26px 90px rgba(0,0,0,.80);
+        radial-gradient(900px 420px at 85% 10%, rgba(37,99,235,.28), transparent 60%),
+        radial-gradient(900px 420px at 15% 0%, rgba(20,184,166,.24), transparent 55%),
+        linear-gradient(180deg, rgba(15,23,42,.98), rgba(15,23,42,.94));
+      box-shadow: 0 26px 90px rgba(15,23,42,.95);
       overflow:hidden;
     }
     .showcase:before{
@@ -242,7 +253,7 @@
       position:absolute; inset:0;
       background-image: radial-gradient(var(--grid) 1px, transparent 1px);
       background-size: 18px 18px;
-      opacity:.12;
+      opacity:.18;
       pointer-events:none;
       mask: linear-gradient(180deg, rgba(0,0,0,.85), transparent 70%);
     }
@@ -251,8 +262,8 @@
       position:relative;
       overflow:hidden;
       border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
+      border:1px solid rgba(148,163,184,.50);
+      background: rgba(15,23,42,.96);
     }
 
     /* إطار متناسب مع 1856x951 لكل الكاروسيل */
@@ -273,7 +284,7 @@
       position:relative;
       display:grid;
       place-items:center;
-      background: rgba(0,0,0,.16);
+      background: #020617;
     }
 
     .carousel-slide img{
@@ -298,14 +309,14 @@
       align-items:center;
       gap:.6rem;
       font-weight:900;
-      color: rgba(250,249,246,.95);
+      color: rgba(226,232,240,.96);
       letter-spacing:.02em;
     }
 
     .carousel-title .dotBadge{
       width:10px;height:10px;border-radius:999px;
-      background: linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 0 0 6px rgba(250,204,21,.35);
+      background: linear-gradient(135deg, var(--a1), var(--a3));
+      box-shadow: 0 0 0 6px rgba(30,64,175,.50);
     }
 
     .carousel-actions{
@@ -318,15 +329,15 @@
       height:40px;
       width:40px;
       border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
+      border:1px solid rgba(148,163,184,.50);
+      background: rgba(15,23,42,1);
       display:inline-grid;
       place-items:center;
-      color: rgba(250,249,246,.92);
-      box-shadow: 0 12px 30px rgba(0,0,0,.55);
+      color: rgba(226,232,240,.92);
+      box-shadow: 0 12px 30px rgba(15,23,42,.95);
       transition: transform .12s ease, filter .12s ease;
     }
-    .iconBtn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+    .iconBtn:hover{ transform: translateY(-1px); filter: brightness(1.08); }
     .iconBtn:disabled{ opacity:.35; cursor:not-allowed; transform:none; filter:none; }
 
     .carousel-footer{
@@ -335,7 +346,7 @@
       justify-content:space-between;
       gap:12px;
       padding:10px 14px 14px 14px;
-      color: rgba(250,249,246,.70);
+      color: rgba(148,163,184,.90);
       font-size: 12px;
     }
 
@@ -347,8 +358,8 @@
     }
     .dotBtn{
       width:7px;height:7px;border-radius:10px;
-      border:1px solid rgba(255,255,255,.22);
-      background:rgba(255,255,255,.10);
+      border:1px solid rgba(148,163,184,.75);
+      background:rgba(15,23,42,1);
       transition: width .15s ease, background .15s ease, opacity .15s ease;
       opacity:.75;
     }
@@ -359,9 +370,7 @@
       border-color: transparent;
     }
 
-    .placeholder{
-      min-height:0;
-    }
+    .placeholder{ min-height:0; }
 
     @media (max-width: 1024px){
       .carousel-viewport.placeholder{
@@ -391,7 +400,7 @@
       </nav>
 
       <div class="hidden md:flex items-center gap-2">
-        <!-- زر Academy شلناه من الهيدر حسب طلبك -->
+        <!-- شلنا زر Academy من الهيدر -->
         <a class="btn btn-primary" href="#pricing"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
       </div>
 
@@ -404,7 +413,7 @@
     <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
       <div class="absolute inset-0 bg-black/60" data-close></div>
       <div class="absolute right-3 left-3 top-4 rounded-2xl"
-           style="background:rgba(7,7,14,.96); border:1px solid var(--edge); backdrop-filter: blur(14px);">
+           style="background:rgba(15,23,42,.98); border:1px solid var(--edge); backdrop-filter: blur(14px);">
         <div class="p-3 flex justify-end">
           <button class="btn btn-ghost" data-close aria-label="Close"><i data-lucide="x"></i></button>
         </div>
@@ -447,8 +456,8 @@
           </div>
 
           <div class="mt-8 rounded-xl p-3 flex items-center text-sm"
-               style="border:1px solid var(--edge); background:rgba(255,255,255,.06); backdrop-filter: blur(10px);">
-            <div class="px-3 py-1 rounded-full text-black font-extrabold"
+               style="border:1px solid var(--edge); background:rgba(15,23,42,.96); backdrop-filter: blur(10px);">
+            <div class="px-3 py-1 rounded-full text-slate-950 font-extrabold"
                  style="background:linear-gradient(135deg, var(--a1), var(--a2));">FIRST40</div>
             <div class="ml-3">
               Launch offer: first 40 get the course for <b>$550</b> (regular <span class="line-through">$1000</span>).
@@ -456,7 +465,7 @@
           </div>
         </div>
 
-        <!-- RIGHT HERO IMAGE (BIG, no glow) -->
+        <!-- RIGHT HERO IMAGE -->
         <div class="relative flex items-center justify-center">
           <img
             src="./hero-visual.webp"
@@ -676,14 +685,14 @@
         <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">
           <span class="heading-gradient">DISCORD COMMUNITY</span>
         </h2>
-        <p class="mt-2 muted max-w-2xl">Chat, weekly news, and daily levels. Simple and useful.</p>
+      <p class="mt-2 muted max-w-2xl">Chat, weekly news, and daily levels. Simple and useful.</p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
         <div class="lg:col-span-1 space-y-4">
           <article class="card reveal p-5">
             <div class="flex items-center gap-2 font-extrabold">
-              <span class="p-2 rounded-lg" style="border:1px solid var(--edge); background:rgba(255,255,255,.05);">
+              <span class="p-2 rounded-lg" style="border:1px solid var(--edge); background:rgba(15,23,42,1);">
                 <i data-lucide="messages-square" class="w-5 h-5"></i>
               </span>
               #chatroom
@@ -693,7 +702,7 @@
 
           <article class="card reveal p-5">
             <div class="flex items-center gap-2 font-extrabold">
-              <span class="p-2 rounded-lg" style="border:1px solid var(--edge); background:rgba(255,255,255,.05);">
+              <span class="p-2 rounded-lg" style="border:1px solid var(--edge); background:rgba(15,23,42,1);">
                 <i data-lucide="newspaper" class="w-5 h-5"></i>
               </span>
               #market-news
@@ -703,7 +712,7 @@
 
           <article class="card reveal p-5">
             <div class="flex items-center gap-2 font-extrabold">
-              <span class="p-2 rounded-lg" style="border:1px solid var(--edge); background:rgba(255,255,255,.05);">
+              <span class="p-2 rounded-lg" style="border:1px solid var(--edge); background:rgba(15,23,42,1);">
                 <i data-lucide="target" class="w-5 h-5"></i>
               </span>
               #market-levels
@@ -826,7 +835,7 @@
         <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Still curious?</h2>
       </div>
 
-      <!-- أسئلة أعرض في النص -->
+      <!-- أوسع شوية للأسئلة -->
       <div class="mt-6 space-y-4 max-w-5xl mx-auto">
         <details class="card reveal p-5">
           <summary class="cursor-pointer font-semibold">Is this for beginners or advanced traders?</summary>
@@ -872,7 +881,7 @@
   <!-- Sticky Checkout dock -->
   <div class="dock">
     <div class="dock-inner">
-      <span class="hidden sm:inline text-sm muted">Use <b style="color:rgba(250,249,246,.92)">FIRST40</b> for launch pricing</span>
+      <span class="hidden sm:inline text-sm muted">Use <b style="color:rgba(226,232,240,.95)">FIRST40</b> for launch pricing</span>
       <a href="#pricing" class="btn btn-primary"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
     </div>
   </div>
@@ -881,7 +890,7 @@
   <div id="currModal" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/70" data-curr-close></div>
     <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl"
-         style="background:rgba(7,7,14,.96); border:1px solid var(--edge); backdrop-filter: blur(14px);">
+         style="background:rgba(15,23,42,.98); border:1px solid var(--edge); backdrop-filter: blur(14px);">
       <div class="flex items-center justify-between px-5 py-4 border-b" style="border-color:var(--edge)">
         <h3 class="text-lg font-extrabold">Course · Full Syllabus</h3>
         <button class="btn btn-ghost" data-curr-close aria-label="Close"><i data-lucide="x"></i></button>
