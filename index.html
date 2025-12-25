@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FUSIONTICKS</title>
   <meta name="description" content="FusionTicks: signal-free, risk-first trading education. Read the market, map key levels, confirm on lower timeframe, and journal."/>
-  <meta name="theme-color" content="#020617"/>
+  <meta name="theme-color" content="#05050A"/>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,22 +32,22 @@
 
   <style>
     :root{
-      /* Dark luxe palette – Palette 2 (Deep Navy x Cyan Glow) */
-      --bg:#020617;
-      --panel:#030712;
-      --panel2:#020617;
+      /* Dark luxe palette – Palette 3 (Gold x Emerald) */
+      --bg:#05050A;
+      --panel:#070815;
+      --panel2:#050712;
       --edge:rgba(255,255,255,.10);
       --edge2:rgba(255,255,255,.14);
-      --ink:#E5F0FF;
-      --muted:#8CA0C4;
+      --ink:#FFF7E6;
+      --muted:#B3A6CC;
 
-      /* Accent (Cyan + Indigo) */
-      --a1:#0EA5E9;  /* Cyan */
-      --a2:#6366F1;  /* Indigo */
-      --a3:#22D3EE;  /* Bright Cyan */
+      /* Accent (Gold + Emerald) */
+      --a1:#FACC15;  /* Gold */
+      --a2:#22C55E;  /* Emerald */
+      --a3:#F97316;  /* Warm orange */
 
-      --shadow:rgba(0,0,0,.45);
-      --shadow2:rgba(0,0,0,.60);
+      --shadow:rgba(0,0,0,.50);
+      --shadow2:rgba(0,0,0,.70);
       --grid:rgba(255,255,255,.10);
     }
 
@@ -64,9 +64,9 @@
       content:"";
       position:absolute; inset:-2px;
       background:
-        radial-gradient(900px 520px at 90% 0%, rgba(14,165,233,.25), transparent 60%),
-        radial-gradient(880px 520px at 10% 12%, rgba(99,102,241,.20), transparent 55%),
-        radial-gradient(780px 460px at 85% 78%, rgba(34,211,238,.12), transparent 60%),
+        radial-gradient(900px 520px at 90% 0%, rgba(250,204,21,.30), transparent 60%),
+        radial-gradient(880px 520px at 10% 12%, rgba(34,197,94,.22), transparent 55%),
+        radial-gradient(780px 460px at 85% 78%, rgba(249,115,22,.18), transparent 60%),
         repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 2px, transparent 2px 12px);
       opacity:.55;
       pointer-events:none;
@@ -78,11 +78,11 @@
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px) saturate(140%);
       -webkit-backdrop-filter: blur(10px) saturate(140%);
-      background: rgba(7,10,15,.72);
+      background: rgba(5,5,10,.85);
       border-bottom:1px solid var(--edge);
     }
-    .nav a{ position:relative; color:rgba(238,243,255,.82); }
-    .nav a:hover{ color:rgba(238,243,255,1); }
+    .nav a{ position:relative; color:rgba(250,249,246,.82); }
+    .nav a:hover{ color:rgba(250,249,246,1); }
     .nav a:after{
       content:""; position:absolute; left:0; bottom:-8px; height:2px; width:0%;
       background:linear-gradient(90deg, var(--a1), var(--a2));
@@ -94,7 +94,7 @@
       display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
       height:44px; padding:0 1rem; border-radius:12px; font-weight:800;
       border:1px solid var(--edge);
-      background:rgba(255,255,255,.05);
+      background:rgba(255,255,255,.03);
       color:var(--ink);
       box-shadow: 0 10px 26px var(--shadow);
       transition: transform .12s ease, filter .12s ease, background .12s ease;
@@ -104,11 +104,12 @@
     .btn-primary{
       border-color:transparent;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 18px 45px rgba(14,165,233,.25), 0 18px 55px rgba(99,102,241,.22);
+      box-shadow: 0 18px 45px rgba(250,204,21,.30), 0 18px 55px rgba(34,197,94,.26);
+      color:#062208;
     }
 
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border:1px solid var(--edge);
       border-radius:18px;
       box-shadow: 0 18px 55px var(--shadow2);
@@ -128,7 +129,7 @@
       width:22px; height:22px; border-radius:999px;
       color:#0a0d14; font-size:.75rem; font-weight:900;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 10px 24px rgba(14,165,233,.35);
+      box-shadow: 0 10px 24px rgba(250,204,21,.40);
     }
 
     .k-title{
@@ -136,7 +137,7 @@
       letter-spacing:-.02em; line-height:1.03;
     }
     .heading-gradient{
-      background:linear-gradient(90deg, var(--a2), var(--a1));
+      background:linear-gradient(90deg, var(--a1), var(--a2));
       -webkit-background-clip:text; background-clip:text; color:transparent;
     }
 
@@ -146,7 +147,7 @@
       font-size:.78rem;
       background:rgba(255,255,255,.06);
       border:1px solid var(--edge);
-      color:rgba(238,243,255,.88);
+      color:rgba(250,249,246,.88);
     }
 
     .eyebrow{
@@ -155,12 +156,12 @@
       background:rgba(255,255,255,.06);
       border:1px solid var(--edge);
       box-shadow:0 10px 26px var(--shadow);
-      color:rgba(238,243,255,.90);
+      color:rgba(250,249,246,.92);
     }
     .beam{
       height:2px;
       background:linear-gradient(90deg, transparent, var(--a1), var(--a2), transparent);
-      opacity:.85;
+      opacity:.9;
     }
 
     /* hero columns */
@@ -184,8 +185,8 @@
     .dot{
       width:12px; height:12px; border-radius:999px;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow:0 0 0 6px rgba(14,165,233,.25);
-      border:1px solid rgba(255,255,255,.35);
+      box-shadow:0 0 0 6px rgba(250,204,21,.30);
+      border:1px solid rgba(255,255,255,.45);
     }
 
     .price{ display:grid; grid-template-columns:1fr auto; align-items:start; gap:1rem; }
@@ -193,14 +194,14 @@
       display:inline-grid; place-items:center;
       width:92px; height:92px; border-radius:999px;
       background:
-        radial-gradient(60% 60% at 50% 50%, rgba(14,165,233,.20), transparent 60%),
-        radial-gradient(100% 100% at 50% 50%, rgba(99,102,241,.22), transparent 70%);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 20px 60px rgba(0,0,0,.50);
+        radial-gradient(60% 60% at 50% 50%, rgba(250,204,21,.25), transparent 60%),
+        radial-gradient(100% 100% at 50% 50%, rgba(34,197,94,.25), transparent 70%);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 20px 60px rgba(0,0,0,.65);
       font-weight:900;
     }
     .ring span{
-      background:linear-gradient(90deg, var(--a2), var(--a1));
+      background:linear-gradient(90deg, var(--a1), var(--a2));
       -webkit-background-clip:text; background-clip:text; color:transparent;
     }
 
@@ -212,10 +213,10 @@
       pointer-events:auto;
       display:flex; align-items:center; gap:.8rem;
       border:1px solid var(--edge);
-      background:rgba(11,17,27,.78);
+      background:rgba(7,7,14,.90);
       backdrop-filter: blur(12px);
       border-radius:14px; padding:.55rem .7rem;
-      box-shadow:0 24px 70px rgba(0,0,0,.65);
+      box-shadow:0 24px 70px rgba(0,0,0,.80);
     }
 
     .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
@@ -230,10 +231,10 @@
       border-radius:22px;
       border:1px solid rgba(255,255,255,.12);
       background:
-        radial-gradient(900px 420px at 85% 10%, rgba(14,165,233,.20), transparent 60%),
-        radial-gradient(900px 420px at 15% 0%, rgba(99,102,241,.18), transparent 55%),
+        radial-gradient(900px 420px at 85% 10%, rgba(250,204,21,.26), transparent 60%),
+        radial-gradient(900px 420px at 15% 0%, rgba(34,197,94,.22), transparent 55%),
         linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      box-shadow: 0 26px 90px rgba(0,0,0,.65);
+      box-shadow: 0 26px 90px rgba(0,0,0,.80);
       overflow:hidden;
     }
     .showcase:before{
@@ -241,7 +242,7 @@
       position:absolute; inset:0;
       background-image: radial-gradient(var(--grid) 1px, transparent 1px);
       background-size: 18px 18px;
-      opacity:.10;
+      opacity:.12;
       pointer-events:none;
       mask: linear-gradient(180deg, rgba(0,0,0,.85), transparent 70%);
     }
@@ -297,14 +298,14 @@
       align-items:center;
       gap:.6rem;
       font-weight:900;
-      color: rgba(238,243,255,.95);
+      color: rgba(250,249,246,.95);
       letter-spacing:.02em;
     }
 
     .carousel-title .dotBadge{
       width:10px;height:10px;border-radius:999px;
       background: linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 0 0 6px rgba(14,165,233,.30);
+      box-shadow: 0 0 0 6px rgba(250,204,21,.35);
     }
 
     .carousel-actions{
@@ -321,8 +322,8 @@
       background: rgba(255,255,255,.05);
       display:inline-grid;
       place-items:center;
-      color: rgba(238,243,255,.92);
-      box-shadow: 0 12px 30px rgba(0,0,0,.45);
+      color: rgba(250,249,246,.92);
+      box-shadow: 0 12px 30px rgba(0,0,0,.55);
       transition: transform .12s ease, filter .12s ease;
     }
     .iconBtn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
@@ -334,7 +335,7 @@
       justify-content:space-between;
       gap:12px;
       padding:10px 14px 14px 14px;
-      color: rgba(238,243,255,.70);
+      color: rgba(250,249,246,.70);
       font-size: 12px;
     }
 
@@ -353,7 +354,7 @@
     }
     .dotBtn.active{
       width:18px;
-      background: linear-gradient(90deg, var(--a2), var(--a1));
+      background: linear-gradient(90deg, var(--a1), var(--a2));
       opacity:1;
       border-color: transparent;
     }
@@ -390,7 +391,7 @@
       </nav>
 
       <div class="hidden md:flex items-center gap-2">
-        <!-- زر Academy على اليمين محذوف حسب طلبك -->
+        <!-- زر Academy شلناه من الهيدر حسب طلبك -->
         <a class="btn btn-primary" href="#pricing"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
       </div>
 
@@ -403,7 +404,7 @@
     <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
       <div class="absolute inset-0 bg-black/60" data-close></div>
       <div class="absolute right-3 left-3 top-4 rounded-2xl"
-           style="background:rgba(11,17,27,.92); border:1px solid var(--edge); backdrop-filter: blur(14px);">
+           style="background:rgba(7,7,14,.96); border:1px solid var(--edge); backdrop-filter: blur(14px);">
         <div class="p-3 flex justify-end">
           <button class="btn btn-ghost" data-close aria-label="Close"><i data-lucide="x"></i></button>
         </div>
@@ -447,8 +448,8 @@
 
           <div class="mt-8 rounded-xl p-3 flex items-center text-sm"
                style="border:1px solid var(--edge); background:rgba(255,255,255,.06); backdrop-filter: blur(10px);">
-            <div class="px-3 py-1 rounded-full text-white font-extrabold"
-                 style="background:linear-gradient(135deg, var(--a2), var(--a1));">FIRST40</div>
+            <div class="px-3 py-1 rounded-full text-black font-extrabold"
+                 style="background:linear-gradient(135deg, var(--a1), var(--a2));">FIRST40</div>
             <div class="ml-3">
               Launch offer: first 40 get the course for <b>$550</b> (regular <span class="line-through">$1000</span>).
             </div>
@@ -871,7 +872,7 @@
   <!-- Sticky Checkout dock -->
   <div class="dock">
     <div class="dock-inner">
-      <span class="hidden sm:inline text-sm muted">Use <b style="color:rgba(238,243,255,.92)">FIRST40</b> for launch pricing</span>
+      <span class="hidden sm:inline text-sm muted">Use <b style="color:rgba(250,249,246,.92)">FIRST40</b> for launch pricing</span>
       <a href="#pricing" class="btn btn-primary"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
     </div>
   </div>
@@ -880,7 +881,7 @@
   <div id="currModal" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/70" data-curr-close></div>
     <div class="relative max-w-4xl mx-auto mt-16 mb-10 rounded-2xl"
-         style="background:rgba(11,17,27,.94); border:1px solid var(--edge); backdrop-filter: blur(14px);">
+         style="background:rgba(7,7,14,.96); border:1px solid var(--edge); backdrop-filter: blur(14px);">
       <div class="flex items-center justify-between px-5 py-4 border-b" style="border-color:var(--edge)">
         <h3 class="text-lg font-extrabold">Course · Full Syllabus</h3>
         <button class="btn btn-ghost" data-curr-close aria-label="Close"><i data-lucide="x"></i></button>
