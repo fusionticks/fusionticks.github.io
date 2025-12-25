@@ -163,7 +163,7 @@
       opacity:.85;
     }
 
-    /* ✅ CHANGED: make right column wider so the image can be bigger */
+    /* hero grid */
     .hero-grid{
       display:grid;
       grid-template-columns: 0.95fr 1.05fr;
@@ -224,7 +224,7 @@
     .no-scrollbar::-webkit-scrollbar{display:none}
     .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
 
-    /* ===== Modern Carousel (ONLY used in the 3 image sections) ===== */
+    /* ===== Modern Carousel (3 sections) ===== */
     .showcase{
       position:relative;
       border-radius:22px;
@@ -351,12 +351,19 @@
       border-color: transparent;
     }
 
+    /* ✅ NEW: match frame to 1856x951 ratio so ما يطلع فراغ كبير تحت الصورة */
     .placeholder{
-      min-height: 360px;
-      height: clamp(320px, 40vw, 460px);
+      width:100%;
+      aspect-ratio: 1856 / 951;
+      max-height:520px;
+      min-height:280px;
     }
     @media (max-width: 1024px){
-      .placeholder{ height: 320px; min-height: 300px; }
+      .placeholder{
+        aspect-ratio:16 / 9;
+        max-height:none;
+        min-height:260px;
+      }
     }
   </style>
 </head>
@@ -380,8 +387,8 @@
         <a href="#faq">FAQ</a>
       </nav>
 
+      <!-- ✅ REMOVED Academy button هنا، خليت بس Get Access -->
       <div class="hidden md:flex items-center gap-2">
-        <a class="btn btn-ghost" href="#academy"><i data-lucide="book-open" class="w-4 h-4"></i> Academy</a>
         <a class="btn btn-primary" href="#pricing"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
       </div>
 
@@ -446,7 +453,7 @@
           </div>
         </div>
 
-        <!-- ✅ RIGHT HERO IMAGE (BIG, no glow) -->
+        <!-- HERO IMAGE -->
         <div class="relative flex items-center justify-center">
           <img
             src="./hero-visual.webp"
@@ -816,7 +823,8 @@
         <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Still curious?</h2>
       </div>
 
-      <div class="mt-6 space-y-4 max-w-3xl">
+      <!-- ✅ وسّعت إطار الأسئلة من max-w-3xl إلى max-w-4xl -->
+      <div class="mt-6 space-y-4 max-w-4xl">
         <details class="card reveal p-5">
           <summary class="cursor-pointer font-semibold">Is this for beginners or advanced traders?</summary>
           <p class="muted mt-3 text-sm">Both. Beginners get structure, advanced traders clean noise and tighten execution.</p>
@@ -849,8 +857,9 @@
             <a class="btn btn-ghost" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
               <i data-lucide="youtube" class="w-4 h-4"></i>
             </a>
+            <!-- ✅ عدّلت لوجو TikTok: بدل TT صار آيكون موسيقى بسيط -->
             <a class="btn btn-ghost" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
-              <span class="font-extrabold">TT</span>
+              <i data-lucide="music-4" class="w-4 h-4"></i>
             </a>
           </div>
         </div>
@@ -938,7 +947,7 @@
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.lucide) lucide.createIcons(); });
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Reveal on scroll (safe, no auto scrolling)
+    // Reveal on scroll
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
@@ -977,7 +986,7 @@
     };
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
 
-    // ===== Carousels (USE YOUR REAL FILE NAMES) =====
+    // Carousels
     const IMAGE_SETS = {
       academy: [
         "./academy-1.webp","./academy-2.webp","./academy-3.webp",
@@ -994,7 +1003,7 @@
     };
 
     function buildCarousel(viewport){
-      const setKey = viewport.getAttribute('data-set'); // academy / journal / discord
+      const setKey = viewport.getAttribute('data-set');
       const slides = IMAGE_SETS[setKey] || [];
 
       const track = viewport.querySelector('.carousel-track');
@@ -1023,14 +1032,12 @@
         return;
       }
 
-      // Render slides
       track.innerHTML = slides.map((src)=>`
         <div class="carousel-slide">
           <img src="${src}" alt="" loading="lazy" draggable="false"/>
         </div>
       `).join('');
 
-      // Render dots
       dotsWrap.innerHTML = slides.map((_,i)=>`
         <button class="dotBtn" aria-label="Go to slide ${i+1}" data-dot="${i}"></button>
       `).join('');
@@ -1053,7 +1060,6 @@
       nextBtn.addEventListener('click', ()=> setIndex(index + 1));
       dotBtns.forEach(b=> b.addEventListener('click', ()=> setIndex(Number(b.dataset.dot || 0))));
 
-      // Keyboard support (only when hovering this carousel)
       viewport.addEventListener('mouseenter', ()=> viewport.setAttribute('data-active','1'));
       viewport.addEventListener('mouseleave', ()=> viewport.removeAttribute('data-active'));
       window.addEventListener('keydown', (e)=>{
@@ -1062,7 +1068,6 @@
         if(e.key === 'ArrowRight') setIndex(index + 1);
       }, {passive:true});
 
-      // Touch swipe
       let startX = 0, startY = 0, down = false;
       viewport.addEventListener('pointerdown', (e)=>{
         down = true;
@@ -1078,7 +1083,6 @@
         }
       });
 
-      // First paint
       update();
     }
 
