@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FUSIONTICKS</title>
   <meta name="description" content="FusionTicks: signal-free, risk-first trading education. Read the market, map key levels, confirm on lower timeframe, and journal."/>
-  <meta name="theme-color" content="#070A0F"/>
+  <meta name="theme-color" content="#050814"/>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,19 +32,19 @@
 
   <style>
     :root{
-      /* Dark luxe palette */
-      --bg:#070A0F;
-      --panel:#0B111B;
-      --panel2:#0E1624;
+      /* Dark luxe palette – Palette 1 (Blue + Violet) */
+      --bg:#050814;
+      --panel:#060A12;
+      --panel2:#0B1220;
       --edge:rgba(255,255,255,.10);
       --edge2:rgba(255,255,255,.14);
       --ink:#EEF3FF;
       --muted:#A7B2C8;
 
-      /* Accent (premium) */
-      --a1:#FF2D55; /* rose */
-      --a2:#7C3AED; /* violet */
-      --a3:#14B8A6; /* teal micro */
+      /* Accent (Fusion Blue) */
+      --a1:#2563EB;  /* Electric Blue */
+      --a2:#A855F7;  /* Violet */
+      --a3:#22D3EE;  /* Cyan / Teal */
 
       --shadow:rgba(0,0,0,.45);
       --shadow2:rgba(0,0,0,.60);
@@ -64,9 +64,9 @@
       content:"";
       position:absolute; inset:-2px;
       background:
-        radial-gradient(900px 520px at 90% 0%, rgba(124,58,237,.22), transparent 60%),
-        radial-gradient(880px 520px at 10% 12%, rgba(255,45,85,.18), transparent 55%),
-        radial-gradient(780px 460px at 85% 78%, rgba(20,184,166,.10), transparent 60%),
+        radial-gradient(900px 520px at 90% 0%, rgba(37,99,235,.25), transparent 60%),
+        radial-gradient(880px 520px at 10% 12%, rgba(168,85,247,.20), transparent 55%),
+        radial-gradient(780px 460px at 85% 78%, rgba(34,211,238,.12), transparent 60%),
         repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 2px, transparent 2px 12px);
       opacity:.55;
       pointer-events:none;
@@ -104,7 +104,7 @@
     .btn-primary{
       border-color:transparent;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 18px 45px rgba(255,45,85,.18), 0 18px 55px rgba(124,58,237,.16);
+      box-shadow: 0 18px 45px rgba(37,99,235,.25), 0 18px 55px rgba(168,85,247,.22);
     }
 
     .card{
@@ -127,8 +127,8 @@
       display:inline-grid; place-items:center;
       width:22px; height:22px; border-radius:999px;
       color:#0a0d14; font-size:.75rem; font-weight:900;
-      background:linear-gradient(135deg, rgba(255,45,85,1), rgba(124,58,237,1));
-      box-shadow: 0 10px 24px rgba(255,45,85,.18);
+      background:linear-gradient(135deg, var(--a1), var(--a2));
+      box-shadow: 0 10px 24px rgba(37,99,235,.35);
     }
 
     .k-title{
@@ -159,11 +159,11 @@
     }
     .beam{
       height:2px;
-      background:linear-gradient(90deg, transparent, rgba(255,45,85,.9), rgba(124,58,237,.9), transparent);
+      background:linear-gradient(90deg, transparent, var(--a1), var(--a2), transparent);
       opacity:.85;
     }
 
-    /* hero grid */
+    /* hero columns */
     .hero-grid{
       display:grid;
       grid-template-columns: 0.95fr 1.05fr;
@@ -184,7 +184,7 @@
     .dot{
       width:12px; height:12px; border-radius:999px;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow:0 0 0 6px rgba(124,58,237,.12);
+      box-shadow:0 0 0 6px rgba(37,99,235,.25);
       border:1px solid rgba(255,255,255,.35);
     }
 
@@ -193,8 +193,8 @@
       display:inline-grid; place-items:center;
       width:92px; height:92px; border-radius:999px;
       background:
-        radial-gradient(60% 60% at 50% 50%, rgba(255,45,85,.18), transparent 60%),
-        radial-gradient(100% 100% at 50% 50%, rgba(124,58,237,.18), transparent 70%);
+        radial-gradient(60% 60% at 50% 50%, rgba(37,99,235,.20), transparent 60%),
+        radial-gradient(100% 100% at 50% 50%, rgba(168,85,247,.22), transparent 70%);
       border:1px solid rgba(255,255,255,.12);
       box-shadow:0 20px 60px rgba(0,0,0,.50);
       font-weight:900;
@@ -224,14 +224,14 @@
     .no-scrollbar::-webkit-scrollbar{display:none}
     .no-scrollbar{scrollbar-width:none;-ms-overstyle:none}
 
-    /* ===== Modern Carousel (3 sections) ===== */
+    /* ===== Modern Carousel (ONLY used in the 3 image sections) ===== */
     .showcase{
       position:relative;
       border-radius:22px;
       border:1px solid rgba(255,255,255,.12);
       background:
-        radial-gradient(900px 420px at 85% 10%, rgba(124,58,237,.20), transparent 60%),
-        radial-gradient(900px 420px at 15% 0%, rgba(255,45,85,.16), transparent 55%),
+        radial-gradient(900px 420px at 85% 10%, rgba(37,99,235,.20), transparent 60%),
+        radial-gradient(900px 420px at 15% 0%, rgba(168,85,247,.18), transparent 55%),
         linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
       box-shadow: 0 26px 90px rgba(0,0,0,.65);
       overflow:hidden;
@@ -252,6 +252,13 @@
       border-radius:18px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.22);
+    }
+
+    /* نضبط نسبة الإطار قريبة من 1856x951 لكل الكاروسيل */
+    .carousel-viewport.placeholder{
+      aspect-ratio:1856/951;
+      width:100%;
+      height:auto;
     }
 
     .carousel-track{
@@ -297,7 +304,7 @@
     .carousel-title .dotBadge{
       width:10px;height:10px;border-radius:999px;
       background: linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 0 0 6px rgba(124,58,237,.12);
+      box-shadow: 0 0 0 6px rgba(37,99,235,.30);
     }
 
     .carousel-actions{
@@ -351,18 +358,13 @@
       border-color: transparent;
     }
 
-    /* ✅ NEW: match frame to 1856x951 ratio so ما يطلع فراغ كبير تحت الصورة */
     .placeholder{
-      width:100%;
-      aspect-ratio: 1856 / 951;
-      max-height:520px;
-      min-height:280px;
+      min-height:0;
     }
+
     @media (max-width: 1024px){
-      .placeholder{
-        aspect-ratio:16 / 9;
-        max-height:none;
-        min-height:260px;
+      .carousel-viewport.placeholder{
+        aspect-ratio:auto;
       }
     }
   </style>
@@ -387,8 +389,8 @@
         <a href="#faq">FAQ</a>
       </nav>
 
-      <!-- ✅ REMOVED Academy button هنا، خليت بس Get Access -->
       <div class="hidden md:flex items-center gap-2">
+        <!-- تم إزالة زر Academy من اليمين بناءً على طلبك -->
         <a class="btn btn-primary" href="#pricing"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
       </div>
 
@@ -453,7 +455,7 @@
           </div>
         </div>
 
-        <!-- HERO IMAGE -->
+        <!-- RIGHT HERO IMAGE (BIG, no glow) -->
         <div class="relative flex items-center justify-center">
           <img
             src="./hero-visual.webp"
@@ -597,7 +599,7 @@
         <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">
           <span class="heading-gradient">FUSIONTICKS JOURNAL</span>
         </h2>
-        <p class="mt-2 muted max-w-3xl">Track your trades, mistakes, and progress. Included with the course, or get it standalone for $20.</p>
+      <p class="mt-2 muted max-w-3xl">Track your trades, mistakes, and progress. Included with the course, or get it standalone for $20.</p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
@@ -823,8 +825,8 @@
         <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Still curious?</h2>
       </div>
 
-      <!-- ✅ وسّعت إطار الأسئلة من max-w-3xl إلى max-w-4xl -->
-      <div class="mt-6 space-y-4 max-w-4xl">
+      <!-- وسّعنا عرض الأسئلة وخليّناها في النص -->
+      <div class="mt-6 space-y-4 max-w-5xl mx-auto">
         <details class="card reveal p-5">
           <summary class="cursor-pointer font-semibold">Is this for beginners or advanced traders?</summary>
           <p class="muted mt-3 text-sm">Both. Beginners get structure, advanced traders clean noise and tighten execution.</p>
@@ -857,9 +859,8 @@
             <a class="btn btn-ghost" href="https://youtube.com/@fusionticks?si=VMRgtVaI1V6DPgTb" target="_blank" aria-label="YouTube">
               <i data-lucide="youtube" class="w-4 h-4"></i>
             </a>
-            <!-- ✅ عدّلت لوجو TikTok: بدل TT صار آيكون موسيقى بسيط -->
             <a class="btn btn-ghost" href="https://www.tiktok.com/@fusionticks?_t=ZS-8zYOXn2fmDg&_r=1" target="_blank" aria-label="TikTok">
-              <i data-lucide="music-4" class="w-4 h-4"></i>
+              <i data-lucide="music-3" class="w-4 h-4"></i>
             </a>
           </div>
         </div>
@@ -947,7 +948,7 @@
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.lucide) lucide.createIcons(); });
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Reveal on scroll
+    // Reveal on scroll (safe, no auto scrolling)
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
@@ -986,7 +987,7 @@
     };
     hookModal('[data-curr-open]','currModal','[data-curr-close]');
 
-    // Carousels
+    // ===== Carousels (use your real file names) =====
     const IMAGE_SETS = {
       academy: [
         "./academy-1.webp","./academy-2.webp","./academy-3.webp",
@@ -1003,7 +1004,7 @@
     };
 
     function buildCarousel(viewport){
-      const setKey = viewport.getAttribute('data-set');
+      const setKey = viewport.getAttribute('data-set'); // academy / journal / discord
       const slides = IMAGE_SETS[setKey] || [];
 
       const track = viewport.querySelector('.carousel-track');
@@ -1032,12 +1033,14 @@
         return;
       }
 
+      // Render slides
       track.innerHTML = slides.map((src)=>`
         <div class="carousel-slide">
           <img src="${src}" alt="" loading="lazy" draggable="false"/>
         </div>
       `).join('');
 
+      // Render dots
       dotsWrap.innerHTML = slides.map((_,i)=>`
         <button class="dotBtn" aria-label="Go to slide ${i+1}" data-dot="${i}"></button>
       `).join('');
@@ -1060,6 +1063,7 @@
       nextBtn.addEventListener('click', ()=> setIndex(index + 1));
       dotBtns.forEach(b=> b.addEventListener('click', ()=> setIndex(Number(b.dataset.dot || 0))));
 
+      // Keyboard support (only when hovering this carousel)
       viewport.addEventListener('mouseenter', ()=> viewport.setAttribute('data-active','1'));
       viewport.addEventListener('mouseleave', ()=> viewport.removeAttribute('data-active'));
       window.addEventListener('keydown', (e)=>{
@@ -1068,6 +1072,7 @@
         if(e.key === 'ArrowRight') setIndex(index + 1);
       }, {passive:true});
 
+      // Touch swipe
       let startX = 0, startY = 0, down = false;
       viewport.addEventListener('pointerdown', (e)=>{
         down = true;
@@ -1083,6 +1088,7 @@
         }
       });
 
+      // First paint
       update();
     }
 
