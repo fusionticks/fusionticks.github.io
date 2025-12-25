@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FUSIONTICKS</title>
   <meta name="description" content="FusionTicks: signal-free, risk-first trading education. Read the market, map key levels, confirm on lower timeframe, and journal."/>
-  <meta name="theme-color" content="#050814"/>
+  <meta name="theme-color" content="#020617"/>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,19 +32,19 @@
 
   <style>
     :root{
-      /* Dark luxe palette – Palette 1 (Blue + Violet) */
-      --bg:#050814;
-      --panel:#060A12;
-      --panel2:#0B1220;
+      /* Dark luxe palette – Palette 2 (Deep Navy x Cyan Glow) */
+      --bg:#020617;
+      --panel:#030712;
+      --panel2:#020617;
       --edge:rgba(255,255,255,.10);
       --edge2:rgba(255,255,255,.14);
-      --ink:#EEF3FF;
-      --muted:#A7B2C8;
+      --ink:#E5F0FF;
+      --muted:#8CA0C4;
 
-      /* Accent (Fusion Blue) */
-      --a1:#2563EB;  /* Electric Blue */
-      --a2:#A855F7;  /* Violet */
-      --a3:#22D3EE;  /* Cyan / Teal */
+      /* Accent (Cyan + Indigo) */
+      --a1:#0EA5E9;  /* Cyan */
+      --a2:#6366F1;  /* Indigo */
+      --a3:#22D3EE;  /* Bright Cyan */
 
       --shadow:rgba(0,0,0,.45);
       --shadow2:rgba(0,0,0,.60);
@@ -64,8 +64,8 @@
       content:"";
       position:absolute; inset:-2px;
       background:
-        radial-gradient(900px 520px at 90% 0%, rgba(37,99,235,.25), transparent 60%),
-        radial-gradient(880px 520px at 10% 12%, rgba(168,85,247,.20), transparent 55%),
+        radial-gradient(900px 520px at 90% 0%, rgba(14,165,233,.25), transparent 60%),
+        radial-gradient(880px 520px at 10% 12%, rgba(99,102,241,.20), transparent 55%),
         radial-gradient(780px 460px at 85% 78%, rgba(34,211,238,.12), transparent 60%),
         repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 2px, transparent 2px 12px);
       opacity:.55;
@@ -104,7 +104,7 @@
     .btn-primary{
       border-color:transparent;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 18px 45px rgba(37,99,235,.25), 0 18px 55px rgba(168,85,247,.22);
+      box-shadow: 0 18px 45px rgba(14,165,233,.25), 0 18px 55px rgba(99,102,241,.22);
     }
 
     .card{
@@ -128,7 +128,7 @@
       width:22px; height:22px; border-radius:999px;
       color:#0a0d14; font-size:.75rem; font-weight:900;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 10px 24px rgba(37,99,235,.35);
+      box-shadow: 0 10px 24px rgba(14,165,233,.35);
     }
 
     .k-title{
@@ -184,7 +184,7 @@
     .dot{
       width:12px; height:12px; border-radius:999px;
       background:linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow:0 0 0 6px rgba(37,99,235,.25);
+      box-shadow:0 0 0 6px rgba(14,165,233,.25);
       border:1px solid rgba(255,255,255,.35);
     }
 
@@ -193,8 +193,8 @@
       display:inline-grid; place-items:center;
       width:92px; height:92px; border-radius:999px;
       background:
-        radial-gradient(60% 60% at 50% 50%, rgba(37,99,235,.20), transparent 60%),
-        radial-gradient(100% 100% at 50% 50%, rgba(168,85,247,.22), transparent 70%);
+        radial-gradient(60% 60% at 50% 50%, rgba(14,165,233,.20), transparent 60%),
+        radial-gradient(100% 100% at 50% 50%, rgba(99,102,241,.22), transparent 70%);
       border:1px solid rgba(255,255,255,.12);
       box-shadow:0 20px 60px rgba(0,0,0,.50);
       font-weight:900;
@@ -230,8 +230,8 @@
       border-radius:22px;
       border:1px solid rgba(255,255,255,.12);
       background:
-        radial-gradient(900px 420px at 85% 10%, rgba(37,99,235,.20), transparent 60%),
-        radial-gradient(900px 420px at 15% 0%, rgba(168,85,247,.18), transparent 55%),
+        radial-gradient(900px 420px at 85% 10%, rgba(14,165,233,.20), transparent 60%),
+        radial-gradient(900px 420px at 15% 0%, rgba(99,102,241,.18), transparent 55%),
         linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
       box-shadow: 0 26px 90px rgba(0,0,0,.65);
       overflow:hidden;
@@ -254,7 +254,7 @@
       background: rgba(0,0,0,.22);
     }
 
-    /* نضبط نسبة الإطار قريبة من 1856x951 لكل الكاروسيل */
+    /* إطار متناسب مع 1856x951 لكل الكاروسيل */
     .carousel-viewport.placeholder{
       aspect-ratio:1856/951;
       width:100%;
@@ -304,7 +304,7 @@
     .carousel-title .dotBadge{
       width:10px;height:10px;border-radius:999px;
       background: linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 0 0 6px rgba(37,99,235,.30);
+      box-shadow: 0 0 0 6px rgba(14,165,233,.30);
     }
 
     .carousel-actions{
@@ -390,7 +390,7 @@
       </nav>
 
       <div class="hidden md:flex items-center gap-2">
-        <!-- تم إزالة زر Academy من اليمين بناءً على طلبك -->
+        <!-- زر Academy على اليمين محذوف حسب طلبك -->
         <a class="btn btn-primary" href="#pricing"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
       </div>
 
@@ -599,7 +599,7 @@
         <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">
           <span class="heading-gradient">FUSIONTICKS JOURNAL</span>
         </h2>
-      <p class="mt-2 muted max-w-3xl">Track your trades, mistakes, and progress. Included with the course, or get it standalone for $20.</p>
+        <p class="mt-2 muted max-w-3xl">Track your trades, mistakes, and progress. Included with the course, or get it standalone for $20.</p>
       </div>
 
       <div class="mt-8 grid lg:grid-cols-3 gap-6">
@@ -825,7 +825,7 @@
         <h2 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold">Still curious?</h2>
       </div>
 
-      <!-- وسّعنا عرض الأسئلة وخليّناها في النص -->
+      <!-- أسئلة أعرض في النص -->
       <div class="mt-6 space-y-4 max-w-5xl mx-auto">
         <details class="card reveal p-5">
           <summary class="cursor-pointer font-semibold">Is this for beginners or advanced traders?</summary>
@@ -948,7 +948,7 @@
     document.addEventListener('DOMContentLoaded', ()=>{ if(window.lucide) lucide.createIcons(); });
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Reveal on scroll (safe, no auto scrolling)
+    // Reveal on scroll
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
