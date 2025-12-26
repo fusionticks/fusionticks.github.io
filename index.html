@@ -63,8 +63,6 @@
       overflow:hidden;
       border-bottom:1px solid var(--edge);
     }
-
-    /* IMPORTANT: keep overlay above background, but below content */
     .aperture-band:before{
       content:"";
       position:absolute; inset:-2px;
@@ -73,34 +71,35 @@
         radial-gradient(880px 520px at 10% 12%, rgba(99,102,241,.20), transparent 55%),
         radial-gradient(780px 460px at 85% 78%, rgba(34,211,238,.12), transparent 60%),
         repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 2px, transparent 2px 12px);
-      opacity:.40; /* أقل حتى تبين صورة الخلفية */
+      opacity:.28; /* كان .55 -> خففناه حتى الصورة تبين أوضح */
       pointer-events:none;
-      z-index:0;
+      z-index:-1;
       mask: linear-gradient(180deg, rgba(0,0,0,.95), rgba(0,0,0,.70) 60%, rgba(0,0,0,.35));
     }
 
-    /* Make content always above overlays */
-    .aperture-band > .max-w-7xl{
-      position:relative;
-      z-index:1;
-    }
-
-    /* ===== HERO BACKGROUND IMAGE (covers full hero) ===== */
+    /* ===== HERO BACKGROUND IMAGE (full + clearer + not zoomed) ===== */
     #top.aperture-band{
+      min-height: clamp(640px, 82vh, 920px);
+      display:flex;
+      align-items:center;
+
       background-image:
         linear-gradient(90deg,
-          rgba(2,6,23,.92) 0%,
-          rgba(2,6,23,.78) 45%,
-          rgba(2,6,23,.30) 100%
+          rgba(2,6,23,.78) 0%,
+          rgba(2,6,23,.48) 45%,
+          rgba(2,6,23,.16) 100%
         ),
         url("./hero-visual.webp");
-      background-size: cover, cover;
+
+      /* الصورة كاملة (بدون قص) */
+      background-size: cover, contain;
       background-position: center, right center;
       background-repeat: no-repeat, no-repeat;
     }
 
     @media (max-width: 640px){
       #top.aperture-band{
+        min-height: 720px;
         background-position: center, 70% 40%;
       }
     }
@@ -542,7 +541,7 @@
           </div>
         </div>
 
-        <!-- RIGHT HERO: REMOVED (image is now full background) -->
+        <!-- RIGHT HERO AREA (spacer فقط لترك مساحة للصورة بالخلفية على الديسكتوب) -->
         <div class="hidden lg:block"></div>
       </div>
     </div>
