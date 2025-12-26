@@ -49,6 +49,8 @@
       --shadow:rgba(0,0,0,.45);
       --shadow2:rgba(0,0,0,.60);
       --grid:rgba(255,255,255,.10);
+
+      --navh:68px;
     }
 
     html{scroll-behavior:smooth}
@@ -171,6 +173,13 @@
       opacity:.85;
     }
 
+    /* ===== HERO FULL SCREEN ===== */
+    .hero-full{
+      min-height: calc(100vh - var(--navh));
+      display:flex;
+      align-items:center;
+    }
+
     /* hero columns */
     .hero-grid{
       display:grid;
@@ -193,6 +202,10 @@
         linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
       box-shadow: 0 26px 90px rgba(0,0,0,.65);
       overflow:hidden;
+
+      /* keeps the hero visual consistent and not too tall */
+      aspect-ratio: 1856/951;
+      width:100%;
     }
     .hero-visual:before{
       content:"";
@@ -213,7 +226,8 @@
     }
     .hero-img{
       width:100%;
-      height:auto;
+      height:100%;
+      object-fit:contain;
       display:block;
       opacity:.95;
       filter: saturate(1.06) contrast(1.04);
@@ -519,9 +533,9 @@
     </div>
   </header>
 
-  <!-- HERO -->
-  <section id="top" class="aperture-band">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10 lg:pt-16">
+  <!-- HERO (FULL SCREEN) -->
+  <section id="top" class="aperture-band hero-full">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
       <div class="hero-grid">
         <div class="relative">
           <span class="strapline">
@@ -533,17 +547,13 @@
             Not Noise.
           </h1>
 
+          <!-- UPDATED COPY -->
           <p class="mt-5 muted max-w-2xl">
-            No calls. No “secret strategy”. Just a repeatable process:
-            map higher-timeframe levels, confirm on lower timeframe, manage risk, then journal.
+            FusionTicks teaches a simple process: map key levels on the higher timeframe, read who is in control,
+            confirm on the lower timeframe, then manage risk and journal the result.
           </p>
 
-          <div class="mt-7 flex flex-wrap gap-3">
-            <a href="#pricing" class="btn btn-primary"><i data-lucide="arrow-right" class="w-4 h-4"></i> Get Access</a>
-            <a href="#academy" class="btn btn-soft"><i data-lucide="book-open" class="w-4 h-4"></i> Academy</a>
-            <span class="tag">NQ · ES · CL · GC · QQQ · SPY</span>
-            <span class="tag">Context → Confirm</span>
-          </div>
+          <!-- (REMOVED) Get Access / Academy / Markets / Context-Confirm block -->
 
           <div class="mt-8 rounded-xl p-3 flex items-start sm:items-center text-sm gap-3"
                style="border:1px solid var(--edge); background:rgba(255,255,255,.06); backdrop-filter: blur(10px);">
@@ -914,7 +924,6 @@
             </div>
           </article>
 
-          <!-- Replaced "Reserved" with "What you get" -->
           <article class="card reveal p-6">
             <div class="flex items-center justify-between">
               <div class="font-extrabold">What You Get</div>
@@ -963,7 +972,6 @@
               <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5" style="color:var(--a2)"></i> Simple stats and patterns</li>
             </ul>
             <div class="pt-5">
-              <!-- If you have a Journal checkout link later, replace href with it -->
               <a href="#pricing" class="btn btn-primary w-full justify-center">Get Journal - $20</a>
               <p class="text-xs muted mt-2">Included free with the course.</p>
             </div>
