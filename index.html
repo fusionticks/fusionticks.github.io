@@ -173,40 +173,49 @@
       opacity:.85;
     }
 
-    /* ===== HERO FULL SCREEN ===== */
+    /* ===== HERO FULL SCREEN (fills screen, not centered) ===== */
     .hero-full{
       min-height: calc(100vh - var(--navh));
       display:flex;
-      align-items:center;
+      align-items: stretch;
+      padding-block: clamp(18px, 4vh, 56px);
     }
 
     /* hero columns */
     .hero-grid{
       display:grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap:2rem;
-      align-items:center;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(18px, 3vw, 44px);
+      align-items: stretch;
     }
     @media (max-width: 1024px){
-      .hero-grid{ grid-template-columns:1fr }
+      .hero-grid{ grid-template-columns:1fr; }
     }
 
-    /* ===== HERO IMAGE FEATHER / MASK ===== */
+    /* ===== HERO IMAGE FRAME (bigger + image fits frame) ===== */
     .hero-visual{
       position:relative;
-      border-radius:22px;
+      border-radius:24px;
       border:1px solid rgba(255,255,255,.12);
       background:
-        radial-gradient(900px 420px at 85% 10%, rgba(14,165,233,.18), transparent 60%),
-        radial-gradient(900px 420px at 15% 0%, rgba(99,102,241,.16), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+        radial-gradient(900px 420px at 85% 10%, rgba(14,165,233,.20), transparent 60%),
+        radial-gradient(900px 420px at 15% 0%, rgba(99,102,241,.18), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       box-shadow: 0 26px 90px rgba(0,0,0,.65);
       overflow:hidden;
 
-      /* keeps the hero visual consistent and not too tall */
-      aspect-ratio: 1856/951;
-      width:100%;
+      width: min(920px, 58vw);
+      height: clamp(300px, 56vh, 620px);
+      margin-left:auto;
     }
+    @media (max-width: 1024px){
+      .hero-visual{
+        width:100%;
+        height: clamp(260px, 42vh, 520px);
+        margin-left:0;
+      }
+    }
+
     .hero-visual:before{
       content:"";
       position:absolute; inset:0;
@@ -216,6 +225,7 @@
       pointer-events:none;
       mask: linear-gradient(180deg, rgba(0,0,0,.85), transparent 70%);
     }
+
     .hero-glow{
       position:absolute;
       inset:-44px;
@@ -224,21 +234,26 @@
       opacity:.9;
       pointer-events:none;
     }
+
     .hero-img{
       width:100%;
       height:100%;
-      object-fit:contain;
       display:block;
-      opacity:.95;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.06);
+      opacity: .96;
       filter: saturate(1.06) contrast(1.04);
 
-      -webkit-mask-image: radial-gradient(85% 85% at 55% 50%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
-      mask-image: radial-gradient(85% 85% at 55% 50%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+      /* Feather / Mask */
+      -webkit-mask-image: radial-gradient(85% 85% at 55% 50%, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%);
+      mask-image: radial-gradient(85% 85% at 55% 50%, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%);
     }
+
     .hero-overlay{
       position:absolute; inset:0;
       background:
-        linear-gradient(90deg, rgba(2,6,23,.55) 0%, rgba(2,6,23,.18) 45%, rgba(2,6,23,.00) 75%),
+        linear-gradient(90deg, rgba(2,6,23,.45) 0%, rgba(2,6,23,.14) 45%, rgba(2,6,23,0) 75%),
         radial-gradient(700px 420px at 70% 40%, rgba(14,165,233,.10), transparent 60%);
       pointer-events:none;
     }
@@ -288,7 +303,7 @@
       box-shadow:0 24px 70px rgba(0,0,0,.65);
     }
     @media (max-width: 767px){
-      .dock{ display:none; } /* mobile fix */
+      .dock{ display:none; }
     }
 
     .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
@@ -325,7 +340,7 @@
       border-radius:18px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.22);
-      aspect-ratio:1856/951; /* keep consistent on mobile */
+      aspect-ratio:1856/951;
       width:100%;
       height:auto;
     }
@@ -398,7 +413,6 @@
     .iconBtn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
     .iconBtn:disabled{ opacity:.35; cursor:not-allowed; transform:none; filter:none; }
 
-    /* Mobile: make arrows smaller and less intrusive (swipe-first) */
     @media (max-width: 640px){
       .iconBtn{ height:36px; width:36px; border-radius:12px; opacity:.9; }
       .carousel-footer{ padding:10px 14px 14px 14px; }
@@ -533,11 +547,12 @@
     </div>
   </header>
 
-  <!-- HERO (FULL SCREEN) -->
+  <!-- HERO -->
   <section id="top" class="aperture-band hero-full">
-    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+    <div class="w-full max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="hero-grid">
-        <div class="relative">
+        <!-- LEFT -->
+        <div class="relative self-start pt-2 lg:pt-6">
           <span class="strapline">
             <span class="strap-badge">F</span> Trading Education · No Signals · Risk First
           </span>
@@ -547,13 +562,10 @@
             Not Noise.
           </h1>
 
-          <!-- UPDATED COPY -->
           <p class="mt-5 muted max-w-2xl">
             FusionTicks teaches a simple process: map key levels on the higher timeframe, read who is in control,
-            confirm on the lower timeframe, then manage risk and journal the result.
+            confirm on the lower timeframe, then manage risk and journal the result
           </p>
-
-          <!-- (REMOVED) Get Access / Academy / Markets / Context-Confirm block -->
 
           <div class="mt-8 rounded-xl p-3 flex items-start sm:items-center text-sm gap-3"
                style="border:1px solid var(--edge); background:rgba(255,255,255,.06); backdrop-filter: blur(10px);">
@@ -571,8 +583,8 @@
           </div>
         </div>
 
-        <!-- RIGHT HERO IMAGE (Feather / Mask) -->
-        <div class="relative mt-6 lg:mt-0">
+        <!-- RIGHT -->
+        <div class="relative mt-6 lg:mt-0 flex items-stretch">
           <div class="hero-visual">
             <div class="hero-glow"></div>
 
