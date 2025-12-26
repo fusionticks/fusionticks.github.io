@@ -63,6 +63,8 @@
       overflow:hidden;
       border-bottom:1px solid var(--edge);
     }
+
+    /* IMPORTANT: keep overlay above background, but below content */
     .aperture-band:before{
       content:"";
       position:absolute; inset:-2px;
@@ -71,10 +73,36 @@
         radial-gradient(880px 520px at 10% 12%, rgba(99,102,241,.20), transparent 55%),
         radial-gradient(780px 460px at 85% 78%, rgba(34,211,238,.12), transparent 60%),
         repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 2px, transparent 2px 12px);
-      opacity:.55;
+      opacity:.40; /* أقل حتى تبين صورة الخلفية */
       pointer-events:none;
-      z-index:-1;
+      z-index:0;
       mask: linear-gradient(180deg, rgba(0,0,0,.95), rgba(0,0,0,.70) 60%, rgba(0,0,0,.35));
+    }
+
+    /* Make content always above overlays */
+    .aperture-band > .max-w-7xl{
+      position:relative;
+      z-index:1;
+    }
+
+    /* ===== HERO BACKGROUND IMAGE (covers full hero) ===== */
+    #top.aperture-band{
+      background-image:
+        linear-gradient(90deg,
+          rgba(2,6,23,.92) 0%,
+          rgba(2,6,23,.78) 45%,
+          rgba(2,6,23,.30) 100%
+        ),
+        url("./hero-visual.webp");
+      background-size: cover, cover;
+      background-position: center, right center;
+      background-repeat: no-repeat, no-repeat;
+    }
+
+    @media (max-width: 640px){
+      #top.aperture-band{
+        background-position: center, 70% 40%;
+      }
     }
 
     .nav{
@@ -514,18 +542,8 @@
           </div>
         </div>
 
-        <!-- RIGHT HERO IMAGE -->
-        <div class="relative flex items-center justify-center mt-6 lg:mt-0">
-          <img
-            src="./hero-visual.webp"
-            alt="FusionTicks hero visual"
-            class="select-none pointer-events-none max-w-none w-full lg:w-[120%]"
-            style="height:auto;"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-        </div>
+        <!-- RIGHT HERO: REMOVED (image is now full background) -->
+        <div class="hidden lg:block"></div>
       </div>
     </div>
   </section>
@@ -861,7 +879,6 @@
             </div>
           </article>
 
-          <!-- Replaced "Reserved" with "What you get" -->
           <article class="card reveal p-6">
             <div class="flex items-center justify-between">
               <div class="font-extrabold">What You Get</div>
@@ -910,7 +927,6 @@
               <li class="flex gap-2"><i data-lucide="check" class="w-5 h-5" style="color:var(--a2)"></i> Simple stats and patterns</li>
             </ul>
             <div class="pt-5">
-              <!-- If you have a Journal checkout link later, replace href with it -->
               <a href="#pricing" class="btn btn-primary w-full justify-center">Get Journal - $20</a>
               <p class="text-xs muted mt-2">Included free with the course.</p>
             </div>
