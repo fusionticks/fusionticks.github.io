@@ -71,37 +71,10 @@
         radial-gradient(880px 520px at 10% 12%, rgba(99,102,241,.20), transparent 55%),
         radial-gradient(780px 460px at 85% 78%, rgba(34,211,238,.12), transparent 60%),
         repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 2px, transparent 2px 12px);
-      opacity:.28; /* كان .55 -> خففناه حتى الصورة تبين أوضح */
+      opacity:.55;
       pointer-events:none;
       z-index:-1;
       mask: linear-gradient(180deg, rgba(0,0,0,.95), rgba(0,0,0,.70) 60%, rgba(0,0,0,.35));
-    }
-
-    /* ===== HERO BACKGROUND IMAGE (full + clearer + not zoomed) ===== */
-    #top.aperture-band{
-      min-height: clamp(640px, 82vh, 920px);
-      display:flex;
-      align-items:center;
-
-      background-image:
-        linear-gradient(90deg,
-          rgba(2,6,23,.78) 0%,
-          rgba(2,6,23,.48) 45%,
-          rgba(2,6,23,.16) 100%
-        ),
-        url("./hero-visual.webp");
-
-      /* الصورة كاملة (بدون قص) */
-      background-size: cover, contain;
-      background-position: center, right center;
-      background-repeat: no-repeat, no-repeat;
-    }
-
-    @media (max-width: 640px){
-      #top.aperture-band{
-        min-height: 720px;
-        background-position: center, 70% 40%;
-      }
     }
 
     .nav{
@@ -501,9 +474,11 @@
 
   <!-- HERO -->
   <section id="top" class="aperture-band">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10 lg:pt-16">
+    <!-- ✅ CHANGE: wider container + less left padding on desktop -->
+    <div class="mx-auto w-full max-w-[1500px] px-3 sm:px-6 lg:px-4 pt-12 pb-10 lg:pt-16">
       <div class="hero-grid">
-        <div class="relative">
+        <!-- ✅ CHANGE: move text more to the left on desktop -->
+        <div class="relative lg:-ml-8">
           <span class="strapline">
             <span class="strap-badge">F</span> Trading Education · No Signals · Risk First
           </span>
@@ -541,8 +516,18 @@
           </div>
         </div>
 
-        <!-- RIGHT HERO AREA (spacer فقط لترك مساحة للصورة بالخلفية على الديسكتوب) -->
-        <div class="hidden lg:block"></div>
+        <!-- RIGHT HERO IMAGE (unchanged) -->
+        <div class="relative flex items-center justify-center mt-6 lg:mt-0">
+          <img
+            src="./hero-visual.webp"
+            alt="FusionTicks hero visual"
+            class="select-none pointer-events-none max-w-none w-full lg:w-[120%]"
+            style="height:auto;"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
       </div>
     </div>
   </section>
